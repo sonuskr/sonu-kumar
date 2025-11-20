@@ -32,10 +32,19 @@
 - Design **efficient database schemas** for MySQL, Oracle & MongoDB
 - Implement **RESTful APIs** and **microservices architecture**
 
+## 🏢 Client Experience
+
+**Enterprise Clients I've Worked With:**
+- 🚗 **Mercedes-Benz** - Automotive Solutions
+- 🏥 **Association of American Medical Colleges** - Healthcare Technology
+- ✈️ **flydubai** - Aviation & Travel Solutions
+- 🏥 **GE HealthCare** - Medical Technology Systems
+- 💼 **TIAA** - Financial Services & Insurance Solutions
+
 ## 📊 GitHub Stats
 
-![Sonu Kumar's GitHub Stats](https://github-readme-stats.vercel.app/api?username=dev-skr1&show_icons=true&theme=radical)
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=dev-skr1&layout=compact&theme=radical)
+![Sonu Kumar's GitHub Stats](https://github-readme-stats.vercel.app/api?username=sonuskr&show_icons=true&theme=radical)
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=sonuskr&layout=compact&theme=radical)
 
 ## 🌟 Featured Projects
 
@@ -46,9 +55,9 @@
 ## 📫 Let's Connect
 
 - 💼 LinkedIn: [https://www.linkedin.com/in/dev-sonu-kumar](https://www.linkedin.com/in/dev-sonu-kumar)
-- 🐦 GitHub: [https://github.com/dev-skr1](https://github.com/dev-skr1)
+- 🐦 GitHub: [https://github.com/sonuskr](https://github.com/sonuskr)
 - 📧 Email: dev.sonu.kumar@gmail.com
-- 🌐 Portfolio: [dev-skr1.github.io](https://dev-skr1.github.io)
+- 🌐 Portfolio: [sonuskr.github.io](https://sonuskr.github.io)
 
 ---
 
