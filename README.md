@@ -17,6 +17,7 @@
 <div align="center">
 
 ### 🚀 Frontend
+
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![SCSS](https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white)
@@ -31,6 +32,7 @@
 ![Lit](https://img.shields.io/badge/Lit-324FFF?style=for-the-badge&logo=lit&logoColor=white)
 
 ### 🚀 Backend & Database
+
 ![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)
 ![Spring](https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
@@ -47,6 +49,7 @@
 ![Oracle](https://img.shields.io/badge/Oracle-F80000?style=for-the-badge&logo=oracle&logoColor=white)
 
 ### 🛠️ Tools & DevOps
+
 ![Cloud Computing](https://img.shields.io/badge/Cloud%20Computing-4285F4?style=for-the-badge&logo=googlecloud&logoColor=white)
 ![AWS](https://img.shields.io/badge/Amazon_AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)
 ![Azure](https://img.shields.io/badge/Microsoft%20Azure-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white)
@@ -70,6 +73,7 @@
 ## 🏢 Domain & Client Experience
 
 **Fortune 500 Clients I've Delivered Solutions For:**
+
 - 💼 **Financial Services & Insurance** - TIAA
 - 🏥 **Healthcare Technology** - GE HealthCare
 - 🎓 **Medical Education** - AAMC
@@ -101,14 +105,6 @@
 
 **Bachelor of Engineering in Computer Science**  
 Radharaman Institute of Technology & Science | 2012 - 2016 | GPA: 7.43/10 | Bhopal, M.P
-
-## 🌟 Domain Expertise
-
-- 💼 **Financial Services & Insurance**
-- 🏥 **Healthcare & Medical Technology**
-- ✈️ **Aviation & Travel Solutions**
-- 💻 **Technology Consulting**
-- 🚗 **Automotive Industry**
 
 ## 📊 GitHub Stats
 
