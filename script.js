@@ -59,6 +59,11 @@ const themes = {
     primary: '#4caf50',
     gradient: 'linear-gradient(135deg, #4caf50 0%, #388e3c 100%)',
     secondary: '#388e3c'
+  },
+  resume: {
+    primary: '#003875',
+    gradient: 'linear-gradient(135deg, #003875 0%, #002555 100%)',
+    secondary: '#ff6b1a'
   }
 };
 
@@ -157,8 +162,8 @@ document.addEventListener('DOMContentLoaded', function() {
   document.addEventListener('click', function(e) {
     const themeSelector = document.getElementById('themeSelector');
     const fontSelector = document.getElementById('fontSelector');
-    const themeToggle = document.querySelector('.theme-toggle');
-    const fontToggle = document.querySelector('.font-toggle');
+    const themeToggle = document.querySelector('.btn-theme');
+    const fontToggle = document.querySelector('.btn-font');
     
     if (!themeSelector.contains(e.target) && !themeToggle.contains(e.target)) {
       themeSelector.classList.remove('active');
@@ -172,16 +177,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function downloadPDF() {
   const { jsPDF } = window.jspdf;
-  const button = document.querySelector(".download-btn");
-  const themeToggle = document.querySelector(".theme-toggle");
-  const fontToggle = document.querySelector(".font-toggle");
+  const controlButtons = document.querySelector(".control-buttons");
   const themeSelector = document.getElementById("themeSelector");
   const fontSelector = document.getElementById("fontSelector");
 
   // Hide buttons and selectors temporarily
-  button.style.display = "none";
-  themeToggle.style.display = "none";
-  fontToggle.style.display = "none";
+  controlButtons.style.display = "none";
   themeSelector.style.display = "none";
   fontSelector.style.display = "none";
 
@@ -212,8 +213,6 @@ function downloadPDF() {
     pdf.save("Sonu_Kumar_Senior_Full_Stack_Developer_7_Years_Experience.pdf");
 
     // Show buttons again
-    button.style.display = "block";
-    themeToggle.style.display = "block";
-    fontToggle.style.display = "block";
+    controlButtons.style.display = "flex";
   });
 }

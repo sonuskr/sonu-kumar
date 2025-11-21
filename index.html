@@ -78,15 +78,20 @@
     </script>
   </head>
   <body>
-    <button class="download-btn" onclick="downloadPDF()">
-      📄 Download Resume
-    </button>
-    <button class="theme-toggle" onclick="toggleThemeSelector()">
-      🎨 Themes
-    </button>
-    <button class="font-toggle" onclick="toggleFontSelector()">
-      🔤 Fonts
-    </button>
+    <!-- Control Buttons -->
+    <div class="control-buttons">
+      <button class="btn btn-download" onclick="downloadPDF()">
+        <i class="fas fa-download"></i> Download Resume
+      </button>
+      <button class="btn btn-theme" onclick="toggleThemeSelector()">
+        <i class="fas fa-palette"></i> Themes
+      </button>
+      <button class="btn btn-font" onclick="toggleFontSelector()">
+        <i class="fas fa-font"></i> Fonts
+      </button>
+    </div>
+    
+    <!-- Theme Selector -->
     <div class="theme-selector" id="themeSelector">
       <div class="theme-label">Choose Theme</div>
       <div class="theme-colors">
@@ -102,8 +107,11 @@
         <div class="theme-color" style="background: #795548" data-theme="brown" title="Brown"></div>
         <div class="theme-color" style="background: #607d8b" data-theme="bluegrey" title="Blue Grey"></div>
         <div class="theme-color" style="background: #4caf50" data-theme="lightgreen" title="Light Green"></div>
+        <div class="theme-color" style="background: #ff6b1a" data-theme="resume" title="Resume Style"></div>
       </div>
     </div>
+    
+    <!-- Font Selector -->
     <div class="font-selector" id="fontSelector">
       <div class="font-label">Choose Font</div>
       <div class="font-options">
@@ -115,148 +123,87 @@
         <div class="font-option" data-font="Open Sans" style="font-family: 'Open Sans', sans-serif">Open Sans</div>
       </div>
     </div>
-    <div class="container">
-      <header class="header">
-        <h1>SONU KUMAR</h1>
-        <div class="title">Senior Full Stack Developer</div>
-        <div class="contact-info">
-          <a href="mailto:skrdeveloper1@gmail.com" target="_blank"
-            ><i class="fas fa-envelope"></i> skrdeveloper1@gmail.com</a
-          >
-          <a href="https://github.com/sonuskr" target="_blank"
-            ><i class="fab fa-github"></i> https://github.com/sonuskr</a
-          >
-          <a
-            href="https://maps.google.com/?q=Marathahalli,+Bangalore,+India"
-            target="_blank"
-            ><i class="fas fa-map-marker-alt"></i> Marathahalli, Bangalore,
-            India</a
-          >
-          <a href="https://www.linkedin.com/in/sonuskr?trk=public_profile" target="_blank"
-            ><i class="fab fa-linkedin"></i>
-            https://www.linkedin.com/in/sonuskr</a
-          >
 
-          <a href="tel:+918819849973" target="_blank"
-            ><i class="fas fa-phone"></i> +91-8819849973</a
-          >
+    <div class="container">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-content">
+          <div class="header-left">
+            <h1>SONU KUMAR</h1>
+            <p class="subtitle">Senior Full Stack Developer</p>
+            
+            <div class="contact-info">
+              <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <a href="mailto:skrdeveloper1@gmail.com" target="_blank">skrdeveloper1@gmail.com</a>
+              </div>
+              <div class="contact-item">
+                <i class="fab fa-github"></i>
+                <a href="https://github.com/sonuskr" target="_blank">https://github.com/sonuskr</a>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <a href="https://maps.google.com/?q=Marathahalli,+Bangalore,+India" target="_blank">Marathahalli, Bangalore, India</a>
+              </div>
+              <div class="contact-item">
+                <i class="fab fa-linkedin"></i>
+                <a href="https://www.linkedin.com/in/sonuskr?trk=public_profile" target="_blank">https://www.linkedin.com/in/sonuskr</a>
+              </div>
+              <div class="contact-item">
+                <i class="fas fa-phone"></i>
+                <a href="tel:+918819849973" target="_blank">+91-8819849973</a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="header-right">
+            <div class="profile-placeholder">
+              <i class="fas fa-user"></i>
+            </div>
+          </div>
         </div>
       </header>
 
+      <!-- Main Content -->
       <div class="main-content">
-        <aside class="sidebar">
-          <div class="section">
-            <h2>Technical Skills</h2>
-
-            <h3 class="skill-category">Backend</h3>
-            <div class="skills-grid">
-              <div class="skill-item">Java</div>
-              <div class="skill-item">Spring Boot</div>
-              <div class="skill-item">Spring Core</div>
-              <div class="skill-item">Spring MVC</div>
-              <div class="skill-item">REST APIs</div>
-              <div class="skill-item">Microservices</div>
-              <div class="skill-item">Maven</div>
-              <div class="skill-item">Gradle</div>
-              <div class="skill-item">Python</div>
+        <!-- Left Column -->
+        <div class="left-column">
+          <!-- Professional Summary -->
+          <section class="section">
+            <h2 class="section-title">PROFESSIONAL SUMMARY</h2>
+            <div class="section-content">
+              <p>
+                Senior Full Stack Developer with 7+ years of experience delivering enterprise-grade solutions
+                across Automotive, Healthcare, Aviation, and Financial domains.
+                Proven expertise in Java Spring Boot, Angular, React, and
+                TypeScript, with a strong track record serving clients such as
+                Mercedes-Benz, GE HealthCare, flydubai, and TIAA. Specializes in
+                microservices architecture, scalable web applications, and
+                cross-platform development. Skilled in database design (MySQL,
+                Oracle, MongoDB) and modern DevOps workflows. Open to remote
+                roles.
+              </p>
             </div>
+          </section>
 
-            <h3 class="skill-category">Frontend</h3>
-            <div class="skills-grid">
-              <div class="skill-item">HTML5</div>
-              <div class="skill-item">CSS3</div>
-              <div class="skill-item">SCSS</div>
-              <div class="skill-item">JavaScript</div>
-              <div class="skill-item">TypeScript</div>
-              <div class="skill-item">Angular</div>
-              <div class="skill-item">ReactJS</div>
-              <div class="skill-item">Angular Material</div>
-              <div class="skill-item">Bootstrap</div>
-              <div class="skill-item">NGRX</div>
-              <div class="skill-item">ElectronJS</div>
-              <div class="skill-item">Lit</div>
-            </div>
-
-            <h3 class="skill-category">Database</h3>
-            <div class="skills-grid">
-              <div class="skill-item">SQL</div>
-              <div class="skill-item">MySQL</div>
-              <div class="skill-item">MongoDB</div>
-              <div class="skill-item">Oracle</div>
-            </div>
-
-            <h3 class="skill-category">Tools & DevOps</h3>
-            <div class="skills-grid">
-              <div class="skill-item">Git</div>
-              <div class="skill-item">Docker</div>
-              <div class="skill-item">Jenkins</div>
-              <div class="skill-item">AWS</div>
-              <div class="skill-item">Jira</div>
-              <div class="skill-item">Jasmine</div>
-              <div class="skill-item">Karma</div>
-            </div>
-          </div>
-
-          <div class="section">
-            <h2>Education</h2>
-            <div class="education-item">
-              <div class="degree">
-                Bachelor of Engineering in Computer Science
-              </div>
-              <div class="university">
-                Radharaman Institute of Technology & Science
-              </div>
-              <div class="year">2012 - 2016 | Bhopal, M.P | GPA: 7.43/10</div>
-            </div>
-          </div>
-
-          <div class="section">
-            <h2>Domain Expertise</h2>
-            <ul class="certifications-list">
-              <li>💼 Financial Services & Insurance</li>
-              <li>🏥 Healthcare & Medical Tech</li>
-              <li>✈️ Aviation & Travel Solutions</li>
-              <li>💻 Technology Consulting</li>
-              <li>🚗 Automotive Industry</li>
-            </ul>
-          </div>
-
-          <div class="section">
-            <h2>Client Experience</h2>
-            <ul class="certifications-list">
-              <li>💼 TIAA</li>
-              <li>🏥 GE HealthCare</li>
-              <li>✈️ Flydubai</li>
-              <li>🏥 AAMC</li>
-              <li>🚗 Mercedes-Benz</li>
-            </ul>
-          </div>
-        </aside>
-
-        <main class="content">
-          <div class="section">
-            <div class="summary">
-              <strong>Professional Summary:</strong> Senior Full Stack Developer
-              with 7+ years of experience delivering enterprise-grade solutions
-              across Automotive, Healthcare, Aviation, and Financial domains.
-              Proven expertise in Java Spring Boot, Angular, React, and
-              TypeScript, with a strong track record serving clients such as
-              Mercedes-Benz, GE HealthCare, flydubai, and TIAA. Specializes in
-              microservices architecture, scalable web applications, and
-              cross-platform development. Skilled in database design (MySQL,
-              Oracle, MongoDB) and modern DevOps workflows. Open to remote
-              roles.
-            </div>
-          </div>
-
-          <div class="section">
-            <h2>Professional Experience</h2>
+          <!-- Professional Experience -->
+          <section class="section">
+            <h2 class="section-title">PROFESSIONAL EXPERIENCE</h2>
 
             <div class="experience-item">
-              <div class="job-title">Packaged App Development Team Lead</div>
-              <div class="company">Accenture</div>
-              <div class="duration">09/2024 - Present | Bangalore, India</div>
-              <ul class="achievements">
+              <h3 class="job-title">Packaged App Development Team Lead</h3>
+              <h4 class="company">Accenture</h4>
+              <div class="meta-info">
+                <div class="meta-item">
+                  <i class="fas fa-calendar"></i>
+                  <span>09/2024 - Present</span>
+                </div>
+                <div class="meta-item">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <span>Bangalore, India</span>
+                </div>
+              </div>
+              <ul class="responsibilities">
                 <li>
                   Architecting and developing microservices-based applications
                   using Spring Boot for enhanced scalability and maintainability
@@ -286,10 +233,19 @@
             </div>
 
             <div class="experience-item">
-              <div class="job-title">Specialist Software Engineer</div>
-              <div class="company">LTIMindtree</div>
-              <div class="duration">06/2021 - 09/2024 | Bangalore, India</div>
-              <ul class="achievements">
+              <h3 class="job-title">Specialist Software Engineer</h3>
+              <h4 class="company">LTIMindtree</h4>
+              <div class="meta-info">
+                <div class="meta-item">
+                  <i class="fas fa-calendar"></i>
+                  <span>06/2021 - 09/2024</span>
+                </div>
+                <div class="meta-item">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <span>Bangalore, India</span>
+                </div>
+              </div>
+              <ul class="responsibilities">
                 <li>
                   Developed and maintained complex web components using Angular
                   framework
@@ -322,12 +278,21 @@
             </div>
 
             <div class="experience-item">
-              <div class="job-title">Software Engineer</div>
-              <div class="company">
+              <h3 class="job-title">Software Engineer</h3>
+              <h4 class="company">
                 JoulesToWatts Business Solutions (Client - Mercedes-Benz)
+              </h4>
+              <div class="meta-info">
+                <div class="meta-item">
+                  <i class="fas fa-calendar"></i>
+                  <span>10/2019 - 06/2021</span>
+                </div>
+                <div class="meta-item">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <span>Bangalore, India</span>
+                </div>
               </div>
-              <div class="duration">10/2019 - 06/2021 | Bangalore, India</div>
-              <ul class="achievements">
+              <ul class="responsibilities">
                 <li>
                   Delivered enterprise-grade automotive solutions for
                   Mercedes-Benz global operations
@@ -352,10 +317,19 @@
             </div>
 
             <div class="experience-item">
-              <div class="job-title">Software Engineer</div>
-              <div class="company">Cuion Technology Pvt Ltd</div>
-              <div class="duration">07/2017 - 10/2019 | Bangalore, India</div>
-              <ul class="achievements">
+              <h3 class="job-title">Software Engineer</h3>
+              <h4 class="company">Cuion Technology Pvt Ltd</h4>
+              <div class="meta-info">
+                <div class="meta-item">
+                  <i class="fas fa-calendar"></i>
+                  <span>07/2017 - 10/2019</span>
+                </div>
+                <div class="meta-item">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <span>Bangalore, India</span>
+                </div>
+              </div>
+              <ul class="responsibilities">
                 <li>
                   Responsible for development activities including coding,
                   implementation, and technical support
@@ -374,8 +348,123 @@
                 </li>
               </ul>
             </div>
-          </div>
-        </main>
+          </section>
+
+          <!-- Education -->
+          <section class="section">
+            <h2 class="section-title">EDUCATION</h2>
+            <div>
+              <h3 class="education-title">
+                Bachelor of Engineering in Computer Science
+              </h3>
+              <h4 class="institution">
+                Radharaman Institute of Technology & Science
+              </h4>
+              <div class="meta-info">
+                <div class="meta-item">
+                  <i class="fas fa-calendar"></i>
+                  <span>2012 - 2016</span>
+                </div>
+                <div class="meta-item">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <span>Bhopal, M.P</span>
+                </div>
+              </div>
+              <div class="gpa-badge">
+                <span class="gpa-label">GPA: </span>
+                <span class="gpa-value">7.43 / 10</span>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- Right Column -->
+        <div class="right-column">
+          <!-- Technical Skills -->
+          <section class="section">
+            <h2 class="section-title">TECHNICAL SKILLS</h2>
+
+            <div class="skill-category">
+              <h3 class="skill-category-title orange">Backend</h3>
+              <div class="skill-tags">
+                <span class="skill-tag">Java</span>
+                <span class="skill-tag">Spring Boot</span>
+                <span class="skill-tag">Spring Core</span>
+                <span class="skill-tag">Spring MVC</span>
+                <span class="skill-tag">REST APIs</span>
+                <span class="skill-tag">Microservices</span>
+                <span class="skill-tag">Maven</span>
+                <span class="skill-tag">Gradle</span>
+                <span class="skill-tag">Python</span>
+              </div>
+            </div>
+
+            <div class="skill-category">
+              <h3 class="skill-category-title orange">Frontend</h3>
+              <div class="skill-tags">
+                <span class="skill-tag">HTML5</span>
+                <span class="skill-tag">CSS3</span>
+                <span class="skill-tag">SCSS</span>
+                <span class="skill-tag">JavaScript</span>
+                <span class="skill-tag">TypeScript</span>
+                <span class="skill-tag">Angular</span>
+                <span class="skill-tag">ReactJS</span>
+                <span class="skill-tag">Angular Material</span>
+                <span class="skill-tag">Bootstrap</span>
+                <span class="skill-tag">NGRX</span>
+                <span class="skill-tag">ElectronJS</span>
+                <span class="skill-tag">Lit</span>
+              </div>
+            </div>
+
+            <div class="skill-category">
+              <h3 class="skill-category-title default">Database</h3>
+              <div class="skill-tags">
+                <span class="skill-tag">SQL</span>
+                <span class="skill-tag">MySQL</span>
+                <span class="skill-tag">MongoDB</span>
+                <span class="skill-tag">Oracle</span>
+              </div>
+            </div>
+
+            <div class="skill-category">
+              <h3 class="skill-category-title default">Tools & DevOps</h3>
+              <div class="skill-tags">
+                <span class="skill-tag">Git</span>
+                <span class="skill-tag">Docker</span>
+                <span class="skill-tag">Jenkins</span>
+                <span class="skill-tag">AWS</span>
+                <span class="skill-tag">Jira</span>
+                <span class="skill-tag">Jasmine</span>
+                <span class="skill-tag">Karma</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- Domain Expertise -->
+          <section class="section">
+            <h2 class="section-title">DOMAIN EXPERTISE</h2>
+            <div class="domain-list">
+              <div class="domain-item">💼 Financial Services & Insurance</div>
+              <div class="domain-item">🏥 Healthcare & Medical Tech</div>
+              <div class="domain-item">✈️ Aviation & Travel Solutions</div>
+              <div class="domain-item">💻 Technology Consulting</div>
+              <div class="domain-item">🚗 Automotive Industry</div>
+            </div>
+          </section>
+
+          <!-- Client Experience -->
+          <section class="section">
+            <h2 class="section-title">CLIENT EXPERIENCE</h2>
+            <div class="client-list">
+              <div class="client-item">💼 TIAA</div>
+              <div class="client-item">🏥 GE HealthCare</div>
+              <div class="client-item">✈️ Flydubai</div>
+              <div class="client-item">🏥 AAMC</div>
+              <div class="client-item">🚗 Mercedes-Benz</div>
+            </div>
+          </section>
+        </div>
       </div>
     </div>
     <script src="script.js"></script>
