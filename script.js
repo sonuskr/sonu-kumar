@@ -181,54 +181,72 @@ function downloadPDF() {
   const themeSelector = document.getElementById("themeSelector");
   const fontSelector = document.getElementById("fontSelector");
   const container = document.querySelector(".container");
+  const body = document.body;
 
   // Store original styles
   const originalBorderRadius = container.style.borderRadius;
   const originalBoxShadow = container.style.boxShadow;
   const originalMargin = container.style.margin;
+  const originalWidth = container.style.width;
+  const originalMinWidth = container.style.minWidth;
+  const originalBodyWidth = body.style.width;
+  const originalBodyMinWidth = body.style.minWidth;
 
   // Hide buttons and selectors temporarily
   controlButtons.style.display = "none";
   themeSelector.style.display = "none";
   fontSelector.style.display = "none";
   
-  // Remove border radius, shadow, and margin for PDF
+  // Force desktop layout for PDF generation
+  body.style.width = "1200px";
+  body.style.minWidth = "1200px";
+  container.style.width = "1200px";
+  container.style.minWidth = "1200px";
   container.style.borderRadius = "0";
   container.style.boxShadow = "none";
   container.style.margin = "0";
 
-  html2canvas(document.querySelector(".container"), {
-    scale: 2,
-    useCORS: true,
-    allowTaint: true,
-  }).then((canvas) => {
-    const imgData = canvas.toDataURL("image/png");
-    const pdf = new jsPDF("p", "mm", "a4");
+  // Wait for layout to settle
+  setTimeout(() => {
+    html2canvas(document.querySelector(".container"), {
+      scale: 2,
+      useCORS: true,
+      allowTaint: true,
+      width: 1200,
+      windowWidth: 1200
+    }).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+      const pdf = new jsPDF("p", "mm", "a4");
 
-    const imgWidth = 210;
-    const pageHeight = 295;
-    const imgHeight = (canvas.height * imgWidth) / canvas.width;
-    let heightLeft = imgHeight;
-    let position = 0;
+      const imgWidth = 210;
+      const pageHeight = 295;
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      let heightLeft = imgHeight;
+      let position = 0;
 
-    pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
-    heightLeft -= pageHeight;
-
-    while (heightLeft >= 0) {
-      position = heightLeft - imgHeight;
-      pdf.addPage();
       pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
       heightLeft -= pageHeight;
-    }
 
-    pdf.save("Sonu_Kumar_Senior_Full_Stack_Developer_7_Years_Experience.pdf");
+      while (heightLeft >= 0) {
+        position = heightLeft - imgHeight;
+        pdf.addPage();
+        pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+      }
 
-    // Restore original styles
-    container.style.borderRadius = originalBorderRadius;
-    container.style.boxShadow = originalBoxShadow;
-    container.style.margin = originalMargin;
-    
-    // Show buttons again
-    controlButtons.style.display = "flex";
-  });
+      pdf.save("Sonu_Kumar_Senior_Full_Stack_Developer_7_Years_Experience.pdf");
+
+      // Restore original styles
+      body.style.width = originalBodyWidth;
+      body.style.minWidth = originalBodyMinWidth;
+      container.style.width = originalWidth;
+      container.style.minWidth = originalMinWidth;
+      container.style.borderRadius = originalBorderRadius;
+      container.style.boxShadow = originalBoxShadow;
+      container.style.margin = originalMargin;
+      
+      // Show buttons again
+      controlButtons.style.display = "flex";
+    });
+  }, 100);
 }
