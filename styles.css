@@ -432,13 +432,15 @@ body {
 
 .btn-download,
 .btn-theme,
-.btn-font {
+.btn-font,
+.btn-create {
   background-color: var(--primary-color);
 }
 
 .btn-download:hover,
 .btn-theme:hover,
-.btn-font:hover {
+.btn-font:hover,
+.btn-create:hover {
   opacity: 0.9;
   filter: brightness(0.95);
 }

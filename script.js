@@ -175,6 +175,10 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
+function createResume() {
+  window.location.href = 'resume-builder.html';
+}
+
 function downloadPDF() {
   const { jsPDF } = window.jspdf;
   const controlButtons = document.querySelector(".control-buttons");

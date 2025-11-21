@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder - Create Your Professional Resume</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .builder-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        
+        .form-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .form-group textarea {
+            height: 80px;
+            resize: vertical;
+        }
+        
+        .preview-section {
+            margin-top: 20px;
+        }
+        
+        .builder-controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .btn-back {
+            background-color: var(--primary-color);
+            margin-right: 10px;
+        }
+        
+        .btn-back:hover {
+            background-color: var(--primary-color);
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="control-buttons">
+        <button class="btn btn-back" onclick="goBack()">
+            <i class="fas fa-arrow-left"></i> Back
+        </button>
+        <button class="btn btn-download" onclick="downloadPDF()">
+            <i class="fas fa-download"></i> Download Resume
+        </button>
+        <button class="btn btn-theme" onclick="toggleThemeSelector()">
+            <i class="fas fa-palette"></i> Themes
+        </button>
+        <button class="btn btn-font" onclick="toggleFontSelector()">
+            <i class="fas fa-font"></i> Fonts
+        </button>
+    </div>
+
+    <!-- Theme Selector -->
+    <div class="theme-selector" id="themeSelector">
+        <div class="theme-label">Choose Theme</div>
+        <div class="theme-colors">
+            <div class="theme-color active" style="background: #667eea" data-theme="blue" title="Blue"></div>
+            <div class="theme-color" style="background: #e74c3c" data-theme="red" title="Red"></div>
+            <div class="theme-color" style="background: #2ecc71" data-theme="green" title="Green"></div>
+            <div class="theme-color" style="background: #f39c12" data-theme="orange" title="Orange"></div>
+            <div class="theme-color" style="background: #9b59b6" data-theme="purple" title="Purple"></div>
+            <div class="theme-color" style="background: #34495e" data-theme="dark" title="Dark"></div>
+            <div class="theme-color" style="background: #e91e63" data-theme="pink" title="Pink"></div>
+            <div class="theme-color" style="background: #00bcd4" data-theme="cyan" title="Cyan"></div>
+            <div class="theme-color" style="background: #ff5722" data-theme="deeporange" title="Deep Orange"></div>
+            <div class="theme-color" style="background: #795548" data-theme="brown" title="Brown"></div>
+            <div class="theme-color" style="background: #607d8b" data-theme="bluegrey" title="Blue Grey"></div>
+            <div class="theme-color" style="background: #4caf50" data-theme="lightgreen" title="Light Green"></div>
+            <div class="theme-color" style="background: #ff6b1a" data-theme="resume" title="Resume Style"></div>
+        </div>
+    </div>
+
+    <!-- Font Selector -->
+    <div class="font-selector" id="fontSelector">
+        <div class="font-label">Choose Font</div>
+        <div class="font-options">
+            <div class="font-option active" data-font="Segoe UI" style="font-family: 'Segoe UI', sans-serif">Segoe UI</div>
+            <div class="font-option" data-font="Arial" style="font-family: Arial, sans-serif">Arial</div>
+            <div class="font-option" data-font="Georgia" style="font-family: Georgia, serif">Georgia</div>
+            <div class="font-option" data-font="Times" style="font-family: 'Times New Roman', serif">Times</div>
+            <div class="font-option" data-font="Roboto" style="font-family: 'Roboto', sans-serif">Roboto</div>
+            <div class="font-option" data-font="Open Sans" style="font-family: 'Open Sans', sans-serif">Open Sans</div>
+        </div>
+    </div>
+
+    <div class="builder-container">
+        <div class="preview-section">
+            <div class="container" id="resumePreview">
+                <header class="header">
+                    <div class="header-content">
+                        <div class="header-main">
+                            <h1 id="previewName">ALEX JOHNSON</h1>
+                            <p class="subtitle" id="previewTitle">Senior Full Stack Developer</p>
+                        </div>
+                        <div class="contact-info">
+                            <div class="contact-row">
+                                <div class="contact-item">
+                                    <i class="fas fa-envelope"></i>
+                                    <span id="previewEmail">alex.johnson@email.com</span>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="fas fa-phone"></i>
+                                    <span id="previewPhone">+1 (555) 987-6543</span>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span id="previewLocation">San Francisco, CA</span>
+                                </div>
+                            </div>
+                            <div class="contact-row">
+                                <div class="contact-item">
+                                    <i class="fab fa-github"></i>
+                                    <span id="previewGithub">https://github.com/alexjohnson</span>
+                                </div>
+                                <div class="contact-item">
+                                    <i class="fab fa-linkedin"></i>
+                                    <span id="previewLinkedin">https://linkedin.com/in/alexjohnson</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="main-content">
+                    <div class="left-column">
+                        <section class="section">
+                            <h2 class="section-title">PROFESSIONAL SUMMARY</h2>
+                            <div class="section-content">
+                                <p id="previewSummary">Senior Full Stack Developer with 7+ years of expertise delivering enterprise-grade solutions across Automotive, Healthcare, Aviation, and Financial domains. Proven track record of building scalable microservices and modern web applications using Java Spring Boot, Angular, and React. Experienced in leading cross-functional teams, implementing DevOps practices, and architecting cloud-native solutions for Fortune 500 clients. Strong background in database design, API development, and performance optimization with a focus on delivering high-quality, maintainable code.</p>
+                            </div>
+                        </section>
+
+                        <section class="section">
+                            <h2 class="section-title">ROLES & RESPONSIBILITIES</h2>
+                            <div class="section-content">
+                                <ul class="responsibilities" id="previewResponsibilities"></ul>
+                            </div>
+                        </section>
+
+                        <section class="section">
+                            <h2 class="section-title">PROFESSIONAL EXPERIENCE</h2>
+                            <div id="previewExperience"></div>
+                        </section>
+                    </div>
+
+                    <div class="right-column">
+                        <section class="section">
+                            <h2 class="section-title">TECHNICAL SKILLS</h2>
+                            <div id="previewSkills"></div>
+                        </section>
+
+                        <section class="section">
+                            <h2 class="section-title">EDUCATION</h2>
+                            <div id="previewEducation"></div>
+                        </section>
+
+                        <section class="section">
+                            <h2 class="section-title">DOMAIN & CLIENT EXPERIENCE</h2>
+                            <div class="domain-list" id="previewDomains"></div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h2 style="color: var(--primary-color); margin-bottom: 20px;">
+                <i class="fas fa-edit"></i> Edit Your Resume
+            </h2>
+            
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="fullName" value="Alex Johnson" onchange="updatePreview()">
+            </div>
+            
+            <div class="form-group">
+                <label>Job Title</label>
+                <input type="text" id="jobTitle" value="Senior Full Stack Developer" onchange="updatePreview()">
+            </div>
+            
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" id="email" value="alex.johnson@email.com" onchange="updatePreview()">
+            </div>
+            
+            <div class="form-group">
+                <label>Phone</label>
+                <input type="text" id="phone" value="+1 (555) 987-6543" onchange="updatePreview()">
+            </div>
+            
+            <div class="form-group">
+                <label>Location</label>
+                <input type="text" id="location" value="San Francisco, CA" onchange="updatePreview()">
+            </div>
+            
+            <div class="form-group">
+                <label style="display: flex; align-items: center; gap: 10px;">
+                    <input type="checkbox" id="showLinkedin" checked onchange="updatePreview()" style="width: auto;">
+                    LinkedIn
+                </label>
+                <input type="text" id="linkedin" value="https://linkedin.com/in/alexjohnson" onchange="updatePreview()">
+            </div>
+            
+            <div class="form-group">
+                <label style="display: flex; align-items: center; gap: 10px;">
+                    <input type="checkbox" id="showGithub" checked onchange="updatePreview()" style="width: auto;">
+                    GitHub
+                </label>
+                <input type="text" id="github" value="https://github.com/alexjohnson" onchange="updatePreview()">
+            </div>
+            
+            <div class="form-group">
+                <label>Professional Summary</label>
+                <textarea id="summary" onchange="updatePreview()">Senior Full Stack Developer with 7+ years of expertise delivering enterprise-grade solutions across Automotive, Healthcare, Aviation, and Financial domains. Proven track record of building scalable microservices and modern web applications using Java Spring Boot, Angular, and React. Experienced in leading cross-functional teams, implementing DevOps practices, and architecting cloud-native solutions for Fortune 500 clients. Strong background in database design, API development, and performance optimization with a focus on delivering high-quality, maintainable code.</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label style="display: flex; justify-content: space-between; align-items: center;">
+                    Roles & Responsibilities
+                    <button type="button" onclick="addResponsibility()" style="background: var(--primary-color); color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
+                        <i class="fas fa-plus"></i> Add
+                    </button>
+                </label>
+                <div id="responsibilityContainer"></div>
+            </div>
+            
+            <div class="form-group">
+                <label style="display: flex; justify-content: space-between; align-items: center;">
+                    Technical Skills
+                    <button type="button" onclick="addSkillCategory()" style="background: var(--primary-color); color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
+                        <i class="fas fa-plus"></i> Add Category
+                    </button>
+                </label>
+                <div id="skillsContainer"></div>
+            </div>
+            
+            <div class="form-group">
+                <label style="display: flex; justify-content: space-between; align-items: center;">
+                    Education
+                    <button type="button" onclick="addEducation()" style="background: var(--primary-color); color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
+                        <i class="fas fa-plus"></i> Add
+                    </button>
+                </label>
+                <div id="educationContainer"></div>
+            </div>
+            
+            <div class="form-group">
+                <label style="display: flex; justify-content: space-between; align-items: center;">
+                    Domain & Client Experience
+                    <button type="button" onclick="addDomain()" style="background: var(--primary-color); color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
+                        <i class="fas fa-plus"></i> Add
+                    </button>
+                </label>
+                <div id="domainContainer"></div>
+            </div>
+            
+            <div class="form-group">
+                <label style="display: flex; justify-content: space-between; align-items: center;">
+                    Professional Experience
+                    <button type="button" onclick="addExperience()" style="background: var(--primary-color); color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
+                        <i class="fas fa-plus"></i> Add
+                    </button>
+                </label>
+                <div id="experienceContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        let responsibilities = [
+            'Lead development of microservices-based applications using Java Spring Boot and Angular',
+            'Build responsive web applications with modern frameworks and TypeScript',
+            'Implement CI/CD pipelines and DevOps workflows for enterprise solutions',
+            'Mentor junior developers and conduct comprehensive code reviews',
+            'Design and optimize database schemas for MySQL, Oracle, and MongoDB',
+            'Collaborate with Fortune 500 clients to deliver scalable enterprise applications',
+            'Architect and develop cross-platform desktop applications using ElectronJS',
+            'Integrate third-party APIs and payment gateways for e-commerce platforms',
+            'Optimize application performance and implement caching strategies',
+            'Lead Agile development teams and participate in sprint planning sessions',
+            'Conduct requirement analysis and create technical documentation',
+            'Implement security best practices and perform code vulnerability assessments'
+        ];
+        
+        let skillCategories = [
+            { title: 'Backend Development', skills: ['Java', 'Spring Boot', 'Spring Framework', 'Node.js', 'Python', 'Maven', 'Gradle'] },
+            { title: 'Frontend Development', skills: ['Angular', 'React', 'TypeScript', 'JavaScript', 'HTML5', 'CSS3', 'SCSS', 'Bootstrap'] },
+            { title: 'Database & Storage', skills: ['MySQL', 'Oracle', 'MongoDB', 'PostgreSQL'] },
+            { title: 'Tools & DevOps', skills: ['Git', 'Docker', 'Jenkins', 'AWS', 'Jira', 'ElectronJS'] }
+        ];
+        
+        let education = [
+            { degree: 'Bachelor of Engineering in Computer Science', institution: 'California Institute of Technology', duration: '2013 - 2017', gpa: 'GPA: 3.7/4.0' }
+        ];
+        
+        let domains = [
+            '💼 Financial Services & Insurance - Goldman Sachs',
+            '🏥 Healthcare & Medical Technology - Johnson & Johnson',
+            '✈️ Aviation & Travel Solutions - Delta Airlines',
+            '🚗 Automotive Industry - Tesla',
+            '💻 Technology Consulting - Microsoft'
+        ];
+        
+        let experiences = [
+            { jobTitle: 'Senior Full Stack Developer', company: 'TechCorp Solutions', duration: 'Jan 2022 - Present', location: 'San Francisco, CA' },
+            { jobTitle: 'Full Stack Developer', company: 'Enterprise Systems Inc', duration: 'Mar 2019 - Dec 2021', location: 'San Francisco, CA' },
+            { jobTitle: 'Software Developer', company: 'Digital Innovations Ltd', duration: 'Jun 2017 - Feb 2019', location: 'San Francisco, CA' }
+        ];
+
+        function updatePreview() {
+            document.getElementById('previewName').textContent = document.getElementById('fullName').value.toUpperCase();
+            document.getElementById('previewTitle').textContent = document.getElementById('jobTitle').value;
+            document.getElementById('previewEmail').textContent = document.getElementById('email').value;
+            document.getElementById('previewPhone').textContent = document.getElementById('phone').value;
+            document.getElementById('previewLocation').textContent = document.getElementById('location').value;
+            
+            // Show/hide GitHub and LinkedIn based on checkbox state
+            const githubItem = document.getElementById('previewGithub').parentElement;
+            const linkedinItem = document.getElementById('previewLinkedin').parentElement;
+            
+            if (document.getElementById('showGithub').checked) {
+                document.getElementById('previewGithub').textContent = document.getElementById('github').value;
+                githubItem.style.display = 'flex';
+            } else {
+                githubItem.style.display = 'none';
+            }
+            
+            if (document.getElementById('showLinkedin').checked) {
+                document.getElementById('previewLinkedin').textContent = document.getElementById('linkedin').value;
+                linkedinItem.style.display = 'flex';
+            } else {
+                linkedinItem.style.display = 'none';
+            }
+            
+            document.getElementById('previewSummary').textContent = document.getElementById('summary').value;
+            updateResponsibilityPreview();
+            updateSkillsPreview();
+            updateEducationPreview();
+            updateDomainPreview();
+            updateExperiencePreview();
+        }
+
+        function addDomain() {
+            const container = document.getElementById('domainContainer');
+            const index = domains.length;
+            
+            const domainDiv = document.createElement('div');
+            domainDiv.style.cssText = 'display: flex; gap: 10px; margin: 10px 0; align-items: flex-start;';
+            
+            domainDiv.innerHTML = `
+                <textarea placeholder="Enter domain & client experience (e.g., 💼 Financial Services & Insurance - ABC Bank)" onchange="updateDomain(${index}, this.value)" style="flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 4px; min-height: 60px; resize: vertical;"></textarea>
+                <button type="button" onclick="removeDomain(${index})" style="background: #e74c3c; color: white; border: none; padding: 8px 10px; border-radius: 4px; cursor: pointer;">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            container.appendChild(domainDiv);
+            domains.push('');
+            updateDomainPreview();
+        }
+
+        function removeDomain(index) {
+            domains.splice(index, 1);
+            renderDomainForm();
+            updateDomainPreview();
+        }
+
+        function updateDomain(index, value) {
+            domains[index] = value;
+            updateDomainPreview();
+        }
+
+        function renderDomainForm() {
+            const container = document.getElementById('domainContainer');
+            container.innerHTML = '';
+            
+            domains.forEach((domain, index) => {
+                const domainDiv = document.createElement('div');
+                domainDiv.style.cssText = 'display: flex; gap: 10px; margin: 10px 0; align-items: flex-start;';
+                
+                domainDiv.innerHTML = `
+                    <textarea placeholder="Enter domain & client experience (e.g., 💼 Financial Services & Insurance - ABC Bank)" onchange="updateDomain(${index}, this.value)" style="flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 4px; min-height: 60px; resize: vertical;">${domain}</textarea>
+                    <button type="button" onclick="removeDomain(${index})" style="background: #e74c3c; color: white; border: none; padding: 8px 10px; border-radius: 4px; cursor: pointer;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                
+                container.appendChild(domainDiv);
+            });
+        }
+
+        function updateDomainPreview() {
+            const previewContainer = document.getElementById('previewDomains');
+            previewContainer.innerHTML = '';
+            
+            domains.forEach(domain => {
+                if (domain.trim()) {
+                    const domainDiv = document.createElement('div');
+                    domainDiv.className = 'domain-item';
+                    domainDiv.textContent = domain;
+                    previewContainer.appendChild(domainDiv);
+                }
+            });
+        }
+
+        function addEducation() {
+            const container = document.getElementById('educationContainer');
+            const index = education.length;
+            
+            const eduDiv = document.createElement('div');
+            eduDiv.style.cssText = 'border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 6px; position: relative;';
+            
+            eduDiv.innerHTML = `
+                <button type="button" onclick="removeEducation(${index})" style="position: absolute; top: 10px; right: 10px; background: #e74c3c; color: white; border: none; padding: 5px 8px; border-radius: 4px; cursor: pointer;">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+                    <input type="text" placeholder="Degree (e.g., Bachelor of Computer Science)" onchange="updateEducation(${index}, 'degree', this.value)" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    <input type="text" placeholder="Institution" onchange="updateEducation(${index}, 'institution', this.value)" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <input type="text" placeholder="Duration (e.g., 2016 - 2020)" onchange="updateEducation(${index}, 'duration', this.value)" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    <input type="text" placeholder="GPA (optional, e.g., GPA: 3.8/4.0)" onchange="updateEducation(${index}, 'gpa', this.value)" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                </div>
+            `;
+            
+            container.appendChild(eduDiv);
+            education.push({ degree: '', institution: '', duration: '', gpa: '' });
+            updateEducationPreview();
+        }
+
+        function removeEducation(index) {
+            education.splice(index, 1);
+            renderEducationForm();
+            updateEducationPreview();
+        }
+
+        function updateEducation(index, field, value) {
+            education[index][field] = value;
+            updateEducationPreview();
+        }
+
+        function renderEducationForm() {
+            const container = document.getElementById('educationContainer');
+            container.innerHTML = '';
+            
+            education.forEach((edu, index) => {
+                const eduDiv = document.createElement('div');
+                eduDiv.style.cssText = 'border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 6px; position: relative;';
+                
+                eduDiv.innerHTML = `
+                    <button type="button" onclick="removeEducation(${index})" style="position: absolute; top: 10px; right: 10px; background: #e74c3c; color: white; border: none; padding: 5px 8px; border-radius: 4px; cursor: pointer;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+                        <input type="text" placeholder="Degree (e.g., Bachelor of Computer Science)" value="${edu.degree}" onchange="updateEducation(${index}, 'degree', this.value)" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                        <input type="text" placeholder="Institution" value="${edu.institution}" onchange="updateEducation(${index}, 'institution', this.value)" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <input type="text" placeholder="Duration (e.g., 2016 - 2020)" value="${edu.duration}" onchange="updateEducation(${index}, 'duration', this.value)" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                        <input type="text" placeholder="GPA (optional, e.g., GPA: 3.8/4.0)" value="${edu.gpa}" onchange="updateEducation(${index}, 'gpa', this.value)" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    </div>
+                `;
+                
+                container.appendChild(eduDiv);
+            });
+        }
+
+        function updateEducationPreview() {
+            const previewContainer = document.getElementById('previewEducation');
+            previewContainer.innerHTML = '';
+            
+            education.forEach(edu => {
+                if (edu.degree || edu.institution) {
+                    const eduDiv = document.createElement('div');
+                    eduDiv.className = 'education-line';
+                    eduDiv.innerHTML = `
+                        <div class="education-left">
+                            <span class="education-title">${edu.degree}</span>
+                        </div>
+                        <div class="education-center">
+                            <span class="institution">${edu.institution}</span>
+                        </div>
+                        <div class="education-right">
+                            <span class="education-duration">${edu.duration}</span>
+                            ${edu.gpa ? `<span class="separator">|</span><span class="gpa-info">${edu.gpa}</span>` : ''}
+                        </div>
+                    `;
+                    previewContainer.appendChild(eduDiv);
+                }
+            });
+        }
+
+        function addSkillCategory() {
+            const container = document.getElementById('skillsContainer');
+            const index = skillCategories.length;
+            
+            const skillDiv = document.createElement('div');
+            skillDiv.style.cssText = 'border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 6px; position: relative;';
+            
+            skillDiv.innerHTML = `
+                <button type="button" onclick="removeSkillCategory(${index})" style="position: absolute; top: 10px; right: 10px; background: #e74c3c; color: white; border: none; padding: 5px 8px; border-radius: 4px; cursor: pointer;">
+                    <i class="fas fa-times"></i>
+                </button>
+                <input type="text" placeholder="Category Title (e.g., Frontend)" onchange="updateSkillCategory(${index}, 'title', this.value)" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 10px;">
+                <textarea placeholder="Skills (comma separated, e.g., JavaScript, React, HTML5)" onchange="updateSkillCategory(${index}, 'skills', this.value.split(',').map(s => s.trim()))" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; min-height: 60px; resize: vertical;"></textarea>
+            `;
+            
+            container.appendChild(skillDiv);
+            skillCategories.push({ title: '', skills: [] });
+            updateSkillsPreview();
+        }
+
+        function removeSkillCategory(index) {
+            skillCategories.splice(index, 1);
+            renderSkillsForm();
+            updateSkillsPreview();
+        }
+
+        function updateSkillCategory(index, field, value) {
+            skillCategories[index][field] = value;
+            updateSkillsPreview();
+        }
+
+        function renderSkillsForm() {
+            const container = document.getElementById('skillsContainer');
+            container.innerHTML = '';
+            
+            skillCategories.forEach((category, index) => {
+                const skillDiv = document.createElement('div');
+                skillDiv.style.cssText = 'border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 6px; position: relative;';
+                
+                skillDiv.innerHTML = `
+                    <button type="button" onclick="removeSkillCategory(${index})" style="position: absolute; top: 10px; right: 10px; background: #e74c3c; color: white; border: none; padding: 5px 8px; border-radius: 4px; cursor: pointer;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <input type="text" placeholder="Category Title (e.g., Frontend)" value="${category.title}" onchange="updateSkillCategory(${index}, 'title', this.value)" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 10px;">
+                    <textarea placeholder="Skills (comma separated, e.g., JavaScript, React, HTML5)" onchange="updateSkillCategory(${index}, 'skills', this.value.split(',').map(s => s.trim()))" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; min-height: 60px; resize: vertical;">${category.skills.join(', ')}</textarea>
+                `;
+                
+                container.appendChild(skillDiv);
+            });
+        }
+
+        function updateSkillsPreview() {
+            const previewContainer = document.getElementById('previewSkills');
+            previewContainer.innerHTML = '';
+            
+            skillCategories.forEach(category => {
+                if (category.title && category.skills.length > 0) {
+                    const categoryDiv = document.createElement('div');
+                    categoryDiv.className = 'skill-category';
+                    
+                    const titleElement = document.createElement('h3');
+                    titleElement.className = 'skill-category-title orange';
+                    titleElement.textContent = category.title;
+                    
+                    const tagsDiv = document.createElement('div');
+                    tagsDiv.className = 'skill-tags';
+                    
+                    category.skills.forEach(skill => {
+                        if (skill.trim()) {
+                            const skillTag = document.createElement('span');
+                            skillTag.className = 'skill-tag';
+                            skillTag.textContent = skill.trim();
+                            tagsDiv.appendChild(skillTag);
+                        }
+                    });
+                    
+                    categoryDiv.appendChild(titleElement);
+                    categoryDiv.appendChild(tagsDiv);
+                    previewContainer.appendChild(categoryDiv);
+                }
+            });
+        }
+
+        function addResponsibility() {
+            const container = document.getElementById('responsibilityContainer');
+            const index = responsibilities.length;
+            
+            const respDiv = document.createElement('div');
+            respDiv.style.cssText = 'display: flex; gap: 10px; margin: 10px 0; align-items: flex-start;';
+            
+            respDiv.innerHTML = `
+                <textarea placeholder="Enter responsibility..." onchange="updateResponsibility(${index}, this.value)" style="flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 4px; min-height: 60px; resize: vertical;"></textarea>
+                <button type="button" onclick="removeResponsibility(${index})" style="background: #e74c3c; color: white; border: none; padding: 8px 10px; border-radius: 4px; cursor: pointer;">
+                    <i class="fas fa-times"></i>
+                </button>
+            `;
+            
+            container.appendChild(respDiv);
+            responsibilities.push('');
+            updateResponsibilityPreview();
+        }
+
+        function removeResponsibility(index) {
+            responsibilities.splice(index, 1);
+            renderResponsibilityForm();
+            updateResponsibilityPreview();
+        }
+
+        function updateResponsibility(index, value) {
+            responsibilities[index] = value;
+            updateResponsibilityPreview();
+        }
+
+        function renderResponsibilityForm() {
+            const container = document.getElementById('responsibilityContainer');
+            container.innerHTML = '';
+            
+            responsibilities.forEach((resp, index) => {
+                const respDiv = document.createElement('div');
+                respDiv.style.cssText = 'display: flex; gap: 10px; margin: 10px 0; align-items: flex-start;';
+                
+                respDiv.innerHTML = `
+                    <textarea placeholder="Enter responsibility..." onchange="updateResponsibility(${index}, this.value)" style="flex: 1; padding: 8px; border: 1px solid #ddd; border-radius: 4px; min-height: 60px; resize: vertical;">${resp}</textarea>
+                    <button type="button" onclick="removeResponsibility(${index})" style="background: #e74c3c; color: white; border: none; padding: 8px 10px; border-radius: 4px; cursor: pointer;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                
+                container.appendChild(respDiv);
+            });
+        }
+
+        function updateResponsibilityPreview() {
+            const previewContainer = document.getElementById('previewResponsibilities');
+            previewContainer.innerHTML = '';
+            
+            responsibilities.forEach(resp => {
+                if (resp.trim()) {
+                    const li = document.createElement('li');
+                    li.innerHTML = resp;
+                    previewContainer.appendChild(li);
+                }
+            });
+        }
+
+        function addExperience() {
+            const container = document.getElementById('experienceContainer');
+            const index = experiences.length;
+            
+            const expDiv = document.createElement('div');
+            expDiv.className = 'experience-form';
+            expDiv.style.cssText = 'border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 6px; position: relative;';
+            
+            expDiv.innerHTML = `
+                <button type="button" onclick="removeExperience(${index})" style="position: absolute; top: 10px; right: 10px; background: #e74c3c; color: white; border: none; padding: 5px 8px; border-radius: 4px; cursor: pointer;">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+                    <input type="text" placeholder="Job Title" onchange="updateExperience(${index}, 'jobTitle', this.value)" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    <input type="text" placeholder="Company" onchange="updateExperience(${index}, 'company', this.value)" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <input type="text" placeholder="Duration (e.g., 01/2022 - Present)" onchange="updateExperience(${index}, 'duration', this.value)" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    <input type="text" placeholder="Location" onchange="updateExperience(${index}, 'location', this.value)" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                </div>
+            `;
+            
+            container.appendChild(expDiv);
+            experiences.push({ jobTitle: '', company: '', duration: '', location: '' });
+            updateExperiencePreview();
+        }
+
+        function removeExperience(index) {
+            experiences.splice(index, 1);
+            renderExperienceForm();
+            updateExperiencePreview();
+        }
+
+        function updateExperience(index, field, value) {
+            experiences[index][field] = value;
+            updateExperiencePreview();
+        }
+
+        function renderExperienceForm() {
+            const container = document.getElementById('experienceContainer');
+            container.innerHTML = '';
+            
+            experiences.forEach((exp, index) => {
+                const expDiv = document.createElement('div');
+                expDiv.className = 'experience-form';
+                expDiv.style.cssText = 'border: 1px solid #ddd; padding: 15px; margin: 10px 0; border-radius: 6px; position: relative;';
+                
+                expDiv.innerHTML = `
+                    <button type="button" onclick="removeExperience(${index})" style="position: absolute; top: 10px; right: 10px; background: #e74c3c; color: white; border: none; padding: 5px 8px; border-radius: 4px; cursor: pointer;">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+                        <input type="text" placeholder="Job Title" value="${exp.jobTitle}" onchange="updateExperience(${index}, 'jobTitle', this.value)" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                        <input type="text" placeholder="Company" value="${exp.company}" onchange="updateExperience(${index}, 'company', this.value)" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <input type="text" placeholder="Duration (e.g., 01/2022 - Present)" value="${exp.duration}" onchange="updateExperience(${index}, 'duration', this.value)" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                        <input type="text" placeholder="Location" value="${exp.location}" onchange="updateExperience(${index}, 'location', this.value)" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    </div>
+                `;
+                
+                container.appendChild(expDiv);
+            });
+        }
+
+        function updateExperiencePreview() {
+            const previewContainer = document.getElementById('previewExperience');
+            previewContainer.innerHTML = '';
+            
+            experiences.forEach(exp => {
+                if (exp.jobTitle || exp.company) {
+                    const expDiv = document.createElement('div');
+                    expDiv.className = 'experience-item';
+                    expDiv.innerHTML = `
+                        <div class="experience-line">
+                            <div class="experience-left">
+                                <span class="job-title">${exp.jobTitle}</span>
+                            </div>
+                            <div class="experience-right">
+                                <span class="company">${exp.company}</span>
+                                <span class="separator">|</span>
+                                <span class="duration">${exp.duration}</span>
+                                <span class="separator">|</span>
+                                <span class="location">${exp.location}</span>
+                            </div>
+                        </div>
+                    `;
+                    previewContainer.appendChild(expDiv);
+                }
+            });
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            renderResponsibilityForm();
+            renderSkillsForm();
+            renderEducationForm();
+            renderDomainForm();
+            renderExperienceForm();
+            updateResponsibilityPreview();
+            updateSkillsPreview();
+            updateEducationPreview();
+            updateDomainPreview();
+            updateExperiencePreview();
+        });
+
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+
+        function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            const controlButtons = document.querySelector(".control-buttons");
+            const themeSelector = document.getElementById("themeSelector");
+            const fontSelector = document.getElementById("fontSelector");
+            const container = document.querySelector(".container");
+            const body = document.body;
+
+            controlButtons.style.display = "none";
+            themeSelector.style.display = "none";
+            fontSelector.style.display = "none";
+            
+            // Remove border-radius for PDF
+            const originalBorderRadius = container.style.borderRadius;
+            container.style.borderRadius = "0";
+            
+            setTimeout(() => {
+                html2canvas(document.querySelector(".container"), {
+                    scale: 1.5,
+                    useCORS: true,
+                    allowTaint: true,
+                    backgroundColor: '#ffffff'
+                }).then((canvas) => {
+                    const imgData = canvas.toDataURL("image/jpeg", 0.8);
+                    const pdf = new jsPDF("p", "mm", "a4");
+
+                    const imgWidth = 210;
+                    const pageHeight = 295;
+                    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                    let heightLeft = imgHeight;
+                    let position = 0;
+
+                    pdf.addImage(imgData, "JPEG", 0, position, imgWidth, imgHeight);
+                    heightLeft -= pageHeight;
+
+                    while (heightLeft >= 0) {
+                        position = heightLeft - imgHeight;
+                        pdf.addPage();
+                        pdf.addImage(imgData, "JPEG", 0, position, imgWidth, imgHeight);
+                        heightLeft -= pageHeight;
+                    }
+
+                    const fileName = document.getElementById('fullName').value.replace(/\s+/g, '_') + '_Resume.pdf';
+                    pdf.save(fileName);
+                    
+                    // Restore original styles
+                    controlButtons.style.display = "flex";
+                    container.style.borderRadius = originalBorderRadius;
+                });
+            }, 100);
+        }
+    </script>
+</body>
+</html>
