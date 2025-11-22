@@ -8,11 +8,12 @@
   --text-muted: #6b7280;
   --white: #ffffff;
   --border-color: #d1d5db;
-  
+
   /* Typography */
-  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
   --line-height: 1.6;
-  
+
   /* Spacing */
   --border-radius: 6px;
   --border-radius-large: 8px;
@@ -44,7 +45,14 @@ body {
 
 /* Header */
 .header {
-  background-color: var(--secondary-color);
+  background: var(
+    --primary-gradient,
+    linear-gradient(
+      135deg,
+      var(--primary-color) 0%,
+      var(--secondary-color) 100%
+    )
+  );
   color: white;
   padding: 40px;
 }
@@ -65,11 +73,13 @@ body {
   font-size: 48px;
   font-weight: 700;
   margin-bottom: 8px;
+  font-family: var(--font-family);
 }
 
 .header .subtitle {
   font-size: 20px;
   margin-bottom: 24px;
+  font-family: var(--font-family);
 }
 
 .contact-info {
@@ -90,6 +100,7 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
+  font-family: var(--font-family);
 }
 
 .contact-item i {
@@ -149,6 +160,7 @@ body {
   border-bottom: 4px solid var(--primary-color);
   padding-bottom: 8px;
   margin-bottom: 16px;
+  font-family: var(--font-family);
 }
 
 .section-content {
@@ -169,6 +181,7 @@ body {
 .skill-category-title {
   margin-bottom: 12px;
   font-weight: 600;
+  font-family: var(--font-family);
 }
 
 .skill-category-title.orange {
@@ -191,7 +204,8 @@ body {
   border: 1px solid var(--border-color);
   border-radius: var(--border-radius);
   font-size: 14px;
-  color: #374151;
+  color: var(--text-secondary);
+  font-family: var(--font-family);
 }
 
 /* Experience */
@@ -207,12 +221,14 @@ body {
   color: var(--text-secondary);
   font-weight: normal;
   font-size: 16px;
+  font-family: var(--font-family);
 }
 
 .company {
   color: var(--text-secondary);
   font-weight: normal;
   font-size: 15px;
+  font-family: var(--font-family);
 }
 
 .meta-info {
@@ -280,12 +296,14 @@ body {
   color: var(--text-secondary);
   font-weight: normal;
   font-size: 16px;
+  font-family: var(--font-family);
 }
 
 .institution {
   color: var(--text-secondary);
   font-weight: normal;
   font-size: 15px;
+  font-family: var(--font-family);
 }
 
 .education-duration {
@@ -316,6 +334,7 @@ body {
 .client-item {
   color: var(--text-secondary);
   padding: 4px 0;
+  font-family: var(--font-family);
 }
 
 .client-highlight {
@@ -371,29 +390,30 @@ body {
     align-items: flex-start;
     gap: 4px;
   }
-  
+
   .experience-right {
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
     text-align: left;
   }
-  
+
   .separator {
     display: none;
   }
-  
+
   .job-title {
     font-size: 15px;
     font-weight: 600;
   }
-  
+
   .company {
     font-size: 14px;
     color: var(--secondary-color);
   }
-  
-  .duration, .location {
+
+  .duration,
+  .location {
     font-size: 13px;
   }
 }
@@ -424,6 +444,7 @@ body {
   transition: all 0.3s ease;
   text-decoration: none;
   width: fit-content;
+  font-family: var(--font-family);
 }
 
 .btn i {
@@ -449,8 +470,6 @@ body {
   transform: translateY(-2px);
   box-shadow: var(--shadow-hover);
 }
-
-
 
 /* Theme and Font Selectors */
 .theme-selector,
@@ -507,6 +526,7 @@ body {
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 10px;
+  font-family: var(--font-family);
 }
 
 .font-options {
@@ -523,6 +543,7 @@ body {
   transition: all 0.3s ease;
   font-size: 14px;
   text-align: center;
+  font-family: var(--font-family);
 }
 
 .font-option:hover {
@@ -533,8 +554,6 @@ body {
   border-color: var(--primary-color);
   background: var(--accent-color);
 }
-
-
 
 /* Print Styles */
 @media print {
@@ -596,7 +615,7 @@ body {
   .control-buttons {
     flex-direction: column;
   }
-  
+
   .experience-item {
     margin-bottom: 16px;
     padding: 12px;
@@ -604,25 +623,25 @@ body {
     border-radius: var(--border-radius);
     border-left: 3px solid var(--secondary-color);
   }
-  
+
   .job-title {
     font-size: 14px;
     font-weight: 600;
     margin-bottom: 4px;
   }
-  
+
   .company {
     font-size: 13px;
     color: var(--secondary-color);
     font-weight: 500;
     margin-bottom: 4px;
   }
-  
+
   .duration {
     font-size: 12px;
     margin-bottom: 2px;
   }
-  
+
   .location {
     font-size: 12px;
     margin-left: 0;
