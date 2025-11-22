@@ -7,7 +7,10 @@ const socialMetadata = {
     "javascript developer", "java developer", "react developer", "angular developer",
     "backend developer", "frontend developer", "fullstack engineer",
     "software architect", "technical lead", "development manager",
-    "enterprise developer", "application developer", "systems developer"
+    "enterprise developer", "application developer", "systems developer",
+    "Full Stack Java Spring Boot Angular Developer", "Full Stack Java Spring Boot React.js Developer",
+    "Java Spring Boot Microservices with Angular Frontend", "React.js Frontend with Java Spring Boot Backend",
+    "Enterprise Java Full Stack with Spring Boot and Angular 17+", "Scalable Full Stack Development using Java, Spring Boot, and React"
   ],
 
   // Industry & skill-based keywords
@@ -16,14 +19,19 @@ const socialMetadata = {
     "cloud solutions", "microservices architecture", "api development",
     "database design", "system integration", "software consulting",
     "digital transformation", "technology solutions", "custom software",
-    "scalable applications", "high performance systems", "agile development"
+    "scalable applications", "high performance systems", "agile development",
+    "Java 21 Full Stack Developer with Spring Boot 3.x and Angular", "Spring Security and OAuth 2.0 in Java Full Stack Applications",
+    "Microservices Architecture with Spring Boot and React/Angular", "RESTful API Design and Implementation with Java Spring Boot",
+    "Hibernate ORM and Spring Data JPA for Java Full Stack", "Frontend Development with Angular, NgRx, and RxJs",
+    "React.js State Management with Redux in Java Full Stack", "UI/UX Design Principles for Angular/React with Java Backend"
   ],
 
   // Location-based keywords for local SEO
   locationKeywords: [
     "bangalore developer", "india software developer", "remote developer",
     "freelance developer", "contract developer", "consultant developer",
-    "offshore developer", "global developer", "international developer"
+    "offshore developer", "global developer", "international developer",
+    "remote full stack developer India", "Java Spring Boot developer remote"
   ],
 
   // Social Media Optimized Content
@@ -34,7 +42,8 @@ const socialMetadata = {
       skills: [
         "Full Stack Development", "Java Development", "Spring Boot", "Angular", "React",
         "TypeScript", "JavaScript", "Microservices", "REST APIs", "System Architecture",
-        "AWS", "DevOps", "CI/CD", "Team Leadership", "Agile Development"
+        "AWS", "DevOps", "CI/CD", "Team Leadership", "Agile Development",
+        "Spring Security", "OAuth 2.0", "Hibernate", "JPA", "NgRx", "RxJs", "Redux"
       ]
     },
 
@@ -106,7 +115,8 @@ const socialMetadata = {
       "skills": [
         "Java Development", "Spring Boot", "Angular", "React", "TypeScript",
         "JavaScript", "Full Stack Development", "Microservices", "REST APIs",
-        "System Architecture", "Cloud Computing", "DevOps", "Team Leadership"
+        "System Architecture", "Cloud Computing", "DevOps", "Team Leadership",
+        "Spring Security", "OAuth 2.0", "Hibernate", "JPA", "NgRx", "RxJs", "Redux"
       ]
     },
     "knowsLanguage": ["English", "Hindi"],
