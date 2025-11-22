@@ -10,7 +10,7 @@
 
 <br/>
 
-🚀 **Senior Full Stack Developer** with **7+ years** of experience in enterprise IT services, specializing in designing and implementing scalable, high-availability applications using Java, Spring Boot, Angular, React, and TypeScript. Strong expertise in **system architecture**, **microservices**, **RESTful API development**, **event-driven systems**, and **cloud computing solutions**. Proficient in database design (MySQL, Oracle, MongoDB), **DevOps practices**, **CI/CD pipelines** (Jenkins, GitLab CI), containerization (Docker), and version control (Git). Experienced in **Agile/Scrum methodologies**, unit testing, integration testing, test-driven development, SDLC, code review, performance optimization, and delivering secure, production-grade solutions for global clients including **TIAA**, **AAMC**, **flydubai**, **GE HealthCare**, and **Mercedes-Benz**. Actively exploring new opportunities, including remote roles.
+🚀 **Senior Full Stack Developer & Team Lead** at **Accenture** with **7.5+ years** of experience in enterprise IT services, specializing in designing and implementing scalable, high-availability applications using Java, Spring Boot, Angular, React, and TypeScript. Strong expertise in **system architecture**, **microservices**, **RESTful API development**, and **cloud computing solutions**. Proficient in database design (MySQL, Oracle, MongoDB), **DevOps practices**, **CI/CD pipelines** (Jenkins), containerization (Docker), and version control (Git). Experienced in **Agile/Scrum methodologies**, unit testing, code review, performance optimization, and delivering secure, production-grade solutions for Fortune 500 clients including **Mercedes-Benz**, **GE HealthCare**, **TIAA**, **flydubai**, and **AAMC**. Available for remote work opportunities.
 
 ## 💻 Tech Stack & Expertise
 
@@ -20,53 +20,34 @@
 
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
-![SCSS](https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)
 ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![Angular Material](https://img.shields.io/badge/Angular%20Material-009688?style=for-the-badge&logo=angular&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-563D7C?style=for-the-badge&logo=bootstrap&logoColor=white)
-![NGRX](https://img.shields.io/badge/NGRX-BA2BD2?style=for-the-badge&logo=reactivex&logoColor=white)
-![Electron](https://img.shields.io/badge/Electron-2B2E3A?style=for-the-badge&logo=electron&logoColor=9FEAF9)
-![Lit](https://img.shields.io/badge/Lit-324FFF?style=for-the-badge&logo=lit&logoColor=white)
 
 ### 🚀 Backend & Database
 
 ![Java](https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white)
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-6DB33F?style=for-the-badge&logo=spring-boot&logoColor=white)
 ![Spring](https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
-![Spring MVC](https://img.shields.io/badge/Spring%20MVC-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
-![Spring Data JPA](https://img.shields.io/badge/Spring%20Data%20JPA-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
 ![REST APIs](https://img.shields.io/badge/REST%20APIs-02569B?style=for-the-badge&logo=fastapi&logoColor=white)
 ![Microservices](https://img.shields.io/badge/Microservices-1572B6?style=for-the-badge&logo=microservices&logoColor=white)
 ![Maven](https://img.shields.io/badge/Apache%20Maven-C71A36?style=for-the-badge&logo=Apache%20Maven&logoColor=white)
-![Gradle](https://img.shields.io/badge/Gradle-02303A?style=for-the-badge&logo=Gradle&logoColor=white)
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![SQL](https://img.shields.io/badge/SQL-4479A1?style=for-the-badge&logo=postgresql&logoColor=white)
 ![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
 ![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
 ![Oracle](https://img.shields.io/badge/Oracle-F80000?style=for-the-badge&logo=oracle&logoColor=white)
 
 ### 🛠️ Tools & DevOps
 
-![Cloud Computing](https://img.shields.io/badge/Cloud%20Computing-4285F4?style=for-the-badge&logo=googlecloud&logoColor=white)
 ![AWS](https://img.shields.io/badge/Amazon_AWS-232F3E?style=for-the-badge&logo=amazon-aws&logoColor=white)
 ![Azure](https://img.shields.io/badge/Microsoft%20Azure-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white)
 ![DevOps](https://img.shields.io/badge/DevOps-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 ![Jenkins](https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=jenkins&logoColor=white)
 ![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
-![SDLC](https://img.shields.io/badge/SDLC-FF6B6B?style=for-the-badge&logo=processwire&logoColor=white)
 ![System Architecture](https://img.shields.io/badge/System%20Architecture-4ECDC4?style=for-the-badge&logo=architecture&logoColor=white)
-![Code Review](https://img.shields.io/badge/Code%20Review-45B7D1?style=for-the-badge&logo=codereview&logoColor=white)
 ![Agile/Scrum](https://img.shields.io/badge/Agile%2FScrum-0052CC?style=for-the-badge&logo=jira&logoColor=white)
-![Unit Testing](https://img.shields.io/badge/Unit%20Testing-25A162?style=for-the-badge&logo=testing&logoColor=white)
-![Integration Testing](https://img.shields.io/badge/Integration%20Testing-FF9500?style=for-the-badge&logo=testing&logoColor=white)
-![API Integration](https://img.shields.io/badge/API%20Integration-FF6B35?style=for-the-badge&logo=postman&logoColor=white)
-![Jira](https://img.shields.io/badge/Jira-0052CC?style=for-the-badge&logo=jira&logoColor=white)
-![Jasmine](https://img.shields.io/badge/Jasmine-8A4182?style=for-the-badge&logo=jasmine&logoColor=white)
-![Karma](https://img.shields.io/badge/Karma-56C0C0?style=for-the-badge&logo=karma&logoColor=white)
 
 </div>
 
@@ -82,13 +63,13 @@
 
 ## 🔥 Roles & Responsibilities
 
-- **Led** end-to-end full-stack development across enterprise projects using **Agile/Scrum** and **SDLC**, overseeing **system architecture**, development, testing, and deployment while enforcing coding standards
-- **Designed microservices** using **Java, Spring Boot, Spring Cloud**, and **REST APIs** with **API integration**, ensuring scalability and high availability in **cloud computing** environments
-- Built responsive, high-performance front-end applications using **Angular, React, TypeScript**, HTML5, and CSS3, following component-based architecture with **test-driven development** and **integration testing**
+- **Led** end-to-end full-stack development across enterprise projects using **Agile/Scrum** methodologies, overseeing **system architecture**, development, testing, and deployment while enforcing coding standards
+- **Designed microservices** using **Java, Spring Boot**, and **REST APIs** with **API integration**, ensuring scalability and high availability in **cloud computing** environments
+- Built responsive, high-performance front-end applications using **Angular, React, TypeScript**, HTML5, and CSS3, following component-based architecture
 - **Collaborated** with cross-functional teams (Product, UX, QA, DevOps) implementing **DevOps** practices to gather requirements, define solutions, and deliver releases within sprint timelines
-- **Mentored** junior developers, conducted **code reviews**, and improved development standards including **unit testing** and **integration testing** practices
-- **Implemented CI/CD pipelines** using **Jenkins, GitLab CI, Maven, Gradle**, and **Docker**, enabling automated builds and deployments in **cloud platforms**
-- Translated requirements into technical specifications, **system architecture** diagrams, **database design**, and integration strategies following **SDLC** practices
+- **Mentored** junior developers, conducted **code reviews**, and improved development standards including **unit testing** practices
+- **Implemented CI/CD pipelines** using **Jenkins, Maven**, and **Docker**, enabling automated builds and deployments in **cloud platforms**
+- Translated requirements into technical specifications, **system architecture** diagrams, **database design**, and integration strategies
 - Performed **performance optimization**, debugging, and root-cause analysis to ensure reliability in production environments
 
 ## 💼 Professional Experience
