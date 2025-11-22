@@ -1,33 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- SEO Metadata -->
+    <script src="metadata.js"></script>
+    <script>
+      // Inject meta tags from metadata.js
+      document.addEventListener('DOMContentLoaded', function() {
+        if (typeof generateMetaTags === 'function') {
+          const metaContainer = document.createElement('div');
+          metaContainer.innerHTML = generateMetaTags();
+          const head = document.head;
+          
+          // Add meta tags to head
+          Array.from(metaContainer.children).forEach(element => {
+            head.appendChild(element);
+          });
+        }
+      });
+    </script>
+    
+    <!-- Fallback meta tags for immediate loading -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      Sonu Kumar - Senior Full Stack Developer | Team Lead at Accenture | Java Spring Boot Angular React | 7.5+ Years Enterprise Experience
-    </title>
-    <meta
-      name="description"
-      content="Senior Full Stack Developer & Team Lead at Accenture with 7.5+ years enterprise experience. Expert in Java Spring Boot, Angular, React, TypeScript, Microservices, System Architecture, REST APIs, AWS, DevOps, CI/CD. Delivered scalable solutions for Fortune 500 clients: Mercedes-Benz, GE HealthCare, TIAA, flydubai, AAMC. Specializing in end-to-end development, code review, performance optimization. Available for remote work opportunities."
-    />
-    <meta
-      name="keywords"
-      content="Sonu Kumar, Senior Full Stack Developer, Team Lead, Accenture, Java, Spring Boot, Angular, React, TypeScript, JavaScript, HTML5, CSS3, Microservices, REST APIs, System Architecture, AWS, Azure, DevOps, CI/CD, Jenkins, Docker, MySQL, MongoDB, Oracle, Git, Maven, Agile, Scrum, Performance Optimization, Code Review, Mercedes-Benz, GE HealthCare, TIAA, flydubai, AAMC, LTIMindtree, Bangalore, Remote Work"
-    />
+    <title>Sonu Kumar - Senior Full Stack Developer | Team Lead at Accenture | Java Spring Boot Angular React | 7.5+ Years Enterprise Experience</title>
+    <meta name="description" content="Senior Full Stack Developer & Team Lead at Accenture with 7.5+ years enterprise experience. Expert in Java Spring Boot, Angular, React, TypeScript, Microservices, System Architecture, REST APIs, AWS, DevOps, CI/CD. Delivered scalable solutions for Fortune 500 clients: Mercedes-Benz, GE HealthCare, TIAA, flydubai, AAMC. Specializing in end-to-end development, code review, performance optimization. Available for remote work opportunities." />
+    <meta name="keywords" content="Sonu Kumar, Senior Full Stack Developer, Team Lead, Accenture, Java, Spring Boot, Angular, React, TypeScript, JavaScript, HTML5, CSS3, Microservices, REST APIs, System Architecture, AWS, Azure, DevOps, CI/CD, Jenkins, Docker, MySQL, MongoDB, Oracle, Git, Maven, Agile, Scrum, Performance Optimization, Code Review, Mercedes-Benz, GE HealthCare, TIAA, flydubai, AAMC, LTIMindtree, Bangalore, Remote Work" />
     <meta name="author" content="Sonu Kumar" />
     <meta name="robots" content="index, follow" />
-    <meta
-      property="og:title"
-      content="Sonu Kumar - Senior Full Stack Developer | Team Lead at Accenture | Enterprise Solutions Expert"
-    />
-    <meta
-      property="og:description"
-      content="Senior Full Stack Developer & Team Lead at Accenture with 7.5+ years enterprise experience. Expert in Java Spring Boot, Angular, React, TypeScript, Microservices, System Architecture. Delivered scalable solutions for Fortune 500 clients: Mercedes-Benz, GE HealthCare, TIAA, flydubai, AAMC. Available for remote work."
-    />
+    <meta property="og:title" content="Sonu Kumar - Senior Full Stack Developer | Team Lead at Accenture | Enterprise Solutions Expert" />
+    <meta property="og:description" content="Senior Full Stack Developer & Team Lead at Accenture with 7.5+ years enterprise experience. Expert in Java Spring Boot, Angular, React, TypeScript, Microservices, System Architecture. Delivered scalable solutions for Fortune 500 clients: Mercedes-Benz, GE HealthCare, TIAA, flydubai, AAMC. Available for remote work." />
     <meta property="og:type" content="profile" />
     <meta property="og:url" content="https://sonuskr.github.io/sonuskr/" />
     <meta property="og:site_name" content="Sonu Kumar - Portfolio" />
-
     <link rel="canonical" href="https://sonuskr.github.io/sonuskr/" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="theme-color" content="#667eea" />
@@ -40,66 +44,50 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="script.js"></script>
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Sonu Kumar",
-        "jobTitle": "Packaged App Development Team Lead",
-        "description": "Senior Full Stack Developer and Team Lead at Accenture with 7.5+ years enterprise experience specializing in Java Spring Boot, Angular, React, TypeScript, Microservices, System Architecture, REST APIs, AWS Cloud Computing, DevOps, CI/CD pipelines, and performance optimization. Delivered scalable, high-availability solutions for Fortune 500 clients including Mercedes-Benz, GE HealthCare, TIAA, flydubai, and AAMC across Financial Services, Healthcare, Medical Education, Aviation, and Automotive industries.",
-        "url": "https://sonuskr.github.io/sonuskr/",
-        "sameAs": [
-          "https://www.linkedin.com/in/sonuskr",
-          "https://sonuskr.github.io/sonuskr/"
-        ],
-        "worksFor": {
-          "@type": "Organization",
-          "name": "Accenture"
-        },
-        "alumniOf": {
-          "@type": "EducationalOrganization",
-          "name": "Radharaman Institute of Technology & Science"
-        },
-        "knowsAbout": [
-          "Java",
-          "Spring Boot",
-          "Spring Framework",
-          "Angular",
-          "React",
-          "TypeScript",
-          "JavaScript",
-          "HTML5",
-          "CSS3",
-          "Microservices",
-          "System Architecture",
-          "REST APIs",
-          "AWS",
-          "Azure",
-          "Cloud Computing",
-          "DevOps",
-          "CI/CD",
-          "Docker",
-          "Jenkins",
-          "MySQL",
-          "Oracle",
-          "MongoDB",
-          "Git",
-          "Maven",
-          "Agile",
-          "Scrum",
-          "Team Leadership",
-          "Performance Optimization",
-          "Database Design",
-          "API Integration",
-          "Unit Testing",
-          "Code Review",
-          "SDLC"
-        ],
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Bangalore",
-          "addressCountry": "India"
-        }
+    <!-- Structured Data from metadata.js -->
+    <script>
+      // Inject structured data from metadata.js
+      if (typeof generateStructuredData === 'function') {
+        document.write(generateStructuredData());
+      } else {
+        // Fallback structured data
+        document.write(`
+          <script type="application/ld+json">
+            {
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "name": "Sonu Kumar",
+              "jobTitle": "Packaged App Development Team Lead",
+              "description": "Senior Full Stack Developer and Team Lead at Accenture with 7.5+ years enterprise experience specializing in Java Spring Boot, Angular, React, TypeScript, Microservices, System Architecture, REST APIs, AWS Cloud Computing, DevOps, CI/CD pipelines, and performance optimization. Delivered scalable, high-availability solutions for Fortune 500 clients including Mercedes-Benz, GE HealthCare, TIAA, flydubai, and AAMC across Financial Services, Healthcare, Medical Education, Aviation, and Automotive industries.",
+              "url": "https://sonuskr.github.io/sonuskr/",
+              "sameAs": [
+                "https://www.linkedin.com/in/sonuskr",
+                "https://sonuskr.github.io/sonuskr/"
+              ],
+              "worksFor": {
+                "@type": "Organization",
+                "name": "Accenture"
+              },
+              "alumniOf": {
+                "@type": "EducationalOrganization",
+                "name": "Radharaman Institute of Technology & Science"
+              },
+              "knowsAbout": [
+                "Java", "Spring Boot", "Spring Framework", "Angular", "React", "TypeScript",
+                "JavaScript", "HTML5", "CSS3", "Microservices", "System Architecture",
+                "REST APIs", "AWS", "Azure", "Cloud Computing", "DevOps", "CI/CD",
+                "Docker", "Jenkins", "MySQL", "Oracle", "MongoDB", "Git", "Maven",
+                "Agile", "Scrum", "Team Leadership", "Performance Optimization",
+                "Database Design", "API Integration", "Unit Testing", "Code Review", "SDLC"
+              ],
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Bangalore",
+                "addressCountry": "India"
+              }
+            }
+          <\/script>
+        `);
       }
     </script>
   </head>
