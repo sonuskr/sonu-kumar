@@ -70,6 +70,28 @@
         background-color: var(--primary-color);
         opacity: 0.9;
       }
+
+      @media (max-width: 768px) {
+        .builder-container {
+          margin: 10px;
+          padding: 10px;
+          gap: 15px;
+        }
+
+        .form-section {
+          padding: 15px;
+        }
+
+        .form-group input,
+        .form-group textarea {
+          font-size: 16px;
+        }
+
+        .preview-section .container {
+          margin: 0;
+          border-radius: 6px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -223,105 +245,6 @@
     </div>
 
     <div class="builder-container">
-      <div class="preview-section">
-        <div class="container" id="resumePreview">
-          <header class="header">
-            <div class="header-content">
-              <div class="header-main">
-                <h1 id="previewName">ALEX JOHNSON</h1>
-                <p class="subtitle" id="previewTitle">
-                  Senior Full Stack Developer
-                </p>
-              </div>
-              <div class="contact-info">
-                <div class="contact-row">
-                  <div class="contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <span id="previewEmail">alex.johnson@email.com</span>
-                  </div>
-                  <div class="contact-item">
-                    <i class="fas fa-phone"></i>
-                    <span id="previewPhone">+1 (555) 987-6543</span>
-                  </div>
-                  <div class="contact-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span id="previewLocation">San Francisco, CA</span>
-                  </div>
-                </div>
-                <div class="contact-row">
-                  <div class="contact-item">
-                    <i class="fab fa-github"></i>
-                    <span id="previewGithub"
-                      >https://github.com/alexjohnson</span
-                    >
-                  </div>
-                  <div class="contact-item">
-                    <i class="fab fa-linkedin"></i>
-                    <span id="previewLinkedin"
-                      >https://linkedin.com/in/alexjohnson</span
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-          </header>
-
-          <div class="main-content">
-            <div class="left-column">
-              <section class="section">
-                <h2 class="section-title">PROFESSIONAL SUMMARY</h2>
-                <div class="section-content">
-                  <p id="previewSummary">
-                    Senior Full Stack Developer with 7+ years of expertise
-                    delivering enterprise-grade solutions across Automotive,
-                    Healthcare, Aviation, and Financial domains. Proven track
-                    record of building scalable microservices and modern web
-                    applications using Java Spring Boot, Angular, and React.
-                    Experienced in leading cross-functional teams, implementing
-                    DevOps practices, and architecting cloud-native solutions
-                    for Fortune 500 clients. Strong background in database
-                    design, API development, and performance optimization with a
-                    focus on delivering high-quality, maintainable code.
-                  </p>
-                </div>
-              </section>
-
-              <section class="section">
-                <h2 class="section-title">ROLES & RESPONSIBILITIES</h2>
-                <div class="section-content">
-                  <ul
-                    class="responsibilities"
-                    id="previewResponsibilities"
-                  ></ul>
-                </div>
-              </section>
-
-              <section class="section">
-                <h2 class="section-title">PROFESSIONAL EXPERIENCE</h2>
-                <div id="previewExperience"></div>
-              </section>
-            </div>
-
-            <div class="right-column">
-              <section class="section">
-                <h2 class="section-title">TECHNICAL SKILLS</h2>
-                <div id="previewSkills"></div>
-              </section>
-
-              <section class="section">
-                <h2 class="section-title">EDUCATION</h2>
-                <div id="previewEducation"></div>
-              </section>
-
-              <section class="section">
-                <h2 class="section-title">DOMAIN & CLIENT EXPERIENCE</h2>
-                <div class="domain-list" id="previewDomains"></div>
-              </section>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div class="form-section">
         <h2 style="color: var(--primary-color); margin-bottom: 20px">
           <i class="fas fa-edit"></i> Edit Your Resume
@@ -557,6 +480,111 @@ Senior Full Stack Developer with 7+ years of expertise delivering enterprise-gra
           <div id="experienceContainer"></div>
         </div>
       </div>
+
+      <div class="preview-section">
+        <div class="container" id="resumePreview">
+          <header class="header">
+            <div class="header-content">
+              <div class="header-main">
+                <h1 id="previewName">ALEX JOHNSON</h1>
+                <p class="subtitle" id="previewTitle">
+                  Senior Full Stack Developer
+                </p>
+              </div>
+              <div class="contact-info">
+                <div class="contact-row">
+                  <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>Email: </span>
+                    <span id="previewEmail">alex.johnson@email.com</span>
+                  </div>
+                  <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>Phone: </span>
+                    <span id="previewPhone">+1 (555) 987-6543</span>
+                  </div>
+                  <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>Location: </span>
+                    <span id="previewLocation">San Francisco, CA</span>
+                  </div>
+                </div>
+                <div class="contact-row">
+                  <div class="contact-item">
+                    <i class="fab fa-github"></i>
+                    <span>GitHub: </span>
+                    <span id="previewGithub"
+                      >https://github.com/alexjohnson</span
+                    >
+                  </div>
+                  <div class="contact-item">
+                    <i class="fab fa-linkedin"></i>
+                    <span>LinkedIn: </span>
+                    <span id="previewLinkedin"
+                      >https://linkedin.com/in/alexjohnson</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </header>
+
+          <div class="main-content">
+            <div class="left-column">
+              <section class="section">
+                <h2 class="section-title">PROFESSIONAL SUMMARY</h2>
+                <div class="section-content">
+                  <p id="previewSummary">
+                    Senior Full Stack Developer with 7+ years of expertise
+                    delivering enterprise-grade solutions across Automotive,
+                    Healthcare, Aviation, and Financial domains. Proven track
+                    record of building scalable microservices and modern web
+                    applications using Java Spring Boot, Angular, and React.
+                    Experienced in leading cross-functional teams, implementing
+                    DevOps practices, and architecting cloud-native solutions
+                    for Fortune 500 clients. Strong background in database
+                    design, API development, and performance optimization with a
+                    focus on delivering high-quality, maintainable code.
+                  </p>
+                </div>
+              </section>
+
+              <section class="section">
+                <h2 class="section-title">ROLES & RESPONSIBILITIES</h2>
+                <div class="section-content">
+                  <ul
+                    class="responsibilities"
+                    id="previewResponsibilities"
+                  ></ul>
+                </div>
+              </section>
+
+              <section class="section">
+                <h2 class="section-title">PROFESSIONAL EXPERIENCE</h2>
+                <div id="previewExperience"></div>
+              </section>
+
+              <section class="section">
+                <h2 class="section-title">EDUCATION</h2>
+                <div id="previewEducation"></div>
+              </section>
+            </div>
+
+            <div class="right-column">
+              <section class="section">
+                <h2 class="section-title">TECHNICAL SKILLS</h2>
+                <div id="previewSkills"></div>
+              </section>
+
+              <section class="section">
+                <h2 class="section-title">DOMAIN & CLIENT EXPERIENCE</h2>
+                <div class="domain-list" id="previewDomains"></div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -616,17 +644,18 @@ Senior Full Stack Developer with 7+ years of expertise delivering enterprise-gra
 
       let education = [
         {
-          degree: "Bachelor of Engineering in Computer Science",
-          institution: "California Institute of Technology",
+          degree: "Bachelor of Computer Science",
+          institution: "MIT",
           duration: "2013 - 2017",
           gpa: "GPA: 3.7/4.0",
+          location: "Boston, MA",
         },
       ];
 
       let domains = [
-        "💼 Financial Services & Insurance - Goldman Sachs",
-        "🏥 Healthcare & Medical Technology - Johnson & Johnson",
-        "✈️ Aviation & Travel Solutions - Delta Airlines",
+        "💼 Financial Services - Goldman Sachs",
+        "🏥 Healthcare Technology - Johnson & Johnson",
+        "✈️ Aviation Solutions - Delta Airlines",
         "🚗 Automotive Industry - Tesla",
         "💻 Technology Consulting - Microsoft",
       ];
@@ -777,14 +806,21 @@ Senior Full Stack Developer with 7+ years of expertise delivering enterprise-gra
                     <input type="text" placeholder="Degree (e.g., Bachelor of Computer Science)" onchange="updateEducation(${index}, 'degree', this.value)" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
                     <input type="text" placeholder="Institution" onchange="updateEducation(${index}, 'institution', this.value)" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
                 </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
                     <input type="text" placeholder="Duration (e.g., 2016 - 2020)" onchange="updateEducation(${index}, 'duration', this.value)" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
                     <input type="text" placeholder="GPA (optional, e.g., GPA: 3.8/4.0)" onchange="updateEducation(${index}, 'gpa', this.value)" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                    <input type="text" placeholder="Location" onchange="updateEducation(${index}, 'location', this.value)" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
                 </div>
             `;
 
         container.appendChild(eduDiv);
-        education.push({ degree: "", institution: "", duration: "", gpa: "" });
+        education.push({
+          degree: "",
+          institution: "",
+          duration: "",
+          gpa: "",
+          location: "",
+        });
         updateEducationPreview();
       }
 
@@ -816,9 +852,10 @@ Senior Full Stack Developer with 7+ years of expertise delivering enterprise-gra
                         <input type="text" placeholder="Degree (e.g., Bachelor of Computer Science)" value="${edu.degree}" onchange="updateEducation(${index}, 'degree', this.value)" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
                         <input type="text" placeholder="Institution" value="${edu.institution}" onchange="updateEducation(${index}, 'institution', this.value)" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
                     </div>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px;">
                         <input type="text" placeholder="Duration (e.g., 2016 - 2020)" value="${edu.duration}" onchange="updateEducation(${index}, 'duration', this.value)" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
                         <input type="text" placeholder="GPA (optional, e.g., GPA: 3.8/4.0)" value="${edu.gpa}" onchange="updateEducation(${index}, 'gpa', this.value)" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
+                        <input type="text" placeholder="Location" value="${edu.location}" onchange="updateEducation(${index}, 'location', this.value)" style="padding: 8px; border: 1px solid #ddd; border-radius: 4px;">
                     </div>
                 `;
 
@@ -838,18 +875,22 @@ Senior Full Stack Developer with 7+ years of expertise delivering enterprise-gra
                         <div class="education-left">
                             <span class="education-title">${edu.degree}</span>
                         </div>
-                        <div class="education-center">
-                            <span class="institution">${edu.institution}</span>
-                        </div>
                         <div class="education-right">
-                            <span class="education-duration">${
-                              edu.duration
-                            }</span>
+                            <span class="separator">|</span>
+                            <span class="institution">${edu.institution}</span>
                             ${
                               edu.gpa
                                 ? `<span class="separator">|</span><span class="gpa-info">${edu.gpa}</span>`
                                 : ""
                             }
+                            <span class="separator">|</span>
+                            <span class="education-duration">${
+                              edu.duration
+                            }</span>
+                            <span class="separator">|</span>
+                            <span class="education-location">${
+                              edu.location
+                            }</span>
                         </div>
                     `;
             previewContainer.appendChild(eduDiv);
@@ -1136,23 +1177,49 @@ Senior Full Stack Developer with 7+ years of expertise delivering enterprise-gra
         const fontSelector = document.getElementById("fontSelector");
         const container = document.querySelector(".container");
         const body = document.body;
+        const builderContainer = document.querySelector(".builder-container");
+        const formSection = document.querySelector(".form-section");
 
+        // Store original styles
+        const originalBorderRadius = container.style.borderRadius;
+        const originalBoxShadow = container.style.boxShadow;
+        const originalMargin = container.style.margin;
+        const originalWidth = container.style.width;
+        const originalMinWidth = container.style.minWidth;
+        const originalBodyWidth = body.style.width;
+        const originalBodyMinWidth = body.style.minWidth;
+        const originalBuilderDisplay = builderContainer.style.display;
+        const originalBuilderGrid = builderContainer.style.gridTemplateColumns;
+
+        // Hide buttons, selectors, and form section temporarily
         controlButtons.style.display = "none";
         themeSelector.style.display = "none";
         fontSelector.style.display = "none";
+        formSection.style.display = "none";
 
-        // Remove border-radius for PDF
-        const originalBorderRadius = container.style.borderRadius;
+        // Force desktop layout for PDF generation
+        body.style.width = "1200px";
+        body.style.minWidth = "1200px";
+        container.style.width = "1200px";
+        container.style.minWidth = "1200px";
         container.style.borderRadius = "0";
+        container.style.boxShadow = "none";
+        container.style.margin = "0";
+        builderContainer.style.display = "block";
+        builderContainer.style.gridTemplateColumns = "1fr";
 
+        // Wait for layout to settle
         setTimeout(() => {
           html2canvas(document.querySelector(".container"), {
-            scale: 1.5,
+            scale: 2,
             useCORS: true,
             allowTaint: true,
+            width: 1200,
+            windowWidth: 1200,
             backgroundColor: "#ffffff",
+            letterRendering: true,
           }).then((canvas) => {
-            const imgData = canvas.toDataURL("image/jpeg", 0.8);
+            const imgData = canvas.toDataURL("image/jpeg", 0.95);
             const pdf = new jsPDF("p", "mm", "a4");
 
             const imgWidth = 210;
@@ -1177,8 +1244,19 @@ Senior Full Stack Developer with 7+ years of expertise delivering enterprise-gra
             pdf.save(fileName);
 
             // Restore original styles
-            controlButtons.style.display = "flex";
+            body.style.width = originalBodyWidth;
+            body.style.minWidth = originalBodyMinWidth;
+            container.style.width = originalWidth;
+            container.style.minWidth = originalMinWidth;
             container.style.borderRadius = originalBorderRadius;
+            container.style.boxShadow = originalBoxShadow;
+            container.style.margin = originalMargin;
+            builderContainer.style.display = originalBuilderDisplay;
+            builderContainer.style.gridTemplateColumns = originalBuilderGrid;
+
+            // Show elements again
+            controlButtons.style.display = "flex";
+            formSection.style.display = "block";
           });
         }, 100);
       }

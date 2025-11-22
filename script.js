@@ -213,14 +213,15 @@ function downloadPDF() {
   // Wait for layout to settle
   setTimeout(() => {
     html2canvas(document.querySelector(".container"), {
-      scale: 1.5,
+      scale: 2,
       useCORS: true,
       allowTaint: true,
       width: 1200,
       windowWidth: 1200,
       backgroundColor: "#ffffff",
+      letterRendering: true,
     }).then((canvas) => {
-      const imgData = canvas.toDataURL("image/jpeg", 0.8);
+      const imgData = canvas.toDataURL("image/jpeg", 0.95);
       const pdf = new jsPDF("p", "mm", "a4");
 
       const imgWidth = 210;
