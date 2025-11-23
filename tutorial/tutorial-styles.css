@@ -14,7 +14,7 @@ body {
 .container { 
     max-width: 1200px; 
     margin: 0 auto; 
-    padding: 20px; 
+    padding: 0 20px; 
 }
 
 /* Header Styles */
@@ -52,7 +52,7 @@ h1 {
 .page-interview header { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); }
 .page-programs header { background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%); }
 
-/* Hero section for tutorial index */
+/* Hero section for all pages */
 .hero { 
     text-align: center; 
 }
@@ -65,6 +65,11 @@ h1 {
 .hero p { 
     font-size: 1.2rem; 
     opacity: 0.9; 
+}
+
+/* Make all headers consistent */
+header .container { 
+    padding: 0 20px; 
 }
 
 /* Grid and Card Styles for tutorial index */
@@ -138,6 +143,29 @@ h1 {
 
 main { 
     padding: 2rem 0; 
+}
+
+/* Consistent content spacing for all pages */
+.content { 
+    margin: 2rem 0; 
+}
+
+.topic { 
+    background: white; 
+    border-radius: 10px; 
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
+    padding: 2rem; 
+    margin: 1rem 0; 
+}
+
+.topic h2 { 
+    color: #2c3e50; 
+    margin-bottom: 1rem; 
+}
+
+.topic p { 
+    color: #555; 
+    line-height: 1.8; 
 }
 
 .section { 
