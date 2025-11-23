@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <title>Java Exception Handling - Sonu Kumar</title>
+    <link rel="stylesheet" href="../tutorial-styles.css">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+</head>
+<body class="page-java">
+    <header>
+        <div class="container">
+            <div class="hero">
+                <h1>Java Exception Handling</h1>
+                <p>Master Error Handling & Recovery</p>
+            </div>
+        </div>
+    </header>
+    <nav>
+        <div class="container">
+            <div class="nav-container">
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                    ☰
+                </button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="../tutorial-index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="active">Java</a>
+                        <div class="dropdown-content">
+                            <a href="java-learning.html">Java Fundamentals</a>
+                            <a href="java-oop.html">Java OOP</a>
+                            <a href="java-exception.html">Java Exception</a>
+                            <a href="java-8.html">Java 8</a>
+                            <a href="java-collection.html">Java Collections</a>
+                            <a href="java-interview.html">Java Interview</a>
+                        </div>
+                    </li>
+                    <li><a href="../javascript-learning.html">JavaScript</a></li>
+                    <li><a href="../typescript-learning.html">TypeScript</a></li>
+                    <li><a href="../angular-learning.html">Angular</a></li>
+                    <li><a href="../react-learning.html">React</a></li>
+                    <li><a href="../spring/spring-boot-learning.html">Spring Boot</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <script>
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+        
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('nav');
+            const navLinks = document.getElementById('navLinks');
+            
+            if (!nav.contains(event.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+        
+        // Simple syntax highlighting
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeBlocks = document.querySelectorAll('.code-block code');
+            codeBlocks.forEach(block => {
+                let html = block.innerHTML;
+                
+                // Java keywords
+                html = html.replace(/\b(public|private|protected|static|final|class|interface|extends|implements|import|package|void|int|String|boolean|double|float|long|short|byte|char|if|else|for|while|do|switch|case|default|break|continue|return|try|catch|finally|throw|throws|new|this|super|null|true|false)\b/g, '<span style="color: #c792ea; font-weight: bold;">$1</span>');
+                
+                // Strings
+                html = html.replace(/"([^"]*)"/g, '<span style="color: #c3e88d;">"$1"</span>');
+                html = html.replace(/'([^']*)'/g, '<span style="color: #c3e88d;">\'$1\'</span>');
+                
+                // Comments
+                html = html.replace(/\/\/.*$/gm, '<span style="color: #546e7a; font-style: italic;">$&</span>');
+                html = html.replace(/\/\*[\s\S]*?\*\//g, '<span style="color: #546e7a; font-style: italic;">$&</span>');
+                
+                // Numbers
+                html = html.replace(/\b\d+(\.\d+)?[fLdF]?\b/g, '<span style="color: #f78c6c;">$&</span>');
+                
+                // Method calls
+                html = html.replace(/\b([a-zA-Z_][a-zA-Z0-9_]*)\s*\(/g, '<span style="color: #82aaff;">$1</span>(');
+                
+                // Class names (capitalized words)
+                html = html.replace(/\b[A-Z][a-zA-Z0-9_]*\b/g, '<span style="color: #ffcb6b;">$&</span>');
+                
+                block.innerHTML = html;
+            });
+        });
+    </script>
+    <div class="container">
+        <div class="content">
+            <div class="topic">
+                <h1>Java Exception Handling</h1>
+                
+                <div class="table-of-contents">
+                    <h2>📚 Table of Contents</h2>
+                    <div class="toc-grid">
+                        <div class="toc-column">
+                            <ul>
+                                <li><a href="#exception-basics">Exception Basics</a></li>
+                                <li><a href="#exception-hierarchy">Exception Hierarchy</a></li>
+                                <li><a href="#try-catch-finally">Try-Catch-Finally</a></li>
+                                <li><a href="#checked-unchecked">Checked vs Unchecked</a></li>
+                                <li><a href="#throwing-exceptions">Throwing Exceptions</a></li>
+                            </ul>
+                        </div>
+                        <div class="toc-column">
+                            <ul>
+                                <li><a href="#custom-exceptions">Custom Exceptions</a></li>
+                                <li><a href="#try-with-resources">Try-with-Resources</a></li>
+                                <li><a href="#exception-chaining">Exception Chaining</a></li>
+                                <li><a href="#multi-catch">Multi-catch Blocks</a></li>
+                                <li><a href="#common-exceptions">Common Exceptions</a></li>
+                            </ul>
+                        </div>
+                        <div class="toc-column">
+                            <ul>
+                                <li><a href="#best-practices">Best Practices</a></li>
+                                <li><a href="#performance">Performance Impact</a></li>
+                                <li><a href="#logging">Exception Logging</a></li>
+                                <li><a href="#testing">Testing Exceptions</a></li>
+                                <li><a href="#real-examples">Real-World Examples</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <section id="exception-basics" class="section">
+                    <h2>⚠️ Exception Basics</h2>
+                    
+                    <div class="subsection">
+                        <h3>What is an Exception?</h3>
+                        <p>An exception is an event that occurs during program execution that disrupts the normal flow of instructions. Java provides a robust exception handling mechanism to deal with runtime errors.</p>
+                        
+                        <div class="code-block">
+                            <pre><code class="language-java">// Example of exception occurrence
+public class ExceptionDemo {
+    public static void main(String[] args) {
+        int[] numbers = {1, 2, 3};
+        
+        try {
+            System.out.println(numbers[5]); // ArrayIndexOutOfBoundsException
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Array index out of bounds: " + e.getMessage());
+        }
+        
+        try {
+            int result = 10 / 0; // ArithmeticException
+        } catch (ArithmeticException e) {
+            System.out.println("Division by zero: " + e.getMessage());
+        }
+        
+        try {
+            String str = null;
+            int length = str.length(); // NullPointerException
+        } catch (NullPointerException e) {
+            System.out.println("Null pointer exception: " + e.getMessage());
+        }
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="exception-hierarchy" class="section">
+                    <h2>🌳 Exception Hierarchy</h2>
+                    
+                    <div class="subsection">
+                        <h3>Java Exception Class Hierarchy</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">// Exception Hierarchy
+Throwable
+├── Error (Unchecked)
+│   ├── OutOfMemoryError
+│   ├── StackOverflowError
+│   └── VirtualMachineError
+└── Exception
+    ├── RuntimeException (Unchecked)
+    │   ├── NullPointerException
+    │   ├── ArrayIndexOutOfBoundsException
+    │   ├── IllegalArgumentException
+    │   ├── NumberFormatException
+    │   └── ClassCastException
+    └── Checked Exceptions
+        ├── IOException
+        ├── SQLException
+        ├── ClassNotFoundException
+        └── InterruptedException</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="comparison-table">
+                        <h3>Error vs Exception</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Aspect</th>
+                                    <th>Error</th>
+                                    <th>Exception</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Recovery</td>
+                                    <td>Cannot be recovered</td>
+                                    <td>Can be handled and recovered</td>
+                                </tr>
+                                <tr>
+                                    <td>Cause</td>
+                                    <td>System-level problems</td>
+                                    <td>Application-level problems</td>
+                                </tr>
+                                <tr>
+                                    <td>Examples</td>
+                                    <td>OutOfMemoryError, StackOverflowError</td>
+                                    <td>IOException, NullPointerException</td>
+                                </tr>
+                                <tr>
+                                    <td>Handling</td>
+                                    <td>Should not be caught</td>
+                                    <td>Should be handled properly</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section id="try-catch-finally" class="section">
+                    <h2>🎯 Try-Catch-Finally</h2>
+                    
+                    <div class="subsection">
+                        <h3>Basic Try-Catch Structure</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">public class TryCatchDemo {
+    public static void main(String[] args) {
+        // Basic try-catch
+        try {
+            int result = divide(10, 0);
+            System.out.println("Result: " + result);
+        } catch (ArithmeticException e) {
+            System.out.println("Cannot divide by zero: " + e.getMessage());
+        }
+        
+        // Multiple catch blocks
+        try {
+            String str = args[0]; // May throw ArrayIndexOutOfBoundsException
+            int number = Integer.parseInt(str); // May throw NumberFormatException
+            int result = 100 / number; // May throw ArithmeticException
+            System.out.println("Result: " + result);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("No arguments provided");
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid number format: " + e.getMessage());
+        } catch (ArithmeticException e) {
+            System.out.println("Division by zero");
+        } catch (Exception e) {
+            System.out.println("Unexpected error: " + e.getMessage());
+        }
+    }
+    
+    public static int divide(int a, int b) {
+        return a / b;
+    }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Finally Block</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">public class FinallyDemo {
+    public static void main(String[] args) {
+        FileInputStream file = null;
+        
+        try {
+            file = new FileInputStream("data.txt");
+            // Process file
+            int data = file.read();
+            System.out.println("Data: " + data);
+        } catch (FileNotFoundException e) {
+            System.out.println("File not found: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("IO error: " + e.getMessage());
+        } finally {
+            // Always executes - cleanup code
+            if (file != null) {
+                try {
+                    file.close();
+                    System.out.println("File closed successfully");
+                } catch (IOException e) {
+                    System.out.println("Error closing file: " + e.getMessage());
+                }
+            }
+        }
+        
+        System.out.println("Program continues...");
+    }
+    
+    // Finally executes even with return statements
+    public static int testFinally() {
+        try {
+            return 1;
+        } catch (Exception e) {
+            return 2;
+        } finally {
+            System.out.println("Finally block executed");
+            // return 3; // This would override the return from try/catch
+        }
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="checked-unchecked" class="section">
+                    <h2>✅ Checked vs Unchecked Exceptions</h2>
+                    
+                    <div class="subsection">
+                        <h3>Checked Exceptions</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">import java.io.*;
+import java.sql.*;
+
+public class CheckedExceptionDemo {
+    
+    // Method that throws checked exception must declare it
+    public void readFile(String filename) throws IOException {
+        FileReader file = new FileReader(filename); // IOException
+        BufferedReader reader = new BufferedReader(file);
+        
+        String line = reader.readLine();
+        System.out.println(line);
+        
+        reader.close();
+    }
+    
+    // Multiple checked exceptions
+    public void databaseOperation() throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.cj.jdbc.Driver"); // ClassNotFoundException
+        Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/test"); // SQLException
+        // Database operations
+        conn.close();
+    }
+    
+    // Caller must handle or declare checked exceptions
+    public void caller() {
+        try {
+            readFile("data.txt");
+            databaseOperation();
+        } catch (IOException e) {
+            System.out.println("File operation failed: " + e.getMessage());
+        } catch (SQLException e) {
+            System.out.println("Database operation failed: " + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.out.println("Driver not found: " + e.getMessage());
+        }
+    }
+    
+    // Alternative: Declare to propagate
+    public void alternativeCaller() throws IOException, SQLException, ClassNotFoundException {
+        readFile("data.txt");
+        databaseOperation();
+    }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Unchecked Exceptions</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">public class UncheckedExceptionDemo {
+    
+    // Runtime exceptions don't need to be declared
+    public void demonstrateRuntimeExceptions() {
+        // NullPointerException
+        String str = null;
+        try {
+            int length = str.length();
+        } catch (NullPointerException e) {
+            System.out.println("Null pointer: " + e.getMessage());
+        }
+        
+        // ArrayIndexOutOfBoundsException
+        int[] array = {1, 2, 3};
+        try {
+            int value = array[10];
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Array index out of bounds: " + e.getMessage());
+        }
+        
+        // NumberFormatException
+        try {
+            int number = Integer.parseInt("abc");
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid number format: " + e.getMessage());
+        }
+        
+        // ClassCastException
+        try {
+            Object obj = "Hello";
+            Integer num = (Integer) obj;
+        } catch (ClassCastException e) {
+            System.out.println("Invalid cast: " + e.getMessage());
+        }
+        
+        // IllegalArgumentException
+        try {
+            Thread.sleep(-1000); // Negative sleep time
+        } catch (IllegalArgumentException e) {
+            System.out.println("Illegal argument: " + e.getMessage());
+        } catch (InterruptedException e) {
+            System.out.println("Thread interrupted: " + e.getMessage());
+        }
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="throwing-exceptions" class="section">
+                    <h2>🚀 Throwing Exceptions</h2>
+                    
+                    <div class="subsection">
+                        <h3>Throw Statement</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">public class ThrowDemo {
+    
+    public void validateAge(int age) {
+        if (age < 0) {
+            throw new IllegalArgumentException("Age cannot be negative: " + age);
+        }
+        if (age > 150) {
+            throw new IllegalArgumentException("Age cannot be greater than 150: " + age);
+        }
+        System.out.println("Valid age: " + age);
+    }
+    
+    public void validateEmail(String email) throws InvalidEmailException {
+        if (email == null || email.trim().isEmpty()) {
+            throw new InvalidEmailException("Email cannot be null or empty");
+        }
+        if (!email.contains("@")) {
+            throw new InvalidEmailException("Invalid email format: " + email);
+        }
+        System.out.println("Valid email: " + email);
+    }
+    
+    public double divide(double a, double b) throws ArithmeticException {
+        if (b == 0) {
+            throw new ArithmeticException("Division by zero is not allowed");
+        }
+        return a / b;
+    }
+    
+    // Re-throwing exceptions
+    public void processFile(String filename) throws IOException {
+        try {
+            FileReader file = new FileReader(filename);
+            // Process file
+        } catch (FileNotFoundException e) {
+            System.out.println("Logging: File not found - " + filename);
+            throw e; // Re-throw the exception
+        } catch (IOException e) {
+            System.out.println("Logging: IO error occurred");
+            throw new IOException("Failed to process file: " + filename, e);
+        }
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="custom-exceptions" class="section">
+                    <h2>🎨 Custom Exceptions</h2>
+                    
+                    <div class="subsection">
+                        <h3>Creating Custom Exception Classes</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">// Custom checked exception
+public class InvalidEmailException extends Exception {
+    private String email;
+    
+    public InvalidEmailException(String message) {
+        super(message);
+    }
+    
+    public InvalidEmailException(String message, String email) {
+        super(message);
+        this.email = email;
+    }
+    
+    public InvalidEmailException(String message, Throwable cause) {
+        super(message, cause);
+    }
+    
+    public String getEmail() {
+        return email;
+    }
+}
+
+// Custom unchecked exception
+public class InsufficientFundsException extends RuntimeException {
+    private double balance;
+    private double requestedAmount;
+    
+    public InsufficientFundsException(String message, double balance, double requestedAmount) {
+        super(message);
+        this.balance = balance;
+        this.requestedAmount = requestedAmount;
+    }
+    
+    public double getBalance() {
+        return balance;
+    }
+    
+    public double getRequestedAmount() {
+        return requestedAmount;
+    }
+    
+    @Override
+    public String toString() {
+        return super.toString() + 
+               " [Balance: " + balance + ", Requested: " + requestedAmount + "]";
+    }
+}
+
+// Using custom exceptions
+public class BankAccount {
+    private double balance;
+    private String accountNumber;
+    
+    public BankAccount(String accountNumber, double initialBalance) {
+        this.accountNumber = accountNumber;
+        this.balance = initialBalance;
+    }
+    
+    public void withdraw(double amount) throws InsufficientFundsException {
+        if (amount > balance) {
+            throw new InsufficientFundsException(
+                "Insufficient funds for withdrawal", 
+                balance, 
+                amount
+            );
+        }
+        balance -= amount;
+        System.out.println("Withdrawn: $" + amount + ", Balance: $" + balance);
+    }
+    
+    public void deposit(double amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Deposit amount must be positive");
+        }
+        balance += amount;
+        System.out.println("Deposited: $" + amount + ", Balance: $" + balance);
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="try-with-resources" class="section">
+                    <h2>🔄 Try-with-Resources</h2>
+                    
+                    <div class="subsection">
+                        <h3>Automatic Resource Management</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">import java.io.*;
+import java.util.Scanner;
+
+public class TryWithResourcesDemo {
+    
+    // Traditional approach (verbose)
+    public void readFileTraditional(String filename) {
+        FileInputStream fis = null;
+        BufferedInputStream bis = null;
+        
+        try {
+            fis = new FileInputStream(filename);
+            bis = new BufferedInputStream(fis);
+            
+            int data;
+            while ((data = bis.read()) != -1) {
+                System.out.print((char) data);
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        } finally {
+            try {
+                if (bis != null) bis.close();
+                if (fis != null) fis.close();
+            } catch (IOException e) {
+                System.out.println("Error closing resources: " + e.getMessage());
+            }
+        }
+    }
+    
+    // Try-with-resources (Java 7+)
+    public void readFileModern(String filename) {
+        try (FileInputStream fis = new FileInputStream(filename);
+             BufferedInputStream bis = new BufferedInputStream(fis)) {
+            
+            int data;
+            while ((data = bis.read()) != -1) {
+                System.out.print((char) data);
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading file: " + e.getMessage());
+        }
+        // Resources automatically closed
+    }
+    
+    // Multiple resources
+    public void copyFile(String source, String destination) {
+        try (FileInputStream input = new FileInputStream(source);
+             FileOutputStream output = new FileOutputStream(destination);
+             BufferedInputStream bis = new BufferedInputStream(input);
+             BufferedOutputStream bos = new BufferedOutputStream(output)) {
+            
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = bis.read(buffer)) != -1) {
+                bos.write(buffer, 0, bytesRead);
+            }
+            System.out.println("File copied successfully");
+        } catch (IOException e) {
+            System.out.println("Error copying file: " + e.getMessage());
+        }
+    }
+    
+    // Custom resource class
+    public static class CustomResource implements AutoCloseable {
+        private String name;
+        
+        public CustomResource(String name) {
+            this.name = name;
+            System.out.println("Opening resource: " + name);
+        }
+        
+        public void doSomething() {
+            System.out.println("Using resource: " + name);
+        }
+        
+        @Override
+        public void close() {
+            System.out.println("Closing resource: " + name);
+        }
+    }
+    
+    public void useCustomResource() {
+        try (CustomResource resource1 = new CustomResource("Resource1");
+             CustomResource resource2 = new CustomResource("Resource2")) {
+            
+            resource1.doSomething();
+            resource2.doSomething();
+            
+            // Simulate exception
+            throw new RuntimeException("Something went wrong");
+        } catch (Exception e) {
+            System.out.println("Exception: " + e.getMessage());
+        }
+        // Resources closed automatically in reverse order
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="multi-catch" class="section">
+                    <h2>🎯 Multi-catch and Exception Chaining</h2>
+                    
+                    <div class="subsection">
+                        <h3>Multi-catch Blocks (Java 7+)</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">public class MultiCatchDemo {
+    
+    public void demonstrateMultiCatch(String[] args) {
+        try {
+            // Multiple operations that can throw different exceptions
+            String input = args[0]; // ArrayIndexOutOfBoundsException
+            int number = Integer.parseInt(input); // NumberFormatException
+            int result = 100 / number; // ArithmeticException
+            
+            System.out.println("Result: " + result);
+        } catch (ArrayIndexOutOfBoundsException | NumberFormatException e) {
+            // Handle multiple exception types with same logic
+            System.out.println("Invalid input: " + e.getMessage());
+        } catch (ArithmeticException e) {
+            System.out.println("Mathematical error: " + e.getMessage());
+        }
+        
+        // Traditional approach (more verbose)
+        try {
+            processData(args[0]);
+        } catch (IOException e) {
+            handleError(e);
+        } catch (SQLException e) {
+            handleError(e);
+        } catch (ClassNotFoundException e) {
+            handleError(e);
+        }
+        
+        // Multi-catch approach (cleaner)
+        try {
+            processData(args[0]);
+        } catch (IOException | SQLException | ClassNotFoundException e) {
+            handleError(e);
+        }
+    }
+    
+    private void processData(String data) throws IOException, SQLException, ClassNotFoundException {
+        // Simulate processing that can throw multiple exceptions
+        if (data.equals("io")) throw new IOException("IO error");
+        if (data.equals("sql")) throw new SQLException("SQL error");
+        if (data.equals("class")) throw new ClassNotFoundException("Class not found");
+    }
+    
+    private void handleError(Exception e) {
+        System.out.println("Error occurred: " + e.getClass().getSimpleName() + " - " + e.getMessage());
+        // Log error, send notification, etc.
+    }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Exception Chaining</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">public class ExceptionChainingDemo {
+    
+    // Service layer exception
+    public class ServiceException extends Exception {
+        public ServiceException(String message, Throwable cause) {
+            super(message, cause);
+        }
+    }
+    
+    // Repository layer
+    public void saveToDatabase(String data) throws SQLException {
+        if (data == null) {
+            throw new SQLException("Cannot save null data to database");
+        }
+        // Simulate database operation
+        throw new SQLException("Database connection failed");
+    }
+    
+    // Service layer
+    public void processAndSave(String data) throws ServiceException {
+        try {
+            // Some processing
+            if (data.isEmpty()) {
+                throw new IllegalArgumentException("Data cannot be empty");
+            }
+            
+            // Save to database
+            saveToDatabase(data);
+        } catch (SQLException e) {
+            // Chain the exception - preserve original cause
+            throw new ServiceException("Failed to save data: " + data, e);
+        } catch (IllegalArgumentException e) {
+            throw new ServiceException("Invalid data provided", e);
+        }
+    }
+    
+    // Controller layer
+    public void handleRequest(String data) {
+        try {
+            processAndSave(data);
+        } catch (ServiceException e) {
+            System.out.println("Service error: " + e.getMessage());
+            
+            // Print full stack trace including chained exceptions
+            e.printStackTrace();
+            
+            // Access the root cause
+            Throwable rootCause = e.getCause();
+            if (rootCause != null) {
+                System.out.println("Root cause: " + rootCause.getClass().getSimpleName() + 
+                                 " - " + rootCause.getMessage());
+            }
+        }
+    }
+    
+    // Suppressed exceptions (Java 7+)
+    public void demonstrateSuppressedExceptions() {
+        Exception primaryException = new Exception("Primary exception");
+        
+        try {
+            throw primaryException;
+        } catch (Exception e) {
+            try {
+                // Cleanup operation that also throws exception
+                throw new Exception("Cleanup exception");
+            } catch (Exception cleanupException) {
+                // Add as suppressed exception
+                e.addSuppressed(cleanupException);
+                throw e;
+            }
+        }
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="best-practices" class="section">
+                    <h2>💡 Best Practices</h2>
+                    
+                    <div class="best-practices">
+                        <div class="dos-donts">
+                            <div class="dos">
+                                <h3>✅ Do's</h3>
+                                <ul>
+                                    <li>Use specific exception types, not generic Exception</li>
+                                    <li>Provide meaningful error messages</li>
+                                    <li>Log exceptions with appropriate level</li>
+                                    <li>Use try-with-resources for resource management</li>
+                                    <li>Handle exceptions at the appropriate level</li>
+                                    <li>Create custom exceptions for business logic</li>
+                                    <li>Use exception chaining to preserve stack traces</li>
+                                    <li>Fail fast - validate inputs early</li>
+                                </ul>
+                            </div>
+                            <div class="donts">
+                                <h3>❌ Don'ts</h3>
+                                <ul>
+                                    <li>Don't catch and ignore exceptions silently</li>
+                                    <li>Don't use exceptions for control flow</li>
+                                    <li>Don't catch Exception or Throwable unless necessary</li>
+                                    <li>Don't throw exceptions from finally blocks</li>
+                                    <li>Don't use exceptions for expected conditions</li>
+                                    <li>Don't return null instead of throwing exceptions</li>
+                                    <li>Don't log and rethrow the same exception</li>
+                                    <li>Don't create expensive exception objects in loops</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="real-examples" class="section">
+                    <h2>🌍 Real-World Examples</h2>
+                    
+                    <div class="subsection">
+                        <h3>File Processing with Exception Handling</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">import java.io.*;
+import java.util.*;
+
+public class FileProcessor {
+    
+    public List<String> processFile(String filename) throws FileProcessingException {
+        List<String> results = new ArrayList<>();
+        
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String line;
+            int lineNumber = 0;
+            
+            while ((line = reader.readLine()) != null) {
+                lineNumber++;
+                try {
+                    String processed = processLine(line);
+                    results.add(processed);
+                } catch (InvalidDataException e) {
+                    System.err.println("Skipping invalid data at line " + lineNumber + ": " + e.getMessage());
+                    // Continue processing other lines
+                }
+            }
+        } catch (FileNotFoundException e) {
+            throw new FileProcessingException("File not found: " + filename, e);
+        } catch (IOException e) {
+            throw new FileProcessingException("Error reading file: " + filename, e);
+        }
+        
+        return results;
+    }
+    
+    private String processLine(String line) throws InvalidDataException {
+        if (line == null || line.trim().isEmpty()) {
+            throw new InvalidDataException("Empty line");
+        }
+        
+        String[] parts = line.split(",");
+        if (parts.length < 3) {
+            throw new InvalidDataException("Insufficient data fields: " + line);
+        }
+        
+        try {
+            int id = Integer.parseInt(parts[0].trim());
+            String name = parts[1].trim();
+            double value = Double.parseDouble(parts[2].trim());
+            
+            return String.format("ID: %d, Name: %s, Value: %.2f", id, name, value);
+        } catch (NumberFormatException e) {
+            throw new InvalidDataException("Invalid number format in line: " + line, e);
+        }
+    }
+}
+
+// Custom exceptions
+class FileProcessingException extends Exception {
+    public FileProcessingException(String message, Throwable cause) {
+        super(message, cause);
+    }
+}
+
+class InvalidDataException extends Exception {
+    public InvalidDataException(String message) {
+        super(message);
+    }
+    
+    public InvalidDataException(String message, Throwable cause) {
+        super(message, cause);
+    }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Database Connection with Exception Handling</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">import java.sql.*;
+import java.util.Properties;
+
+public class DatabaseManager {
+    private String url;
+    private Properties props;
+    
+    public DatabaseManager(String url, String username, String password) {
+        this.url = url;
+        this.props = new Properties();
+        this.props.setProperty("user", username);
+        this.props.setProperty("password", password);
+    }
+    
+    public void executeTransaction(List<String> queries) throws DatabaseException {
+        Connection conn = null;
+        
+        try {
+            conn = DriverManager.getConnection(url, props);
+            conn.setAutoCommit(false); // Start transaction
+            
+            try (Statement stmt = conn.createStatement()) {
+                for (String query : queries) {
+                    stmt.executeUpdate(query);
+                }
+                
+                conn.commit(); // Commit transaction
+                System.out.println("Transaction completed successfully");
+            } catch (SQLException e) {
+                conn.rollback(); // Rollback on error
+                throw new DatabaseException("Transaction failed and rolled back", e);
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException("Database connection failed", e);
+        } finally {
+            if (conn != null) {
+                try {
+                    conn.setAutoCommit(true); // Reset auto-commit
+                    conn.close();
+                } catch (SQLException e) {
+                    System.err.println("Error closing connection: " + e.getMessage());
+                }
+            }
+        }
+    }
+    
+    // Using try-with-resources (cleaner approach)
+    public void executeTransactionModern(List<String> queries) throws DatabaseException {
+        try (Connection conn = DriverManager.getConnection(url, props)) {
+            conn.setAutoCommit(false);
+            
+            try (Statement stmt = conn.createStatement()) {
+                for (String query : queries) {
+                    stmt.executeUpdate(query);
+                }
+                conn.commit();
+                System.out.println("Transaction completed successfully");
+            } catch (SQLException e) {
+                conn.rollback();
+                throw new DatabaseException("Transaction failed and rolled back", e);
+            }
+        } catch (SQLException e) {
+            throw new DatabaseException("Database operation failed", e);
+        }
+    }
+}
+
+class DatabaseException extends Exception {
+    public DatabaseException(String message, Throwable cause) {
+        super(message, cause);
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="conclusion">
+                    <h3>🎯 Exception Handling Mastery</h3>
+                    <p>You've learned comprehensive exception handling in Java. Proper exception handling makes your applications robust, maintainable, and user-friendly.</p>
+                    <p><strong>Key Takeaways:</strong> Always handle exceptions appropriately, use specific exception types, provide meaningful messages, and follow best practices for clean, maintainable code.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Sonu Kumar - Senior Full Stack Developer | Java Spring Boot Angular React Expert | Available for remote work, enterprise consulting, and full-time opportunities | Contact: <a href="mailto:skrdeveloper1@gmail.com">skrdeveloper1@gmail.com</a> | LinkedIn: <a href="https://www.linkedin.com/in/sonuskr">linkedin.com/in/sonuskr</a></p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <title>Java Collections Framework - Sonu Kumar</title>
+    <link rel="stylesheet" href="../tutorial-styles.css">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+</head>
+<body class="page-java">
+    <header>
+        <div class="container">
+            <div class="hero">
+                <h1>Java Collections Framework</h1>
+                <p>Master Data Structures & Algorithms</p>
+            </div>
+        </div>
+    </header>
+    <nav>
+        <div class="container">
+            <div class="nav-container">
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                    ☰
+                </button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="../tutorial-index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="active">Java</a>
+                        <div class="dropdown-content">
+                            <a href="java-learning.html">Java Fundamentals</a>
+                            <a href="java-oop.html">Java OOP</a>
+                            <a href="java-exception.html">Java Exception</a>
+                            <a href="java-8.html">Java 8</a>
+                            <a href="java-collection.html">Java Collections</a>
+                            <a href="java-interview.html">Java Interview</a>
+                        </div>
+                    </li>
+                    <li><a href="../javascript-learning.html">JavaScript</a></li>
+                    <li><a href="../typescript-learning.html">TypeScript</a></li>
+                    <li><a href="../angular-learning.html">Angular</a></li>
+                    <li><a href="../react-learning.html">React</a></li>
+                    <li><a href="../spring/spring-boot-learning.html">Spring Boot</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <script>
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+        
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('nav');
+            const navLinks = document.getElementById('navLinks');
+            
+            if (!nav.contains(event.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+        
+        // Simple syntax highlighting
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeBlocks = document.querySelectorAll('.code-block code');
+            codeBlocks.forEach(block => {
+                let html = block.innerHTML;
+                
+                // Java keywords
+                html = html.replace(/\b(public|private|protected|static|final|class|interface|extends|implements|import|package|void|int|String|boolean|double|float|long|short|byte|char|if|else|for|while|do|switch|case|default|break|continue|return|try|catch|finally|throw|throws|new|this|super|null|true|false)\b/g, '<span style="color: #c792ea; font-weight: bold;">$1</span>');
+                
+                // Strings
+                html = html.replace(/"([^"]*)"/g, '<span style="color: #c3e88d;">"$1"</span>');
+                html = html.replace(/'([^']*)'/g, '<span style="color: #c3e88d;">\'$1\'</span>');
+                
+                // Comments
+                html = html.replace(/\/\/.*$/gm, '<span style="color: #546e7a; font-style: italic;">$&</span>');
+                html = html.replace(/\/\*[\s\S]*?\*\//g, '<span style="color: #546e7a; font-style: italic;">$&</span>');
+                
+                // Numbers
+                html = html.replace(/\b\d+(\.\d+)?[fLdF]?\b/g, '<span style="color: #f78c6c;">$&</span>');
+                
+                // Method calls
+                html = html.replace(/\b([a-zA-Z_][a-zA-Z0-9_]*)\s*\(/g, '<span style="color: #82aaff;">$1</span>(');
+                
+                // Class names (capitalized words)
+                html = html.replace(/\b[A-Z][a-zA-Z0-9_]*\b/g, '<span style="color: #ffcb6b;">$&</span>');
+                
+                block.innerHTML = html;
+            });
+        });
+    </script>
+    <div class="container">
+        <div class="content">
+            <div class="topic">
+                <h1>Java Collections Framework</h1>
+                
+                <div class="table-of-contents">
+                    <h2>📚 Table of Contents</h2>
+                    <div class="toc-grid">
+                        <div class="toc-column">
+                            <ul>
+                                <li><a href="#overview">Collections Overview</a></li>
+                                <li><a href="#list-interface">List Interface</a></li>
+                                <li><a href="#set-interface">Set Interface</a></li>
+                                <li><a href="#map-interface">Map Interface</a></li>
+                                <li><a href="#queue-interface">Queue Interface</a></li>
+                            </ul>
+                        </div>
+                        <div class="toc-column">
+                            <ul>
+                                <li><a href="#iterators">Iterators & Streams</a></li>
+                                <li><a href="#algorithms">Collections Algorithms</a></li>
+                                <li><a href="#concurrent">Concurrent Collections</a></li>
+                                <li><a href="#performance">Performance Analysis</a></li>
+                                <li><a href="#best-practices">Best Practices</a></li>
+                            </ul>
+                        </div>
+                        <div class="toc-column">
+                            <ul>
+                                <li><a href="#custom-collections">Custom Collections</a></li>
+                                <li><a href="#generics">Generics & Wildcards</a></li>
+                                <li><a href="#comparisons">Collections Comparison</a></li>
+                                <li><a href="#real-world">Real-World Examples</a></li>
+                                <li><a href="#interview-questions">Interview Questions</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <section id="overview" class="section">
+                    <h2>🏗️ Collections Framework Overview</h2>
+                    
+                    <div class="subsection">
+                        <h3>Collections Hierarchy</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">// Collection Interface Hierarchy
+Collection&lt;E&gt;
+├── List&lt;E&gt;
+│   ├── ArrayList&lt;E&gt;
+│   ├── LinkedList&lt;E&gt;
+│   └── Vector&lt;E&gt;
+├── Set&lt;E&gt;
+│   ├── HashSet&lt;E&gt;
+│   ├── LinkedHashSet&lt;E&gt;
+│   └── TreeSet&lt;E&gt;
+└── Queue&lt;E&gt;
+    ├── PriorityQueue&lt;E&gt;
+    ├── ArrayDeque&lt;E&gt;
+    └── LinkedList&lt;E&gt;
+
+// Map Interface (separate hierarchy)
+Map&lt;K,V&gt;
+├── HashMap&lt;K,V&gt;
+├── LinkedHashMap&lt;K,V&gt;
+├── TreeMap&lt;K,V&gt;
+└── Hashtable&lt;K,V&gt;</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Core Interfaces</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">import java.util.*;
+
+// Collection - Root interface
+Collection&lt;String&gt; collection = new ArrayList&lt;&gt;();
+
+// List - Ordered collection with duplicates
+List&lt;String&gt; list = new ArrayList&lt;&gt;();
+
+// Set - No duplicates allowed
+Set&lt;String&gt; set = new HashSet&lt;&gt;();
+
+// Map - Key-value pairs
+Map&lt;String, Integer&gt; map = new HashMap&lt;&gt;();
+
+// Queue - FIFO operations
+Queue&lt;String&gt; queue = new LinkedList&lt;&gt;();</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="list-interface" class="section">
+                    <h2>📋 List Interface</h2>
+                    
+                    <div class="subsection">
+                        <h3>ArrayList - Dynamic Array</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">// ArrayList - Resizable array implementation
+List&lt;String&gt; arrayList = new ArrayList&lt;&gt;();
+
+// Adding elements
+arrayList.add("Apple");
+arrayList.add("Banana");
+arrayList.add(1, "Orange"); // Insert at index
+
+// Accessing elements
+String first = arrayList.get(0);        // "Apple"
+int size = arrayList.size();            // 3
+boolean contains = arrayList.contains("Banana"); // true
+
+// Modifying elements
+arrayList.set(0, "Mango");              // Replace element
+arrayList.remove(1);                    // Remove by index
+arrayList.remove("Banana");             // Remove by value
+
+// Bulk operations
+List&lt;String&gt; fruits = Arrays.asList("Grape", "Kiwi");
+arrayList.addAll(fruits);               // Add all elements
+arrayList.removeAll(fruits);            // Remove all elements
+
+// Iteration
+for (String fruit : arrayList) {
+    System.out.println(fruit);
+}
+
+// Using Iterator
+Iterator&lt;String&gt; iterator = arrayList.iterator();
+while (iterator.hasNext()) {
+    System.out.println(iterator.next());
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>LinkedList - Doubly Linked List</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">// LinkedList - Doubly linked list implementation
+LinkedList&lt;Integer&gt; linkedList = new LinkedList&lt;&gt;();
+
+// Adding elements
+linkedList.add(10);
+linkedList.addFirst(5);     // Add at beginning
+linkedList.addLast(20);     // Add at end
+linkedList.offer(25);       // Queue operation
+
+// Accessing elements
+int first = linkedList.getFirst();     // 5
+int last = linkedList.getLast();       // 25
+int element = linkedList.peek();       // Get first without removing
+
+// Removing elements
+int removed = linkedList.removeFirst(); // Remove and return first
+linkedList.removeLast();                // Remove last
+linkedList.poll();                      // Queue operation - remove first
+
+// Stack operations (LIFO)
+linkedList.push(100);       // Add to front
+int popped = linkedList.pop(); // Remove from front
+
+// Deque operations (Double-ended queue)
+linkedList.offerFirst(1);
+linkedList.offerLast(99);
+linkedList.pollFirst();
+linkedList.pollLast();</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Vector - Synchronized ArrayList</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">// Vector - Thread-safe but slower than ArrayList
+Vector&lt;String&gt; vector = new Vector&lt;&gt;();
+
+// Similar operations to ArrayList but synchronized
+vector.add("Element1");
+vector.add("Element2");
+
+// Vector-specific methods
+vector.addElement("Element3");          // Legacy method
+String element = vector.elementAt(0);   // Get element at index
+vector.insertElementAt("New", 1);       // Insert at index
+vector.removeElement("Element2");       // Remove by value
+
+// Capacity management
+int capacity = vector.capacity();       // Current capacity
+vector.ensureCapacity(100);            // Ensure minimum capacity
+vector.trimToSize();                   // Reduce capacity to size</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="set-interface" class="section">
+                    <h2>🎯 Set Interface</h2>
+                    
+                    <div class="subsection">
+                        <h3>HashSet - Hash Table Implementation</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">// HashSet - No duplicates, no ordering
+Set&lt;String&gt; hashSet = new HashSet&lt;&gt;();
+
+// Adding elements
+hashSet.add("Apple");
+hashSet.add("Banana");
+hashSet.add("Apple");       // Duplicate - not added
+System.out.println(hashSet.size()); // 2
+
+// Checking elements
+boolean contains = hashSet.contains("Apple");   // true
+boolean isEmpty = hashSet.isEmpty();            // false
+
+// Removing elements
+hashSet.remove("Banana");
+hashSet.clear();            // Remove all elements
+
+// Set operations
+Set&lt;Integer&gt; set1 = new HashSet&lt;&gt;(Arrays.asList(1, 2, 3, 4));
+Set&lt;Integer&gt; set2 = new HashSet&lt;&gt;(Arrays.asList(3, 4, 5, 6));
+
+// Union
+Set&lt;Integer&gt; union = new HashSet&lt;&gt;(set1);
+union.addAll(set2);         // {1, 2, 3, 4, 5, 6}
+
+// Intersection
+Set&lt;Integer&gt; intersection = new HashSet&lt;&gt;(set1);
+intersection.retainAll(set2); // {3, 4}
+
+// Difference
+Set&lt;Integer&gt; difference = new HashSet&lt;&gt;(set1);
+difference.removeAll(set2);   // {1, 2}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>LinkedHashSet - Maintains Insertion Order</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">// LinkedHashSet - Maintains insertion order
+Set&lt;String&gt; linkedHashSet = new LinkedHashSet&lt;&gt;();
+
+linkedHashSet.add("First");
+linkedHashSet.add("Second");
+linkedHashSet.add("Third");
+
+// Iteration maintains insertion order
+for (String element : linkedHashSet) {
+    System.out.println(element); // First, Second, Third
+}
+
+// Performance: Slightly slower than HashSet due to linked list overhead
+// Use when you need predictable iteration order</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>TreeSet - Sorted Set</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">// TreeSet - Sorted set using Red-Black tree
+Set&lt;Integer&gt; treeSet = new TreeSet&lt;&gt;();
+
+treeSet.add(30);
+treeSet.add(10);
+treeSet.add(20);
+treeSet.add(40);
+
+System.out.println(treeSet); // [10, 20, 30, 40] - sorted
+
+// NavigableSet operations
+TreeSet&lt;Integer&gt; navigableSet = new TreeSet&lt;&gt;(Arrays.asList(1, 3, 5, 7, 9));
+
+// Range operations
+SortedSet&lt;Integer&gt; headSet = navigableSet.headSet(5);    // {1, 3}
+SortedSet&lt;Integer&gt; tailSet = navigableSet.tailSet(5);    // {5, 7, 9}
+SortedSet&lt;Integer&gt; subSet = navigableSet.subSet(3, 8);   // {3, 5, 7}
+
+// Navigation methods
+Integer lower = navigableSet.lower(5);      // 3 (greatest element < 5)
+Integer floor = navigableSet.floor(5);      // 5 (greatest element <= 5)
+Integer ceiling = navigableSet.ceiling(6);  // 7 (smallest element >= 6)
+Integer higher = navigableSet.higher(5);    // 7 (smallest element > 5)
+
+// Poll operations
+Integer first = navigableSet.pollFirst();   // Remove and return first
+Integer last = navigableSet.pollLast();     // Remove and return last
+
+// Custom sorting with Comparator
+Set&lt;String&gt; customTreeSet = new TreeSet&lt;&gt;((a, b) -> b.compareTo(a)); // Reverse order
+customTreeSet.addAll(Arrays.asList("Apple", "Banana", "Cherry"));
+System.out.println(customTreeSet); // [Cherry, Banana, Apple]</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="map-interface" class="section">
+                    <h2>🗺️ Map Interface</h2>
+                    
+                    <div class="subsection">
+                        <h3>HashMap - Hash Table Implementation</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">// HashMap - Key-value pairs, no ordering
+Map&lt;String, Integer&gt; hashMap = new HashMap&lt;&gt;();
+
+// Adding key-value pairs
+hashMap.put("Alice", 25);
+hashMap.put("Bob", 30);
+hashMap.put("Charlie", 28);
+
+// Accessing values
+Integer age = hashMap.get("Alice");         // 25
+Integer defaultAge = hashMap.getOrDefault("David", 0); // 0
+
+// Checking keys and values
+boolean hasKey = hashMap.containsKey("Bob");        // true
+boolean hasValue = hashMap.containsValue(30);       // true
+
+// Removing entries
+Integer removed = hashMap.remove("Charlie");        // 28
+hashMap.remove("Bob", 30);                         // Remove if key-value matches
+
+// Bulk operations
+hashMap.putAll(Map.of("David", 35, "Eve", 22));
+hashMap.clear();
+
+// Iteration methods
+Map&lt;String, Integer&gt; people = Map.of("Alice", 25, "Bob", 30, "Charlie", 28);
+
+// Iterate over keys
+for (String name : people.keySet()) {
+    System.out.println(name + ": " + people.get(name));
+}
+
+// Iterate over values
+for (Integer age : people.values()) {
+    System.out.println("Age: " + age);
+}
+
+// Iterate over entries
+for (Map.Entry&lt;String, Integer&gt; entry : people.entrySet()) {
+    System.out.println(entry.getKey() + " -> " + entry.getValue());
+}
+
+// Java 8+ forEach
+people.forEach((name, age) -> System.out.println(name + " is " + age + " years old"));
+
+// Compute operations (Java 8+)
+Map&lt;String, Integer&gt; scores = new HashMap&lt;&gt;();
+scores.put("Alice", 85);
+
+scores.compute("Alice", (key, val) -> val + 10);        // 95
+scores.computeIfAbsent("Bob", key -> 75);               // Add if absent
+scores.computeIfPresent("Alice", (key, val) -> val + 5); // 100
+
+// Merge operation
+scores.merge("Charlie", 80, Integer::sum);              // Add new entry
+scores.merge("Alice", 20, Integer::sum);                // 120 (100 + 20)</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>LinkedHashMap - Maintains Insertion Order</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">// LinkedHashMap - Maintains insertion order
+Map&lt;String, String&gt; linkedHashMap = new LinkedHashMap&lt;&gt;();
+
+linkedHashMap.put("First", "Value1");
+linkedHashMap.put("Second", "Value2");
+linkedHashMap.put("Third", "Value3");
+
+// Iteration maintains insertion order
+linkedHashMap.forEach((key, value) -> 
+    System.out.println(key + " = " + value));
+
+// Access-order LinkedHashMap (LRU cache behavior)
+Map&lt;String, String&gt; lruMap = new LinkedHashMap&lt;&gt;(16, 0.75f, true) {
+    @Override
+    protected boolean removeEldestEntry(Map.Entry&lt;String, String&gt; eldest) {
+        return size() > 3; // Keep only 3 most recently accessed entries
+    }
+};
+
+lruMap.put("A", "1");
+lruMap.put("B", "2");
+lruMap.put("C", "3");
+lruMap.get("A");        // Access A (moves to end)
+lruMap.put("D", "4");   // B gets removed (least recently used)</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>TreeMap - Sorted Map</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">// TreeMap - Sorted map using Red-Black tree
+Map&lt;Integer, String&gt; treeMap = new TreeMap&lt;&gt;();
+
+treeMap.put(3, "Three");
+treeMap.put(1, "One");
+treeMap.put(4, "Four");
+treeMap.put(2, "Two");
+
+System.out.println(treeMap); // {1=One, 2=Two, 3=Three, 4=Four} - sorted by key
+
+// NavigableMap operations
+TreeMap&lt;Integer, String&gt; navigableMap = new TreeMap&lt;&gt;(treeMap);
+
+// Range operations
+SortedMap&lt;Integer, String&gt; headMap = navigableMap.headMap(3);    // {1=One, 2=Two}
+SortedMap&lt;Integer, String&gt; tailMap = navigableMap.tailMap(2);    // {2=Two, 3=Three, 4=Four}
+SortedMap&lt;Integer, String&gt; subMap = navigableMap.subMap(2, 4);   // {2=Two, 3=Three}
+
+// Navigation methods
+Integer lowerKey = navigableMap.lowerKey(3);        // 2
+Integer floorKey = navigableMap.floorKey(3);        // 3
+Integer ceilingKey = navigableMap.ceilingKey(3);    // 3
+Integer higherKey = navigableMap.higherKey(3);      // 4
+
+// First and last entries
+Map.Entry&lt;Integer, String&gt; firstEntry = navigableMap.firstEntry();
+Map.Entry&lt;Integer, String&gt; lastEntry = navigableMap.lastEntry();
+
+// Poll operations
+Map.Entry&lt;Integer, String&gt; polledFirst = navigableMap.pollFirstEntry();
+Map.Entry&lt;Integer, String&gt; polledLast = navigableMap.pollLastEntry();
+
+// Descending map
+NavigableMap&lt;Integer, String&gt; descendingMap = navigableMap.descendingMap();
+System.out.println(descendingMap); // Reverse order</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="queue-interface" class="section">
+                    <h2>🚶 Queue Interface</h2>
+                    
+                    <div class="subsection">
+                        <h3>PriorityQueue - Heap Implementation</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">// PriorityQueue - Min heap by default
+Queue&lt;Integer&gt; priorityQueue = new PriorityQueue&lt;&gt;();
+
+// Adding elements
+priorityQueue.offer(30);
+priorityQueue.offer(10);
+priorityQueue.offer(20);
+priorityQueue.offer(5);
+
+// Accessing elements (always returns smallest)
+Integer head = priorityQueue.peek();    // 5 (doesn't remove)
+Integer polled = priorityQueue.poll();  // 5 (removes and returns)
+
+System.out.println(priorityQueue);      // [10, 30, 20] - heap order, not sorted
+
+// Custom comparator for max heap
+Queue&lt;Integer&gt; maxHeap = new PriorityQueue&lt;&gt;(Collections.reverseOrder());
+maxHeap.addAll(Arrays.asList(30, 10, 20, 5));
+System.out.println(maxHeap.poll());     // 30 (largest element)
+
+// Priority queue with custom objects
+class Task implements Comparable&lt;Task&gt; {
+    String name;
+    int priority;
+    
+    Task(String name, int priority) {
+        this.name = name;
+        this.priority = priority;
+    }
+    
+    @Override
+    public int compareTo(Task other) {
+        return Integer.compare(this.priority, other.priority); // Lower number = higher priority
+    }
+    
+    @Override
+    public String toString() {
+        return name + "(" + priority + ")";
+    }
+}
+
+Queue&lt;Task&gt; taskQueue = new PriorityQueue&lt;&gt;();
+taskQueue.offer(new Task("Low Priority", 3));
+taskQueue.offer(new Task("High Priority", 1));
+taskQueue.offer(new Task("Medium Priority", 2));
+
+while (!taskQueue.isEmpty()) {
+    System.out.println(taskQueue.poll()); // High(1), Medium(2), Low(3)
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>ArrayDeque - Double-Ended Queue</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">// ArrayDeque - Resizable array implementation of Deque
+Deque&lt;String&gt; arrayDeque = new ArrayDeque&lt;&gt;();
+
+// Adding elements
+arrayDeque.addFirst("First");
+arrayDeque.addLast("Last");
+arrayDeque.offerFirst("New First");
+arrayDeque.offerLast("New Last");
+
+// Queue operations (FIFO)
+arrayDeque.offer("Queue Element");
+String queueElement = arrayDeque.poll();
+
+// Stack operations (LIFO)
+arrayDeque.push("Stack Element");
+String stackElement = arrayDeque.pop();
+
+// Accessing elements without removal
+String first = arrayDeque.peekFirst();
+String last = arrayDeque.peekLast();
+
+// Removing elements
+arrayDeque.removeFirst();
+arrayDeque.removeLast();
+arrayDeque.remove("Specific Element");
+
+// Use as Stack (better than Stack class)
+Deque&lt;Integer&gt; stack = new ArrayDeque&lt;&gt;();
+stack.push(1);
+stack.push(2);
+stack.push(3);
+while (!stack.isEmpty()) {
+    System.out.println(stack.pop()); // 3, 2, 1
+}
+
+// Use as Queue (better than LinkedList for queue operations)
+Deque&lt;String&gt; queue = new ArrayDeque&lt;&gt;();
+queue.offer("First");
+queue.offer("Second");
+queue.offer("Third");
+while (!queue.isEmpty()) {
+    System.out.println(queue.poll()); // First, Second, Third
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="iterators" class="section">
+                    <h2>🔄 Iterators & Streams</h2>
+                    
+                    <div class="subsection">
+                        <h3>Iterator Types</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">List&lt;String&gt; list = Arrays.asList("Apple", "Banana", "Cherry");
+
+// Iterator - Forward only
+Iterator&lt;String&gt; iterator = list.iterator();
+while (iterator.hasNext()) {
+    String element = iterator.next();
+    System.out.println(element);
+    // iterator.remove(); // Safe removal during iteration
+}
+
+// ListIterator - Bidirectional for Lists
+List&lt;Integer&gt; numbers = new ArrayList&lt;&gt;(Arrays.asList(1, 2, 3, 4, 5));
+ListIterator&lt;Integer&gt; listIterator = numbers.listIterator();
+
+// Forward iteration
+while (listIterator.hasNext()) {
+    int index = listIterator.nextIndex();
+    Integer value = listIterator.next();
+    System.out.println("Index: " + index + ", Value: " + value);
+}
+
+// Backward iteration
+while (listIterator.hasPrevious()) {
+    int index = listIterator.previousIndex();
+    Integer value = listIterator.previous();
+    System.out.println("Index: " + index + ", Value: " + value);
+}
+
+// Modification during iteration
+ListIterator&lt;Integer&gt; modifyIterator = numbers.listIterator();
+while (modifyIterator.hasNext()) {
+    Integer value = modifyIterator.next();
+    if (value % 2 == 0) {
+        modifyIterator.set(value * 10); // Replace even numbers
+    }
+    if (value == 3) {
+        modifyIterator.add(99); // Add element after 3
+    }
+}
+
+// Enhanced for loop (uses Iterator internally)
+for (String fruit : list) {
+    System.out.println(fruit);
+}
+
+// Spliterator - For parallel processing
+Spliterator&lt;String&gt; spliterator = list.spliterator();
+spliterator.forEachRemaining(System.out::println);</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Stream Operations</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">List&lt;Integer&gt; numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+// Filter and collect
+List&lt;Integer&gt; evenNumbers = numbers.stream()
+    .filter(n -> n % 2 == 0)
+    .collect(Collectors.toList()); // [2, 4, 6, 8, 10]
+
+// Map and reduce
+int sumOfSquares = numbers.stream()
+    .map(n -> n * n)
+    .reduce(0, Integer::sum); // 385
+
+// Complex stream operations
+List&lt;String&gt; words = Arrays.asList("apple", "banana", "cherry", "date", "elderberry");
+
+Map&lt;Integer, List&lt;String&gt;&gt; groupedByLength = words.stream()
+    .collect(Collectors.groupingBy(String::length));
+
+// Parallel streams for large datasets
+long count = numbers.parallelStream()
+    .filter(n -> n > 5)
+    .count();
+
+// Stream from collections
+Set&lt;String&gt; uniqueWords = words.stream()
+    .map(String::toUpperCase)
+    .collect(Collectors.toSet());
+
+// Stream operations with maps
+Map&lt;String, Integer&gt; nameAgeMap = Map.of("Alice", 25, "Bob", 30, "Charlie", 35);
+
+List&lt;String&gt; adults = nameAgeMap.entrySet().stream()
+    .filter(entry -> entry.getValue() >= 30)
+    .map(Map.Entry::getKey)
+    .collect(Collectors.toList()); // [Bob, Charlie]</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="algorithms" class="section">
+                    <h2>🧮 Collections Algorithms</h2>
+                    
+                    <div class="subsection">
+                        <h3>Sorting and Searching</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">List&lt;Integer&gt; numbers = new ArrayList&lt;&gt;(Arrays.asList(5, 2, 8, 1, 9, 3));
+
+// Sorting
+Collections.sort(numbers);                    // [1, 2, 3, 5, 8, 9]
+Collections.sort(numbers, Collections.reverseOrder()); // [9, 8, 5, 3, 2, 1]
+
+// Custom sorting
+List&lt;String&gt; names = Arrays.asList("Alice", "Bob", "Charlie", "David");
+Collections.sort(names, (a, b) -> Integer.compare(a.length(), b.length()));
+
+// Binary search (requires sorted list)
+Collections.sort(numbers);
+int index = Collections.binarySearch(numbers, 5); // Returns index or negative insertion point
+
+// Min and Max
+Integer min = Collections.min(numbers);
+Integer max = Collections.max(numbers);
+String longestName = Collections.max(names, Comparator.comparing(String::length));
+
+// Shuffling
+Collections.shuffle(numbers);
+Collections.shuffle(numbers, new Random(42)); // With seed for reproducible results</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Collection Utilities</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">List&lt;String&gt; list = new ArrayList&lt;&gt;(Arrays.asList("A", "B", "C", "D", "E"));
+
+// Reverse
+Collections.reverse(list);                    // [E, D, C, B, A]
+
+// Rotate
+Collections.rotate(list, 2);                  // [D, E, A, B, C]
+
+// Fill
+Collections.fill(list, "X");                  // [X, X, X, X, X]
+
+// Replace all
+list = new ArrayList&lt;&gt;(Arrays.asList("A", "B", "A", "C", "A"));
+Collections.replaceAll(list, "A", "Z");      // [Z, B, Z, C, Z]
+
+// Frequency
+int frequency = Collections.frequency(list, "Z"); // 3
+
+// Disjoint check
+List&lt;String&gt; list1 = Arrays.asList("A", "B", "C");
+List&lt;String&gt; list2 = Arrays.asList("D", "E", "F");
+boolean disjoint = Collections.disjoint(list1, list2); // true
+
+// Copy
+List&lt;String&gt; source = Arrays.asList("1", "2", "3");
+List&lt;String&gt; dest = new ArrayList&lt;&gt;(Arrays.asList("A", "B", "C"));
+Collections.copy(dest, source);               // dest becomes [1, 2, 3]
+
+// Swap
+Collections.swap(list, 0, 2);                // Swap elements at indices 0 and 2
+
+// Synchronized wrappers
+List&lt;String&gt; syncList = Collections.synchronizedList(new ArrayList&lt;&gt;());
+Set&lt;String&gt; syncSet = Collections.synchronizedSet(new HashSet&lt;&gt;());
+Map&lt;String, String&gt; syncMap = Collections.synchronizedMap(new HashMap&lt;&gt;());
+
+// Unmodifiable wrappers
+List&lt;String&gt; unmodifiableList = Collections.unmodifiableList(list);
+Set&lt;String&gt; unmodifiableSet = Collections.unmodifiableSet(new HashSet&lt;&gt;(list));
+
+// Empty collections
+List&lt;String&gt; emptyList = Collections.emptyList();
+Set&lt;String&gt; emptySet = Collections.emptySet();
+Map&lt;String, String&gt; emptyMap = Collections.emptyMap();
+
+// Singleton collections
+List&lt;String&gt; singletonList = Collections.singletonList("Only");
+Set&lt;String&gt; singletonSet = Collections.singleton("Only");
+Map&lt;String, String&gt; singletonMap = Collections.singletonMap("key", "value");</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="concurrent" class="section">
+                    <h2>🔒 Concurrent Collections</h2>
+                    
+                    <div class="subsection">
+                        <h3>Thread-Safe Collections</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">import java.util.concurrent.*;
+
+// ConcurrentHashMap - Thread-safe HashMap
+ConcurrentHashMap&lt;String, Integer&gt; concurrentMap = new ConcurrentHashMap&lt;&gt;();
+
+// Thread-safe operations
+concurrentMap.put("key1", 1);
+concurrentMap.putIfAbsent("key2", 2);
+concurrentMap.compute("key1", (key, val) -> val + 10);
+concurrentMap.merge("key3", 5, Integer::sum);
+
+// Atomic operations
+Integer oldValue = concurrentMap.replace("key1", 100);
+boolean replaced = concurrentMap.replace("key1", 100, 200);
+
+// CopyOnWriteArrayList - Thread-safe List for read-heavy scenarios
+CopyOnWriteArrayList&lt;String&gt; cowList = new CopyOnWriteArrayList&lt;&gt;();
+cowList.add("Element1");
+cowList.add("Element2");
+
+// Iterators are snapshot-based (won't see concurrent modifications)
+Iterator&lt;String&gt; iterator = cowList.iterator();
+cowList.add("Element3"); // Won't affect the iterator
+
+// CopyOnWriteArraySet - Thread-safe Set
+CopyOnWriteArraySet&lt;String&gt; cowSet = new CopyOnWriteArraySet&lt;&gt;();
+
+// BlockingQueue implementations
+BlockingQueue&lt;String&gt; arrayBlockingQueue = new ArrayBlockingQueue&lt;&gt;(10);
+BlockingQueue&lt;String&gt; linkedBlockingQueue = new LinkedBlockingQueue&lt;&gt;();
+BlockingQueue&lt;String&gt; priorityBlockingQueue = new PriorityBlockingQueue&lt;&gt;();
+
+// Producer-Consumer example
+arrayBlockingQueue.put("Item1");        // Blocks if queue is full
+String item = arrayBlockingQueue.take(); // Blocks if queue is empty
+
+// Non-blocking operations
+boolean offered = arrayBlockingQueue.offer("Item2");
+String polled = arrayBlockingQueue.poll();
+
+// Timed operations
+boolean timedOffer = arrayBlockingQueue.offer("Item3", 1, TimeUnit.SECONDS);
+String timedPoll = arrayBlockingQueue.poll(1, TimeUnit.SECONDS);
+
+// ConcurrentLinkedQueue - Non-blocking thread-safe queue
+ConcurrentLinkedQueue&lt;String&gt; concurrentQueue = new ConcurrentLinkedQueue&lt;&gt;();
+concurrentQueue.offer("Item1");
+String head = concurrentQueue.poll();
+
+// ConcurrentSkipListMap - Thread-safe sorted map
+ConcurrentSkipListMap&lt;Integer, String&gt; skipListMap = new ConcurrentSkipListMap&lt;&gt;();
+skipListMap.put(3, "Three");
+skipListMap.put(1, "One");
+skipListMap.put(2, "Two");
+System.out.println(skipListMap); // Sorted by key
+
+// ConcurrentSkipListSet - Thread-safe sorted set
+ConcurrentSkipListSet&lt;Integer&gt; skipListSet = new ConcurrentSkipListSet&lt;&gt;();
+skipListSet.addAll(Arrays.asList(3, 1, 4, 1, 5, 9));
+System.out.println(skipListSet); // [1, 3, 4, 5, 9] - sorted, no duplicates</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="performance" class="section">
+                    <h2>⚡ Performance Analysis</h2>
+                    
+                    <div class="comparison-table">
+                        <h3>Time Complexity Comparison</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Collection</th>
+                                    <th>Add</th>
+                                    <th>Remove</th>
+                                    <th>Get/Contains</th>
+                                    <th>Space</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>ArrayList</td>
+                                    <td>O(1) amortized</td>
+                                    <td>O(n)</td>
+                                    <td>O(1)</td>
+                                    <td>O(n)</td>
+                                </tr>
+                                <tr>
+                                    <td>LinkedList</td>
+                                    <td>O(1)</td>
+                                    <td>O(1) if node known</td>
+                                    <td>O(n)</td>
+                                    <td>O(n)</td>
+                                </tr>
+                                <tr>
+                                    <td>HashSet</td>
+                                    <td>O(1) average</td>
+                                    <td>O(1) average</td>
+                                    <td>O(1) average</td>
+                                    <td>O(n)</td>
+                                </tr>
+                                <tr>
+                                    <td>TreeSet</td>
+                                    <td>O(log n)</td>
+                                    <td>O(log n)</td>
+                                    <td>O(log n)</td>
+                                    <td>O(n)</td>
+                                </tr>
+                                <tr>
+                                    <td>HashMap</td>
+                                    <td>O(1) average</td>
+                                    <td>O(1) average</td>
+                                    <td>O(1) average</td>
+                                    <td>O(n)</td>
+                                </tr>
+                                <tr>
+                                    <td>TreeMap</td>
+                                    <td>O(log n)</td>
+                                    <td>O(log n)</td>
+                                    <td>O(log n)</td>
+                                    <td>O(n)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Performance Tips</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">// 1. Choose right collection for use case
+// Frequent random access -> ArrayList
+// Frequent insertions/deletions -> LinkedList
+// Unique elements -> Set
+// Key-value mapping -> Map
+
+// 2. Initialize with capacity if size is known
+List&lt;String&gt; list = new ArrayList&lt;&gt;(1000); // Avoid resizing
+Map&lt;String, String&gt; map = new HashMap&lt;&gt;(1000, 0.75f);
+
+// 3. Use appropriate load factor for HashMap
+Map&lt;String, String&gt; efficientMap = new HashMap&lt;&gt;(16, 0.75f);
+
+// 4. Prefer ArrayList over Vector (unless thread safety needed)
+List&lt;String&gt; fastList = new ArrayList&lt;&gt;(); // Not synchronized
+List&lt;String&gt; slowList = new Vector&lt;&gt;();    // Synchronized
+
+// 5. Use ArrayDeque instead of Stack
+Deque&lt;String&gt; stack = new ArrayDeque&lt;&gt;(); // Better than Stack class
+
+// 6. Batch operations are more efficient
+List&lt;String&gt; source = Arrays.asList("A", "B", "C");
+List&lt;String&gt; target = new ArrayList&lt;&gt;();
+target.addAll(source); // Better than individual adds
+
+// 7. Use streams for complex operations
+List&lt;Integer&gt; numbers = Arrays.asList(1, 2, 3, 4, 5);
+List&lt;Integer&gt; processed = numbers.stream()
+    .filter(n -> n % 2 == 0)
+    .map(n -> n * 2)
+    .collect(Collectors.toList());
+
+// 8. Consider memory usage
+// LinkedList uses more memory due to node overhead
+// HashMap uses more memory due to hash table structure</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="best-practices" class="section">
+                    <h2>💡 Best Practices</h2>
+                    
+                    <div class="best-practices">
+                        <div class="dos-donts">
+                            <div class="dos">
+                                <h3>✅ Do's</h3>
+                                <ul>
+                                    <li>Use interface types for declarations (List, Set, Map)</li>
+                                    <li>Initialize collections with expected capacity</li>
+                                    <li>Use immutable collections when possible</li>
+                                    <li>Implement equals() and hashCode() for custom objects in Sets/Maps</li>
+                                    <li>Use concurrent collections for multi-threaded access</li>
+                                    <li>Prefer ArrayList for random access, LinkedList for frequent insertions</li>
+                                    <li>Use streams for complex data processing</li>
+                                    <li>Close resources properly (try-with-resources)</li>
+                                </ul>
+                            </div>
+                            <div class="donts">
+                                <h3>❌ Don'ts</h3>
+                                <ul>
+                                    <li>Don't use raw types (use generics)</li>
+                                    <li>Don't modify collections during iteration (use Iterator.remove())</li>
+                                    <li>Don't use Vector or Hashtable (use ArrayList/HashMap)</li>
+                                    <li>Don't ignore capacity settings for large collections</li>
+                                    <li>Don't use == for object comparison in collections</li>
+                                    <li>Don't forget to override equals() and hashCode() together</li>
+                                    <li>Don't use synchronized collections for high concurrency</li>
+                                    <li>Don't create unnecessary intermediate collections</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="real-world" class="section">
+                    <h2>🌍 Real-World Examples</h2>
+                    
+                    <div class="subsection">
+                        <h3>LRU Cache Implementation</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">public class LRUCache&lt;K, V&gt; extends LinkedHashMap&lt;K, V&gt; {
+    private final int capacity;
+
+    public LRUCache(int capacity) {
+        super(capacity, 0.75f, true); // access-order = true
+        this.capacity = capacity;
+    }
+
+    @Override
+    protected boolean removeEldestEntry(Map.Entry&lt;K, V&gt; eldest) {
+        return size() > capacity;
+    }
+
+    // Usage
+    public static void main(String[] args) {
+        LRUCache&lt;String, String&gt; cache = new LRUCache&lt;&gt;(3);
+        
+        cache.put("1", "One");
+        cache.put("2", "Two");
+        cache.put("3", "Three");
+        cache.get("1"); // Access "1"
+        cache.put("4", "Four"); // "2" gets evicted
+        
+        System.out.println(cache); // {3=Three, 1=One, 4=Four}
+    }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Word Frequency Counter</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">public class WordFrequencyCounter {
+    public static Map&lt;String, Integer&gt; countWords(String text) {
+        return Arrays.stream(text.toLowerCase().split("\\W+"))
+            .filter(word -> !word.isEmpty())
+            .collect(Collectors.groupingBy(
+                Function.identity(),
+                Collectors.summingInt(w -> 1)
+            ));
+    }
+
+    public static void main(String[] args) {
+        String text = "The quick brown fox jumps over the lazy dog. The dog was lazy.";
+        Map&lt;String, Integer&gt; wordCount = countWords(text);
+        
+        // Sort by frequency (descending)
+        wordCount.entrySet().stream()
+            .sorted(Map.Entry.&lt;String, Integer&gt;comparingByValue().reversed())
+            .forEach(entry -> 
+                System.out.println(entry.getKey() + ": " + entry.getValue()));
+    }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Multi-Level Grouping</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">class Employee {
+    String name;
+    String department;
+    String city;
+    int salary;
+    
+    // Constructor, getters, toString...
+}
+
+public class EmployeeAnalytics {
+    public static void main(String[] args) {
+        List&lt;Employee&gt; employees = Arrays.asList(
+            new Employee("Alice", "IT", "NYC", 75000),
+            new Employee("Bob", "IT", "LA", 80000),
+            new Employee("Charlie", "HR", "NYC", 65000),
+            new Employee("David", "HR", "LA", 70000)
+        );
+
+        // Group by department, then by city
+        Map&lt;String, Map&lt;String, List&lt;Employee&gt;&gt; departmentCityMap = employees.stream()
+            .collect(Collectors.groupingBy(
+                Employee::getDepartment,
+                Collectors.groupingBy(Employee::getCity)
+            ));
+
+        // Average salary by department
+        Map&lt;String, Double&gt; avgSalaryByDept = employees.stream()
+            .collect(Collectors.groupingBy(
+                Employee::getDepartment,
+                Collectors.averagingInt(Employee::getSalary)
+            ));
+
+        // Top earner by department
+        Map&lt;String, Optional&lt;Employee&gt;&gt; topEarnerByDept = employees.stream()
+            .collect(Collectors.groupingBy(
+                Employee::getDepartment,
+                Collectors.maxBy(Comparator.comparing(Employee::getSalary))
+            ));
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="interview-questions" class="section">
+                    <h2>❓ Common Interview Questions</h2>
+                    
+                    <div class="question">
+                        <h3>1. What happens when you add duplicate elements to different Set implementations?</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">// HashSet - Uses equals() and hashCode()
+Set&lt;String&gt; hashSet = new HashSet&lt;&gt;();
+hashSet.add("Apple");
+hashSet.add("Apple"); // Duplicate ignored
+System.out.println(hashSet.size()); // 1
+
+// TreeSet - Uses compareTo() or Comparator
+Set&lt;String&gt; treeSet = new TreeSet&lt;&gt;();
+treeSet.add("Apple");
+treeSet.add("APPLE"); // Different case, so added
+System.out.println(treeSet.size()); // 2
+
+// Custom comparator ignoring case
+Set&lt;String&gt; caseInsensitiveSet = new TreeSet&lt;&gt;(String.CASE_INSENSITIVE_ORDER);
+caseInsensitiveSet.add("Apple");
+caseInsensitiveSet.add("APPLE"); // Duplicate ignored due to comparator
+System.out.println(caseInsensitiveSet.size()); // 1</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h3>2. How do you make a collection thread-safe?</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">// Method 1: Collections.synchronizedXxx()
+List&lt;String&gt; syncList = Collections.synchronizedList(new ArrayList&lt;&gt;());
+Set&lt;String&gt; syncSet = Collections.synchronizedSet(new HashSet&lt;&gt;());
+Map&lt;String, String&gt; syncMap = Collections.synchronizedMap(new HashMap&lt;&gt;());
+
+// Important: Manual synchronization needed for iteration
+synchronized(syncList) {
+    for (String item : syncList) {
+        System.out.println(item);
+    }
+}
+
+// Method 2: Concurrent collections (preferred)
+List&lt;String&gt; concurrentList = new CopyOnWriteArrayList&lt;&gt;();
+Set&lt;String&gt; concurrentSet = new ConcurrentSkipListSet&lt;&gt;();
+Map&lt;String, String&gt; concurrentMap = new ConcurrentHashMap&lt;&gt;();
+
+// Method 3: Immutable collections
+List&lt;String&gt; immutableList = List.of("A", "B", "C");
+Set&lt;String&gt; immutableSet = Set.of("X", "Y", "Z");
+Map&lt;String, String&gt; immutableMap = Map.of("key1", "value1", "key2", "value2");</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h3>3. What's the difference between fail-fast and fail-safe iterators?</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">// Fail-fast iterator (ArrayList, HashMap, etc.)
+List&lt;String&gt; list = new ArrayList&lt;&gt;(Arrays.asList("A", "B", "C"));
+Iterator&lt;String&gt; failFastIterator = list.iterator();
+
+list.add("D"); // Modify collection after creating iterator
+
+try {
+    while (failFastIterator.hasNext()) {
+        System.out.println(failFastIterator.next()); // Throws ConcurrentModificationException
+    }
+} catch (ConcurrentModificationException e) {
+    System.out.println("Fail-fast iterator detected modification");
+}
+
+// Fail-safe iterator (CopyOnWriteArrayList, ConcurrentHashMap)
+List&lt;String&gt; cowList = new CopyOnWriteArrayList&lt;&gt;(Arrays.asList("A", "B", "C"));
+Iterator&lt;String&gt; failSafeIterator = cowList.iterator();
+
+cowList.add("D"); // Modify collection after creating iterator
+
+while (failSafeIterator.hasNext()) {
+    System.out.println(failSafeIterator.next()); // Works fine, shows snapshot
+}
+System.out.println("Current list: " + cowList); // Shows "D" as well</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="conclusion">
+                    <h3>🎯 Mastery Checklist</h3>
+                    <p>You've now learned the comprehensive Java Collections Framework! Master these concepts through practice and real-world application.</p>
+                    <p><strong>Next Steps:</strong> Practice implementing custom collections, solve algorithm problems using different data structures, and explore advanced concurrent programming patterns.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Sonu Kumar - Senior Full Stack Developer | Java Spring Boot Angular React Expert | Available for remote work, enterprise consulting, and full-time opportunities | Contact: <a href="mailto:skrdeveloper1@gmail.com">skrdeveloper1@gmail.com</a> | LinkedIn: <a href="https://www.linkedin.com/in/sonuskr">linkedin.com/in/sonuskr</a></p>
+        </div>
+    </footer>
+</body>
+</html>

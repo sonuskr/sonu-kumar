@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Java Exceptions - Complete Learning Guide | Interview Ready</title>
+    <meta
+      name="description"
+      content="Master Java Exceptions with comprehensive examples, best practices, and interview questions. Learn try-catch, throws, custom exceptions, and more."
+    />
+    <meta
+      name="keywords"
+      content="Java Exceptions, Exception Handling, Try-Catch, Throws, Custom Exceptions, Interview Questions"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+      }
+
+      header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 40px 20px;
+        text-align: center;
+      }
+
+      header h1 {
+        font-size: 2.5em;
+        margin-bottom: 10px;
+      }
+
+      header p {
+        font-size: 1.1em;
+        opacity: 0.9;
+      }
+
+      .content {
+        padding: 40px 30px;
+      }
+
+      .section {
+        margin-bottom: 40px;
+        border-left: 5px solid #667eea;
+        padding-left: 20px;
+      }
+
+      .section h2 {
+        color: #667eea;
+        font-size: 1.8em;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .section h3 {
+        color: #764ba2;
+        font-size: 1.3em;
+        margin-top: 20px;
+        margin-bottom: 10px;
+      }
+
+      .code-block {
+        background: #f5f5f5;
+        border-left: 4px solid #667eea;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 5px;
+        overflow-x: auto;
+        font-family: "Courier New", monospace;
+        font-size: 0.95em;
+        line-height: 1.5;
+      }
+
+      .code-block code {
+        color: #333;
+      }
+
+      .highlight-key {
+        background: #fffacd;
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-weight: bold;
+      }
+
+      .box {
+        background: #f0f4ff;
+        border: 2px solid #667eea;
+        padding: 15px;
+        border-radius: 5px;
+        margin: 15px 0;
+      }
+
+      .box strong {
+        color: #667eea;
+      }
+
+      .warning-box {
+        background: #fff3cd;
+        border: 2px solid #ffc107;
+        padding: 15px;
+        border-radius: 5px;
+        margin: 15px 0;
+      }
+
+      .success-box {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        padding: 15px;
+        border-radius: 5px;
+        margin: 15px 0;
+      }
+
+      .error-box {
+        background: #f8d7da;
+        border: 2px solid #dc3545;
+        padding: 15px;
+        border-radius: 5px;
+        margin: 15px 0;
+      }
+
+      .comparison-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 15px 0;
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .comparison-table th {
+        background: #667eea;
+        color: white;
+        padding: 12px;
+        text-align: left;
+        font-weight: bold;
+      }
+
+      .comparison-table td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .comparison-table tr:nth-child(even) {
+        background: #f5f5f5;
+      }
+
+      .comparison-table tr:hover {
+        background: #e8e8ff;
+      }
+
+      .example-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .example-list li {
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+        padding-left: 20px;
+        position: relative;
+      }
+
+      .example-list li:before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: #28a745;
+        font-weight: bold;
+      }
+
+      .key-point {
+        background: #fff;
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 5px;
+        border-left: 4px solid #764ba2;
+      }
+
+      .key-point strong {
+        color: #764ba2;
+      }
+
+      .interview-question {
+        background: #e8eaf6;
+        border: 2px solid #3f51b5;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 5px;
+      }
+
+      .interview-question strong {
+        color: #3f51b5;
+      }
+
+      .answer {
+        background: #f5f5f5;
+        padding: 15px;
+        margin: 10px 0 10px 20px;
+        border-left: 3px solid #28a745;
+        border-radius: 3px;
+      }
+
+      .hierarchy-box {
+        background: #f9f9f9;
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 5px;
+        font-family: monospace;
+        line-height: 1.8;
+      }
+
+      .toc {
+        background: #f0f4ff;
+        border: 2px solid #667eea;
+        padding: 20px;
+        border-radius: 5px;
+        margin-bottom: 30px;
+      }
+
+      .toc h3 {
+        color: #667eea;
+        margin-bottom: 15px;
+      }
+
+      .toc ul {
+        list-style-position: inside;
+        padding-left: 0;
+      }
+
+      .toc li {
+        margin: 8px 0;
+      }
+
+      .toc a {
+        color: #667eea;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .toc a:hover {
+        color: #764ba2;
+        text-decoration: underline;
+      }
+
+      footer {
+        background: #f5f5f5;
+        padding: 20px;
+        text-align: center;
+        border-top: 1px solid #ddd;
+        color: #666;
+      }
+
+      .note {
+        background: #e3f2fd;
+        border-left: 4px solid #2196f3;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 3px;
+      }
+
+      .note strong {
+        color: #1976d2;
+      }
+
+      .flow-diagram {
+        background: #f5f5f5;
+        padding: 20px;
+        border-radius: 5px;
+        margin: 15px 0;
+        font-family: monospace;
+        line-height: 2;
+        text-align: center;
+      }
+
+      .best-practice {
+        background: #e8f5e9;
+        border: 2px solid #4caf50;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 5px;
+      }
+
+      .best-practice strong {
+        color: #2e7d32;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Java Exceptions: Complete Guide</h1>
+        <p>Master Exception Handling for Technical Interviews</p>
+      </header>
+
+      <div class="content">
+        <!-- Table of Contents -->
+        <div class="toc">
+          <h3>Table of Contents</h3>
+          <ul>
+            <li><a href="#intro">1. Introduction to Exceptions</a></li>
+            <li><a href="#hierarchy">2. Exception Hierarchy</a></li>
+            <li><a href="#types">3. Types of Exceptions</a></li>
+            <li><a href="#trycatch">4. Try-Catch Block</a></li>
+            <li><a href="#throws">5. Throws Keyword</a></li>
+            <li><a href="#finally">6. Finally Block</a></li>
+            <li><a href="#custom">7. Custom Exceptions</a></li>
+            <li><a href="#best">8. Best Practices</a></li>
+            <li><a href="#interview">9. Interview Questions</a></li>
+          </ul>
+        </div>
+
+        <!-- Section 1: Introduction -->
+        <div class="section" id="intro">
+          <h2>1. Introduction to Exceptions</h2>
+          <p>
+            An exception is an event that occurs during the execution of a
+            program that disrupts the normal flow of the program's instructions.
+          </p>
+
+          <div class="key-point">
+            <strong>What are Exceptions?</strong><br />
+            Exceptions are abnormal conditions that disrupt the normal flow of
+            program execution. They allow us to handle errors gracefully instead
+            of letting the program crash.
+          </div>
+
+          <h3>Why Handle Exceptions?</h3>
+          <ul class="example-list">
+            <li>Prevent program crashes</li>
+            <li>Provide meaningful error messages to users</li>
+            <li>Allow graceful recovery from errors</li>
+            <li>Log errors for debugging</li>
+            <li>Maintain application stability</li>
+          </ul>
+
+          <h3>Example Without Exception Handling</h3>
+          <div class="code-block">
+            <code
+              >// This will crash if array index is out of bounds public class
+              Example { public static void main(String[] args) { int[] numbers =
+              {1, 2, 3}; System.out.println(numbers[5]); //
+              ArrayIndexOutOfBoundsException } }</code
+            >
+          </div>
+
+          <h3>Example With Exception Handling</h3>
+          <div class="code-block">
+            <code
+              >// Handles the exception gracefully public class Example { public
+              static void main(String[] args) { try { int[] numbers = {1, 2, 3};
+              System.out.println(numbers[5]); } catch
+              (ArrayIndexOutOfBoundsException e) { System.out.println("Error:
+              Invalid array index"); e.printStackTrace(); } } }</code
+            >
+          </div>
+        </div>
+
+        <!-- Section 2: Exception Hierarchy -->
+        <div class="section" id="hierarchy">
+          <h2>2. Exception Hierarchy</h2>
+          <p>
+            All exceptions in Java are derived from the
+            <span class="highlight-key">Throwable</span> class:
+          </p>
+
+          <div class="hierarchy-box">
+            Throwable ├── Error (serious problems, should not catch) │ ├──
+            OutOfMemoryError │ ├── StackOverflowError │ └── VirtualMachineError
+            │ └── Exception (should be caught and handled) ├── Checked Exception
+            (must be caught) │ ├── IOException │ ├── SQLException │ └──
+            ClassNotFoundException │ └── Unchecked Exception (optional to catch)
+            ├── NullPointerException ├── ArrayIndexOutOfBoundsException ├──
+            ArithmeticException └── ClassCastException
+          </div>
+
+          <div class="box">
+            <strong>Important:</strong> Don't confuse Error with Exception.
+            Errors are severe problems (like OutOfMemoryError) that your program
+            usually cannot recover from and shouldn't try to catch.
+          </div>
+        </div>
+
+        <!-- Section 3: Types of Exceptions -->
+        <div class="section" id="types">
+          <h2>3. Types of Exceptions</h2>
+
+          <h3>Checked Exceptions (Compile-time)</h3>
+          <div class="box">
+            <strong>Checked Exceptions</strong> must be caught or declared using
+            the <span class="highlight-key">throws</span> keyword. The compiler
+            enforces this.
+          </div>
+
+          <table class="comparison-table">
+            <tr>
+              <th>Exception Type</th>
+              <th>Description</th>
+              <th>Common Example</th>
+            </tr>
+            <tr>
+              <td>IOException</td>
+              <td>Input/Output operations fail</td>
+              <td>File not found</td>
+            </tr>
+            <tr>
+              <td>SQLException</td>
+              <td>Database operation fails</td>
+              <td>Connection timeout</td>
+            </tr>
+            <tr>
+              <td>ClassNotFoundException</td>
+              <td>Class cannot be found</td>
+              <td>Class.forName("InvalidClass")</td>
+            </tr>
+            <tr>
+              <td>FileNotFoundException</td>
+              <td>File does not exist</td>
+              <td>Opening non-existent file</td>
+            </tr>
+          </table>
+
+          <h3>Unchecked Exceptions (Runtime)</h3>
+          <div class="box">
+            <strong>Unchecked Exceptions</strong> (extending RuntimeException)
+            don't need to be caught. They are typically due to programming
+            errors.
+          </div>
+
+          <table class="comparison-table">
+            <tr>
+              <th>Exception Type</th>
+              <th>Description</th>
+              <th>Example Scenario</th>
+            </tr>
+            <tr>
+              <td>NullPointerException</td>
+              <td>Accessing methods on null objects</td>
+              <td>String s = null; s.length();</td>
+            </tr>
+            <tr>
+              <td>ArrayIndexOutOfBoundsException</td>
+              <td>Accessing invalid array index</td>
+              <td>arr[100] when array size is 10</td>
+            </tr>
+            <tr>
+              <td>ArithmeticException</td>
+              <td>Invalid arithmetic operation</td>
+              <td>Division by zero: 10/0</td>
+            </tr>
+            <tr>
+              <td>ClassCastException</td>
+              <td>Invalid type casting</td>
+              <td>String s = (String) 123;</td>
+            </tr>
+            <tr>
+              <td>IllegalArgumentException</td>
+              <td>Invalid method argument</td>
+              <td>Thread.setPriority(-1);</td>
+            </tr>
+          </table>
+
+          <h3>Checked vs Unchecked - Comparison</h3>
+          <table class="comparison-table">
+            <tr>
+              <th>Feature</th>
+              <th>Checked Exception</th>
+              <th>Unchecked Exception</th>
+            </tr>
+            <tr>
+              <td>Extends</td>
+              <td>Exception class</td>
+              <td>RuntimeException class</td>
+            </tr>
+            <tr>
+              <td>Compile-time Check</td>
+              <td>Yes, enforced by compiler</td>
+              <td>No, not checked at compile time</td>
+            </tr>
+            <tr>
+              <td>Must Handle</td>
+              <td>Yes (catch or throws)</td>
+              <td>No (optional)</td>
+            </tr>
+            <tr>
+              <td>Cause</td>
+              <td>External conditions</td>
+              <td>Programming errors</td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- Section 4: Try-Catch Block -->
+        <div class="section" id="trycatch">
+          <h2>4. Try-Catch Block</h2>
+          <p>The try-catch block is used to handle exceptions at runtime.</p>
+
+          <h3>Basic Syntax</h3>
+          <div class="code-block">
+            <code
+              >try { // Code that may throw exception } catch (ExceptionType1
+              e1) { // Handle ExceptionType1 } catch (ExceptionType2 e2) { //
+              Handle ExceptionType2 }</code
+            >
+          </div>
+
+          <h3>Example: Basic Try-Catch</h3>
+          <div class="code-block">
+            <code
+              >public class DivisionExample { public static void main(String[]
+              args) { try { int result = 10 / 0; // Will throw
+              ArithmeticException System.out.println("Result: " + result); }
+              catch (ArithmeticException e) { System.out.println("Cannot divide
+              by zero!"); System.out.println("Error: " + e.getMessage()); } }
+              }</code
+            >
+          </div>
+
+          <h3>Example: Multiple Catch Blocks</h3>
+          <div class="code-block">
+            <code
+              >public class MultiCatchExample { public static void main(String[]
+              args) { try { String[] names = {"Alice", "Bob"}; String name =
+              names[5]; // ArrayIndexOutOfBoundsException int age =
+              Integer.parseInt(name); // NumberFormatException } catch
+              (ArrayIndexOutOfBoundsException e) { System.out.println("Array
+              index out of bounds: " + e.getMessage()); } catch
+              (NumberFormatException e) { System.out.println("Invalid number
+              format: " + e.getMessage()); } catch (Exception e) {
+              System.out.println("General exception: " + e.getMessage()); } }
+              }</code
+            >
+          </div>
+
+          <div class="note">
+            <strong>Order Matters:</strong> Always catch more specific
+            exceptions before general ones. Catch Exception class last.
+          </div>
+
+          <h3>Example: Multi-Catch (Java 7+)</h3>
+          <div class="code-block">
+            <code
+              >public class MultiCatchJava7 { public static void main(String[]
+              args) { try { // Risky operation int result = 10 / 0; } catch
+              (ArithmeticException | NumberFormatException e) {
+              System.out.println("Error: " + e.getMessage()); } } }</code
+            >
+          </div>
+
+          <h3>Example: Try-Catch with Resources (Java 7+)</h3>
+          <div class="code-block">
+            <code
+              >import java.io.*; public class TryWithResourcesExample { public
+              static void main(String[] args) { // Resources are automatically
+              closed try (FileReader fr = new FileReader("file.txt");
+              BufferedReader br = new BufferedReader(fr)) { String line; while
+              ((line = br.readLine()) != null) { System.out.println(line); } }
+              catch (IOException e) { System.out.println("Error reading file: "
+              + e.getMessage()); } } }</code
+            >
+          </div>
+
+          <div class="success-box">
+            <strong>Advantage of Try-With-Resources:</strong> You don't need to
+            explicitly close resources. They are closed automatically, even if
+            an exception occurs.
+          </div>
+        </div>
+
+        <!-- Section 5: Throws Keyword -->
+        <div class="section" id="throws">
+          <h2>5. Throws Keyword</h2>
+          <p>
+            The <span class="highlight-key">throws</span> keyword is used to
+            declare that a method might throw certain exceptions. The
+            responsibility passes to the caller.
+          </p>
+
+          <h3>Syntax</h3>
+          <div class="code-block">
+            <code
+              >public void methodName() throws ExceptionType1, ExceptionType2 {
+              // Method implementation // May throw ExceptionType1 or
+              ExceptionType2 }</code
+            >
+          </div>
+
+          <h3>Example: Using Throws</h3>
+          <div class="code-block">
+            <code
+              >import java.io.*; public class ThrowsExample { // Method declares
+              it may throw IOException public static void readFile(String
+              filename) throws IOException { FileReader fr = new
+              FileReader(filename); BufferedReader br = new BufferedReader(fr);
+              System.out.println(br.readLine()); br.close(); } public static
+              void main(String[] args) { try { readFile("file.txt"); } catch
+              (IOException e) { System.out.println("Error: " + e.getMessage());
+              } } }</code
+            >
+          </div>
+
+          <h3>Example: Throws vs Try-Catch</h3>
+          <div class="code-block">
+            <code
+              >// Approach 1: Using Try-Catch public void method1() { try { //
+              Risky code } catch (IOException e) { e.printStackTrace(); } } //
+              Approach 2: Using Throws public void method2() throws IOException
+              { // Risky code - caller must handle }</code
+            >
+          </div>
+
+          <div class="warning-box">
+            <strong>When to Use Throws:</strong>
+            <ul>
+              <li>When you want to propagate exception to caller</li>
+              <li>When the calling method is better suited to handle it</li>
+              <li>To keep methods clean and focused</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Section 6: Finally Block -->
+        <div class="section" id="finally">
+          <h2>6. Finally Block</h2>
+          <p>
+            The <span class="highlight-key">finally</span> block executes
+            regardless of whether an exception is thrown or caught. It's used
+            for cleanup operations.
+          </p>
+
+          <h3>Syntax</h3>
+          <div class="code-block">
+            <code
+              >try { // Code that may throw exception } catch (Exception e) { //
+              Handle exception } finally { // Always executes - cleanup code
+              }</code
+            >
+          </div>
+
+          <h3>Example: Finally Block</h3>
+          <div class="code-block">
+            <code
+              >public class FinallyExample { public static void main(String[]
+              args) { FileReader fr = null; try { fr = new
+              FileReader("file.txt"); System.out.println("File opened
+              successfully"); } catch (FileNotFoundException e) {
+              System.out.println("File not found: " + e.getMessage()); } finally
+              { System.out.println("Closing resources..."); if (fr != null) {
+              try { fr.close(); } catch (IOException e) { e.printStackTrace(); }
+              } } } }</code
+            >
+          </div>
+
+          <h3>When Finally Block Executes</h3>
+          <div class="flow-diagram">
+            Normal Flow: try → no exception → finally → continue Exception Flow:
+            try → exception → catch → finally → continue Finally ALWAYS executes
+            except in these rare cases: - System.exit() is called - Thread is
+            killed - JVM crashes
+          </div>
+
+          <h3>Example: Return Statement in Finally</h3>
+          <div class="code-block">
+            <code
+              >public class FinallyWithReturn { public static int getValue() {
+              try { return 10; } finally { System.out.println("Finally block
+              executes even with return!"); } } public static void main(String[]
+              args) { System.out.println("Value: " + getValue()); } }</code
+            >
+          </div>
+
+          <div class="key-point">
+            <strong>Output:</strong> Finally block executes even with return!
+            Value: 10
+          </div>
+
+          <div class="best-practice">
+            <strong>Best Practice:</strong> Use try-with-resources instead of
+            finally for resource management. It's cleaner and more reliable.
+          </div>
+        </div>
+
+        <!-- Section 7: Custom Exceptions -->
+        <div class="section" id="custom">
+          <h2>7. Custom Exceptions</h2>
+          <p>
+            You can create your own exception classes by extending Exception or
+            RuntimeException.
+          </p>
+
+          <h3>Creating a Checked Custom Exception</h3>
+          <div class="code-block">
+            <code
+              >// Custom checked exception public class
+              InsufficientFundsException extends Exception { public
+              InsufficientFundsException(String message) { super(message); }
+              public InsufficientFundsException(String message, Throwable cause)
+              { super(message, cause); } }</code
+            >
+          </div>
+
+          <h3>Creating an Unchecked Custom Exception</h3>
+          <div class="code-block">
+            <code
+              >// Custom unchecked exception public class InvalidAgeException
+              extends RuntimeException { public InvalidAgeException(String
+              message) { super(message); } public InvalidAgeException(String
+              message, Throwable cause) { super(message, cause); } }</code
+            >
+          </div>
+
+          <h3>Using Custom Exceptions</h3>
+          <div class="code-block">
+            <code
+              >public class BankAccount { private double balance = 1000; public
+              void withdraw(double amount) throws InsufficientFundsException {
+              if (amount > balance) { throw new InsufficientFundsException(
+              "Insufficient funds. Balance: " + balance + ", Requested: " +
+              amount ); } balance -= amount; System.out.println("Withdrawal
+              successful. New balance: " + balance); } public static void
+              main(String[] args) { BankAccount account = new BankAccount(); try
+              { account.withdraw(500); // Success account.withdraw(600); //
+              Throws exception } catch (InsufficientFundsException e) {
+              System.out.println("Error: " + e.getMessage()); } } }</code
+            >
+          </div>
+
+          <h3>Custom Exception with Business Logic</h3>
+          <div class="code-block">
+            <code
+              >public class AgeValidationException extends RuntimeException {
+              private int providedAge; private static final int MINIMUM_AGE =
+              18; public AgeValidationException(int age, String message) {
+              super(message); this.providedAge = age; } public int
+              getProvidedAge() { return providedAge; } public int
+              getMinimumAge() { return MINIMUM_AGE; } } public class Person {
+              public void validateAge(int age) { if (age < 18) { throw new
+              AgeValidationException(age, "Age must be at least 18"); }
+              System.out.println("Age is valid"); } public static void
+              main(String[] args) { Person person = new Person(); try {
+              person.validateAge(15); } catch (AgeValidationException e) {
+              System.out.println("Error: " + e.getMessage());
+              System.out.println("Provided: " + e.getProvidedAge() + ",
+              Required: " + e.getMinimumAge()); } } }</code
+            >
+          </div>
+
+          <div class="box">
+            <strong>When to Create Custom Exceptions:</strong>
+            <ul class="example-list">
+              <li>When you need domain-specific error information</li>
+              <li>To distinguish between different failure scenarios</li>
+              <li>To add custom methods or fields for error details</li>
+              <li>To make error handling more specific in catch blocks</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Section 8: Best Practices -->
+        <div class="section" id="best">
+          <h2>8. Best Practices for Exception Handling</h2>
+
+          <h3>1. Use Specific Exceptions</h3>
+          <div class="code-block">
+            <code
+              >// GOOD - Specific exception try { // risky code } catch
+              (FileNotFoundException e) { System.out.println("File not found");
+              } // BAD - Too generic try { // risky code } catch (Exception e) {
+              System.out.println("Something went wrong"); }</code
+            >
+          </div>
+
+          <h3>2. Don't Swallow Exceptions</h3>
+          <div class="code-block">
+            <code
+              >// BAD - Silent failure try { // risky code } catch (Exception e)
+              { // Do nothing - exception is swallowed! } // GOOD - Log or
+              handle the exception try { // risky code } catch (Exception e) {
+              System.err.println("Error occurred: " + e.getMessage());
+              e.printStackTrace(); }</code
+            >
+          </div>
+
+          <h3>3. Don't Use Exceptions for Control Flow</h3>
+          <div class="code-block">
+            <code
+              >// BAD - Using exception for control flow try { while (true) {
+              int value = Integer.parseInt(userInput()); } } catch
+              (NumberFormatException e) { System.out.println("Input ended"); }
+              // GOOD - Use proper control flow while (true) { try { int value =
+              Integer.parseInt(userInput()); break; } catch
+              (NumberFormatException e) { System.out.println("Invalid number,
+              try again"); } }</code
+            >
+          </div>
+
+          <h3>4. Clean Up Resources</h3>
+          <div class="code-block">
+            <code
+              >// GOOD - Using try-with-resources try (FileReader fr = new
+              FileReader("file.txt")) { // Use resource } catch (IOException e)
+              { e.printStackTrace(); } // Resource is automatically closed</code
+            >
+          </div>
+
+          <h3>5. Provide Meaningful Messages</h3>
+          <div class="code-block">
+            <code
+              >// BAD throw new Exception("Error"); // GOOD throw new
+              InvalidUserException( "User ID must be greater than 0. Received: "
+              + userId );</code
+            >
+          </div>
+
+          <h3>6. Log Exceptions Properly</h3>
+          <div class="code-block">
+            <code
+              >import java.util.logging.Logger; public class
+              ExceptionLoggingExample { private static final Logger logger =
+              Logger.getLogger(ExceptionLoggingExample.class.getName()); public
+              void processData() { try { // risky operation } catch (Exception
+              e) { logger.severe("Failed to process data: " + e.getMessage());
+              e.printStackTrace(); } } }</code
+            >
+          </div>
+
+          <h3>7. Exception Chaining</h3>
+          <div class="code-block">
+            <code
+              >public class DatabaseException extends Exception { public
+              DatabaseException(String message, Throwable cause) {
+              super(message, cause); } } public class UserService { public void
+              getUserData(int userId) throws DatabaseException { try { //
+              Database operation } catch (SQLException e) { // Preserve original
+              exception - exception chaining throw new DatabaseException(
+              "Failed to fetch user: " + userId, e ); } } }</code
+            >
+          </div>
+        </div>
+
+        <!-- Section 9: Interview Questions -->
+        <div class="section" id="interview">
+          <h2>9. Interview Questions & Answers</h2>
+
+          <div class="interview-question">
+            <strong
+              >Q1: What is the difference between Error and Exception?</strong
+            >
+            <div class="answer">
+              <p>
+                <strong>Error:</strong> Represents severe problems that are not
+                expected to be caught. Examples: OutOfMemoryError,
+                StackOverflowError.
+              </p>
+              <p>
+                <strong>Exception:</strong> Represents conditions that a program
+                can handle. Can be caught and handled using try-catch.
+              </p>
+              <p>
+                Errors are for abnormal conditions outside application control,
+                while exceptions are for application errors that can be
+                recovered.
+              </p>
+            </div>
+          </div>
+
+          <div class="interview-question">
+            <strong
+              >Q2: What is the difference between Checked and Unchecked
+              Exceptions?</strong
+            >
+            <div class="answer">
+              <p>
+                <strong>Checked:</strong> Must be caught or declared. Checked at
+                compile-time. Examples: IOException, SQLException.
+              </p>
+              <p>
+                <strong>Unchecked:</strong> Don't need to be caught. Checked at
+                runtime. Examples: NullPointerException, ArithmeticException.
+              </p>
+              <p>
+                Checked exceptions extend Exception class, while unchecked
+                extend RuntimeException.
+              </p>
+            </div>
+          </div>
+
+          <div class="interview-question">
+            <strong
+              >Q3: Can a finally block exist without a catch block?</strong
+            >
+            <div class="answer">
+              <p>
+                <strong>Yes!</strong> You can have try-finally without catch.
+                The structure is:
+              </p>
+              <div class="code-block">
+                <code>try { // code } finally { // cleanup code }</code>
+              </div>
+              <p>However, you cannot have catch or finally without try.</p>
+            </div>
+          </div>
+
+          <div class="interview-question">
+            <strong>Q4: What is exception chaining?</strong>
+            <div class="answer">
+              <p>
+                Exception chaining is wrapping a caught exception with another
+                exception while preserving the original exception's stack trace.
+              </p>
+              <div class="code-block">
+                <code
+                  >try { // code that throws SQLException } catch (SQLException
+                  e) { throw new DatabaseException("Failed", e); // e is chained
+                  }</code
+                >
+              </div>
+              <p>
+                This preserves the original exception for debugging while
+                throwing a more meaningful exception to the caller.
+              </p>
+            </div>
+          </div>
+
+          <div class="interview-question">
+            <strong>Q5: What is try-with-resources?</strong>
+            <div class="answer">
+              <p>
+                A Java 7+ feature that automatically closes resources
+                implementing AutoCloseable without explicit close() calls.
+              </p>
+              <div class="code-block">
+                <code
+                  >try (FileReader fr = new FileReader("file.txt")) { // Use
+                  resource } catch (IOException e) { e.printStackTrace(); } //
+                  Resource auto-closed</code
+                >
+              </div>
+              <p>
+                Benefits: Cleaner code, automatic resource management, prevents
+                resource leaks.
+              </p>
+            </div>
+          </div>
+
+          <div class="interview-question">
+            <strong
+              >Q6: What happens if both catch and finally throw
+              exceptions?</strong
+            >
+            <div class="answer">
+              <p>
+                The exception from finally block will override the exception
+                from catch block.
+              </p>
+              <div class="code-block">
+                <code
+                  >try { throw new IOException("Original"); } catch (IOException
+                  e) { throw new SQLException("From catch"); } finally { throw
+                  new RuntimeException("From finally"); // This exception will
+                  be thrown to caller }</code
+                >
+              </div>
+              <p>Best practice: Avoid throwing exceptions in finally blocks.</p>
+            </div>
+          </div>
+
+          <div class="interview-question">
+            <strong
+              >Q7: Explain the flow when exception occurs in finally
+              block</strong
+            >
+            <div class="answer">
+              <div class="flow-diagram">
+                1. Exception in try block 2. Catch block executes (if matches)
+                3. Finally block executes 4. If finally throws exception →
+                caller gets finally exception 5. Original exception is lost
+              </div>
+              <p>
+                This is why finally should not throw exceptions or return
+                values.
+              </p>
+            </div>
+          </div>
+
+          <div class="interview-question">
+            <strong>Q8: What are the advantages of custom exceptions?</strong>
+            <div class="answer">
+              <ul class="example-list">
+                <li>More specific error handling</li>
+                <li>Better documentation of expected errors</li>
+                <li>Can include custom methods for error details</li>
+                <li>Distinguish between different failure scenarios</li>
+                <li>Provide context-specific information</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="interview-question">
+            <strong>Q9: When should you use throws vs try-catch?</strong>
+            <div class="answer">
+              <p>
+                <strong>Use throws:</strong> When the caller is better suited to
+                handle the exception or to propagate it up the call stack.
+              </p>
+              <p>
+                <strong>Use try-catch:</strong> When you can meaningfully handle
+                the exception at the current level.
+              </p>
+              <div class="code-block">
+                <code
+                  >// Use throws - let framework handle public void
+                  readFile(String filename) throws IOException { FileReader fr =
+                  new FileReader(filename); } // Use try-catch - we can handle
+                  it public void saveWithFallback(String filename) { try {
+                  save(filename); } catch (IOException e) {
+                  saveToDifferentLocation(filename); } }</code
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="interview-question">
+            <strong>Q10: What is the output of this code?</strong>
+            <div class="code-block">
+              <code
+                >public class FinallyTest { public static int getValue() { try {
+                return 1; } finally { System.out.println("In finally"); } }
+                public static void main(String[] args) {
+                System.out.println(getValue()); } }</code
+              >
+            </div>
+            <div class="answer">
+              <div class="code-block">
+                <code>Output: In finally 1</code>
+              </div>
+              <p>
+                The finally block executes even before the return statement. The
+                return value (1) is prepared first, then finally executes, then
+                the value is returned.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <p>
+          Java Exceptions Learning Guide | Created for Interview Preparation
+        </p>
+        <p>
+          Last Updated: November 2025 | Study wisely and practice coding
+          examples!
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -55,12 +55,353 @@
         });
     </script>
     <div class="container">
-        <div class="content">
-            <div class="topic">
-                <h2>HashMap Fundamentals</h2>
-                <p>Learn hash functions, collision handling, and hash table operations.</p>
-            </div>
+      <div class="content">
+        <div class="topic">
+          <h2>HashMap - Complete Guide</h2>
+          
+          <h3>What is a HashMap?</h3>
+          <p>HashMap is a data structure that implements a hash table - a structure that maps keys to values using a hash function. It provides O(1) average case access time for get and put operations.</p>
+          
+          <h3>Key Concepts:</h3>
+          <ul>
+            <li><strong>Hash Function:</strong> Maps keys to array indices</li>
+            <li><strong>Collision:</strong> When two keys hash to same index</li>
+            <li><strong>Load Factor:</strong> Ratio of entries to capacity (default 0.75)</li>
+            <li><strong>Rehashing:</strong> Creating larger table when load factor exceeded</li>
+            <li><strong>Bucket:</strong> Array position containing key-value pairs</li>
+            <li><strong>Chaining:</strong> Linked list in bucket for collision handling</li>
+          </ul>
+
+          <h3>HashMap vs HashTable vs ConcurrentHashMap:</h3>
+          <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+            <tr style="background-color: #f2f2f2;">
+              <th style="border: 1px solid #ddd; padding: 8px;">Feature</th>
+              <th style="border: 1px solid #ddd; padding: 8px;">HashMap</th>
+              <th style="border: 1px solid #ddd; padding: 8px;">HashTable</th>
+              <th style="border: 1px solid #ddd; padding: 8px;">ConcurrentHashMap</th>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #ddd; padding: 8px;">Thread Safe</td>
+              <td style="border: 1px solid #ddd; padding: 8px;">No</td>
+              <td style="border: 1px solid #ddd; padding: 8px;">Yes (Legacy)</td>
+              <td style="border: 1px solid #ddd; padding: 8px;">Yes (Segment Lock)</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #ddd; padding: 8px;">Null Key/Value</td>
+              <td style="border: 1px solid #ddd; padding: 8px;">Allowed</td>
+              <td style="border: 1px solid #ddd; padding: 8px;">Not Allowed</td>
+              <td style="border: 1px solid #ddd; padding: 8px;">Not Allowed</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #ddd; padding: 8px;">Performance</td>
+              <td style="border: 1px solid #ddd; padding: 8px;">Fast</td>
+              <td style="border: 1px solid #ddd; padding: 8px;">Slow</td>
+              <td style="border: 1px solid #ddd; padding: 8px;">Fast (Multi-thread)</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #ddd; padding: 8px;">Iteration</td>
+              <td style="border: 1px solid #ddd; padding: 8px;">Fail-fast</td>
+              <td style="border: 1px solid #ddd; padding: 8px;">Fail-fast</td>
+              <td style="border: 1px solid #ddd; padding: 8px;">Weakly Consistent</td>
+            </tr>
+          </table>
+
+          <h3>Basic HashMap Operations:</h3>
+          <pre><code>
+Map<String, Integer> map = new HashMap<>();
+
+// put() - O(1) average
+map.put("apple", 5);
+map.put("banana", 3);
+
+// get() - O(1) average
+Integer value = map.get("apple");  // Returns 5
+Integer missing = map.get("orange");  // Returns null
+
+// containsKey() - O(1) average
+if (map.containsKey("apple")) {
+    System.out.println("Found");
+}
+
+// remove() - O(1) average
+map.remove("banana");
+
+// size() - O(1)
+int size = map.size();
+
+// Iteration
+for (String key : map.keySet()) {
+    System.out.println(key + ": " + map.get(key));
+}
+
+for (Map.Entry<String, Integer> entry : map.entrySet()) {
+    System.out.println(entry.getKey() + ": " + entry.getValue());
+}
+          </code></pre>
+
+          <h3>Hash Function Implementation:</h3>
+          <pre><code>
+class SimpleHashMap<K, V> {
+    private static final int CAPACITY = 16;
+    private Entry<K, V>[] table;
+    private int size;
+    
+    @SuppressWarnings("unchecked")
+    public SimpleHashMap() {
+        table = new Entry[CAPACITY];
+        size = 0;
+    }
+    
+    private int hash(K key) {
+        if (key == null) return 0;
+        return Math.abs(key.hashCode()) % CAPACITY;
+    }
+    
+    public void put(K key, V value) {
+        if (size > CAPACITY * 0.75) {
+            rehash();  // Resize when load factor exceeded
+        }
+        
+        int index = hash(key);
+        Entry<K, V> entry = table[index];
+        
+        // Chaining: traverse linked list for collision
+        while (entry != null) {
+            if ((entry.key == null && key == null) || 
+                (entry.key != null && entry.key.equals(key))) {
+                entry.value = value;  // Update existing
+                return;
+            }
+            entry = entry.next;
+        }
+        
+        // Add new entry at head
+        Entry<K, V> newEntry = new Entry<>(key, value);
+        newEntry.next = table[index];
+        table[index] = newEntry;
+        size++;
+    }
+    
+    public V get(K key) {
+        int index = hash(key);
+        Entry<K, V> entry = table[index];
+        
+        while (entry != null) {
+            if ((entry.key == null && key == null) || 
+                (entry.key != null && entry.key.equals(key))) {
+                return entry.value;
+            }
+            entry = entry.next;
+        }
+        return null;
+    }
+    
+    @SuppressWarnings("unchecked")
+    private void rehash() {
+        Entry<K, V>[] oldTable = table;
+        CAPACITY = CAPACITY * 2;
+        table = new Entry[CAPACITY];
+        size = 0;
+        
+        for (Entry<K, V> entry : oldTable) {
+            while (entry != null) {
+                put(entry.key, entry.value);
+                entry = entry.next;
+            }
+        }
+    }
+    
+    static class Entry<K, V> {
+        K key;
+        V value;
+        Entry<K, V> next;
+        
+        Entry(K key, V value) {
+            this.key = key;
+            this.value = value;
+        }
+    }
+}
+          </code></pre>
+
+          <h3>Collision Resolution Strategies:</h3>
+          <pre><code>
+// 1. Chaining (Java HashMaps default)
+// Multiple entries in same bucket using linked list
+// Lookup: O(1) average, O(n) worst case
+
+// 2. Open Addressing with Linear Probing
+public void put_linear(K key, V value) {
+    int index = hash(key);
+    
+    while (table[index] != null && 
+           !table[index].key.equals(key)) {
+        index = (index + 1) % CAPACITY;  // Move to next
+    }
+    table[index] = new Entry(key, value);
+}
+
+// 3. Quadratic Probing
+public void put_quadratic(K key, V value) {
+    int index = hash(key);
+    int i = 1;
+    
+    while (table[index] != null && 
+           !table[index].key.equals(key)) {
+        index = (hash(key) + i * i) % CAPACITY;
+        i++;
+    }
+    table[index] = new Entry(key, value);
+}
+
+// 4. Double Hashing
+public void put_double(K key, V value) {
+    int index = hash(key);
+    int stepSize = 7 - (hash(key) % 7);  // Secondary hash
+    
+    while (table[index] != null && 
+           !table[index].key.equals(key)) {
+        index = (index + stepSize) % CAPACITY;
+    }
+    table[index] = new Entry(key, value);
+}
+          </code></pre>
+
+          <h3>Common Interview Problems:</h3>
+          <ul>
+            <li><strong>Two Sum:</strong> Find pair of numbers with target sum</li>
+            <li><strong>Contains Duplicate:</strong> Check if array has duplicates</li>
+            <li><strong>Group Anagrams:</strong> Group words that are anagrams</li>
+            <li><strong>Valid Anagram:</strong> Check if two strings are anagrams</li>
+            <li><strong>Majority Element:</strong> Find element appearing more than n/2 times</li>
+            <li><strong>LRU Cache:</strong> Implement cache with eviction policy</li>
+            <li><strong>Isomorphic Strings:</strong> Check pattern matching between strings</li>
+            <li><strong>Word Pattern:</strong> Verify if pattern matches string</li>
+          </ul>
+
+          <h3>Time & Space Complexity:</h3>
+          <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+            <tr style="background-color: #f2f2f2;">
+              <th style="border: 1px solid #ddd; padding: 8px;">Operation</th>
+              <th style="border: 1px solid #ddd; padding: 8px;">Average</th>
+              <th style="border: 1px solid #ddd; padding: 8px;">Worst Case</th>
+              <th style="border: 1px solid #ddd; padding: 8px;">Notes</th>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #ddd; padding: 8px;">put()</td>
+              <td style="border: 1px solid #ddd; padding: 8px;">O(1)</td>
+              <td style="border: 1px solid #ddd; padding: 8px;">O(n)</td>
+              <td style="border: 1px solid #ddd; padding: 8px;">With chaining, if all hash to same</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #ddd; padding: 8px;">get()</td>
+              <td style="border: 1px solid #ddd; padding: 8px;">O(1)</td>
+              <td style="border: 1px solid #ddd; padding: 8px;">O(n)</td>
+              <td style="border: 1px solid #ddd; padding: 8px;">Depends on chain length</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #ddd; padding: 8px;">remove()</td>
+              <td style="border: 1px solid #ddd; padding: 8px;">O(1)</td>
+              <td style="border: 1px solid #ddd; padding: 8px;">O(n)</td>
+              <td style="border: 1px solid #ddd; padding: 8px;">Same as get</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #ddd; padding: 8px;">containsKey()</td>
+              <td style="border: 1px solid #ddd; padding: 8px;">O(1)</td>
+              <td style="border: 1px solid #ddd; padding: 8px;">O(n)</td>
+              <td style="border: 1px solid #ddd; padding: 8px;">Same as get</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #ddd; padding: 8px;">Space</td>
+              <td style="border: 1px solid #ddd; padding: 8px;">O(n)</td>
+              <td style="border: 1px solid #ddd; padding: 8px;">O(n)</td>
+              <td style="border: 1px solid #ddd; padding: 8px;">Where n is number of entries</td>
+            </tr>
+          </table>
+
+          <h3>Example - Two Sum Problem:</h3>
+          <pre><code>
+public int[] twoSum(int[] nums, int target) {
+    Map<Integer, Integer> map = new HashMap<>();
+    
+    for (int i = 0; i < nums.length; i++) {
+        int complement = target - nums[i];
+        
+        if (map.containsKey(complement)) {
+            return new int[] { map.get(complement), i };
+        }
+        
+        map.put(nums[i], i);
+    }
+    
+    return null;
+}
+
+// Time: O(n), Space: O(n)
+          </code></pre>
+
+          <h3>Example - Group Anagrams:</h3>
+          <pre><code>
+public List<List<String>> groupAnagrams(String[] strs) {
+    Map<String, List<String>> map = new HashMap<>();
+    
+    for (String str : strs) {
+        char[] chars = str.toCharArray();
+        Arrays.sort(chars);
+        String key = new String(chars);
+        
+        map.putIfAbsent(key, new ArrayList<>());
+        map.get(key).add(str);
+    }
+    
+    return new ArrayList<>(map.values());
+}
+
+// Input: ["eat", "tea", "ate", "nat", "tan", "bat"]
+// Output: [["eat","tea","ate"], ["nat","tan"], ["bat"]]
+// Time: O(n*k*logk), Space: O(n*k)
+          </code></pre>
+
+          <h3>Advantages & Disadvantages:</h3>
+          <p><strong>Advantages:</strong></p>
+          <ul>
+            <li>O(1) average time for basic operations</li>
+            <li>Flexible key-value mapping</li>
+            <li>Handles null keys and values (HashMap)</li>
+            <li>Simple and intuitive to use</li>
+          </ul>
+          <p><strong>Disadvantages:</strong></p>
+          <ul>
+            <li>O(n) worst case for operations</li>
+            <li>Extra space for hash table</li>
+            <li>Not ordered (use LinkedHashMap for order)</li>
+            <li>Hash collisions possible</li>
+            <li>Not thread-safe (use ConcurrentHashMap)</li>
+          </ul>
+
+          <h3>Real-world Applications:</h3>
+          <ul>
+            <li>Caching and memoization</li>
+            <li>Database indexing</li>
+            <li>Counting frequencies</li>
+            <li>Symbol tables in compilers</li>
+            <li>URL mapping in web servers</li>
+            <li>Deduplication</li>
+            <li>Session storage</li>
+          </ul>
+
+          <h3>Key Interview Questions:</h3>
+          <ul>
+            <li>How does HashMap handle hash collisions?</li>
+            <li>Why is load factor important? When to rehash?</li>
+            <li>What's the difference between HashMap and HashTable?</li>
+            <li>Can you explain the hash function and its properties?</li>
+            <li>What's time complexity of get/put in worst case?</li>
+            <li>How would you implement a custom HashMap?</li>
+            <li>When would you use TreeMap over HashMap?</li>
+          </ul>
         </div>
+      </div>
     </div>
     <footer>
         <div class="container">

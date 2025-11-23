@@ -57,8 +57,182 @@
     <div class="container">
         <div class="content">
             <div class="topic">
-                <h2>Stack Fundamentals</h2>
-                <p>Learn stack operations, LIFO principle, and stack-based algorithms.</p>
+                <h2>Stack - Complete Guide</h2>
+                
+                <h3>What is a Stack?</h3>
+                <p>A stack is a linear data structure that follows the LIFO (Last In, First Out) principle. The last element added is the first one to be removed.</p>
+                
+                <h3>Key Characteristics:</h3>
+                <ul>
+                    <li><strong>LIFO:</strong> Last In, First Out principle</li>
+                    <li><strong>Operations:</strong> Push (add), Pop (remove), Peek (view top)</li>
+                    <li><strong>Single End Access:</strong> Only top element is accessible</li>
+                    <li><strong>Limited Memory:</strong> Stack memory is limited (unlike heap)</li>
+                </ul>
+
+                <h3>Time Complexity:</h3>
+                <ul>
+                    <li><strong>Push:</strong> O(1) - Add to top</li>
+                    <li><strong>Pop:</strong> O(1) - Remove from top</li>
+                    <li><strong>Peek:</strong> O(1) - View top element</li>
+                    <li><strong>Search:</strong> O(n) - May need to traverse</li>
+                </ul>
+
+                <h3>Stack Implementation:</h3>
+                <pre><code>
+// Using Array
+class Stack {
+    int[] arr;
+    int top = -1;
+    
+    Stack(int size) {
+        arr = new int[size];
+    }
+    
+    void push(int x) {
+        if (top == arr.length - 1) {
+            System.out.println("Stack Overflow");
+        } else {
+            arr[++top] = x;
+        }
+    }
+    
+    int pop() {
+        if (top == -1) {
+            System.out.println("Stack Underflow");
+            return -1;
+        }
+        return arr[top--];
+    }
+    
+    int peek() {
+        if (top == -1) {
+            return -1;
+        }
+        return arr[top];
+    }
+    
+    boolean isEmpty() {
+        return top == -1;
+    }
+}
+
+// Java's Built-in Stack
+Stack<Integer> stack = new Stack<>();
+stack.push(10);
+stack.push(20);
+stack.push(30);
+int top = stack.pop();        // 30
+int peek = stack.peek();       // 20
+boolean empty = stack.isEmpty(); // false
+                </code></pre>
+
+                <h3>Common Interview Problems:</h3>
+                <ul>
+                    <li><strong>Valid Parentheses:</strong> Check if parentheses are balanced</li>
+                    <li><strong>Next Greater Element:</strong> Find next greater element</li>
+                    <li><strong>Largest Rectangle in Histogram:</strong> Calculate largest rectangle</li>
+                    <li><strong>Daily Temperatures:</strong> Find warmer day</li>
+                    <li><strong>Minimum Stack:</strong> Get min in O(1)</li>
+                    <li><strong>Evaluate Reverse Polish Notation:</strong> Calculate postfix expression</li>
+                    <li><strong>Decode String:</strong> Decode pattern-encoded strings</li>
+                </ul>
+
+                <h3>Example: Valid Parentheses</h3>
+                <pre><code>
+public boolean isValid(String s) {
+    Stack<Character> stack = new Stack<>();
+    
+    for (char c : s.toCharArray()) {
+        if (c == '(' || c == '{' || c == '[') {
+            stack.push(c);
+        } else {
+            if (stack.isEmpty()) return false;
+            
+            char top = stack.pop();
+            if ((c == ')' && top != '(') ||
+                (c == '}' && top != '{') ||
+                (c == ']' && top != '[')) {
+                return false;
+            }
+        }
+    }
+    return stack.isEmpty();
+}
+                </code></pre>
+
+                <h3>Example: Min Stack (with O(1) min retrieval)</h3>
+                <pre><code>
+class MinStack {
+    Stack<Integer> stack;
+    Stack<Integer> minStack;
+    
+    MinStack() {
+        stack = new Stack<>();
+        minStack = new Stack<>();
+    }
+    
+    void push(int x) {
+        stack.push(x);
+        if (minStack.isEmpty() || x <= minStack.peek()) {
+            minStack.push(x);
+        }
+    }
+    
+    void pop() {
+        if (stack.pop().equals(minStack.peek())) {
+            minStack.pop();
+        }
+    }
+    
+    int getMin() {
+        return minStack.peek();
+    }
+}
+                </code></pre>
+
+                <h3>Example: Next Greater Element</h3>
+                <pre><code>
+public int[] nextGreaterElement(int[] nums) {
+    int[] result = new int[nums.length];
+    Stack<Integer> stack = new Stack<>();
+    
+    for (int i = nums.length - 1; i >= 0; i--) {
+        // Pop all smaller elements
+        while (!stack.isEmpty() && stack.peek() <= nums[i]) {
+            stack.pop();
+        }
+        
+        result[i] = stack.isEmpty() ? -1 : stack.peek();
+        stack.push(nums[i]);
+    }
+    return result;
+}
+                </code></pre>
+
+                <h3>Real-world Applications:</h3>
+                <ul>
+                    <li>Expression evaluation (Infix to Postfix conversion)</li>
+                    <li>Function call stack in programming languages</li>
+                    <li>Browser back button functionality</li>
+                    <li>Undo/Redo functionality in text editors</li>
+                    <li>Depth-first search (DFS) in graphs</li>
+                    <li>Memory management (call stack)</li>
+                </ul>
+
+                <h3>Advantages & Disadvantages:</h3>
+                <p><strong>Advantages:</strong></p>
+                <ul>
+                    <li>Simple and easy to implement</li>
+                    <li>Efficient O(1) operations</li>
+                    <li>Useful for specific problems</li>
+                </ul>
+                <p><strong>Disadvantages:</strong></p>
+                <ul>
+                    <li>No random access</li>
+                    <li>Can overflow if array-based</li>
+                    <li>Can underflow if not checked</li>
+                </ul>
             </div>
         </div>
     </div>

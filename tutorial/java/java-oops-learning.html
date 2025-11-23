@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Java OOP - Complete Learning Guide | Interview Ready</title>
+    <meta
+      name="description"
+      content="Master Java Object-Oriented Programming with comprehensive examples, design patterns, and interview questions. Learn classes, inheritance, polymorphism, abstraction, and encapsulation."
+    />
+    <meta
+      name="keywords"
+      content="Java OOP, Object-Oriented Programming, Classes, Inheritance, Polymorphism, Abstraction, Encapsulation, Interface, Interview Questions"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+      }
+
+      header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 40px 20px;
+        text-align: center;
+      }
+
+      header h1 {
+        font-size: 2.5em;
+        margin-bottom: 10px;
+      }
+
+      header p {
+        font-size: 1.1em;
+        opacity: 0.9;
+      }
+
+      .content {
+        padding: 40px 30px;
+      }
+
+      .section {
+        margin-bottom: 40px;
+        border-left: 5px solid #667eea;
+        padding-left: 20px;
+      }
+
+      .section h2 {
+        color: #667eea;
+        font-size: 1.8em;
+        margin-bottom: 15px;
+      }
+
+      .section h3 {
+        color: #764ba2;
+        font-size: 1.3em;
+        margin-top: 20px;
+        margin-bottom: 10px;
+      }
+
+      .code-block {
+        background: #f5f5f5;
+        border-left: 4px solid #667eea;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 5px;
+        overflow-x: auto;
+        font-family: "Courier New", monospace;
+        font-size: 0.95em;
+        line-height: 1.5;
+      }
+
+      .code-block code {
+        color: #333;
+      }
+
+      .highlight-key {
+        background: #fffacd;
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-weight: bold;
+      }
+
+      .box {
+        background: #f0f4ff;
+        border: 2px solid #667eea;
+        padding: 15px;
+        border-radius: 5px;
+        margin: 15px 0;
+      }
+
+      .box strong {
+        color: #667eea;
+      }
+
+      .warning-box {
+        background: #fff3cd;
+        border: 2px solid #ffc107;
+        padding: 15px;
+        border-radius: 5px;
+        margin: 15px 0;
+      }
+
+      .success-box {
+        background: #d4edda;
+        border: 2px solid #28a745;
+        padding: 15px;
+        border-radius: 5px;
+        margin: 15px 0;
+      }
+
+      .error-box {
+        background: #f8d7da;
+        border: 2px solid #dc3545;
+        padding: 15px;
+        border-radius: 5px;
+        margin: 15px 0;
+      }
+
+      .comparison-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 15px 0;
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .comparison-table th {
+        background: #667eea;
+        color: white;
+        padding: 12px;
+        text-align: left;
+        font-weight: bold;
+      }
+
+      .comparison-table td {
+        padding: 12px;
+        border-bottom: 1px solid #ddd;
+      }
+
+      .comparison-table tr:nth-child(even) {
+        background: #f5f5f5;
+      }
+
+      .comparison-table tr:hover {
+        background: #e8e8ff;
+      }
+
+      .example-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .example-list li {
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+        padding-left: 20px;
+        position: relative;
+      }
+
+      .example-list li:before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: #28a745;
+        font-weight: bold;
+      }
+
+      .key-point {
+        background: #fff;
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin: 10px 0;
+        border-radius: 5px;
+        border-left: 4px solid #764ba2;
+      }
+
+      .key-point strong {
+        color: #764ba2;
+      }
+
+      .interview-question {
+        background: #e8eaf6;
+        border: 2px solid #3f51b5;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 5px;
+      }
+
+      .interview-question strong {
+        color: #3f51b5;
+      }
+
+      .answer {
+        background: #f5f5f5;
+        padding: 15px;
+        margin: 10px 0 10px 20px;
+        border-left: 3px solid #28a745;
+        border-radius: 3px;
+      }
+
+      .hierarchy-box {
+        background: #f9f9f9;
+        border: 1px solid #ddd;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 5px;
+        font-family: monospace;
+        line-height: 1.8;
+      }
+
+      .toc {
+        background: #f0f4ff;
+        border: 2px solid #667eea;
+        padding: 20px;
+        border-radius: 5px;
+        margin-bottom: 30px;
+      }
+
+      .toc h3 {
+        color: #667eea;
+        margin-bottom: 15px;
+      }
+
+      .toc ul {
+        list-style-position: inside;
+        padding-left: 0;
+      }
+
+      .toc li {
+        margin: 8px 0;
+      }
+
+      .toc a {
+        color: #667eea;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .toc a:hover {
+        color: #764ba2;
+        text-decoration: underline;
+      }
+
+      footer {
+        background: #f5f5f5;
+        padding: 20px;
+        text-align: center;
+        border-top: 1px solid #ddd;
+        color: #666;
+      }
+
+      .note {
+        background: #e3f2fd;
+        border-left: 4px solid #2196f3;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 3px;
+      }
+
+      .note strong {
+        color: #1976d2;
+      }
+
+      .flow-diagram {
+        background: #f5f5f5;
+        padding: 20px;
+        border-radius: 5px;
+        margin: 15px 0;
+        font-family: monospace;
+        line-height: 2;
+        text-align: center;
+      }
+
+      .best-practice {
+        background: #e8f5e9;
+        border: 2px solid #4caf50;
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 5px;
+      }
+
+      .best-practice strong {
+        color: #2e7d32;
+      }
+
+      .pillar-box {
+        background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+        border: 2px solid #667eea;
+        padding: 20px;
+        margin: 15px 0;
+        border-radius: 5px;
+      }
+
+      .pillar-box h4 {
+        color: #667eea;
+        margin-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Java OOP: Complete Guide</h1>
+        <p>Master Object-Oriented Programming for Technical Interviews</p>
+      </header>
+
+      <div class="content">
+        <!-- Table of Contents -->
+        <div class="toc">
+          <h3>Table of Contents</h3>
+          <ul>
+            <li><a href="#intro">1. Introduction to OOP</a></li>
+            <li><a href="#pillars">2. Four Pillars of OOP</a></li>
+            <li><a href="#classes">3. Classes & Objects</a></li>
+            <li><a href="#encapsulation">4. Encapsulation</a></li>
+            <li><a href="#inheritance">5. Inheritance</a></li>
+            <li><a href="#polymorphism">6. Polymorphism</a></li>
+            <li><a href="#abstraction">7. Abstraction</a></li>
+            <li><a href="#interface">8. Interfaces</a></li>
+            <li><a href="#access">9. Access Modifiers</a></li>
+            <li><a href="#keywords">10. Important Keywords</a></li>
+            <li><a href="#interview">11. Interview Questions</a></li>
+          </ul>
+        </div>
+
+        <!-- Section 1: Introduction -->
+        <div class="section" id="intro">
+          <h2>1. Introduction to Object-Oriented Programming</h2>
+          <p>
+            Object-Oriented Programming is a programming paradigm based on the
+            concept of "objects" that contain data (properties) and code
+            (methods).
+          </p>
+
+          <div class="key-point">
+            <strong>What is OOP?</strong><br />
+            OOP is a programming model that organizes software design around
+            data (objects) and methods that operate on that data, rather than
+            focusing on logic and functions alone.
+          </div>
+
+          <h3>Why Use OOP?</h3>
+          <ul class="example-list">
+            <li>Modular and organized code structure</li>
+            <li>Easier code maintenance and reusability</li>
+            <li>Better security through encapsulation</li>
+            <li>Flexible and scalable design</li>
+            <li>Real-world modeling through objects</li>
+          </ul>
+
+          <h3>Procedural vs Object-Oriented</h3>
+          <div class="code-block">
+            <code
+              >// Procedural Approach class Calculator { public int add(int a,
+              int b) { return a + b; } } // OOP Approach - Models real-world
+              entities class BankAccount { private double balance; private
+              String accountNumber; public void deposit(double amount) {
+              this.balance += amount; } public void withdraw(double amount) { if
+              (amount <= this.balance) { this.balance -= amount; } } }</code
+            >
+          </div>
+        </div>
+
+        <!-- Section 2: Four Pillars of OOP -->
+        <div class="section" id="pillars">
+          <h2>2. Four Pillars of Object-Oriented Programming</h2>
+
+          <div class="pillar-box">
+            <h4>1. Encapsulation</h4>
+            <p>
+              Bundling data (variables) and methods (functions) into a single
+              unit (class) and hiding internal details from the outside world.
+            </p>
+          </div>
+
+          <div class="pillar-box">
+            <h4>2. Inheritance</h4>
+            <p>
+              A mechanism where a new class (child/derived) inherits properties
+              and methods from an existing class (parent/base).
+            </p>
+          </div>
+
+          <div class="pillar-box">
+            <h4>3. Polymorphism</h4>
+            <p>
+              The ability of objects to take multiple forms, allowing you to use
+              a single interface to represent different underlying data types.
+            </p>
+          </div>
+
+          <div class="pillar-box">
+            <h4>4. Abstraction</h4>
+            <p>
+              Showing only essential features and hiding complex implementation
+              details from the user.
+            </p>
+          </div>
+
+          <div class="success-box">
+            <strong>Remember:</strong> These four pillars work together to
+            create clean, maintainable, and scalable code.
+          </div>
+        </div>
+
+        <!-- Section 3: Classes & Objects -->
+        <div class="section" id="classes">
+          <h2>3. Classes & Objects</h2>
+          <p>
+            A class is a blueprint for creating objects. An object is an
+            instance of a class.
+          </p>
+
+          <h3>Basic Class Structure</h3>
+          <div class="code-block">
+            <code
+              >public class Person { // Member Variables (State) private String
+              name; private int age; private String email; // Constructor
+              (Initialize objects) public Person(String name, int age, String
+              email) { this.name = name; this.age = age; this.email = email; }
+              // Methods (Behavior) public void displayInfo() {
+              System.out.println("Name: " + name + ", Age: " + age); } //
+              Getters public String getName() { return this.name; } // Setters
+              public void setName(String name) { this.name = name; } }</code
+            >
+          </div>
+
+          <h3>Creating Objects</h3>
+          <div class="code-block">
+            <code
+              >// Creating objects from the Person class Person person1 = new
+              Person("Alice", 25, "alice@example.com"); Person person2 = new
+              Person("Bob", 30, "bob@example.com"); // Calling methods
+              person1.displayInfo(); // Output: Name: Alice, Age: 25
+              person2.displayInfo(); // Output: Name: Bob, Age: 30</code
+            >
+          </div>
+
+          <h3>Constructors</h3>
+          <div class="code-block">
+            <code
+              >public class Student { private String name; private int
+              rollNumber; // Default Constructor public Student() { this.name =
+              "Unknown"; this.rollNumber = 0; } // Parameterized Constructor
+              public Student(String name, int rollNumber) { this.name = name;
+              this.rollNumber = rollNumber; } // Copy Constructor public
+              Student(Student other) { this.name = other.name; this.rollNumber =
+              other.rollNumber; } }</code
+            >
+          </div>
+
+          <div class="note">
+            <strong>Constructor Rules:</strong>
+            <ul class="example-list">
+              <li>Same name as class</li>
+              <li>No return type</li>
+              <li>Called when object is created</li>
+              <li>Can be overloaded</li>
+            </ul>
+          </div>
+
+          <h3>The 'this' Keyword</h3>
+          <div class="code-block">
+            <code
+              >public class Car { private String color; private String brand;
+              public Car(String color, String brand) { this.color = color; //
+              'this' refers to current object this.brand = brand; } public void
+              compareWith(Car other) { if (this.brand.equals(other.brand)) {
+              System.out.println("Same brand"); } } }</code
+            >
+          </div>
+        </div>
+
+        <!-- Section 4: Encapsulation -->
+        <div class="section" id="encapsulation">
+          <h2>4. Encapsulation</h2>
+          <p>
+            Encapsulation is bundling related data and methods together while
+            hiding internal implementation.
+          </p>
+
+          <h3>Example: Bad Design (No Encapsulation)</h3>
+          <div class="code-block">
+            <code
+              >// BAD - Direct access to variables public class Account { public
+              double balance = 5000; // Exposed public void withdraw(double
+              amount) { balance -= amount; // No validation } } // Misuse
+              Account acc = new Account(); acc.balance = -1000; // Can set
+              negative balance!</code
+            >
+          </div>
+
+          <h3>Example: Good Design (With Encapsulation)</h3>
+          <div class="code-block">
+            <code
+              >// GOOD - Encapsulated public class Account { private double
+              balance; // Private variable public Account(double initialBalance)
+              { if (initialBalance > 0) { this.balance = initialBalance; } }
+              public void withdraw(double amount) { if (amount > 0 && amount <=
+              balance) { balance -= amount; System.out.println("Withdrawal
+              successful"); } else { System.out.println("Invalid amount"); } }
+              public double getBalance() { return balance; // Controlled access
+              } } // Proper usage Account acc = new Account(5000);
+              acc.withdraw(500); // Works acc.withdraw(-100); // Rejected</code
+            >
+          </div>
+
+          <h3>Benefits of Encapsulation</h3>
+          <ul class="example-list">
+            <li>Data validation before assignment</li>
+            <li>Control how data is accessed</li>
+            <li>
+              Can change internal implementation without affecting external code
+            </li>
+            <li>Protects object's integrity</li>
+          </ul>
+
+          <div class="best-practice">
+            <strong>Best Practice:</strong> Keep variables private and provide
+            public getter/setter methods for controlled access.
+          </div>
+        </div>
+
+        <!-- Section 5: Inheritance -->
+        <div class="section" id="inheritance">
+          <h2>5. Inheritance</h2>
+          <p>
+            Inheritance allows a class to inherit properties and methods from
+            another class. Uses
+            <span class="highlight-key">extends</span> keyword.
+          </p>
+
+          <h3>Basic Inheritance Example</h3>
+          <div class="code-block">
+            <code
+              >// Parent/Base Class public class Animal { protected String name;
+              public Animal(String name) { this.name = name; } public void eat()
+              { System.out.println(name + " is eating"); } public void sleep() {
+              System.out.println(name + " is sleeping"); } } // Child/Derived
+              Class public class Dog extends Animal { public Dog(String name) {
+              super(name); // Call parent constructor } public void bark() {
+              System.out.println(name + " is barking: Woof!"); } // Overriding
+              parent method @Override public void eat() {
+              System.out.println(name + " is eating dog food"); } } // Usage Dog
+              dog = new Dog("Buddy"); dog.eat(); // Output: Buddy is eating dog
+              food dog.sleep(); // Output: Buddy is sleeping dog.bark(); //
+              Output: Buddy is barking: Woof!</code
+            >
+          </div>
+
+          <h3>Types of Inheritance</h3>
+          <table class="comparison-table">
+            <tr>
+              <th>Type</th>
+              <th>Description</th>
+              <th>Example</th>
+            </tr>
+            <tr>
+              <td>Single</td>
+              <td>One parent, one child</td>
+              <td>Dog extends Animal</td>
+            </tr>
+            <tr>
+              <td>Multilevel</td>
+              <td>Chain inheritance</td>
+              <td>Animal → Dog → GoldenRetriever</td>
+            </tr>
+            <tr>
+              <td>Hierarchical</td>
+              <td>Multiple children from one parent</td>
+              <td>Dog, Cat, Bird all extend Animal</td>
+            </tr>
+          </table>
+
+          <h3>Method Overriding</h3>
+          <div class="code-block">
+            <code
+              >public class Shape { public void draw() {
+              System.out.println("Drawing a shape"); } } public class Circle
+              extends Shape { @Override // Annotation indicates overriding
+              public void draw() { System.out.println("Drawing a circle"); } }
+              public class Rectangle extends Shape { @Override public void
+              draw() { System.out.println("Drawing a rectangle"); } }</code
+            >
+          </div>
+
+          <div class="warning-box">
+            <strong>Important Note:</strong> Java does NOT support multiple
+            inheritance with classes. Use interfaces for multiple inheritance.
+          </div>
+        </div>
+
+        <!-- Section 6: Polymorphism -->
+        <div class="section" id="polymorphism">
+          <h2>6. Polymorphism</h2>
+          <p>
+            Polymorphism means "many forms". It allows objects to be treated as
+            objects of their parent class.
+          </p>
+
+          <h3>Method Overloading (Compile-time Polymorphism)</h3>
+          <div class="code-block">
+            <code
+              >public class Calculator { // Method overloading - same name,
+              different parameters public int add(int a, int b) { return a + b;
+              } public double add(double a, double b) { return a + b; } public
+              int add(int a, int b, int c) { return a + b + c; } } // Usage
+              Calculator calc = new Calculator(); System.out.println(calc.add(5,
+              10)); // Calls first method System.out.println(calc.add(5.5,
+              10.5)); // Calls second method System.out.println(calc.add(5, 10,
+              15)); // Calls third method</code
+            >
+          </div>
+
+          <h3>Method Overriding (Runtime Polymorphism)</h3>
+          <div class="code-block">
+            <code
+              >public class Animal { public void makeSound() {
+              System.out.println("Animal sound"); } } public class Dog extends
+              Animal { @Override public void makeSound() {
+              System.out.println("Bark!"); } } public class Cat extends Animal {
+              @Override public void makeSound() { System.out.println("Meow!"); }
+              } // Runtime Polymorphism public class Main { public static void
+              main(String[] args) { Animal animal1 = new Dog(); // Parent
+              reference, child object Animal animal2 = new Cat();
+              animal1.makeSound(); // Output: Bark! animal2.makeSound(); //
+              Output: Meow! } }</code
+            >
+          </div>
+
+          <h3>Polymorphism vs Overloading vs Overriding</h3>
+          <table class="comparison-table">
+            <tr>
+              <th>Concept</th>
+              <th>Type</th>
+              <th>When Resolved</th>
+              <th>Same Signature</th>
+            </tr>
+            <tr>
+              <td>Overloading</td>
+              <td>Compile-time</td>
+              <td>Compile time</td>
+              <td>No (different parameters)</td>
+            </tr>
+            <tr>
+              <td>Overriding</td>
+              <td>Runtime</td>
+              <td>Runtime</td>
+              <td>Yes (same signature)</td>
+            </tr>
+            <tr>
+              <td>Polymorphism</td>
+              <td>Both</td>
+              <td>Depends</td>
+              <td>Can be either</td>
+            </tr>
+          </table>
+
+          <div class="best-practice">
+            <strong>Liskov Substitution Principle:</strong> Objects of a parent
+            class should be replaceable with objects of its child classes
+            without breaking the code.
+          </div>
+        </div>
+
+        <!-- Section 7: Abstraction -->
+        <div class="section" id="abstraction">
+          <h2>7. Abstraction</h2>
+          <p>
+            Abstraction is hiding complex implementation details and showing
+            only the necessary features.
+          </p>
+
+          <h3>Abstract Classes</h3>
+          <div class="code-block">
+            <code
+              >// Abstract class - Cannot be instantiated public abstract class
+              Vehicle { protected String brand; public Vehicle(String brand) {
+              this.brand = brand; } // Abstract method - No implementation
+              public abstract void start(); public abstract void stop(); //
+              Concrete method - Has implementation public void displayBrand() {
+              System.out.println("Brand: " + brand); } } // Concrete class
+              public class Car extends Vehicle { public Car(String brand) {
+              super(brand); } @Override public void start() {
+              System.out.println("Car is starting with engine"); } @Override
+              public void stop() { System.out.println("Car engine stopped"); } }
+              // Usage // Vehicle vehicle = new Vehicle("Toyota"); // ERROR -
+              Cannot instantiate Vehicle car = new Car("Toyota"); car.start();
+              // Output: Car is starting with engine car.displayBrand(); //
+              Output: Brand: Toyota</code
+            >
+          </div>
+
+          <h3>Abstract Methods vs Concrete Methods</h3>
+          <table class="comparison-table">
+            <tr>
+              <th>Feature</th>
+              <th>Abstract Method</th>
+              <th>Concrete Method</th>
+            </tr>
+            <tr>
+              <td>Has Implementation</td>
+              <td>No</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>Must Override</td>
+              <td>Yes</td>
+              <td>Optional</td>
+            </tr>
+            <tr>
+              <td>Syntax</td>
+              <td>Ends with semicolon</td>
+              <td>Has body with braces</td>
+            </tr>
+          </table>
+
+          <h3>Benefits of Abstraction</h3>
+          <ul class="example-list">
+            <li>Reduces complexity</li>
+            <li>Focuses on what, not how</li>
+            <li>Enforces implementation contracts</li>
+            <li>Improves maintainability</li>
+          </ul>
+        </div>
+
+        <!-- Section 8: Interfaces -->
+        <div class="section" id="interface">
+          <h2>8. Interfaces</h2>
+          <p>
+            An interface is a contract that specifies what methods a class must
+            implement. Uses
+            <span class="highlight-key">implements</span> keyword.
+          </p>
+
+          <h3>Basic Interface Example</h3>
+          <div class="code-block">
+            <code
+              >// Interface - Defines what methods must be implemented public
+              interface Animal { void eat(); void sleep(); String getName(); }
+              // Class implementing interface public class Dog implements Animal
+              { private String name; public Dog(String name) { this.name = name;
+              } @Override public void eat() { System.out.println(name + " is
+              eating"); } @Override public void sleep() {
+              System.out.println(name + " is sleeping"); } @Override public
+              String getName() { return name; } } // Usage Animal dog = new
+              Dog("Buddy"); dog.eat(); // Output: Buddy is eating dog.sleep();
+              // Output: Buddy is sleeping</code
+            >
+          </div>
+
+          <h3>Multiple Interface Implementation</h3>
+          <div class="code-block">
+            <code
+              >public interface Flyable { void fly(); } public interface
+              Swimmable { void swim(); } // One class can implement multiple
+              interfaces public class Duck implements Flyable, Swimmable {
+              @Override public void fly() { System.out.println("Duck is
+              flying"); } @Override public void swim() {
+              System.out.println("Duck is swimming"); } }</code
+            >
+          </div>
+
+          <h3>Interface vs Abstract Class</h3>
+          <table class="comparison-table">
+            <tr>
+              <th>Feature</th>
+              <th>Interface</th>
+              <th>Abstract Class</th>
+            </tr>
+            <tr>
+              <td>Multiple Inheritance</td>
+              <td>Yes (implements multiple)</td>
+              <td>No (extends one)</td>
+            </tr>
+            <tr>
+              <td>Variables</td>
+              <td>Only constants (final)</td>
+              <td>Any type</td>
+            </tr>
+            <tr>
+              <td>Methods</td>
+              <td>Abstract (Java 8+ default)</td>
+              <td>Abstract & Concrete</td>
+            </tr>
+            <tr>
+              <td>Access Modifiers</td>
+              <td>Only public</td>
+              <td>Any</td>
+            </tr>
+            <tr>
+              <td>Use Case</td>
+              <td>Contract/Capability</td>
+              <td>Shared code/common behavior</td>
+            </tr>
+          </table>
+
+          <h3>Java 8+ Features</h3>
+          <div class="code-block">
+            <code
+              >public interface Shape { // Abstract method double
+              calculateArea(); // Default method (Java 8+) default void
+              display() { System.out.println("This is a shape"); } // Static
+              method (Java 8+) static void info() { System.out.println("Shape
+              information"); } }</code
+            >
+          </div>
+        </div>
+
+        <!-- Section 9: Access Modifiers -->
+        <div class="section" id="access">
+          <h2>9. Access Modifiers</h2>
+          <p>
+            Access modifiers control visibility of classes, methods, and
+            variables.
+          </p>
+
+          <table class="comparison-table">
+            <tr>
+              <th>Modifier</th>
+              <th>Same Class</th>
+              <th>Same Package</th>
+              <th>Child Class</th>
+              <th>Outside</th>
+            </tr>
+            <tr>
+              <td>public</td>
+              <td>✓</td>
+              <td>✓</td>
+              <td>✓</td>
+              <td>✓</td>
+            </tr>
+            <tr>
+              <td>protected</td>
+              <td>✓</td>
+              <td>✓</td>
+              <td>✓</td>
+              <td>✗</td>
+            </tr>
+            <tr>
+              <td>default (package-private)</td>
+              <td>✓</td>
+              <td>✓</td>
+              <td>✗</td>
+              <td>✗</td>
+            </tr>
+            <tr>
+              <td>private</td>
+              <td>✓</td>
+              <td>✗</td>
+              <td>✗</td>
+              <td>✗</td>
+            </tr>
+          </table>
+
+          <h3>Example: Access Modifiers</h3>
+          <div class="code-block">
+            <code
+              >public class AccessModifiersExample { public String publicVar =
+              "Accessible everywhere"; protected String protectedVar =
+              "Accessible in package & subclasses"; String defaultVar =
+              "Accessible only in this package"; private String privateVar =
+              "Accessible only in this class"; public void publicMethod() {
+              System.out.println("Public method"); } protected void
+              protectedMethod() { System.out.println("Protected method"); } void
+              defaultMethod() { System.out.println("Default method"); } private
+              void privateMethod() { System.out.println("Private method"); }
+              }</code
+            >
+          </div>
+
+          <div class="best-practice">
+            <strong>Best Practice:</strong> Use the most restrictive access
+            modifier that makes sense. Start with private and increase
+            visibility only when necessary.
+          </div>
+        </div>
+
+        <!-- Section 10: Important Keywords -->
+        <div class="section" id="keywords">
+          <h2>10. Important OOP Keywords</h2>
+
+          <h3>static Keyword</h3>
+          <div class="code-block">
+            <code
+              >public class Counter { private static int count = 0; // Shared by
+              all instances public Counter() { count++; } public static int
+              getCount() { return count; } } // Usage Counter c1 = new
+              Counter(); Counter c2 = new Counter(); Counter c3 = new Counter();
+              System.out.println(Counter.getCount()); // Output: 3</code
+            >
+          </div>
+
+          <h3>final Keyword</h3>
+          <div class="code-block">
+            <code
+              >// Cannot extend final class public final class ImmutableClass {
+              private final String name; // Cannot change after initialization
+              public ImmutableClass(String name) { this.name = name; } // Cannot
+              override final method public final void importantMethod() {
+              System.out.println("Cannot override"); } }</code
+            >
+          </div>
+
+          <h3>super Keyword</h3>
+          <div class="code-block">
+            <code
+              >public class Parent { public void display() {
+              System.out.println("Parent display"); } } public class Child
+              extends Parent { @Override public void display() {
+              super.display(); // Call parent method System.out.println("Child
+              display"); } }</code
+            >
+          </div>
+
+          <h3>instanceof Operator</h3>
+          <div class="code-block">
+            <code
+              >public class InstanceofExample { public static void main(String[]
+              args) { Animal dog = new Dog(); if (dog instanceof Dog) {
+              System.out.println("dog is an instance of Dog"); } if (dog
+              instanceof Animal) { System.out.println("dog is an instance of
+              Animal"); } } }</code
+            >
+          </div>
+        </div>
+
+        <!-- Section 11: Interview Questions -->
+        <div class="section" id="interview">
+          <h2>11. Interview Questions & Answers</h2>
+
+          <div class="interview-question">
+            <strong>Q1: What are the four pillars of OOP?</strong>
+            <div class="answer">
+              <p>The four pillars are:</p>
+              <ul class="example-list">
+                <li>
+                  <strong>Encapsulation:</strong> Bundling data and methods,
+                  hiding internal details
+                </li>
+                <li>
+                  <strong>Inheritance:</strong> Child class inherits properties
+                  from parent class
+                </li>
+                <li>
+                  <strong>Polymorphism:</strong> Objects can take multiple forms
+                  (method overloading & overriding)
+                </li>
+                <li>
+                  <strong>Abstraction:</strong> Hiding complex implementation
+                  and showing only essential features
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="interview-question">
+            <strong
+              >Q2: What is the difference between Overloading and
+              Overriding?</strong
+            >
+            <div class="answer">
+              <p><strong>Overloading:</strong></p>
+              <ul class="example-list">
+                <li>Same method name, different parameters</li>
+                <li>Resolved at compile time</li>
+                <li>Happens in same class or through inheritance</li>
+              </ul>
+              <p><strong>Overriding:</strong></p>
+              <ul class="example-list">
+                <li>Same method name and signature in child and parent</li>
+                <li>Resolved at runtime</li>
+                <li>Only happens through inheritance</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="interview-question">
+            <strong>Q3: Can we create an instance of abstract class?</strong>
+            <div class="answer">
+              <p>
+                <strong>No.</strong> Abstract classes cannot be instantiated.
+                However, you can create a reference variable of abstract class
+                type pointing to a concrete subclass object.
+              </p>
+              <div class="code-block">
+                <code
+                  >// NOT allowed Vehicle v = new Vehicle(); // ERROR // Allowed
+                  Vehicle v = new Car(); // Reference of abstract type, object
+                  of concrete type</code
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="interview-question">
+            <strong
+              >Q4: What's the difference between Interface and Abstract
+              Class?</strong
+            >
+            <div class="answer">
+              <table class="comparison-table">
+                <tr>
+                  <th>Aspect</th>
+                  <th>Interface</th>
+                  <th>Abstract Class</th>
+                </tr>
+                <tr>
+                  <td>Multiple Inheritance</td>
+                  <td>Yes (implements multiple)</td>
+                  <td>No (extends one)</td>
+                </tr>
+                <tr>
+                  <td>Variables</td>
+                  <td>Constants only</td>
+                  <td>Any type</td>
+                </tr>
+                <tr>
+                  <td>Concrete Methods</td>
+                  <td>Default methods (Java 8+)</td>
+                  <td>Yes, unlimited</td>
+                </tr>
+                <tr>
+                  <td>Use Case</td>
+                  <td>Define capability/contract</td>
+                  <td>Share common code</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <div class="interview-question">
+            <strong>Q5: Explain encapsulation with an example</strong>
+            <div class="answer">
+              <p>
+                Encapsulation is bundling data and methods, hiding internal
+                details from outside.
+              </p>
+              <div class="code-block">
+                <code
+                  >public class Student { private String name; private int age;
+                  // Controlled access through methods public void setAge(int
+                  age) { if (age > 0 && age < 100) { this.age = age; //
+                  Validation } } public int getAge() { return age; } } // Usage
+                  Student student = new Student(); student.setAge(25); // Valid
+                  student.setAge(-5); // Rejected - validation in setter</code
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="interview-question">
+            <strong
+              >Q6: What is the difference between 'this' and 'super'?</strong
+            >
+            <div class="answer">
+              <p>
+                <strong>this:</strong> Refers to current object. Used to access
+                instance variables and methods of current class.
+              </p>
+              <p>
+                <strong>super:</strong> Refers to parent class object. Used to
+                access methods and variables of parent class.
+              </p>
+              <div class="code-block">
+                <code
+                  >public class Parent { String msg = "Parent message"; } public
+                  class Child extends Parent { String msg = "Child message";
+                  public void display() { System.out.println(this.msg); // Child
+                  message System.out.println(super.msg); // Parent message }
+                  }</code
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="interview-question">
+            <strong>Q7: Can we override static methods?</strong>
+            <div class="answer">
+              <p>
+                <strong>No.</strong> Static methods cannot be overridden. They
+                can be hidden, but not overridden.
+              </p>
+              <div class="code-block">
+                <code
+                  >public class Parent { public static void display() {
+                  System.out.println("Parent static method"); } } public class
+                  Child extends Parent { public static void display() { //
+                  Method hiding, not overriding System.out.println("Child static
+                  method"); } }</code
+                >
+              </div>
+              <p>
+                When you call a static method, it's resolved at compile time
+                based on the reference type, not the object type.
+              </p>
+            </div>
+          </div>
+
+          <div class="interview-question">
+            <strong>Q8: What is Liskov Substitution Principle (LSP)?</strong>
+            <div class="answer">
+              <p>
+                LSP states that objects of a parent class should be replaceable
+                with objects of its child classes without breaking the code.
+              </p>
+              <div class="code-block">
+                <code
+                  >// GOOD - LSP followed public static void
+                  processAnimal(Animal animal) { animal.eat(); } // Can pass any
+                  subclass processAnimal(new Dog()); processAnimal(new Cat());
+                  // Both work seamlessly because Dog and Cat can replace
+                  Animal</code
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="interview-question">
+            <strong>Q9: Explain Polymorphism with a real-world example</strong>
+            <div class="answer">
+              <p>
+                Polymorphism means "many forms". A real-world example is a Shape
+                class with multiple implementations:
+              </p>
+              <div class="code-block">
+                <code
+                  >public class Shape { public void draw() {
+                  System.out.println("Drawing shape"); } } public class Circle
+                  extends Shape { @Override public void draw() {
+                  System.out.println("Drawing circle"); } } public class
+                  Rectangle extends Shape { @Override public void draw() {
+                  System.out.println("Drawing rectangle"); } } // At runtime,
+                  the correct method is called based on object type Shape shape1
+                  = new Circle(); // Shape reference, Circle object Shape shape2
+                  = new Rectangle(); // Shape reference, Rectangle object
+                  shape1.draw(); // Output: Drawing circle shape2.draw(); //
+                  Output: Drawing rectangle</code
+                >
+              </div>
+            </div>
+          </div>
+
+          <div class="interview-question">
+            <strong>Q10: What are access modifiers? Explain each one</strong>
+            <div class="answer">
+              <p>
+                Access modifiers control the visibility of classes, methods, and
+                variables:
+              </p>
+              <ul class="example-list">
+                <li><strong>public:</strong> Accessible everywhere</li>
+                <li>
+                  <strong>protected:</strong> Accessible in same package and
+                  subclasses
+                </li>
+                <li>
+                  <strong>default (no modifier):</strong> Accessible only in
+                  same package
+                </li>
+                <li><strong>private:</strong> Accessible only in same class</li>
+              </ul>
+              <p>
+                <strong>Best practice:</strong> Use the most restrictive
+                modifier that makes sense.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <p>Java OOP Learning Guide | Created for Interview Preparation</p>
+        <p>
+          Last Updated: November 2025 | Master OOP concepts and ace your
+          interviews!
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>

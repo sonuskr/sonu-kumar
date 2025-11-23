@@ -57,8 +57,253 @@
     <div class="container">
         <div class="content">
             <div class="topic">
-                <h2>Queue Fundamentals</h2>
-                <p>Learn queue operations, FIFO principle, and queue-based algorithms.</p>
+                <h2>Queue - Complete Guide</h2>
+                
+                <h3>What is a Queue?</h3>
+                <p>A queue is a linear data structure that follows the FIFO (First In, First Out) principle. The first element added is the first one to be removed.</p>
+                
+                <h3>Key Characteristics:</h3>
+                <ul>
+                    <li><strong>FIFO:</strong> First In, First Out principle</li>
+                    <li><strong>Operations:</strong> Enqueue (add), Dequeue (remove), Front, Rear</li>
+                    <li><strong>Two End Access:</strong> Add at rear, remove from front</li>
+                    <li><strong>Fair Processing:</strong> Fair scheduling and buffering</li>
+                </ul>
+
+                <h3>Types of Queues:</h3>
+                <ul>
+                    <li><strong>Simple Queue:</strong> Standard FIFO queue</li>
+                    <li><strong>Circular Queue:</strong> Rear connects back to front</li>
+                    <li><strong>Priority Queue:</strong> Elements have priorities</li>
+                    <li><strong>Deque (Double Ended):</strong> Add/remove from both ends</li>
+                </ul>
+
+                <h3>Time Complexity:</h3>
+                <ul>
+                    <li><strong>Enqueue:</strong> O(1) - Add to rear</li>
+                    <li><strong>Dequeue:</strong> O(1) - Remove from front</li>
+                    <li><strong>Peek:</strong> O(1) - View front element</li>
+                    <li><strong>Search:</strong> O(n) - Linear search</li>
+                </ul>
+
+                <h3>Queue Implementation (Array-based):</h3>
+                <pre><code>
+class Queue {
+    int[] arr;
+    int front = 0;
+    int rear = -1;
+    int size = 0;
+    
+    Queue(int capacity) {
+        arr = new int[capacity];
+    }
+    
+    void enqueue(int x) {
+        if (size == arr.length) {
+            System.out.println("Queue Overflow");
+        } else {
+            rear = (rear + 1) % arr.length;  // For circular queue
+            arr[rear] = x;
+            size++;
+        }
+    }
+    
+    int dequeue() {
+        if (size == 0) {
+            System.out.println("Queue Underflow");
+            return -1;
+        }
+        int value = arr[front];
+        front = (front + 1) % arr.length;
+        size--;
+        return value;
+    }
+    
+    int peek() {
+        if (size == 0) return -1;
+        return arr[front];
+    }
+    
+    boolean isEmpty() {
+        return size == 0;
+    }
+}
+
+// Java's Built-in Queue
+Queue<Integer> queue = new LinkedList<>();
+queue.add(10);        // Enqueue
+queue.add(20);
+queue.add(30);
+int front = queue.poll();   // Dequeue (30)
+int peek = queue.peek();     // View front (20)
+                </code></pre>
+
+                <h3>Circular Queue Implementation:</h3>
+                <pre><code>
+class CircularQueue {
+    int[] arr;
+    int front = -1;
+    int rear = -1;
+    int capacity;
+    
+    CircularQueue(int size) {
+        capacity = size;
+        arr = new int[size];
+    }
+    
+    void enqueue(int value) {
+        if (front == (rear + 1) % capacity) {
+            System.out.println("Queue is full");
+            return;
+        }
+        rear = (rear + 1) % capacity;
+        arr[rear] = value;
+        if (front == -1) front = 0;
+    }
+    
+    int dequeue() {
+        if (front == -1) {
+            System.out.println("Queue is empty");
+            return -1;
+        }
+        int value = arr[front];
+        if (front == rear) {
+            front = -1;
+            rear = -1;
+        } else {
+            front = (front + 1) % capacity;
+        }
+        return value;
+    }
+}
+                </code></pre>
+
+                <h3>Common Interview Problems:</h3>
+                <ul>
+                    <li><strong>Binary Number Generation:</strong> Generate binary numbers from 1 to n</li>
+                    <li><strong>Level Order Traversal:</strong> BFS in tree/graph</li>
+                    <li><strong>Sliding Window Maximum:</strong> Find max in sliding window</li>
+                    <li><strong>Rotting Oranges:</strong> Find time to rot all oranges</li>
+                    <li><strong>Perfect Squares:</strong> Find least squares to sum to n</li>
+                    <li><strong>Number of Islands:</strong> Count islands in matrix</li>
+                    <li><strong>First Unique Number:</strong> Find first non-repeating number</li>
+                </ul>
+
+                <h3>Example: Level Order Traversal (BFS)</h3>
+                <pre><code>
+public List<List<Integer>> levelOrder(TreeNode root) {
+    List<List<Integer>> result = new ArrayList<>();
+    if (root == null) return result;
+    
+    Queue<TreeNode> queue = new LinkedList<>();
+    queue.add(root);
+    
+    while (!queue.isEmpty()) {
+        int size = queue.size();
+        List<Integer> level = new ArrayList<>();
+        
+        for (int i = 0; i < size; i++) {
+            TreeNode node = queue.poll();
+            level.add(node.val);
+            
+            if (node.left != null) queue.add(node.left);
+            if (node.right != null) queue.add(node.right);
+        }
+        result.add(level);
+    }
+    return result;
+}
+                </code></pre>
+
+                <h3>Example: Binary Number Generation (Leetcode)</h3>
+                <pre><code>
+public static List<String> generateBinary(int n) {
+    List<String> result = new ArrayList<>();
+    Queue<String> queue = new LinkedList<>();
+    queue.add("1");
+    
+    while (n > 0) {
+        String binary = queue.poll();
+        result.add(binary);
+        
+        queue.add(binary + "0");
+        queue.add(binary + "1");
+        n--;
+    }
+    return result;
+}
+// Output for n=5: [1, 10, 11, 100, 101]
+                </code></pre>
+
+                <h3>Example: Rotting Oranges (Time to rot all)</h3>
+                <pre><code>
+public int orangesRotting(int[][] grid) {
+    Queue<int[]> queue = new LinkedList<>();
+    int fresh = 0;
+    
+    for (int i = 0; i < grid.length; i++) {
+        for (int j = 0; j < grid[0].length; j++) {
+            if (grid[i][j] == 2) {
+                queue.add(new int[]{i, j});
+            }
+            if (grid[i][j] == 1) {
+                fresh++;
+            }
+        }
+    }
+    
+    int[][] directions = {{0,1}, {0,-1}, {1,0}, {-1,0}};
+    int minutes = 0;
+    
+    while (!queue.isEmpty() && fresh > 0) {
+        int size = queue.size();
+        
+        for (int i = 0; i < size; i++) {
+            int[] pos = queue.poll();
+            int x = pos[0], y = pos[1];
+            
+            for (int[] dir : directions) {
+                int nx = x + dir[0];
+                int ny = y + dir[1];
+                
+                if (nx >= 0 && nx < grid.length && ny >= 0 && 
+                    ny < grid[0].length && grid[nx][ny] == 1) {
+                    grid[nx][ny] = 2;
+                    fresh--;
+                    queue.add(new int[]{nx, ny});
+                }
+            }
+        }
+        minutes++;
+    }
+    return fresh == 0 ? minutes : -1;
+}
+                </code></pre>
+
+                <h3>Real-world Applications:</h3>
+                <ul>
+                    <li>Job scheduling and task management</li>
+                    <li>Breadth-first search (BFS) in graphs</li>
+                    <li>Print queue management</li>
+                    <li>Customer service systems (ticket queues)</li>
+                    <li>Message queues in distributed systems</li>
+                    <li>CPU scheduling in operating systems</li>
+                    <li>Asynchronous data processing</li>
+                </ul>
+
+                <h3>Advantages & Disadvantages:</h3>
+                <p><strong>Advantages:</strong></p>
+                <ul>
+                    <li>Fair processing order</li>
+                    <li>Efficient O(1) operations</li>
+                    <li>Useful for buffering</li>
+                </ul>
+                <p><strong>Disadvantages:</strong></p>
+                <ul>
+                    <li>No random access</li>
+                    <li>Can overflow/underflow</li>
+                    <li>Wasted space in simple array-based implementation</li>
+                </ul>
             </div>
         </div>
     </div>

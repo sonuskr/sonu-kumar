@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java 8 Features - Complete Learning Guide | Interview Ready</title>
+    <meta name="description" content="Master Java 8 features with comprehensive examples. Learn Lambda Expressions, Streams, Functional Interfaces, Method References, and more.">
+    <meta name="keywords" content="Java 8, Lambda Expressions, Streams API, Functional Interfaces, Method References, Default Methods, Interview Questions">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            border-left: 5px solid #667eea;
+            padding-left: 20px;
+        }
+
+        .section h2 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+
+        .section h3 {
+            color: #764ba2;
+            font-size: 1.3em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .code-block {
+            background: #f5f5f5;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .code-block code {
+            color: #333;
+        }
+
+        .highlight-key {
+            background: #fffacd;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+
+        .box {
+            background: #f0f4ff;
+            border: 2px solid #667eea;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .box strong {
+            color: #667eea;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .error-box {
+            background: #f8d7da;
+            border: 2px solid #dc3545;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-table th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+
+        .comparison-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f5f5f5;
+        }
+
+        .comparison-table tr:hover {
+            background: #e8e8ff;
+        }
+
+        .example-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .example-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .example-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .key-point {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #764ba2;
+        }
+
+        .key-point strong {
+            color: #764ba2;
+        }
+
+        .interview-question {
+            background: #e8eaf6;
+            border: 2px solid #3f51b5;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .interview-question strong {
+            color: #3f51b5;
+        }
+
+        .answer {
+            background: #f5f5f5;
+            padding: 15px;
+            margin: 10px 0 10px 20px;
+            border-left: 3px solid #28a745;
+            border-radius: 3px;
+        }
+
+        .toc {
+            background: #f0f4ff;
+            border: 2px solid #667eea;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+
+        .toc h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .toc ul {
+            list-style-position: inside;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin: 8px 0;
+        }
+
+        .toc a {
+            color: #667eea;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .toc a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        footer {
+            background: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #ddd;
+            color: #666;
+        }
+
+        .note {
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 3px;
+        }
+
+        .note strong {
+            color: #1976D2;
+        }
+
+        .flow-diagram {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-family: monospace;
+            line-height: 2;
+            text-align: center;
+        }
+
+        .best-practice {
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .best-practice strong {
+            color: #2e7d32;
+        }
+
+        .feature-box {
+            background: linear-gradient(135deg, #f0f4ff 0%, #f9f9f9 100%);
+            border: 2px solid #667eea;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Java 8 Features: Complete Guide</h1>
+            <p>Master Java 8 for Technical Interviews</p>
+        </header>
+
+        <div class="content">
+            <!-- Table of Contents -->
+            <div class="toc">
+                <h3>Table of Contents</h3>
+                <ul>
+                    <li><a href="#intro">1. Introduction to Java 8</a></li>
+                    <li><a href="#lambda">2. Lambda Expressions</a></li>
+                    <li><a href="#functional">3. Functional Interfaces</a></li>
+                    <li><a href="#streams">4. Streams API</a></li>
+                    <li><a href="#methods">5. Method References</a></li>
+                    <li><a href="#defaults">6. Default & Static Methods</a></li>
+                    <li><a href="#optional">7. Optional Class</a></li>
+                    <li><a href="#datetime">8. Date & Time API</a></li>
+                    <li><a href="#nashorn">9. Other Features</a></li>
+                    <li><a href="#interview">10. Interview Questions</a></li>
+                </ul>
+            </div>
+
+            <!-- Section 1: Introduction -->
+            <div class="section" id="intro">
+                <h2>1. Introduction to Java 8</h2>
+                <p>Java 8 was released in March 2014 and introduced major changes that transformed how Java developers write code.</p>
+
+                <div class="key-point">
+                    <strong>Why Java 8 Matters?</strong><br>
+                    Java 8 brought functional programming concepts to Java, making code more concise, expressive, and easier to understand.
+                </div>
+
+                <h3>Major Features of Java 8</h3>
+                <ul class="example-list">
+                    <li>Lambda Expressions - Write concise code</li>
+                    <li>Streams API - Process collections functionally</li>
+                    <li>Functional Interfaces - Support for functional programming</li>
+                    <li>Method References - Shorthand for lambda expressions</li>
+                    <li>Default Methods in Interfaces - Add methods without breaking existing code</li>
+                    <li>Optional - Avoid NullPointerExceptions</li>
+                    <li>New Date & Time API - Better date/time handling</li>
+                    <li>Nashorn JavaScript Engine - Run JavaScript in Java</li>
+                </ul>
+
+                <div class="success-box">
+                    <strong>Impact:</strong> Java 8 modernized the language and set the foundation for future versions.
+                </div>
+            </div>
+
+            <!-- Section 2: Lambda Expressions -->
+            <div class="section" id="lambda">
+                <h2>2. Lambda Expressions</h2>
+                <p>Lambda expressions are anonymous functions that allow you to write more concise code. They implement a single abstract method of a functional interface.</p>
+
+                <h3>Syntax</h3>
+                <div class="code-block">
+<code>(parameters) -> { body }
+
+// Examples:
+(x) -> x * 2                    // Single parameter
+(x, y) -> x + y                 // Multiple parameters
+() -> System.out.println("Hi")  // No parameters
+(name) -> { System.out.println(name); }</code>
+                </div>
+
+                <h3>Before Java 8: Using Anonymous Classes</h3>
+                <div class="code-block">
+<code>// Verbose - Anonymous inner class
+Runnable r = new Runnable() {
+    @Override
+    public void run() {
+        System.out.println("Hello from anonymous class");
+    }
+};
+r.run();</code>
+                </div>
+
+                <h3>After Java 8: Using Lambda Expression</h3>
+                <div class="code-block">
+<code>// Concise - Lambda expression
+Runnable r = () -> System.out.println("Hello from lambda");
+r.run();</code>
+                </div>
+
+                <h3>More Lambda Examples</h3>
+                <div class="code-block">
+<code>// Example 1: Simple calculation
+Calculator calc = (a, b) -> a + b;
+System.out.println(calc.calculate(5, 10)); // Output: 15
+
+// Example 2: With conditions
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+numbers.forEach(n -> {
+    if (n % 2 == 0) {
+        System.out.println("Even: " + n);
+    }
+});
+
+// Example 3: Comparator
+Comparator<Integer> compare = (a, b) -> a.compareTo(b);
+List<Integer> list = Arrays.asList(5, 2, 8, 1);
+Collections.sort(list, compare);</code>
+                </div>
+
+                <h3>Lambda Expression Rules</h3>
+                <div class="comparison-table">
+                    <tr>
+                        <th>Rule</th>
+                        <th>Description</th>
+                        <th>Example</th>
+                    </tr>
+                    <tr>
+                        <td>Single abstract method</td>
+                        <td>Can only implement one method</td>
+                        <td>Runnable, Callable</td>
+                    </tr>
+                    <tr>
+                        <td>Type inference</td>
+                        <td>Types are inferred from context</td>
+                        <td>(x) -> x * 2</td>
+                    </tr>
+                    <tr>
+                        <td>Single expression</td>
+                        <td>No braces needed for single statement</td>
+                        <td>x -> x * 2</td>
+                    </tr>
+                    <tr>
+                        <td>Multiple statements</td>
+                        <td>Use braces for multiple lines</td>
+                        <td>(x) -> { print(x); return x; }</td>
+                    </tr>
+                </table>
+
+                <div class="best-practice">
+                    <strong>Best Practice:</strong> Keep lambda expressions short and readable. For complex logic, use regular methods.
+                </div>
+            </div>
+
+            <!-- Section 3: Functional Interfaces -->
+            <div class="section" id="functional">
+                <h2>3. Functional Interfaces</h2>
+                <p>A functional interface is an interface with exactly one abstract method. It's used to provide the target type for a lambda expression.</p>
+
+                <h3>Creating a Functional Interface</h3>
+                <div class="code-block">
+<code>@FunctionalInterface
+public interface MyCalculator {
+    int calculate(int a, int b);  // Single abstract method
+    
+    // Can have default methods
+    default void display() {
+        System.out.println("Calculator");
+    }
+}
+
+// Using the functional interface
+MyCalculator add = (a, b) -> a + b;
+MyCalculator subtract = (a, b) -> a - b;
+
+System.out.println(add.calculate(10, 5));      // Output: 15
+System.out.println(subtract.calculate(10, 5)); // Output: 5</code>
+                </div>
+
+                <h3>Built-in Functional Interfaces</h3>
+                <table class="comparison-table">
+                    <tr>
+                        <th>Interface</th>
+                        <th>Method</th>
+                        <th>Description</th>
+                        <th>Example</th>
+                    </tr>
+                    <tr>
+                        <td>Predicate&lt;T&gt;</td>
+                        <td>test(T t)</td>
+                        <td>Returns boolean</td>
+                        <td>x -> x > 10</td>
+                    </tr>
+                    <tr>
+                        <td>Function&lt;T,R&gt;</td>
+                        <td>apply(T t)</td>
+                        <td>Takes T, returns R</td>
+                        <td>x -> x * 2</td>
+                    </tr>
+                    <tr>
+                        <td>Consumer&lt;T&gt;</td>
+                        <td>accept(T t)</td>
+                        <td>Takes T, returns nothing</td>
+                        <td>x -> print(x)</td>
+                    </tr>
+                    <tr>
+                        <td>Supplier&lt;T&gt;</td>
+                        <td>get()</td>
+                        <td>Takes nothing, returns T</td>
+                        <td>() -> "Hello"</td>
+                    </tr>
+                </table>
+
+                <h3>Using Built-in Functional Interfaces</h3>
+                <div class="code-block">
+<code>// Predicate - Returns boolean
+Predicate<Integer> isPositive = x -> x > 0;
+System.out.println(isPositive.test(5));   // true
+System.out.println(isPositive.test(-3));  // false
+
+// Function - Transforms input to output
+Function<Integer, Integer> square = x -> x * x;
+System.out.println(square.apply(5));  // 25
+
+// Consumer - Performs action on input
+Consumer<String> print = System.out::println;
+print.accept("Hello Java 8");
+
+// Supplier - Provides a value
+Supplier<String> greeting = () -> "Hello World";
+System.out.println(greeting.get());</code>
+                </div>
+
+                <div class="note">
+                    <strong>@FunctionalInterface Annotation:</strong> Marks an interface as functional. Compiler will error if interface doesn't follow the contract.
+                </div>
+            </div>
+
+            <!-- Section 4: Streams API -->
+            <div class="section" id="streams">
+                <h2>4. Streams API</h2>
+                <p>Streams provide a functional approach to process sequences of elements. They enable operations like map, filter, and reduce.</p>
+
+                <h3>What is a Stream?</h3>
+                <div class="key-point">
+                    <strong>Stream:</strong> A sequence of elements supporting sequential and parallel operations. Not a data structure, but a view of data.
+                </div>
+
+                <h3>Stream Operations</h3>
+                <div class="code-block">
+<code>List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+
+// Filter: Keep only even numbers
+numbers.stream()
+       .filter(n -> n % 2 == 0)
+       .forEach(System.out::println);  // Output: 2, 4
+
+// Map: Transform elements
+numbers.stream()
+       .map(n -> n * 2)
+       .forEach(System.out::println);  // Output: 2, 4, 6, 8, 10
+
+// Collect: Gather results
+List<Integer> squares = numbers.stream()
+                               .map(n -> n * n)
+                               .collect(Collectors.toList());
+
+// Reduce: Combine elements
+int sum = numbers.stream()
+                 .reduce(0, (a, b) -> a + b);  // 15</code>
+                </div>
+
+                <h3>Common Stream Methods</h3>
+                <table class="comparison-table">
+                    <tr>
+                        <th>Method</th>
+                        <th>Type</th>
+                        <th>Description</th>
+                        <th>Returns</th>
+                    </tr>
+                    <tr>
+                        <td>filter(Predicate)</td>
+                        <td>Intermediate</td>
+                        <td>Keep matching elements</td>
+                        <td>Stream</td>
+                    </tr>
+                    <tr>
+                        <td>map(Function)</td>
+                        <td>Intermediate</td>
+                        <td>Transform elements</td>
+                        <td>Stream</td>
+                    </tr>
+                    <tr>
+                        <td>flatMap(Function)</td>
+                        <td>Intermediate</td>
+                        <td>Flatten nested streams</td>
+                        <td>Stream</td>
+                    </tr>
+                    <tr>
+                        <td>sorted()</td>
+                        <td>Intermediate</td>
+                        <td>Sort elements</td>
+                        <td>Stream</td>
+                    </tr>
+                    <tr>
+                        <td>forEach(Consumer)</td>
+                        <td>Terminal</td>
+                        <td>Perform action on each</td>
+                        <td>void</td>
+                    </tr>
+                    <tr>
+                        <td>collect(Collector)</td>
+                        <td>Terminal</td>
+                        <td>Gather into collection</td>
+                        <td>Collection</td>
+                    </tr>
+                    <tr>
+                        <td>reduce(BinaryOperator)</td>
+                        <td>Terminal</td>
+                        <td>Combine all elements</td>
+                        <td>Optional</td>
+                    </tr>
+                    <tr>
+                        <td>count()</td>
+                        <td>Terminal</td>
+                        <td>Count elements</td>
+                        <td>long</td>
+                    </tr>
+                </table>
+
+                <h3>Complex Stream Example</h3>
+                <div class="code-block">
+<code>List<String> names = Arrays.asList("Alice", "Bob", "Charlie", "David");
+
+// Filter, map, and collect
+List<String> result = names.stream()
+                           .filter(name -> name.length() > 3)    // Filter
+                           .map(String::toUpperCase)              // Map
+                           .sorted()                              // Sort
+                           .collect(Collectors.toList());
+// Output: [ALICE, CHARLIE, DAVID]
+
+// Count matching elements
+long count = names.stream()
+                 .filter(name -> name.contains("i"))
+                 .count();  // 2 (Alice, Charlie, David)
+
+// Join strings
+String joined = names.stream()
+                     .collect(Collectors.joining(", "));
+// Output: Alice, Bob, Charlie, David</code>
+                </div>
+
+                <div class="best-practice">
+                    <strong>Intermediate vs Terminal Operations:</strong> Intermediate operations return a stream and can be chained. Terminal operations return a final result and end the stream.
+                </div>
+            </div>
+
+            <!-- Section 5: Method References -->
+            <div class="section" id="methods">
+                <h2>5. Method References</h2>
+                <p>Method references are shorthand notation for lambda expressions that simply invoke an existing method.</p>
+
+                <h3>Types of Method References</h3>
+                <div class="code-block">
+<code>// 1. Static Method Reference
+// Before: (x) -> Integer.parseInt(x)
+// After:
+Function<String, Integer> function = Integer::parseInt;
+
+// 2. Instance Method Reference
+// Before: (str) -> str.toUpperCase()
+// After:
+list.forEach(System.out::println);
+
+// 3. Constructor Reference
+// Before: () -> new ArrayList()
+// After:
+Supplier<ArrayList> supplier = ArrayList::new;
+
+// 4. Bound Method Reference
+String str = "Hello";
+Supplier<Integer> lengthSupplier = str::length;
+lengthSupplier.get();  // 5</code>
+                </div>
+
+                <h3>Practical Examples</h3>
+                <div class="code-block">
+<code>List<String> fruits = Arrays.asList("apple", "banana", "cherry");
+
+// Using method reference instead of lambda
+fruits.forEach(System.out::println);
+// Same as: fruits.forEach(f -> System.out.println(f));
+
+// Comparing strings
+List<String> sorted = fruits.stream()
+                            .sorted(String::compareTo)
+                            .collect(Collectors.toList());
+
+// Constructor reference
+List<Integer> numbers = Arrays.asList(1, 2, 3);
+Integer[] array = numbers.stream()
+                         .toArray(Integer[]::new);</code>
+                </div>
+
+                <div class="note">
+                    <strong>When to Use:</strong> Method references are cleaner when you're simply calling an existing method. For complex logic, use lambda expressions.
+                </div>
+            </div>
+
+            <!-- Section 6: Default & Static Methods -->
+            <div class="section" id="defaults">
+                <h2>6. Default & Static Methods in Interfaces</h2>
+                <p>Java 8 allows interfaces to have concrete methods, breaking the old contract that interfaces could only have abstract methods.</p>
+
+                <h3>Default Methods</h3>
+                <div class="code-block">
+<code>public interface Vehicle {
+    void drive();  // Abstract method
+    
+    // Default method - Has implementation
+    default void displayInfo() {
+        System.out.println("This is a vehicle");
+    }
+    
+    default void stop() {
+        System.out.println("Vehicle stopped");
+    }
+}
+
+public class Car implements Vehicle {
+    @Override
+    public void drive() {
+        System.out.println("Car is driving");
+    }
+    
+    // Can override default method or use as-is
+}
+
+// Usage
+Vehicle car = new Car();
+car.drive();         // Calls overridden method
+car.displayInfo();   // Calls default method
+car.stop();          // Calls default method</code>
+                </div>
+
+                <h3>Static Methods in Interfaces</h3>
+                <div class="code-block">
+<code>public interface MathOperations {
+    // Static method - Cannot be overridden
+    static int add(int a, int b) {
+        return a + b;
+    }
+    
+    static int multiply(int a, int b) {
+        return a * b;
+    }
+}
+
+// Usage
+int result1 = MathOperations.add(5, 3);       // 8
+int result2 = MathOperations.multiply(5, 3);  // 15</code>
+                </div>
+
+                <h3>Benefits of Default Methods</h3>
+                <ul class="example-list">
+                    <li>Add new methods without breaking existing implementations</li>
+                    <li>Backward compatibility</li>
+                    <li>Can provide common functionality</li>
+                    <li>Enable evolution of interfaces</li>
+                </ul>
+
+                <h3>Diamond Problem with Default Methods</h3>
+                <div class="code-block">
+<code>// If a class implements two interfaces with same default method
+public interface A {
+    default void display() {
+        System.out.println("From A");
+    }
+}
+
+public interface B {
+    default void display() {
+        System.out.println("From B");
+    }
+}
+
+// COMPILATION ERROR - Must override
+public class C implements A, B {
+    @Override
+    public void display() {
+        A.super.display();  // Explicitly choose which one
+    }
+}</code>
+                </div>
+            </div>
+
+            <!-- Section 7: Optional -->
+            <div class="section" id="optional">
+                <h2>7. Optional Class</h2>
+                <p>Optional is a container object that may or may not contain a value. It helps handle null values gracefully.</p>
+
+                <h3>Without Optional (Old Way)</h3>
+                <div class="code-block">
+<code>String name = "John";
+
+// Old way - Many null checks
+if (name != null) {
+    System.out.println(name.toUpperCase());
+} else {
+    System.out.println("Name is null");
+}</code>
+                </div>
+
+                <h3>With Optional (Java 8 Way)</h3>
+                <div class="code-block">
+<code>String name = "John";
+
+// Java 8 way - Cleaner
+Optional.ofNullable(name)
+        .map(String::toUpperCase)
+        .ifPresentOrElse(
+            System.out::println,
+            () -> System.out.println("Name is null")
+        );</code>
+                </div>
+
+                <h3>Common Optional Methods</h3>
+                <table class="comparison-table">
+                    <tr>
+                        <th>Method</th>
+                        <th>Description</th>
+                        <th>Example</th>
+                    </tr>
+                    <tr>
+                        <td>of(T value)</td>
+                        <td>Create with non-null value</td>
+                        <td>Optional.of("Hello")</td>
+                    </tr>
+                    <tr>
+                        <td>ofNullable(T value)</td>
+                        <td>Create with nullable value</td>
+                        <td>Optional.ofNullable(name)</td>
+                    </tr>
+                    <tr>
+                        <td>empty()</td>
+                        <td>Create empty Optional</td>
+                        <td>Optional.empty()</td>
+                    </tr>
+                    <tr>
+                        <td>isPresent()</td>
+                        <td>Check if value exists</td>
+                        <td>opt.isPresent()</td>
+                    </tr>
+                    <tr>
+                        <td>ifPresent(Consumer)</td>
+                        <td>Execute if present</td>
+                        <td>opt.ifPresent(System.out::println)</td>
+                    </tr>
+                    <tr>
+                        <td>get()</td>
+                        <td>Get value (throws if empty)</td>
+                        <td>opt.get()</td>
+                    </tr>
+                    <tr>
+                        <td>orElse(T other)</td>
+                        <td>Get value or default</td>
+                        <td>opt.orElse("default")</td>
+                    </tr>
+                    <tr>
+                        <td>map(Function)</td>
+                        <td>Transform value if present</td>
+                        <td>opt.map(String::length)</td>
+                    </tr>
+                </table>
+
+                <h3>Practical Optional Examples</h3>
+                <div class="code-block">
+<code>Optional<String> optional = Optional.ofNullable(null);
+
+// Example 1: Provide default
+String result1 = optional.orElse("Default Value");
+
+// Example 2: Execute if present
+optional.ifPresent(value -> System.out.println(value));
+
+// Example 3: Transform
+Optional<Integer> length = optional.map(String::length);
+
+// Example 4: Chain operations
+String result2 = optional.map(String::toUpperCase)
+                         .orElse("NO VALUE");
+
+// Example 5: Filter
+optional.filter(str -> str.length() > 5)
+        .ifPresent(System.out::println);</code>
+                </div>
+
+                <div class="best-practice">
+                    <strong>Best Practice:</strong> Never call get() on Optional without checking isPresent() first. Use orElse() or ifPresent() instead.
+                </div>
+            </div>
+
+            <!-- Section 8: Date & Time API -->
+            <div class="section" id="datetime">
+                <h2>8. Date & Time API (java.time)</h2>
+                <p>Java 8 introduced a new Date and Time API to fix problems with the old Date class.</p>
+
+                <h3>Problems with Old Date Class</h3>
+                <ul class="example-list">
+                    <li>Mutable (not thread-safe)</li>
+                    <li>Poorly designed API</li>
+                    <li>Confusing month indexing (0-11)</li>
+                    <li>No timezone support in many methods</li>
+                </ul>
+
+                <h3>New java.time Package</h3>
+                <div class="code-block">
+<code>import java.time.*;
+
+// LocalDate - Date without time
+LocalDate today = LocalDate.now();
+LocalDate birthDay = LocalDate.of(1990, 5, 15);
+System.out.println(today);  // 2025-11-23
+
+// LocalTime - Time without date
+LocalTime now = LocalTime.now();
+LocalTime meetingTime = LocalTime.of(14, 30);
+System.out.println(now);  // 14:52:31.123
+
+// LocalDateTime - Date and time
+LocalDateTime currentDateTime = LocalDateTime.now();
+LocalDateTime appointment = LocalDateTime.of(2025, 12, 25, 10, 30);
+
+// Period - Between dates
+Period period = Period.between(birthDay, today);
+System.out.println("Years: " + period.getYears());
+
+// Duration - Between times
+Duration duration = Duration.between(LocalTime.of(10, 0), LocalTime.of(15, 30));
+System.out.println("Hours: " + duration.toHours());  // 5</code>
+                </div>
+
+                <h3>Key Classes in java.time</h3>
+                <table class="comparison-table">
+                    <tr>
+                        <th>Class</th>
+                        <th>Purpose</th>
+                        <th>Example</th>
+                    </tr>
+                    <tr>
+                        <td>LocalDate</td>
+                        <td>Date only (no time)</td>
+                        <td>2025-11-23</td>
+                    </tr>
+                    <tr>
+                        <td>LocalTime</td>
+                        <td>Time only (no date)</td>
+                        <td>14:30:00</td>
+                    </tr>
+                    <tr>
+                        <td>LocalDateTime</td>
+                        <td>Date and time</td>
+                        <td>2025-11-23T14:30:00</td>
+                    </tr>
+                    <tr>
+                        <td>ZonedDateTime</td>
+                        <td>Date, time, timezone</td>
+                        <td>2025-11-23T14:30:00+05:30</td>
+                    </tr>
+                    <tr>
+                        <td>Instant</td>
+                        <td>Point on timeline</td>
+                        <td>Exact moment in UTC</td>
+                    </tr>
+                </table>
+
+                <h3>Date Formatting</h3>
+                <div class="code-block">
+<code>import java.time.*;
+import java.time.format.*;
+
+LocalDate date = LocalDate.now();
+
+// Custom format
+DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+String formatted = date.format(formatter);
+System.out.println(formatted);  // 23-11-2025
+
+// Parse string to date
+String dateString = "25-12-2025";
+LocalDate parsedDate = LocalDate.parse(dateString, formatter);
+
+// Built-in formats
+DateTimeFormatter isoFormatter = DateTimeFormatter.ISO_LOCAL_DATE;
+System.out.println(date.format(isoFormatter));  // 2025-11-23</code>
+                </div>
+
+                <div class="success-box">
+                    <strong>Advantage:</strong> New Date/Time API is immutable and thread-safe, unlike the old Date class.
+                </div>
+            </div>
+
+            <!-- Section 9: Other Features -->
+            <div class="section" id="nashorn">
+                <h2>9. Other Java 8 Features</h2>
+
+                <h3>Type Annotations</h3>
+                <div class="code-block">
+<code>// Can use annotations with generics
+List<@NotNull String> strings = new ArrayList<>();
+
+public @NotNull String getName() {
+    return "John";
+}
+
+// Repeated Annotations
+@Deprecated
+@Deprecated
+public void oldMethod() {}</code>
+                </div>
+
+                <h3>Nashorn JavaScript Engine</h3>
+                <div class="code-block">
+<code>import javax.script.*;
+
+public class NashornExample {
+    public static void main(String[] args) throws Exception {
+        ScriptEngineManager manager = new ScriptEngineManager();
+        ScriptEngine engine = manager.getEngineByName("nashorn");
+        
+        // Execute JavaScript code
+        engine.eval("var x = 10; var y = 20; var z = x + y;");
+        Object result = engine.eval("z");
+        System.out.println(result);  // 30
+    }
+}</code>
+                </div>
+
+                <h3>ForEach Loop Enhancement</h3>
+                <div class="code-block">
+<code>List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+
+// Old way
+for (int i = 0; i < numbers.size(); i++) {
+    System.out.println(numbers.get(i));
+}
+
+// Enhanced forEach
+for (Integer num : numbers) {
+    System.out.println(num);
+}
+
+// Lambda forEach
+numbers.forEach(n -> System.out.println(n));</code>
+                </div>
+
+                <h3>Compact Profiles</h3>
+                <div class="key-point">
+                    <strong>Compact Profiles:</strong> Allow deploying a subset of Java runtime for embedded devices and IoT.
+                </div>
+            </div>
+
+            <!-- Section 10: Interview Questions -->
+            <div class="section" id="interview">
+                <h2>10. Interview Questions & Answers</h2>
+
+                <div class="interview-question">
+                    <strong>Q1: What is a lambda expression and why use it?</strong>
+                    <div class="answer">
+                        <p><strong>Lambda Expression:</strong> Anonymous function that implements a functional interface.</p>
+                        <p><strong>Why Use:</strong></p>
+                        <ul class="example-list">
+                            <li>Concise and readable code</li>
+                            <li>Functional programming support</li>
+                            <li>Reduces boilerplate code</li>
+                            <li>Better for callback operations</li>
+                        </ul>
+                        <div class="code-block">
+<code>// Before
+Runnable r = new Runnable() {
+    public void run() {
+        System.out.println("Hello");
+    }
+};
+
+// After
+Runnable r = () -> System.out.println("Hello");</code>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="interview-question">
+                    <strong>Q2: What is a functional interface?</strong>
+                    <div class="answer">
+                        <p>An interface with exactly one abstract method. Used with lambda expressions.</p>
+                        <p><strong>Key Points:</strong></p>
+                        <ul class="example-list">
+                            <li>Can have multiple default methods</li>
+                            <li>Can have static methods</li>
+                            <li>Only one abstract method allowed</li>
+                            <li>Marked with @FunctionalInterface annotation</li>
+                        </ul>
+                        <div class="code-block">
+<code>@FunctionalInterface
+public interface Calculator {
+    int calculate(int a, int b);  // One abstract method
+    
+    default void display() {
+        System.out.println("Calculator");
+    }
+}</code>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="interview-question">
+                    <strong>Q3: What is a Stream? Is it similar to Collections?</strong>
+                    <div class="answer">
+                        <p><strong>Stream:</strong> Functional approach to process sequences of elements.</p>
+                        <p><strong>Differences:</strong></p>
+                        <table class="comparison-table">
+                            <tr>
+                                <th>Feature</th>
+                                <th>Stream</th>
+                                <th>Collection</th>
+                            </tr>
+                            <tr>
+                                <td>Nature</td>
+                                <td>View/Pipeline</td>
+                                <td>Data Structure</td>
+                            </tr>
+                            <tr>
+                                <td>Storage</td>
+                                <td>No storage</td>
+                                <td>Stores data</td>
+                            </tr>
+                            <tr>
+                                <td>Laziness</td>
+                                <td>Lazy (evaluated on demand)</td>
+                                <td>Eager</td>
+                            </tr>
+                            <tr>
+                                <td>One-time use</td>
+                                <td>Yes</td>
+                                <td>Multiple times</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="interview-question">
+                    <strong>Q4: What is the difference between map() and flatMap()?</strong>
+                    <div class="answer">
+                        <p><strong>map():</strong> Transforms each element to another element.</p>
+                        <p><strong>flatMap():</strong> Transforms each element to a stream, then flattens all streams.</p>
+                        <div class="code-block">
+<code>List<Integer> numbers = Arrays.asList(1, 2, 3);
+
+// map() - One-to-one transformation
+List<Integer> doubled = numbers.stream()
+                              .map(n -> n * 2)
+                              .collect(Collectors.toList());
+// Result: [2, 4, 6]
+
+// flatMap() - One-to-many, then flatten
+List<Integer> result = numbers.stream()
+                             .flatMap(n -> Stream.of(n, n*2, n*3))
+                             .collect(Collectors.toList());
+// Result: [1, 2, 3, 2, 4, 6, 3, 6, 9]</code>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="interview-question">
+                    <strong>Q5: What is Optional and why use it?</strong>
+                    <div class="answer">
+                        <p><strong>Optional:</strong> Container that may or may not contain a value.</p>
+                        <p><strong>Why Use:</strong></p>
+                        <ul class="example-list">
+                            <li>Avoid NullPointerExceptions</li>
+                            <li>Express intent clearly</li>
+                            <li>Encourages null-aware programming</li>
+                            <li>Cleaner code with functional operations</li>
+                        </ul>
+                        <div class="code-block">
+<code>Optional<String> name = Optional.ofNullable(getName());
+
+// Bad: May throw NPE
+String result = name.get();
+
+// Good: Safe alternatives
+String result1 = name.orElse("Unknown");
+name.ifPresent(System.out::println);
+String result2 = name.map(String::toUpperCase)
+                     .orElse("NO NAME");</code>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="interview-question">
+                    <strong>Q6: What are method references? Give examples.</strong>
+                    <div class="answer">
+                        <p>Shorthand notation for lambda expressions that invoke existing methods.</p>
+                        <p><strong>Four Types:</strong></p>
+                        <div class="code-block">
+<code>// 1. Static method reference
+Function<String, Integer> func = Integer::parseInt;
+
+// 2. Instance method of object
+String str = "Hello";
+Supplier<Integer> supplier = str::length;
+
+// 3. Instance method of any object
+list.forEach(System.out::println);
+
+// 4. Constructor reference
+Supplier<ArrayList> supplier = ArrayList::new;</code>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="interview-question">
+                    <strong>Q7: What is the difference between Predicate, Function, and Consumer?</strong>
+                    <div class="answer">
+                        <table class="comparison-table">
+                            <tr>
+                                <th>Interface</th>
+                                <th>Input</th>
+                                <th>Output</th>
+                                <th>Purpose</th>
+                            </tr>
+                            <tr>
+                                <td>Predicate&lt;T&gt;</td>
+                                <td>T</td>
+                                <td>boolean</td>
+                                <td>Test/Filter</td>
+                            </tr>
+                            <tr>
+                                <td>Function&lt;T,R&gt;</td>
+                                <td>T</td>
+                                <td>R</td>
+                                <td>Transform</td>
+                            </tr>
+                            <tr>
+                                <td>Consumer&lt;T&gt;</td>
+                                <td>T</td>
+                                <td>void</td>
+                                <td>Perform action</td>
+                            </tr>
+                            <tr>
+                                <td>Supplier&lt;T&gt;</td>
+                                <td>-</td>
+                                <td>T</td>
+                                <td>Provide value</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="interview-question">
+                    <strong>Q8: What is the advantage of default methods in interfaces?</strong>
+                    <div class="answer">
+                        <p><strong>Advantages:</strong></p>
+                        <ul class="example-list">
+                            <li>Add new methods without breaking existing implementations</li>
+                            <li>Backward compatibility</li>
+                            <li>Provide default implementation for common functionality</li>
+                            <li>Enable interface evolution over time</li>
+                        </ul>
+                        <p><strong>Example:</strong> List interface added stream() method with default implementation instead of making all implementations provide it.</p>
+                    </div>
+                </div>
+
+                <div class="interview-question">
+                    <strong>Q9: Why is the new Date/Time API better?</strong>
+                    <div class="answer">
+                        <p><strong>Problems with Old Date:</strong></p>
+                        <ul class="example-list">
+                            <li>Mutable and not thread-safe</li>
+                            <li>Poor API design</li>
+                            <li>Month indexing from 0-11</li>
+                            <li>Timezone handling was inadequate</li>
+                        </ul>
+                        <p><strong>New java.time Benefits:</strong></p>
+                        <ul class="example-list">
+                            <li>Immutable and thread-safe</li>
+                            <li>Clean, intuitive API</li>
+                            <li>Month indexing 1-12</li>
+                            <li>Excellent timezone support</li>
+                            <li>Fluent interface for operations</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="interview-question">
+                    <strong>Q10: What are intermediate and terminal operations in Streams?</strong>
+                    <div class="answer">
+                        <p><strong>Intermediate Operations:</strong> Return a stream, can be chained</p>
+                        <ul class="example-list">
+                            <li>filter(), map(), flatMap(), sorted(), limit(), skip()</li>
+                        </ul>
+                        <p><strong>Terminal Operations:</strong> Return non-stream result, ends the stream</p>
+                        <ul class="example-list">
+                            <li>forEach(), collect(), count(), reduce(), max(), min(), anyMatch()</li>
+                        </ul>
+                        <div class="code-block">
+<code>numbers.stream()           // Create stream
+       .filter(n -> n > 5)    // Intermediate
+       .map(n -> n * 2)       // Intermediate
+       .forEach(System.out::println);  // Terminal</code>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <footer>
+            <p>Java 8 Features Learning Guide | Created for Interview Preparation</p>
+            <p>Last Updated: November 2025 | Master Java 8 and modernize your code!</p>
+        </footer>
+    </div>
+</body>
+</html>

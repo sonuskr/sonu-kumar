@@ -58,8 +58,167 @@
     <div class="container">
         <div class="content">
             <div class="topic">
-                <h2>String Fundamentals</h2>
-                <p>Learn string operations, pattern matching, and string algorithms.</p>
+                <h2>String Data Structure - Complete Guide</h2>
+                
+                <h3>What is a String?</h3>
+                <p>A string is a sequence of characters. In Java, strings are immutable objects, meaning once created, their values cannot be changed.</p>
+                
+                <h3>Key Characteristics:</h3>
+                <ul>
+                    <li><strong>Immutable:</strong> Cannot be modified after creation</li>
+                    <li><strong>Sequence of Characters:</strong> Ordered collection of chars</li>
+                    <li><strong>Zero-Indexed:</strong> First character at index 0</li>
+                    <li><strong>Comparable:</strong> Can be compared lexicographically</li>
+                    <li><strong>Unicode Support:</strong> Supports all Unicode characters</li>
+                </ul>
+
+                <h3>String Creation:</h3>
+                <pre><code>
+// String literal (stored in string pool)
+String s1 = "Hello";
+
+// Using new keyword (stored in heap)
+String s2 = new String("Hello");
+
+// From character array
+char[] chars = {'H', 'e', 'l', 'l', 'o'};
+String s3 = new String(chars);
+
+// Note: s1 == s2 returns false (different memory locations)
+// But s1.equals(s2) returns true (same content)
+                </code></pre>
+
+                <h3>Common String Methods:</h3>
+                <pre><code>
+String str = "Hello World";
+
+// Length
+int length = str.length();  // 11
+
+// Character at index
+char ch = str.charAt(0);  // 'H'
+
+// Substring
+String sub = str.substring(0, 5);  // "Hello"
+
+// Index of
+int index = str.indexOf("World");  // 6
+
+// Case conversion
+String upper = str.toUpperCase();    // "HELLO WORLD"
+String lower = str.toLowerCase();    // "hello world"
+
+// Contains
+boolean contains = str.contains("World");  // true
+
+// Replace
+String replaced = str.replace("World", "Java");  // "Hello Java"
+
+// Split
+String[] words = str.split(" ");  // ["Hello", "World"]
+
+// Trim
+String trimmed = "  Hello  ".trim();  // "Hello"
+
+// Starts/Ends with
+boolean starts = str.startsWith("Hello");  // true
+boolean ends = str.endsWith("World");      // true
+
+// Equals
+boolean equals = str.equals("Hello World");        // true
+boolean equalsIgnoreCase = str.equalsIgnoreCase("hello world");  // true
+                </code></pre>
+
+                <h3>Time Complexity:</h3>
+                <ul>
+                    <li><strong>Access character:</strong> O(1)</li>
+                    <li><strong>Search:</strong> O(n)</li>
+                    <li><strong>Concatenation:</strong> O(n)</li>
+                    <li><strong>Substring:</strong> O(n)</li>
+                </ul>
+
+                <h3>String vs StringBuilder vs StringBuffer:</h3>
+                <pre><code>
+// String - Immutable
+String s = "Hello";
+s = s + " World";  // Creates new String object
+
+// StringBuilder - Mutable, NOT synchronized (faster)
+StringBuilder sb = new StringBuilder("Hello");
+sb.append(" World");
+String result = sb.toString();
+
+// StringBuffer - Mutable, synchronized (thread-safe)
+StringBuffer sbf = new StringBuffer("Hello");
+sbf.append(" World");
+String result2 = sbf.toString();
+
+// Use StringBuilder for better performance in loops
+StringBuilder sb2 = new StringBuilder();
+for (int i = 0; i < 1000; i++) {
+    sb2.append(i);  // Much faster than String concatenation
+}
+                </code></pre>
+
+                <h3>Common Interview Problems:</h3>
+                <ul>
+                    <li><strong>Reverse String:</strong> Reverse a string</li>
+                    <li><strong>Palindrome:</strong> Check if string is palindrome</li>
+                    <li><strong>Anagram:</strong> Check if two strings are anagrams</li>
+                    <li><strong>First Non-Repeating Character:</strong> Find first non-repeating char</li>
+                    <li><strong>Valid Parentheses:</strong> Check if parentheses are balanced</li>
+                    <li><strong>Longest Substring Without Repeating:</strong> Find longest substring</li>
+                    <li><strong>Pattern Matching:</strong> KMP or Rabin-Karp algorithm</li>
+                </ul>
+
+                <h3>Example: Palindrome Check</h3>
+                <pre><code>
+public static boolean isPalindrome(String s) {
+    // Remove non-alphanumeric and convert to lowercase
+    String cleaned = s.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+    
+    // Check from both ends
+    int left = 0, right = cleaned.length() - 1;
+    while (left < right) {
+        if (cleaned.charAt(left) != cleaned.charAt(right)) {
+            return false;
+        }
+        left++;
+        right--;
+    }
+    return true;
+}
+                </code></pre>
+
+                <h3>Example: First Non-Repeating Character</h3>
+                <pre><code>
+public static char firstNonRepeating(String s) {
+    Map<Character, Integer> charCount = new HashMap<>();
+    
+    // Count frequency
+    for (char c : s.toCharArray()) {
+        charCount.put(c, charCount.getOrDefault(c, 0) + 1);
+    }
+    
+    // Find first non-repeating
+    for (char c : s.toCharArray()) {
+        if (charCount.get(c) == 1) {
+            return c;
+        }
+    }
+    return '\0';  // No non-repeating character
+}
+                </code></pre>
+
+                <h3>Best Practices:</h3>
+                <ul>
+                    <li>Use String for immutable data</li>
+                    <li>Use StringBuilder for string concatenation in loops</li>
+                    <li>Use equals() instead of == for string comparison</li>
+                    <li>Use equalsIgnoreCase() for case-insensitive comparison</li>
+                    <li>Avoid creating unnecessary String objects</li>
+                    <li>Use StringBuilder.toString() only at the end</li>
+                </ul>
             </div>
         </div>
     </div>

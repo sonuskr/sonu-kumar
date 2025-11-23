@@ -57,10 +57,271 @@
     <div class="container">
       <div class="content">
         <div class="topic">
-          <h2>Graph Fundamentals</h2>
-          <p>
-            Learn graph representation, BFS, DFS, and shortest path algorithms.
-          </p>
+          <h2>Graph - Complete Guide</h2>
+          
+          <h3>What is a Graph?</h3>
+          <p>A graph is a non-linear data structure consisting of vertices (nodes) connected by edges. Used to represent networks, relationships, and complex structures.</p>
+          
+          <h3>Graph Terminology:</h3>
+          <ul>
+            <li><strong>Vertex/Node:</strong> A point in the graph</li>
+            <li><strong>Edge:</strong> Connection between two vertices</li>
+            <li><strong>Degree:</strong> Number of edges connected to a vertex</li>
+            <li><strong>Path:</strong> Sequence of vertices from one to another</li>
+            <li><strong>Cycle:</strong> Path that starts and ends at same vertex</li>
+            <li><strong>Connected Graph:</strong> Path exists between every pair of vertices</li>
+          </ul>
+
+          <h3>Types of Graphs:</h3>
+          <ul>
+            <li><strong>Directed Graph:</strong> Edges have direction (A→B)</li>
+            <li><strong>Undirected Graph:</strong> Edges have no direction</li>
+            <li><strong>Weighted Graph:</strong> Edges have weights</li>
+            <li><strong>DAG:</strong> Directed Acyclic Graph (no cycles)</li>
+            <li><strong>Bipartite:</strong> Vertices can be divided into two sets</li>
+          </ul>
+
+          <h3>Graph Representations:</h3>
+          <pre><code>
+// 1. Adjacency Matrix (O(1) edge lookup)
+int[][] graph = new int[n][n];
+// graph[i][j] = 1 means edge from i to j
+// Problem: O(n²) space
+
+// 2. Adjacency List (O(V+E) space)
+List<Integer>[] graph = new ArrayList[n];
+for (int i = 0; i < n; i++) {
+    graph[i] = new ArrayList<>();
+}
+graph[0].add(1);  // Edge from 0 to 1
+graph[1].add(2);  // Edge from 1 to 2
+
+// 3. Weighted Graph with Pairs
+class Edge {
+    int dest;
+    int weight;
+    Edge(int dest, int weight) {
+        this.dest = dest;
+        this.weight = weight;
+    }
+}
+List<Edge>[] graph = new ArrayList[n];
+          </code></pre>
+
+          <h3>Graph Traversal - BFS (Breadth-First Search)</h3>
+          <pre><code>
+public void bfs(int start, List<Integer>[] graph) {
+    boolean[] visited = new boolean[graph.length];
+    Queue<Integer> queue = new LinkedList<>();
+    
+    queue.add(start);
+    visited[start] = true;
+    
+    while (!queue.isEmpty()) {
+        int node = queue.poll();
+        System.out.println(node);
+        
+        for (int neighbor : graph[node]) {
+            if (!visited[neighbor]) {
+                visited[neighbor] = true;
+                queue.add(neighbor);
+            }
+        }
+    }
+}
+          </code></pre>
+
+          <h3>Graph Traversal - DFS (Depth-First Search)</h3>
+          <pre><code>
+public void dfs(int node, List<Integer>[] graph, boolean[] visited) {
+    visited[node] = true;
+    System.out.println(node);
+    
+    for (int neighbor : graph[node]) {
+        if (!visited[neighbor]) {
+            dfs(neighbor, graph, visited);
+        }
+    }
+}
+
+// Call DFS
+boolean[] visited = new boolean[n];
+dfs(0, graph, visited);
+          </code></pre>
+
+          <h3>Shortest Path - Dijkstra's Algorithm</h3>
+          <pre><code>
+public int[] dijkstra(int[][] graph, int start) {
+    int n = graph.length;
+    int[] dist = new int[n];
+    boolean[] visited = new boolean[n];
+    
+    for (int i = 0; i < n; i++) {
+        dist[i] = Integer.MAX_VALUE;
+    }
+    dist[start] = 0;
+    
+    for (int i = 0; i < n; i++) {
+        int u = -1;
+        for (int j = 0; j < n; j++) {
+            if (!visited[j] && (u == -1 || dist[j] < dist[u])) {
+                u = j;
+            }
+        }
+        
+        visited[u] = true;
+        
+        for (int v = 0; v < n; v++) {
+            if (graph[u][v] != 0) {
+                dist[v] = Math.min(dist[v], dist[u] + graph[u][v]);
+            }
+        }
+    }
+    return dist;
+}
+          </code></pre>
+
+          <h3>Shortest Path - BFS (Unweighted)</h3>
+          <pre><code>
+public int[] bfsShortestPath(List<Integer>[] graph, int start) {
+    int n = graph.length;
+    int[] distance = new int[n];
+    boolean[] visited = new boolean[n];
+    Queue<Integer> queue = new LinkedList<>();
+    
+    for (int i = 0; i < n; i++) {
+        distance[i] = Integer.MAX_VALUE;
+    }
+    
+    distance[start] = 0;
+    visited[start] = true;
+    queue.add(start);
+    
+    while (!queue.isEmpty()) {
+        int node = queue.poll();
+        
+        for (int neighbor : graph[node]) {
+            if (!visited[neighbor]) {
+                visited[neighbor] = true;
+                distance[neighbor] = distance[node] + 1;
+                queue.add(neighbor);
+            }
+        }
+    }
+    return distance;
+}
+          </code></pre>
+
+          <h3>Topological Sorting (for DAG)</h3>
+          <pre><code>
+public List<Integer> topologicalSort(List<Integer>[] graph) {
+    int n = graph.length;
+    boolean[] visited = new boolean[n];
+    Stack<Integer> stack = new Stack<>();
+    
+    for (int i = 0; i < n; i++) {
+        if (!visited[i]) {
+            dfs(i, graph, visited, stack);
+        }
+    }
+    
+    List<Integer> result = new ArrayList<>();
+    while (!stack.isEmpty()) {
+        result.add(stack.pop());
+    }
+    return result;
+}
+
+private void dfs(int node, List<Integer>[] graph, 
+                 boolean[] visited, Stack<Integer> stack) {
+    visited[node] = true;
+    
+    for (int neighbor : graph[node]) {
+        if (!visited[neighbor]) {
+            dfs(neighbor, graph, visited, stack);
+        }
+    }
+    stack.push(node);
+}
+          </code></pre>
+
+          <h3>Detect Cycle in Graph</h3>
+          <pre><code>
+// Undirected Graph
+public boolean hasCycle(List<Integer>[] graph) {
+    boolean[] visited = new boolean[graph.length];
+    
+    for (int i = 0; i < graph.length; i++) {
+        if (!visited[i]) {
+            if (dfsCycle(i, -1, graph, visited)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+private boolean dfsCycle(int node, int parent, 
+                         List<Integer>[] graph, boolean[] visited) {
+    visited[node] = true;
+    
+    for (int neighbor : graph[node]) {
+        if (!visited[neighbor]) {
+            if (dfsCycle(neighbor, node, graph, visited)) {
+                return true;
+            }
+        } else if (neighbor != parent) {
+            return true;  // Found cycle
+        }
+    }
+    return false;
+}
+          </code></pre>
+
+          <h3>Common Interview Problems:</h3>
+          <ul>
+            <li><strong>Number of Islands:</strong> Count connected components</li>
+            <li><strong>Bipartite Graph:</strong> Check if graph is bipartite</li>
+            <li><strong>Course Schedule:</strong> Topological sort variant</li>
+            <li><strong>Alien Dictionary:</strong> Order by given rules</li>
+            <li><strong>Word Ladder:</strong> Shortest path with transformations</li>
+            <li><strong>Network Delay Time:</strong> Dijkstra's algorithm</li>
+            <li><strong>Critical Connections:</strong> Find bridges in graph</li>
+          </ul>
+
+          <h3>Time Complexity Comparison:</h3>
+          <ul>
+            <li><strong>BFS:</strong> O(V + E) - Visit each vertex and edge once</li>
+            <li><strong>DFS:</strong> O(V + E) - Visit each vertex and edge once</li>
+            <li><strong>Dijkstra:</strong> O(V²) with matrix, O((V+E)logV) with heap</li>
+            <li><strong>Topological Sort:</strong> O(V + E)</li>
+            <li><strong>Cycle Detection:</strong> O(V + E)</li>
+          </ul>
+
+          <h3>Real-world Applications:</h3>
+          <ul>
+            <li>Social Networks (connections between people)</li>
+            <li>Google Maps (routing, shortest path)</li>
+            <li>Flight Networks (connections between airports)</li>
+            <li>Computer Networks (routing protocols)</li>
+            <li>Recommendation Systems</li>
+            <li>Web Crawling (link relationships)</li>
+            <li>Compiler Design (dependency resolution)</li>
+          </ul>
+
+          <h3>Advantages & Disadvantages:</h3>
+          <p><strong>Advantages:</strong></p>
+          <ul>
+            <li>Represents complex relationships</li>
+            <li>Highly versatile</li>
+            <li>Efficient for network problems</li>
+          </ul>
+          <p><strong>Disadvantages:</strong></p>
+          <ul>
+            <li>Can be complex to implement</li>
+            <li>Memory intensive for dense graphs</li>
+            <li>Traversal can be expensive for large graphs</li>
+          </ul>
         </div>
       </div>
     </div>

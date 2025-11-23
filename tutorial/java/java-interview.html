@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <title>Java Interview Questions - Sonu Kumar</title>
+    <link rel="stylesheet" href="../tutorial-styles.css">
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+</head>
+<body class="page-interview">
+    <header>
+        <div class="container">
+            <div class="hero">
+                <h1>Java Interview Questions</h1>
+                <p>7+ Years Experience Level</p>
+            </div>
+        </div>
+    </header>
+    <nav>
+        <div class="container">
+            <div class="nav-container">
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                    ☰
+                </button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="../tutorial-index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="active">Java</a>
+                        <div class="dropdown-content">
+                            <a href="java-learning.html">Java Fundamentals</a>
+                            <a href="java-oop.html">Java OOP</a>
+                            <a href="java-exception.html">Java Exception</a>
+                            <a href="java-8.html">Java 8</a>
+                            <a href="java-collection.html">Java Collections</a>
+                            <a href="java-interview.html">Java Interview</a>
+                        </div>
+                    </li>
+                    <li><a href="../javascript-learning.html">JavaScript</a></li>
+                    <li><a href="../typescript-learning.html">TypeScript</a></li>
+                    <li><a href="../angular-learning.html">Angular</a></li>
+                    <li><a href="../react-learning.html">React</a></li>
+                    <li><a href="../spring/spring-boot-learning.html">Spring Boot</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <script>
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+        
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('nav');
+            const navLinks = document.getElementById('navLinks');
+            
+            if (!nav.contains(event.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+        
+        // Simple syntax highlighting
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeBlocks = document.querySelectorAll('.code-block code');
+            codeBlocks.forEach(block => {
+                let html = block.innerHTML;
+                
+                // Java keywords
+                html = html.replace(/\b(public|private|protected|static|final|class|interface|extends|implements|import|package|void|int|String|boolean|double|float|long|short|byte|char|if|else|for|while|do|switch|case|default|break|continue|return|try|catch|finally|throw|throws|new|this|super|null|true|false)\b/g, '<span style="color: #c792ea; font-weight: bold;">$1</span>');
+                
+                // Strings
+                html = html.replace(/"([^"]*)"/g, '<span style="color: #c3e88d;">"$1"</span>');
+                html = html.replace(/'([^']*)'/g, '<span style="color: #c3e88d;">\'$1\'</span>');
+                
+                // Comments
+                html = html.replace(/\/\/.*$/gm, '<span style="color: #546e7a; font-style: italic;">$&</span>');
+                html = html.replace(/\/\*[\s\S]*?\*\//g, '<span style="color: #546e7a; font-style: italic;">$&</span>');
+                
+                // Numbers
+                html = html.replace(/\b\d+(\.\d+)?[fLdF]?\b/g, '<span style="color: #f78c6c;">$&</span>');
+                
+                // Method calls
+                html = html.replace(/\b([a-zA-Z_][a-zA-Z0-9_]*)\s*\(/g, '<span style="color: #82aaff;">$1</span>(');
+                
+                // Class names (capitalized words)
+                html = html.replace(/\b[A-Z][a-zA-Z0-9_]*\b/g, '<span style="color: #ffcb6b;">$&</span>');
+                
+                block.innerHTML = html;
+            });
+        });
+    </script>
+    <div class="container">
+        <div class="content">
+            <div class="topic">
+                <h1>Java Developer Interview Preparation</h1>
+                
+                <div class="table-of-contents">
+                    <h2>📚 Table of Contents</h2>
+                    <div class="toc-grid">
+                        <div class="toc-column">
+                            <ul>
+                                <li><a href="#core-java">Core Java</a></li>
+                                <li><a href="#advanced-java">Advanced Java Concepts</a></li>
+                                <li><a href="#spring-boot">Spring & Spring Boot</a></li>
+                                <li><a href="#database-sql">Database & SQL</a></li>
+                            </ul>
+                        </div>
+                        <div class="toc-column">
+                            <ul>
+                                <li><a href="#microservices">Microservices & Architecture</a></li>
+                                <li><a href="#performance">Performance & Optimization</a></li>
+                                <li><a href="#concurrency">Concurrency & Multithreading</a></li>
+                                <li><a href="#design-patterns">Design Patterns</a></li>
+                            </ul>
+                        </div>
+                        <div class="toc-column">
+                            <ul>
+                                <li><a href="#system-design">System Design</a></li>
+                                <li><a href="#real-world">Real-World Scenarios</a></li>
+                                <li><a href="#tips">Interview Tips</a></li>
+                                <li><a href="#resources">Additional Resources</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <section id="core-java" class="section">
+                    <h2>☕ Core Java</h2>
+                    
+                    <div class="question">
+                        <h3>1. Explain the difference between `==` and `.equals()` method</h3>
+                        <p><strong>Answer:</strong></p>
+                        <ul>
+                            <li>`==` compares object references (memory addresses)</li>
+                            <li>`.equals()` compares object content/values</li>
+                            <li>String comparison should use `.equals()` not `==`</li>
+                            <li>For custom objects, override `.equals()` method</li>
+                        </ul>
+                        <div class="code-block">
+                            <pre><code class="language-java">String s1 = new String("Hello");
+String s2 = new String("Hello");
+s1 == s2;        // false (different references)
+s1.equals(s2);   // true (same content)</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h3>2. What is immutability? Why are Strings immutable in Java?</h3>
+                        <p><strong>Answer:</strong></p>
+                        <p>Immutable objects cannot be modified after creation. String is immutable in Java for:</p>
+                        <ul>
+                            <li><strong>Security</strong>: String pool, password handling</li>
+                            <li><strong>Performance</strong>: Caching, reuse</li>
+                            <li><strong>Thread Safety</strong>: No synchronization needed</li>
+                            <li><strong>HashMap Keys</strong>: Can safely use as keys</li>
+                        </ul>
+                    </div>
+
+                    <div class="question">
+                        <h3>3. What is the difference between ArrayList and LinkedList?</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Feature</th>
+                                    <th>ArrayList</th>
+                                    <th>LinkedList</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Data Structure</td>
+                                    <td>Dynamic Array</td>
+                                    <td>Doubly Linked List</td>
+                                </tr>
+                                <tr>
+                                    <td>Access</td>
+                                    <td>O(1)</td>
+                                    <td>O(n)</td>
+                                </tr>
+                                <tr>
+                                    <td>Insertion/Deletion</td>
+                                    <td>O(n)</td>
+                                    <td>O(1)</td>
+                                </tr>
+                                <tr>
+                                    <td>Memory</td>
+                                    <td>Less overhead</td>
+                                    <td>More overhead</td>
+                                </tr>
+                                <tr>
+                                    <td>Use Case</td>
+                                    <td>Frequent reads</td>
+                                    <td>Frequent insertions</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="question">
+                        <h3>4. What is a Stream API? Give examples of common operations</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">List&lt;Integer&gt; numbers = Arrays.asList(1, 2, 3, 4, 5);
+
+// Filter
+numbers.stream()
+  .filter(n -> n > 2)
+  .forEach(System.out::println); // 3, 4, 5
+
+// Map
+numbers.stream()
+  .map(n -> n * 2)
+  .collect(Collectors.toList()); // [2, 4, 6, 8, 10]
+
+// Reduce
+int sum = numbers.stream()
+  .reduce(0, Integer::sum); // 15
+
+// GroupBy
+Map&lt;Boolean, List&lt;Integer&gt;&gt; grouped = numbers.stream()
+  .collect(Collectors.partitioningBy(n -> n > 2));</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h3>5. What is Optional? When and how to use it?</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">Optional&lt;String&gt; opt = Optional.of("Hello");
+
+// Get with default
+String result = opt.orElse("Default");
+
+// Throw exception if empty
+String value = opt.orElseThrow(() -> new RuntimeException("Empty!"));
+
+// Map/FlatMap
+Optional&lt;Integer&gt; length = opt.map(String::length);
+
+// Filter
+opt.filter(s -> s.startsWith("H"))
+   .ifPresent(System.out::println);</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="advanced-java" class="section">
+                    <h2>🚀 Advanced Java Concepts</h2>
+                    
+                    <div class="question">
+                        <h3>6. What are Generics? Why use them?</h3>
+                        <p><strong>Answer:</strong></p>
+                        <ul>
+                            <li>Type-safe collections and methods</li>
+                            <li>Eliminates casting</li>
+                            <li>Catches errors at compile time</li>
+                            <li>Cannot use with primitive types</li>
+                        </ul>
+                        <div class="code-block">
+                            <pre><code class="language-java">List&lt;String&gt; list = new ArrayList&lt;&gt;();
+list.add("Hello");
+String str = list.get(0); // No casting needed
+
+// Generic method
+public &lt;T&gt; T getFirst(List&lt;T&gt; list) {
+  return list.isEmpty() ? null : list.get(0);
+}
+
+// Bounded types
+public &lt;T extends Number&gt; void process(T number) {
+  // T must be Number or subclass
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h3>7. What is the difference between abstract class and interface?</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Aspect</th>
+                                    <th>Abstract Class</th>
+                                    <th>Interface</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Methods</td>
+                                    <td>Concrete + Abstract</td>
+                                    <td>Abstract (Java 8+ default, static)</td>
+                                </tr>
+                                <tr>
+                                    <td>Variables</td>
+                                    <td>Any modifier</td>
+                                    <td>public static final</td>
+                                </tr>
+                                <tr>
+                                    <td>Constructor</td>
+                                    <td>Yes</td>
+                                    <td>No</td>
+                                </tr>
+                                <tr>
+                                    <td>Multiple Inheritance</td>
+                                    <td>No</td>
+                                    <td>Yes</td>
+                                </tr>
+                                <tr>
+                                    <td>Use Case</td>
+                                    <td>Shared code</td>
+                                    <td>Contract</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="question">
+                        <h3>8. What are lambda expressions? How do they relate to functional interfaces?</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">// Traditional anonymous class
+Runnable r = new Runnable() {
+  public void run() { System.out.println("Hello"); }
+};
+
+// Lambda expression
+Runnable r = () -> System.out.println("Hello");
+
+// With parameters
+Function&lt;Integer, Integer&gt; square = x -> x * x;
+BiFunction&lt;Integer, Integer, Integer&gt; add = (a, b) -> a + b;
+
+// Functional interface example
+@FunctionalInterface
+interface Calculator {
+  int calculate(int a, int b);
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="spring-boot" class="section">
+                    <h2>🌱 Spring & Spring Boot</h2>
+                    
+                    <div class="question">
+                        <h3>9. What is Dependency Injection and how does Spring implement it?</h3>
+                        <p><strong>Answer:</strong></p>
+                        <ul>
+                            <li>IoC Container manages object creation and dependencies</li>
+                            <li>Types: Constructor Injection, Setter Injection, Field Injection</li>
+                            <li>Constructor Injection is preferred (immutability, testability)</li>
+                        </ul>
+                        <div class="code-block">
+                            <pre><code class="language-java">@Component
+public class UserService {
+  private UserRepository repo;
+
+  // Constructor Injection (Preferred)
+  public UserService(UserRepository repo) {
+    this.repo = repo;
+  }
+}
+
+@Configuration
+public class Config {
+  @Bean
+  public UserRepository userRepository() {
+    return new UserRepository();
+  }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h3>10. What is the difference between @Bean and @Component?</h3>
+                        <p><strong>Answer:</strong></p>
+                        <ul>
+                            <li><strong>@Component</strong>: Auto-detected, class-level, for Spring-managed classes</li>
+                            <li><strong>@Bean</strong>: Explicit, method-level, for external library objects or conditional creation</li>
+                        </ul>
+                        <div class="code-block">
+                            <pre><code class="language-java">// @Component - automatic
+@Component
+public class UserService { }
+
+// @Bean - manual configuration
+@Configuration
+public class Config {
+  @Bean
+  public JdbcTemplate jdbcTemplate(DataSource ds) {
+    return new JdbcTemplate(ds);
+  }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h3>11. What is Spring Transaction Management?</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">@Service
+public class UserService {
+
+  @Transactional
+  public void saveUser(User user) {
+    // Save user
+    // If error occurs, transaction rolls back
+  }
+
+  // Custom transaction config
+  @Transactional(
+    propagation = Propagation.REQUIRED,
+    isolation = Isolation.READ_COMMITTED,
+    rollbackFor = Exception.class,
+    timeout = 30
+  )
+  public void complexOperation() { }
+}</code></pre>
+                        </div>
+                        <p><strong>Propagation Types</strong>: REQUIRED, REQUIRES_NEW, NESTED, SUPPORTS, NOT_SUPPORTED, NEVER</p>
+                        <p><strong>Isolation Levels</strong>: READ_UNCOMMITTED, READ_COMMITTED, REPEATABLE_READ, SERIALIZABLE</p>
+                    </div>
+                </section>
+
+                <section id="database-sql" class="section">
+                    <h2>🗄️ Database & SQL</h2>
+                    
+                    <div class="question">
+                        <h3>12. What are SQL Joins? Explain INNER, LEFT, RIGHT, FULL OUTER</h3>
+                        <div class="code-block">
+                            <pre><code class="language-sql">-- INNER JOIN: Common records only
+SELECT u.name, o.order_id
+FROM users u
+INNER JOIN orders o ON u.id = o.user_id;
+
+-- LEFT JOIN: All from left + matching from right
+SELECT u.name, o.order_id
+FROM users u
+LEFT JOIN orders o ON u.id = o.user_id;
+
+-- RIGHT JOIN: All from right + matching from left
+SELECT u.name, o.order_id
+FROM users u
+RIGHT JOIN orders o ON u.id = o.user_id;
+
+-- FULL OUTER JOIN: All records from both
+SELECT u.name, o.order_id
+FROM users u
+FULL OUTER JOIN orders o ON u.id = o.user_id;</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h3>13. What is N+1 Query Problem?</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">// Bad: N+1 problem
+@Entity
+public class User {
+  @OneToMany
+  private List&lt;Order&gt; orders;
+}
+
+// Causes N+1 queries
+List&lt;User&gt; users = userRepository.findAll(); // 1 query
+for (User user : users) {
+  System.out.println(user.getOrders()); // N additional queries
+}
+
+// Solution 1: Eager loading with JOIN FETCH
+@Query("SELECT DISTINCT u FROM User u JOIN FETCH u.orders")
+List&lt;User&gt; findAllWithOrders();
+
+// Solution 2: @EntityGraph
+@EntityGraph(attributePaths = "orders")
+List&lt;User&gt; findAll();</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="microservices" class="section">
+                    <h2>🏗️ Microservices & Architecture</h2>
+                    
+                    <div class="question">
+                        <h3>14. What are Microservices? Advantages and Disadvantages</h3>
+                        <p><strong>Advantages:</strong></p>
+                        <ul>
+                            <li>Independent deployment and scaling</li>
+                            <li>Technology flexibility</li>
+                            <li>Fault isolation</li>
+                            <li>Team autonomy</li>
+                        </ul>
+                        <p><strong>Disadvantages:</strong></p>
+                        <ul>
+                            <li>Distributed system complexity</li>
+                            <li>Network latency and failures</li>
+                            <li>Data consistency challenges</li>
+                            <li>Operational overhead</li>
+                        </ul>
+                    </div>
+
+                    <div class="question">
+                        <h3>15. Explain Circuit Breaker Pattern</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">// Using Resilience4j
+@Service
+public class OrderService {
+
+  @CircuitBreaker(name = "paymentService", fallbackMethod = "fallback")
+  @Retry(name = "paymentService", fallbackMethod = "fallback")
+  @Timeout(name = "paymentService")
+  public Payment processPayment(Order order) {
+    // Call payment service
+    return paymentService.pay(order);
+  }
+
+  public Payment fallback(Order order, Exception e) {
+    log.error("Payment service failed", e);
+    // Return default or cached response
+    return new Payment();
+  }
+}</code></pre>
+                        </div>
+                        <p><strong>States</strong>: CLOSED → OPEN → HALF_OPEN → CLOSED</p>
+                    </div>
+                </section>
+
+                <section id="performance" class="section">
+                    <h2>⚡ Performance & Optimization</h2>
+                    
+                    <div class="question">
+                        <h3>16. What are common Java performance bottlenecks?</h3>
+                        <ol>
+                            <li><strong>Memory Leaks</strong>: Unreleased references</li>
+                            <li><strong>Inefficient Algorithms</strong>: O(n²) when O(n) possible</li>
+                            <li><strong>N+1 Query Problem</strong>: Extra database calls</li>
+                            <li><strong>Synchronization</strong>: Excessive locking</li>
+                            <li><strong>String Concatenation</strong>: Use StringBuilder in loops</li>
+                            <li><strong>Collection Operations</strong>: Choosing wrong data structure</li>
+                        </ol>
+                    </div>
+
+                    <div class="question">
+                        <h3>17. What is caching? Types and strategies</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">// Spring Cache
+@Service
+public class UserService {
+
+  @Cacheable("users")
+  public User getUserById(Long id) {
+    // Only called if not in cache
+    return userRepository.findById(id).orElse(null);
+  }
+
+  @CachePut("users")
+  public User updateUser(User user) {
+    return userRepository.save(user);
+  }
+
+  @CacheEvict("users")
+  public void deleteUser(Long id) {
+    userRepository.deleteById(id);
+  }
+}</code></pre>
+                        </div>
+                        <p><strong>Cache Strategies</strong>:</p>
+                        <ul>
+                            <li><strong>Cache-aside</strong>: Application manages cache</li>
+                            <li><strong>Write-through</strong>: Write to cache + DB simultaneously</li>
+                            <li><strong>Write-behind</strong>: Write to cache, async to DB</li>
+                            <li><strong>Refresh-ahead</strong>: Refresh cache before expiry</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="concurrency" class="section">
+                    <h2>🔄 Concurrency & Multithreading</h2>
+                    
+                    <div class="question">
+                        <h3>18. What is the difference between Thread and Runnable?</h3>
+                        <ul>
+                            <li><strong>Thread</strong>: Class, can extend only one class</li>
+                            <li><strong>Runnable</strong>: Interface, implement alongside other interfaces</li>
+                        </ul>
+                        <div class="code-block">
+                            <pre><code class="language-java">// Extend Thread
+class MyThread extends Thread {
+  public void run() {
+    System.out.println("Running");
+  }
+}
+new MyThread().start();
+
+// Implement Runnable (Preferred)
+class MyRunnable implements Runnable {
+  public void run() {
+    System.out.println("Running");
+  }
+}
+new Thread(new MyRunnable()).start();
+
+// Lambda
+new Thread(() -> System.out.println("Running")).start();</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h3>19. What is Volatile keyword?</h3>
+                        <p><strong>Answer:</strong></p>
+                        <ul>
+                            <li>Ensures variable visibility across threads</li>
+                            <li>Prevents compiler optimizations</li>
+                            <li>Not a substitute for synchronization</li>
+                        </ul>
+                        <div class="code-block">
+                            <pre><code class="language-java">// Variable changes visible to all threads immediately
+volatile boolean flag = false;
+
+public void method() {
+  flag = true; // All threads see this immediately
+}
+
+// Without volatile - changes might be cached in thread's CPU cache
+boolean flag = false;</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h3>20. What is Deadlock? How to prevent it?</h3>
+                        <p><strong>Deadlock Conditions:</strong></p>
+                        <ul>
+                            <li>Mutual exclusion</li>
+                            <li>Hold and wait</li>
+                            <li>No preemption</li>
+                            <li>Circular wait</li>
+                        </ul>
+                        <p><strong>Prevention:</strong></p>
+                        <div class="code-block">
+                            <pre><code class="language-java">// Good: Consistent ordering
+public void transfer(Account from, Account to) {
+  Account first = from.getId() < to.getId() ? from : to;
+  Account second = from.getId() < to.getId() ? to : from;
+
+  synchronized(first) {
+    synchronized(second) {
+      // Transfer money
+    }
+  }
+}
+
+// Better: Use timeout
+if (lock1.tryLock(1, TimeUnit.SECONDS) && lock2.tryLock(1, TimeUnit.SECONDS)) {
+  try {
+    // Do work
+  } finally {
+    lock1.unlock();
+    lock2.unlock();
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="design-patterns" class="section">
+                    <h2>🎨 Design Patterns</h2>
+                    
+                    <div class="question">
+                        <h3>21. Explain Singleton Pattern</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">// Thread-safe singleton (Bill Pugh)
+public class Singleton {
+  private Singleton() { }
+
+  private static class SingletonHelper {
+    private static final Singleton INSTANCE = new Singleton();
+  }
+
+  public static Singleton getInstance() {
+    return SingletonHelper.INSTANCE;
+  }
+}
+
+// Enum singleton (Most recommended)
+public enum Singleton {
+  INSTANCE;
+
+  public void method() { }
+}
+Singleton.INSTANCE.method();</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h3>22. Explain Strategy Pattern</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">// Strategy interface
+public interface PaymentStrategy {
+  void pay(double amount);
+}
+
+// Concrete strategies
+public class CreditCardStrategy implements PaymentStrategy {
+  @Override
+  public void pay(double amount) {
+    System.out.println("Paying " + amount + " via Credit Card");
+  }
+}
+
+// Context
+public class ShoppingCart {
+  private PaymentStrategy strategy;
+
+  public void setPaymentStrategy(PaymentStrategy strategy) {
+    this.strategy = strategy;
+  }
+
+  public void checkout(double total) {
+    strategy.pay(total);
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="system-design" class="section">
+                    <h2>🏛️ System Design</h2>
+                    
+                    <div class="question">
+                        <h3>23. How would you design a URL Shortening Service (like TinyURL)?</h3>
+                        <p><strong>Requirements:</strong></p>
+                        <ul>
+                            <li>Generate short unique URLs</li>
+                            <li>Redirect to original URL</li>
+                            <li>High availability and low latency</li>
+                            <li>Analytics: Click count, source tracking</li>
+                        </ul>
+                        <p><strong>Design:</strong></p>
+                        <div class="code-block">
+                            <pre><code>1. API Design
+   - POST /shorten: { long_url: "..." } → { short_url: "..." }
+   - GET /{short_code}: Redirect to original URL
+
+2. Database Schema
+   - short_urls table: id, short_code, long_url, user_id, created_at, clicks
+   - Create index on short_code for fast lookup
+
+3. Generating short codes
+   - Option 1: Base62 encoding of incremental ID
+   - Option 2: Random 6-character string with collision handling
+   - Option 3: Hash first 8 characters of MD5(long_url + timestamp)
+
+4. Architecture
+   - Web servers (stateless)
+   - Load balancer
+   - Cache layer (Redis): Cache popular URLs
+   - Database
+   - Message queue for analytics</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h3>24. How would you design a Rate Limiting System?</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">// Token Bucket Algorithm
+public class TokenBucket {
+  private long tokens;
+  private final long capacity;
+  private final long refillRate; // tokens per second
+  private long lastRefillTime;
+
+  public synchronized boolean tryConsume(long tokens) {
+    refill();
+    if (this.tokens >= tokens) {
+      this.tokens -= tokens;
+      return true;
+    }
+    return false;
+  }
+
+  private void refill() {
+    long now = System.currentTimeMillis();
+    long timePassed = now - lastRefillTime;
+    long tokensToAdd = (timePassed / 1000) * refillRate;
+    tokens = Math.min(capacity, tokens + tokensToAdd);
+    lastRefillTime = now;
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="real-world" class="section">
+                    <h2>🌍 Real-World Scenarios</h2>
+                    
+                    <div class="question">
+                        <h3>25. How would you handle a service outage or failure?</h3>
+                        <ul>
+                            <li><strong>Monitoring</strong>: Alerts on error rates, latency, dependencies</li>
+                            <li><strong>Circuit Breaker</strong>: Fail fast, fallback responses</li>
+                            <li><strong>Retry Logic</strong>: Exponential backoff</li>
+                            <li><strong>Load Balancer</strong>: Route away from failing instances</li>
+                            <li><strong>Database Failover</strong>: Read replicas, replication</li>
+                            <li><strong>Cache</strong>: Serve stale data during outage</li>
+                            <li><strong>Graceful Degradation</strong>: Reduce functionality vs complete failure</li>
+                            <li><strong>Communication</strong>: Notify users of issues</li>
+                        </ul>
+                    </div>
+
+                    <div class="question">
+                        <h3>26. How would you debug a memory leak in Java?</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">// Tools and techniques
+1. JVM Flags
+   -XX:+PrintGCDetails
+   -XX:+PrintGCTimeStamps
+   -XX:+HeapDumpOnOutOfMemoryError
+
+2. Memory Profiling
+   // Use JProfiler, YourKit, or JvisualVM
+
+3. Code patterns causing leaks
+   // Unclosed resources
+   InputStream is = new FileInputStream("file");
+   // Should be:
+   try (InputStream is = new FileInputStream("file")) {
+     // use is
+   }
+
+   // Static collections
+   public static List&lt;Object&gt; cache = new ArrayList&lt;&gt;(); // Never cleared
+
+// Heap dump analysis
+jmap -dump:live,format=b,file=heap.bin &lt;PID&gt;
+jhat heap.bin</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="question">
+                        <h3>27. Describe a challenging project you worked on</h3>
+                        <p><strong>Structure: Problem → Approach → Solution → Learning</strong></p>
+                        <div class="code-block">
+                            <pre><code>Problem: High latency in user search API (10+ seconds)
+  - Users searching large database
+  - Complex filtering criteria
+  - Multiple joins causing slow queries
+
+Approach:
+  - Analyzed database logs and query plans
+  - Identified missing indexes and N+1 queries
+  - Discussed with team about requirements
+
+Solution:
+  - Added proper indexes on search fields
+  - Implemented Elasticsearch for full-text search
+  - Added Redis caching for popular searches
+  - Implemented pagination
+  - Added circuit breaker for external APIs
+
+Result: Latency reduced to <500ms, 20x improvement
+
+Learning:
+  - Importance of monitoring and profiling
+  - Different tools for different scenarios
+  - Collaboration with team for large changes</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="tips" class="section">
+                    <h2>💡 General Tips for Interview Success</h2>
+                    
+                    <div class="best-practices">
+                        <div class="dos-donts">
+                            <div class="dos">
+                                <h3>✅ Do's</h3>
+                                <ul>
+                                    <li>Practice coding problems (LeetCode, HackerRank)</li>
+                                    <li>Think aloud - explain your approach</li>
+                                    <li>Ask clarifying questions</li>
+                                    <li>Write clean, readable code</li>
+                                    <li>Handle edge cases</li>
+                                    <li>Be confident but humble</li>
+                                    <li>Research company's tech stack</li>
+                                    <li>Prepare your own questions</li>
+                                </ul>
+                            </div>
+                            <div class="donts">
+                                <h3>❌ Don'ts</h3>
+                                <ul>
+                                    <li>Don't rush - quality over speed</li>
+                                    <li>Don't jump to implementation in system design</li>
+                                    <li>Don't ignore edge cases</li>
+                                    <li>Don't be afraid to admit what you don't know</li>
+                                    <li>Don't forget to test your code mentally</li>
+                                    <li>Don't skip asking questions</li>
+                                    <li>Don't forget soft skills matter</li>
+                                    <li>Don't skip the follow-up thank you email</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="quick-reference">
+                        <h3>🎯 Key Focus Areas</h3>
+                        
+                        <div class="pattern">
+                            <h4>Code Quality</h4>
+                            <ul>
+                                <li>Write clean, readable code</li>
+                                <li>Handle edge cases</li>
+                                <li>Write comments for complex logic</li>
+                                <li>Test your code mentally</li>
+                            </ul>
+                        </div>
+
+                        <div class="pattern">
+                            <h4>System Design</h4>
+                            <ul>
+                                <li>Start with requirements</li>
+                                <li>Don't jump to implementation</li>
+                                <li>Discuss tradeoffs</li>
+                                <li>Ask questions and iterate</li>
+                            </ul>
+                        </div>
+
+                        <div class="pattern">
+                            <h4>Soft Skills</h4>
+                            <ul>
+                                <li>Active listening</li>
+                                <li>Positive attitude</li>
+                                <li>Humility and willingness to learn</li>
+                                <li>Communication clarity</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="resources" class="section">
+                    <h2>📚 Additional Resources</h2>
+                    
+                    <div class="resources">
+                        <div class="resource-grid">
+                            <div class="resource-category">
+                                <h4>📖 Books</h4>
+                                <ul>
+                                    <li>Effective Java by Joshua Bloch</li>
+                                    <li>Clean Code by Robert C. Martin</li>
+                                    <li>Design Patterns by Gang of Four</li>
+                                    <li>System Design Interview by Alex Xu</li>
+                                </ul>
+                            </div>
+                            <div class="resource-category">
+                                <h4>💻 Online Platforms</h4>
+                                <ul>
+                                    <li>LeetCode</li>
+                                    <li>InterviewBit</li>
+                                    <li>System Design Primer (GitHub)</li>
+                                    <li>Pramp (Mock Interviews)</li>
+                                </ul>
+                            </div>
+                            <div class="resource-category">
+                                <h4>📝 Blogs & Websites</h4>
+                                <ul>
+                                    <li>Baeldung</li>
+                                    <li>DZone</li>
+                                    <li>JavaWorld</li>
+                                    <li>Spring Blog</li>
+                                </ul>
+                            </div>
+                            <div class="resource-category">
+                                <h4>🎥 Video Content</h4>
+                                <ul>
+                                    <li>Tech Primers (YouTube)</li>
+                                    <li>Coding Revolution</li>
+                                    <li>Cracking Interviews</li>
+                                    <li>System Design Interview</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="conclusion">
+                        <h3>🎯 Final Words</h3>
+                        <p>Good luck with your interview! Remember to be yourself, stay calm, and showcase your knowledge and problem-solving abilities. You've got this! 🚀</p>
+                        <p><strong>Remember:</strong> Practice consistently, understand the fundamentals deeply, and don't hesitate to ask questions during the interview.</p>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Sonu Kumar - Senior Full Stack Developer | Java Spring Boot Angular React Expert | Available for remote work, enterprise consulting, and full-time opportunities | Contact: <a href="mailto:skrdeveloper1@gmail.com">skrdeveloper1@gmail.com</a> | LinkedIn: <a href="https://www.linkedin.com/in/sonuskr">linkedin.com/in/sonuskr</a></p>
+        </div>
+    </footer>
+</body>
+</html>

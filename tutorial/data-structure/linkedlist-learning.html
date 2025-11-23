@@ -1,71 +1,276 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     <title>Linked List Data Structure - Sonu Kumar</title>
-    <link rel="stylesheet" href="../tutorial-styles.css">
-    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
-</head>
-<body class="page-linkedlist">
+    <link rel="stylesheet" href="../tutorial-styles.css" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  </head>
+  <body class="page-linkedlist">
     <header>
-        <div class="container">
-            <div class="hero">
-                <h1>Linked List Data Structure</h1>
-                <p>Master Linked List Operations & Algorithms</p>
-            </div>
+      <div class="container">
+        <div class="hero">
+          <h1>Linked List Data Structure</h1>
+          <p>Master Linked List Operations & Algorithms</p>
         </div>
+      </div>
     </header>
     <nav>
-        <div class="container">
-            <div class="nav-container">
-                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
-                    ☰
-                </button>
-                <ul class="nav-links" id="navLinks">
-                    <li><a href="../tutorial-index.html">Home</a></li>
-                    <li><a href="array-learning.html">Array</a></li>
-                    <li><a href="string-learning.html">String</a></li>
-                    <li><a href="linkedlist-learning.html" class="active">Linked List</a></li>
-                    <li><a href="stack-learning.html">Stack</a></li>
-                    <li><a href="queue-learning.html">Queue</a></li>
-                    <li><a href="tree-learning.html">Tree</a></li>
-                    <li><a href="graph-learning.html">Graph</a></li>
-                    <li><a href="hashmap-learning.html">HashMap</a></li>
-                </ul>
-            </div>
+      <div class="container">
+        <div class="nav-container">
+          <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+            ☰
+          </button>
+          <ul class="nav-links" id="navLinks">
+            <li><a href="../tutorial-index.html">Home</a></li>
+            <li><a href="array-learning.html">Array</a></li>
+            <li><a href="string-learning.html">String</a></li>
+            <li>
+              <a href="linkedlist-learning.html" class="active">Linked List</a>
+            </li>
+            <li><a href="stack-learning.html">Stack</a></li>
+            <li><a href="queue-learning.html">Queue</a></li>
+            <li><a href="tree-learning.html">Tree</a></li>
+            <li><a href="graph-learning.html">Graph</a></li>
+            <li><a href="hashmap-learning.html">HashMap</a></li>
+          </ul>
         </div>
+      </div>
     </nav>
-    
+
     <script>
-        function toggleMobileMenu() {
-            const navLinks = document.getElementById('navLinks');
-            navLinks.classList.toggle('active');
+      function toggleMobileMenu() {
+        const navLinks = document.getElementById("navLinks");
+        navLinks.classList.toggle("active");
+      }
+
+      document.addEventListener("click", function (event) {
+        const nav = document.querySelector("nav");
+        const navLinks = document.getElementById("navLinks");
+
+        if (!nav.contains(event.target)) {
+          navLinks.classList.remove("active");
         }
-        
-        document.addEventListener('click', function(event) {
-            const nav = document.querySelector('nav');
-            const navLinks = document.getElementById('navLinks');
-            
-            if (!nav.contains(event.target)) {
-                navLinks.classList.remove('active');
-            }
-        });
+      });
     </script>
     <div class="container">
-        <div class="content">
-            <div class="topic">
-                <h2>Linked List Fundamentals</h2>
-                <p>Learn singly, doubly, and circular linked lists with operations and algorithms.</p>
-            </div>
+      <div class="content">
+        <div class="topic">
+          <h2>Linked List - Complete Guide</h2>
+
+          <h3>What is a Linked List?</h3>
+          <p>
+            A linked list is a linear data structure where elements (nodes) are
+            connected via pointers/references. Each node contains data and a
+            reference to the next node.
+          </p>
+
+          <h3>Types of Linked Lists:</h3>
+          <ul>
+            <li>
+              <strong>Singly Linked List:</strong> Each node points to next node
+              only
+            </li>
+            <li>
+              <strong>Doubly Linked List:</strong> Each node points to both
+              previous and next
+            </li>
+            <li>
+              <strong>Circular Linked List:</strong> Last node points back to
+              first node
+            </li>
+          </ul>
+
+          <h3>Node Structure:</h3>
+          <pre><code>
+// Singly Linked List Node
+class Node {
+    int data;
+    Node next;
+    
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+// Doubly Linked List Node
+class DNode {
+    int data;
+    DNode prev;
+    DNode next;
+    
+    DNode(int data) {
+        this.data = data;
+        this.prev = null;
+        this.next = null;
+    }
+}
+                </code></pre>
+
+          <h3>Time Complexity:</h3>
+          <ul>
+            <li><strong>Access:</strong> O(n) - Must traverse from head</li>
+            <li><strong>Search:</strong> O(n) - Linear search</li>
+            <li><strong>Insertion (at beginning):</strong> O(1)</li>
+            <li>
+              <strong>Insertion (at end):</strong> O(n) without tail, O(1) with
+              tail
+            </li>
+            <li><strong>Deletion (at beginning):</strong> O(1)</li>
+            <li><strong>Deletion (at end):</strong> O(n)</li>
+          </ul>
+
+          <h3>Basic Operations:</h3>
+          <pre><code>
+// Traversal
+Node current = head;
+while (current != null) {
+    System.out.println(current.data);
+    current = current.next;
+}
+
+// Insertion at beginning
+Node newNode = new Node(value);
+newNode.next = head;
+head = newNode;
+
+// Insertion at end
+Node current = head;
+while (current.next != null) {
+    current = current.next;
+}
+current.next = new Node(value);
+
+// Deletion at beginning
+if (head != null) {
+    head = head.next;
+}
+
+// Deletion at position
+if (pos == 0) {
+    head = head.next;
+} else {
+    Node current = head;
+    for (int i = 0; i < pos - 1 && current != null; i++) {
+        current = current.next;
+    }
+    if (current != null && current.next != null) {
+        current.next = current.next.next;
+    }
+}
+                </code></pre>
+
+          <h3>Common Interview Problems:</h3>
+          <ul>
+            <li>
+              <strong>Reverse Linked List:</strong> Reverse the entire list
+            </li>
+            <li><strong>Detect Cycle:</strong> Check if cycle exists</li>
+            <li><strong>Middle of List:</strong> Find middle element</li>
+            <li><strong>Remove Nth Node:</strong> Remove node at position n</li>
+            <li><strong>Merge Sorted Lists:</strong> Merge two sorted lists</li>
+            <li>
+              <strong>Palindrome Check:</strong> Check if list is palindrome
+            </li>
+            <li>
+              <strong>Intersection Point:</strong> Find intersection of two
+              lists
+            </li>
+          </ul>
+
+          <h3>Example: Reverse Linked List</h3>
+          <pre><code>
+public Node reverseLinkedList(Node head) {
+    Node prev = null;
+    Node current = head;
+    
+    while (current != null) {
+        Node nextTemp = current.next;  // Store next
+        current.next = prev;            // Reverse link
+        prev = current;                 // Move prev
+        current = nextTemp;             // Move current
+    }
+    return prev;  // New head
+}
+                </code></pre>
+
+          <h3>Example: Detect Cycle (Floyd's Algorithm)</h3>
+          <pre><code>
+public boolean hasCycle(Node head) {
+    if (head == null) return false;
+    
+    Node slow = head;
+    Node fast = head;
+    
+    while (fast != null && fast.next != null) {
+        slow = slow.next;          // Move 1 step
+        fast = fast.next.next;     // Move 2 steps
+        
+        if (slow == fast) {
+            return true;  // Cycle detected
+        }
+    }
+    return false;
+}
+                </code></pre>
+
+          <h3>Example: Middle of Linked List</h3>
+          <pre><code>
+public Node findMiddle(Node head) {
+    if (head == null) return null;
+    
+    Node slow = head;
+    Node fast = head;
+    
+    while (fast != null && fast.next != null) {
+        slow = slow.next;       // Move 1 step
+        fast = fast.next.next;  // Move 2 steps
+    }
+    return slow;  // Middle node
+}
+                </code></pre>
+
+          <h3>Advantages & Disadvantages:</h3>
+          <p><strong>Advantages:</strong></p>
+          <ul>
+            <li>Dynamic size</li>
+            <li>Efficient insertion/deletion at beginning</li>
+            <li>No memory wastage</li>
+          </ul>
+          <p><strong>Disadvantages:</strong></p>
+          <ul>
+            <li>No random access - O(n)</li>
+            <li>Extra memory for pointers</li>
+            <li>Cache unfriendly</li>
+          </ul>
+
+          <h3>When to Use:</h3>
+          <ul>
+            <li>When you need frequent insertions/deletions</li>
+            <li>When size is unknown or varies greatly</li>
+            <li>Implementing stacks and queues</li>
+            <li>Creating graphs using adjacency list</li>
+          </ul>
         </div>
+      </div>
     </div>
     <footer>
-        <div class="container">
-            <p>&copy; 2025 Sonu Kumar - Senior Full Stack Developer | Java Spring Boot Angular React Expert | Available for remote work, enterprise consulting, and full-time opportunities | Contact: <a href="mailto:skrdeveloper1@gmail.com">skrdeveloper1@gmail.com</a> | LinkedIn: <a href="https://www.linkedin.com/in/sonuskr">linkedin.com/in/sonuskr</a></p>
-        </div>
+      <div class="container">
+        <p>
+          &copy; 2025 Sonu Kumar - Senior Full Stack Developer | Java Spring
+          Boot Angular React Expert | Available for remote work, enterprise
+          consulting, and full-time opportunities | Contact:
+          <a href="mailto:skrdeveloper1@gmail.com">skrdeveloper1@gmail.com</a> |
+          LinkedIn:
+          <a href="https://www.linkedin.com/in/sonuskr"
+            >linkedin.com/in/sonuskr</a
+          >
+        </p>
+      </div>
     </footer>
-</body>
+  </body>
 </html>

@@ -57,8 +57,208 @@
     <div class="container">
         <div class="content">
             <div class="topic">
-                <h2>Tree Fundamentals</h2>
-                <p>Learn binary trees, BST, AVL trees, and tree traversal algorithms.</p>
+                <h2>Tree - Complete Guide</h2>
+                
+                <h3>What is a Tree?</h3>
+                <p>A tree is a hierarchical non-linear data structure composed of nodes connected by edges. Each tree has a root node with zero or more child nodes.</p>
+                
+                <h3>Tree Terminology:</h3>
+                <ul>
+                    <li><strong>Root:</strong> Top node with no parent</li>
+                    <li><strong>Leaf:</strong> Node with no children</li>
+                    <li><strong>Parent:</strong> Node that has child nodes</li>
+                    <li><strong>Child:</strong> Node that has parent</li>
+                    <li><strong>Height:</strong> Maximum distance from node to leaf</li>
+                    <li><strong>Depth:</strong> Distance from root to node</li>
+                </ul>
+
+                <h3>Types of Trees:</h3>
+                <ul>
+                    <li><strong>Binary Tree:</strong> Each node has max 2 children</li>
+                    <li><strong>Binary Search Tree (BST):</strong> Left < Parent < Right</li>
+                    <li><strong>Balanced Tree:</strong> Heights of subtrees differ by ≤ 1</li>
+                    <li><strong>AVL Tree:</strong> Self-balancing BST</li>
+                    <li><strong>Red-Black Tree:</strong> Self-balancing BST with colors</li>
+                    <li><strong>N-ary Tree:</strong> Each node can have N children</li>
+                    <li><strong>Trie:</strong> For prefix searching</li>
+                </ul>
+
+                <h3>Tree Node Structure:</h3>
+                <pre><code>
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    
+    TreeNode(int val) {
+        this.val = val;
+    }
+}
+                </code></pre>
+
+                <h3>Tree Traversal Methods:</h3>
+                <pre><code>
+// Inorder: Left -> Root -> Right (gives sorted for BST)
+void inorder(TreeNode root) {
+    if (root == null) return;
+    inorder(root.left);
+    System.out.println(root.val);
+    inorder(root.right);
+}
+
+// Preorder: Root -> Left -> Right (useful for copying)
+void preorder(TreeNode root) {
+    if (root == null) return;
+    System.out.println(root.val);
+    preorder(root.left);
+    preorder(root.right);
+}
+
+// Postorder: Left -> Right -> Root (useful for deletion)
+void postorder(TreeNode root) {
+    if (root == null) return;
+    postorder(root.left);
+    postorder(root.right);
+    System.out.println(root.val);
+}
+
+// Level Order: BFS (breadth-first)
+void levelOrder(TreeNode root) {
+    Queue<TreeNode> queue = new LinkedList<>();
+    queue.add(root);
+    while (!queue.isEmpty()) {
+        TreeNode node = queue.poll();
+        System.out.println(node.val);
+        if (node.left != null) queue.add(node.left);
+        if (node.right != null) queue.add(node.right);
+    }
+}
+                </code></pre>
+
+                <h3>Binary Search Tree Operations:</h3>
+                <pre><code>
+// Search
+TreeNode search(TreeNode root, int val) {
+    if (root == null) return null;
+    if (root.val == val) return root;
+    if (val < root.val) return search(root.left, val);
+    return search(root.right, val);
+}
+
+// Insert
+TreeNode insert(TreeNode root, int val) {
+    if (root == null) return new TreeNode(val);
+    if (val < root.val) {
+        root.left = insert(root.left, val);
+    } else {
+        root.right = insert(root.right, val);
+    }
+    return root;
+}
+
+// Delete
+TreeNode delete(TreeNode root, int val) {
+    if (root == null) return null;
+    if (val < root.val) {
+        root.left = delete(root.left, val);
+    } else if (val > root.val) {
+        root.right = delete(root.right, val);
+    } else {
+        // Node to delete found
+        if (root.left == null) return root.right;
+        if (root.right == null) return root.left;
+        
+        // Node with two children
+        TreeNode minRight = root.right;
+        while (minRight.left != null) {
+            minRight = minRight.left;
+        }
+        root.val = minRight.val;
+        root.right = delete(root.right, minRight.val);
+    }
+    return root;
+}
+                </code></pre>
+
+                <h3>Common Interview Problems:</h3>
+                <ul>
+                    <li><strong>Maximum Depth:</strong> Find height of tree</li>
+                    <li><strong>Balanced Tree:</strong> Check if tree is balanced</li>
+                    <li><strong>LCA:</strong> Lowest Common Ancestor</li>
+                    <li><strong>Path Sum:</strong> Find paths with given sum</li>
+                    <li><strong>Serialize/Deserialize:</strong> Convert tree to string and back</li>
+                    <li><strong>Validate BST:</strong> Check if valid BST</li>
+                    <li><strong>Merge Trees:</strong> Merge two trees</li>
+                    <li><strong>Invert Tree:</strong> Mirror the tree</li>
+                </ul>
+
+                <h3>Example: Maximum Depth (Height)</h3>
+                <pre><code>
+public int maxDepth(TreeNode root) {
+    if (root == null) return 0;
+    return 1 + Math.max(maxDepth(root.left), maxDepth(root.right));
+}
+                </code></pre>
+
+                <h3>Example: Check if Balanced Tree</h3>
+                <pre><code>
+public boolean isBalanced(TreeNode root) {
+    return height(root) != -1;
+}
+
+private int height(TreeNode root) {
+    if (root == null) return 0;
+    
+    int leftHeight = height(root.left);
+    if (leftHeight == -1) return -1;
+    
+    int rightHeight = height(root.right);
+    if (rightHeight == -1) return -1;
+    
+    if (Math.abs(leftHeight - rightHeight) > 1) {
+        return -1;  // Unbalanced
+    }
+    return 1 + Math.max(leftHeight, rightHeight);
+}
+                </code></pre>
+
+                <h3>Example: Validate BST</h3>
+                <pre><code>
+public boolean isValidBST(TreeNode root) {
+    return validate(root, Long.MIN_VALUE, Long.MAX_VALUE);
+}
+
+private boolean validate(TreeNode node, long min, long max) {
+    if (node == null) return true;
+    
+    if (node.val <= min || node.val >= max) {
+        return false;
+    }
+    
+    return validate(node.left, min, node.val) &&
+           validate(node.right, node.val, max);
+}
+                </code></pre>
+
+                <h3>Time Complexity:</h3>
+                <ul>
+                    <li><strong>Search (Balanced BST):</strong> O(log n)</li>
+                    <li><strong>Search (Unbalanced BST):</strong> O(n)</li>
+                    <li><strong>Insert:</strong> O(log n) average, O(n) worst</li>
+                    <li><strong>Delete:</strong> O(log n) average, O(n) worst</li>
+                    <li><strong>Traversal:</strong> O(n)</li>
+                </ul>
+
+                <h3>Real-world Applications:</h3>
+                <ul>
+                    <li>File system hierarchy</li>
+                    <li>Database indexing (B-trees)</li>
+                    <li>HTML DOM structure</li>
+                    <li>Expression parsing</li>
+                    <li>Decision making (decision trees)</li>
+                    <li>Networking (routing)</li>
+                    <li>Game AI (game trees)</li>
+                </ul>
             </div>
         </div>
     </div>
