@@ -125,6 +125,7 @@ function changeFont(fontName) {
 
 function changeTheme(themeName) {
   const theme = themes[themeName];
+  if (!theme) return;
   const root = document.documentElement;
 
   root.style.setProperty("--primary-color", theme.primary);
@@ -135,7 +136,8 @@ function changeTheme(themeName) {
   document.querySelectorAll(".theme-color").forEach((color) => {
     color.classList.remove("active");
   });
-  document.querySelector(`[data-theme="${themeName}"]`).classList.add("active");
+  const themeElement = document.querySelector(`[data-theme="${themeName}"]`);
+  if (themeElement) themeElement.classList.add("active");
 
   // Save theme preference
   localStorage.setItem("selectedTheme", themeName);
@@ -172,11 +174,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const themeToggle = document.querySelector(".btn-theme");
     const fontToggle = document.querySelector(".btn-font");
 
-    if (!themeSelector.contains(e.target) && !themeToggle.contains(e.target)) {
+    if (themeSelector && themeToggle && !themeSelector.contains(e.target) && !themeToggle.contains(e.target)) {
       themeSelector.classList.remove("active");
     }
 
-    if (!fontSelector.contains(e.target) && !fontToggle.contains(e.target)) {
+    if (fontSelector && fontToggle && !fontSelector.contains(e.target) && !fontToggle.contains(e.target)) {
       fontSelector.classList.remove("active");
     }
   });
@@ -187,12 +189,23 @@ function createResume() {
 }
 
 function downloadPDF() {
-  const { jsPDF } = window.jspdf;
-  const controlButtons = document.querySelector(".control-buttons");
-  const themeSelector = document.getElementById("themeSelector");
-  const fontSelector = document.getElementById("fontSelector");
-  const container = document.querySelector(".container");
-  const body = document.body;
+  if (!window.jspdf || !window.html2canvas) {
+    alert('PDF generation libraries not loaded');
+    return;
+  }
+  
+  try {
+    const { jsPDF } = window.jspdf;
+    const controlButtons = document.querySelector(".control-buttons");
+    const themeSelector = document.getElementById("themeSelector");
+    const fontSelector = document.getElementById("fontSelector");
+    const container = document.querySelector(".container");
+    const body = document.body;
+    
+    if (!container) {
+      alert('Container element not found');
+      return;
+    }
 
   // Store original styles
   const originalBorderRadius = container.style.borderRadius;
@@ -259,7 +272,23 @@ function downloadPDF() {
       container.style.margin = originalMargin;
 
       // Show buttons again
-      controlButtons.style.display = "flex";
+      if (controlButtons) controlButtons.style.display = "flex";
+    }).catch((error) => {
+      console.error('PDF generation failed:', error);
+      alert('Failed to generate PDF');
+      // Restore UI state on error
+      body.style.width = originalBodyWidth;
+      body.style.minWidth = originalBodyMinWidth;
+      container.style.width = originalWidth;
+      container.style.minWidth = originalMinWidth;
+      container.style.borderRadius = originalBorderRadius;
+      container.style.boxShadow = originalBoxShadow;
+      container.style.margin = originalMargin;
+      if (controlButtons) controlButtons.style.display = "flex";
     });
   }, 100);
+  } catch (error) {
+    console.error('PDF download error:', error);
+    alert('PDF download failed');
+  }
 }

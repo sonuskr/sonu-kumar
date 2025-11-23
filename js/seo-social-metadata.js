@@ -244,6 +244,13 @@ function generateSEOKeywords() {
   return allKeywords.join(", ");
 }
 
+// HTML escaping function to prevent XSS
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
 // Generate social media meta tags
 function generateSocialMetaTags() {
   const og = socialMetadata.enhancedOpenGraph;
@@ -251,22 +258,22 @@ function generateSocialMetaTags() {
 
   return `
     <!-- Enhanced Open Graph Tags -->
-    <meta property="og:title" content="${og.title}" />
-    <meta property="og:description" content="${og.description}" />
-    <meta property="og:image" content="${og.image}" />
-    <meta property="og:image:alt" content="${og.imageAlt}" />
+    <meta property="og:title" content="${escapeHtml(og.title)}" />
+    <meta property="og:description" content="${escapeHtml(og.description)}" />
+    <meta property="og:image" content="${escapeHtml(og.image)}" />
+    <meta property="og:image:alt" content="${escapeHtml(og.imageAlt)}" />
     <meta property="og:url" content="https://sonuskr.github.io/sonuskr/" />
     <meta property="og:type" content="profile" />
-    <meta property="og:locale" content="${og.locale}" />
-    <meta property="og:site_name" content="${og.siteName}" />
+    <meta property="og:locale" content="${escapeHtml(og.locale)}" />
+    <meta property="og:site_name" content="${escapeHtml(og.siteName)}" />
     
     <!-- Twitter Card Tags -->
-    <meta name="twitter:card" content="${twitter.card}" />
-    <meta name="twitter:site" content="${twitter.site}" />
-    <meta name="twitter:creator" content="${twitter.creator}" />
-    <meta name="twitter:title" content="${twitter.title}" />
-    <meta name="twitter:description" content="${twitter.description}" />
-    <meta name="twitter:image" content="${twitter.image}" />
+    <meta name="twitter:card" content="${escapeHtml(twitter.card)}" />
+    <meta name="twitter:site" content="${escapeHtml(twitter.site)}" />
+    <meta name="twitter:creator" content="${escapeHtml(twitter.creator)}" />
+    <meta name="twitter:title" content="${escapeHtml(twitter.title)}" />
+    <meta name="twitter:description" content="${escapeHtml(twitter.description)}" />
+    <meta name="twitter:image" content="${escapeHtml(twitter.image)}" />
     
     <!-- Additional Social Meta Tags -->
     <meta property="profile:first_name" content="Sonu" />

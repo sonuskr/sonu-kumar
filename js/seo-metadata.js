@@ -92,37 +92,47 @@ const seoMetadata = {
   },
 };
 
+// HTML escaping function to prevent XSS
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
 // Function to generate meta tags HTML
 function generateMetaTags() {
   return `
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>${seoMetadata.title}</title>
-    <meta name="description" content="${seoMetadata.description}" />
-    <meta name="keywords" content="${seoMetadata.keywords}" />
-    <meta name="author" content="${seoMetadata.author}" />
+    <title>${escapeHtml(seoMetadata.title)}</title>
+    <meta name="description" content="${escapeHtml(seoMetadata.description)}" />
+    <meta name="keywords" content="${escapeHtml(seoMetadata.keywords)}" />
+    <meta name="author" content="${escapeHtml(seoMetadata.author)}" />
     <meta name="robots" content="index, follow" />
     
     <!-- Open Graph Tags -->
-    <meta property="og:title" content="${seoMetadata.openGraph.title}" />
-    <meta property="og:description" content="${seoMetadata.openGraph.description}" />
-    <meta property="og:type" content="${seoMetadata.openGraph.type}" />
-    <meta property="og:url" content="${seoMetadata.openGraph.url}" />
-    <meta property="og:site_name" content="${seoMetadata.openGraph.siteName}" />
+    <meta property="og:title" content="${escapeHtml(seoMetadata.openGraph.title)}" />
+    <meta property="og:description" content="${escapeHtml(seoMetadata.openGraph.description)}" />
+    <meta property="og:type" content="${escapeHtml(seoMetadata.openGraph.type)}" />
+    <meta property="og:url" content="${escapeHtml(seoMetadata.openGraph.url)}" />
+    <meta property="og:site_name" content="${escapeHtml(seoMetadata.openGraph.siteName)}" />
     
     <!-- Technical Meta Tags -->
-    <link rel="canonical" href="${seoMetadata.canonical}" />
+    <link rel="canonical" href="${escapeHtml(seoMetadata.canonical)}" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <meta name="theme-color" content="${seoMetadata.themeColor}" />
-    <meta name="msapplication-TileColor" content="${seoMetadata.themeColor}" />
+    <meta name="theme-color" content="${escapeHtml(seoMetadata.themeColor)}" />
+    <meta name="msapplication-TileColor" content="${escapeHtml(seoMetadata.themeColor)}" />
   `;
 }
 
 // Function to generate structured data script
 function generateStructuredData() {
+  const jsonString = JSON.stringify(seoMetadata.structuredData, null, 2)
+    .replace(/</g, '\u003c')
+    .replace(/>/g, '\u003e');
   return `
     <script type="application/ld+json">
-      ${JSON.stringify(seoMetadata.structuredData, null, 2)}
+      ${jsonString}
     </script>
   `;
 }

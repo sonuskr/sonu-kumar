@@ -92,7 +92,7 @@ function initializeMenuEvents() {
         const nav = document.querySelector('nav');
         const navLinks = document.getElementById('navLinks');
         
-        if (!nav.contains(event.target)) {
+        if (nav && navLinks && !nav.contains(event.target)) {
             navLinks.classList.remove('active');
             // Close all dropdowns
             document.querySelectorAll('.dropdown.active').forEach(function(dropdown) {
@@ -115,7 +115,9 @@ function initializeMenuEvents() {
                 }.bind(this));
                 
                 // Toggle current dropdown
-                this.parentElement.classList.toggle('active');
+                if (this.parentElement) {
+                    this.parentElement.classList.toggle('active');
+                }
             }
         });
     });
