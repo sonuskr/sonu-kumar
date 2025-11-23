@@ -55,8 +55,523 @@
     <div class="container">
         <div class="content">
             <div class="topic">
-                <h2>Angular Fundamentals</h2>
-                <p>Learn Angular 17, signals, standalone components, and reactive programming.</p>
+                <h2>Angular - Complete Guide</h2>
+                
+                <h3>What is Angular?</h3>
+                <p>Angular is a modern TypeScript-based framework for building single-page applications (SPAs) with a component-based architecture. It provides a complete solution for building dynamic, interactive web applications with built-in dependency injection, routing, forms handling, and HTTP services.</p>
+                
+                <h3>Angular Evolution:</h3>
+                <ul>
+                    <li><strong>Angular 2:</strong> Complete rewrite in TypeScript (2016)</li>
+                    <li><strong>Angular 4-9:</strong> Incremental improvements, RxJS integration</li>
+                    <li><strong>Angular 12:</strong> TypeScript 4.2+ support</li>
+                    <li><strong>Angular 14:</strong> Typed Forms, standalone components preview</li>
+                    <li><strong>Angular 15:</strong> Standalone components stable, directive composition</li>
+                    <li><strong>Angular 16:</strong> Control flow syntax (@if, @for, @switch)</li>
+                    <li><strong>Angular 17:</strong> New @if/@for/@switch, signals API preview</li>
+                </ul>
+
+                <h3>Angular Architecture - Core Building Blocks:</h3>
+                <ul>
+                    <li><strong>Components:</strong> Basic UI building blocks with template, class, metadata</li>
+                    <li><strong>Modules (NgModule):</strong> Logical grouping of components, services, pipes</li>
+                    <li><strong>Services:</strong> Reusable logic injected via dependency injection</li>
+                    <li><strong>Directives:</strong> Structural (*ngIf, *ngFor) and attribute directives</li>
+                    <li><strong>Pipes:</strong> Transform data in templates (date, currency, uppercase)</li>
+                    <li><strong>Decorators:</strong> @Component, @Injectable, @Input, @Output metadata</li>
+                    <li><strong>Dependency Injection:</strong> Invert control pattern for service management</li>
+                </ul>
+
+                <h3>Creating a Component (Modern Angular 17):</h3>
+                <pre><code>
+// Standalone component (Angular 14+)
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-user-card',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div class="user-card">
+      <h3>{{ user.name }}</h3>
+      <p>{{ user.email }}</p>
+      <button (click)="onDelete()">Delete</button>
+    </div>
+  `,
+  styles: [`
+    .user-card {
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 8px;
+    }
+  `]
+})
+export class UserCardComponent {
+  @Input() user: any;
+  @Output() delete = new EventEmitter<any>();
+  
+  onDelete() {
+    this.delete.emit(this.user.id);
+  }
+}
+                </code></pre>
+
+                <h3>Component Lifecycle Hooks:</h3>
+                <pre><code>
+import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
+
+@Component({
+  selector: 'app-lifecycle',
+  template: '...'
+})
+export class LifecycleComponent 
+  implements OnInit, OnChanges, OnDestroy {
+  
+  ngOnInit() {
+    // Called after component initialized
+    // Initialize data, load from service
+  }
+  
+  ngOnChanges(changes: SimpleChanges) {
+    // Called when @Input properties change
+    if (changes['userId']) {
+      console.log('User ID changed to:', changes['userId'].currentValue);
+    }
+  }
+  
+  ngOnDestroy() {
+    // Called when component destroyed
+    // Cleanup: unsubscribe, clear timers
+  }
+  
+  // Other hooks: AfterViewInit, AfterContentInit, AfterViewChecked
+}
+                </code></pre>
+
+                <h3>Dependency Injection:</h3>
+                <pre><code>
+// Service definition
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'  // Available app-wide
+})
+export class UserService {
+  constructor(private http: HttpClient) {}
+  
+  getUsers(): Observable<any[]> {
+    return this.http.get<any[]>('/api/users');
+  }
+  
+  getUser(id: number): Observable<any> {
+    return this.http.get<any>(`/api/users/${id}`);
+  }
+}
+
+// Using service in component
+@Component({
+  selector: 'app-users',
+  template: '...'
+})
+export class UsersComponent implements OnInit {
+  users$ = new Observable<any[]>();
+  
+  // Inject service through constructor
+  constructor(private userService: UserService) {}
+  
+  ngOnInit() {
+    this.users$ = this.userService.getUsers();
+  }
+}
+                </code></pre>
+
+                <h3>Data Binding & Template Syntax:</h3>
+                <pre><code>
+// Property binding: [] - one way, component to template
+&lt;img [src]="imageUrl" [alt]="imageName" /&gt;
+
+// Event binding: () - template to component
+&lt;button (click)="onClickButton()"&gt;Click me&lt;/button&gt;
+&lt;input (keyup)="onKeyUp($event)" /&gt;
+
+// Two-way binding: [()] - both directions
+&lt;input [(ngModel)]="userName" /&gt;
+
+// Interpolation: {{ }} - template expression
+&lt;h1&gt;{{ title }}&lt;/h1&gt;
+&lt;p&gt;{{ user.firstName + ' ' + user.lastName }}&lt;/p&gt;
+
+// Property binding shorthand
+&lt;div [title]="description"&gt;...&lt;/div&gt;
+
+// Binding to custom components
+&lt;app-user-card [user]="currentUser" (delete)="onDelete($event)"&gt;&lt;/app-user-card&gt;
+                </code></pre>
+
+                <h3>Control Flow (Angular 17+):</h3>
+                <pre><code>
+// @if - replaces *ngIf
+&lt;div *ngIf="isLoggedIn; else notLoggedIn"&gt;
+  Welcome {{ userName }}
+&lt;/div&gt;
+&lt;ng-template #notLoggedIn&gt;
+  Please login
+&lt;/ng-template&gt;
+
+// Modern syntax (Angular 17)
+@if (isLoggedIn) {
+  &lt;div&gt;Welcome {{ userName }}&lt;/div&gt;
+} @else {
+  &lt;div&gt;Please login&lt;/div&gt;
+}
+
+// @for - replaces *ngFor
+@for (item of items; track item.id) {
+  &lt;li&gt;{{ item.name }} - ${{ item.price }}&lt;/li&gt;
+}
+
+// @switch - replaces [ngSwitch]
+@switch (userRole) {
+  @case ('admin') {
+    &lt;p&gt;Admin Panel&lt;/p&gt;
+  }
+  @case ('user') {
+    &lt;p&gt;User Dashboard&lt;/p&gt;
+  }
+  @default {
+    &lt;p&gt;Guest View&lt;/p&gt;
+  }
+}
+                </code></pre>
+
+                <h3>RxJS Observables & Reactive Programming:</h3>
+                <pre><code>
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { map, filter, switchMap, takeUntil } from 'rxjs/operators';
+
+// Observable - one-way stream
+const userClick$ = fromEvent(button, 'click');
+
+// Subject - multicasting (many subscribers)
+private messageSubject = new Subject<string>();
+public message$ = this.messageSubject.asObservable();
+
+// BehaviorSubject - has current value
+private userSubject = new BehaviorSubject<User>(defaultUser);
+public user$ = this.userSubject.asObservable();
+
+getUser(id: number) {
+  return this.http.get<User>(`/api/users/${id}`).pipe(
+    map(user => ({ ...user, name: user.name.toUpperCase() })),
+    filter(user => user.active),
+    switchMap(user => this.getDetails(user.id))
+  );
+}
+
+// Async pipe auto-unsubscribes
+&lt;div&gt;{{ user$ | async | json }}&lt;/div&gt;
+                </code></pre>
+
+                <h3>Reactive Forms (Type-Safe):</h3>
+                <pre><code>
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+
+@Component({
+  selector: 'app-user-form',
+  imports: [ReactiveFormsModule],
+  template: `
+    &lt;form [formGroup]="form" (ngSubmit)="onSubmit()"&gt;
+      &lt;input formControlName="name" required /&gt;
+      &lt;input formControlName="email" type="email" /&gt;
+      
+      &lt;div formGroupName="address"&gt;
+        &lt;input formControlName="street" /&gt;
+        &lt;input formControlName="city" /&gt;
+      &lt;/div&gt;
+      
+      &lt;div *ngIf="form.get('email')?.hasError('email')"&gt;
+        Invalid email
+      &lt;/div&gt;
+      
+      &lt;button [disabled]="form.invalid"&gt;Submit&lt;/button&gt;
+    &lt;/form&gt;
+  `
+})
+export class UserFormComponent {
+  form: FormGroup;
+  
+  constructor(private fb: FormBuilder) {
+    this.form = this.fb.group({
+      name: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      address: this.fb.group({
+        street: [''],
+        city: ['']
+      })
+    });
+  }
+  
+  onSubmit() {
+    if (this.form.valid) {
+      console.log(this.form.value);
+    }
+  }
+}
+                </code></pre>
+
+                <h3>Routing:</h3>
+                <pre><code>
+import { Routes } from '@angular/router';
+import { UsersComponent } from './users/users.component';
+import { UserDetailComponent } from './user-detail/user-detail.component';
+
+export const routes: Routes = [
+  { path: '', redirectTo: '/users', pathMatch: 'full' },
+  { path: 'users', component: UsersComponent },
+  { path: 'users/:id', component: UserDetailComponent },
+  { path: 'admin', component: AdminComponent, canActivate: [authGuard] },
+  { path: '**', component: PageNotFoundComponent }
+];
+
+// In component - navigate programmatically
+import { Router } from '@angular/router';
+
+export class UserDetailComponent {
+  constructor(private router: Router, private route: ActivatedRoute) {}
+  
+  goToUsers() {
+    this.router.navigate(['/users']);
+  }
+  
+  // Get route parameters
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      const id = params['id'];
+      this.loadUser(id);
+    });
+  }
+}
+                </code></pre>
+
+                <h3>HTTP Services with Error Handling:</h3>
+                <pre><code>
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { catchError, retry } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class DataService {
+  constructor(private http: HttpClient) {}
+  
+  getUsers() {
+    return this.http.get<any[]>('/api/users').pipe(
+      retry(1),
+      catchError(this.handleError)
+    );
+  }
+  
+  createUser(user: any) {
+    return this.http.post<any>('/api/users', user).pipe(
+      catchError(error => {
+        console.error('Error creating user:', error);
+        return throwError(() => new Error('Failed to create user'));
+      })
+    );
+  }
+  
+  private handleError(error: HttpErrorResponse) {
+    let errorMsg = 'Unknown error occurred';
+    
+    if (error.error instanceof ErrorEvent) {
+      errorMsg = `Client Error: ${error.error.message}`;
+    } else {
+      errorMsg = `Server Error: ${error.status} - ${error.message}`;
+    }
+    
+    return throwError(() => new Error(errorMsg));
+  }
+}
+                </code></pre>
+
+                <h3>Custom Directives:</h3>
+                <pre><code>
+import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+
+// Attribute Directive - modify behavior
+@Directive({
+  selector: '[appHighlight]',
+  standalone: true
+})
+export class HighlightDirective {
+  @Input() appHighlight = 'yellow';
+  
+  constructor(private el: ElementRef) {}
+  
+  @HostListener('mouseenter')
+  onMouseEnter() {
+    this.el.nativeElement.style.backgroundColor = this.appHighlight;
+  }
+  
+  @HostListener('mouseleave')
+  onMouseLeave() {
+    this.el.nativeElement.style.backgroundColor = null;
+  }
+}
+
+// Usage: &lt;div appHighlight="lightblue"&gt;Hover me&lt;/div&gt;
+                </code></pre>
+
+                <h3>Pipes (Data Transformation):</h3>
+                <pre><code>
+// Built-in pipes
+{{ date | date:'short' }}
+{{ price | currency:'USD' }}
+{{ text | uppercase }}
+{{ items | slice:0:3 }}
+{{ obj | json }}
+{{ 0.259 | percent }}
+
+// Custom pipe
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'titleCase',
+  standalone: true
+})
+export class TitleCasePipe implements PipeTransform {
+  transform(value: string): string {
+    if (!value) return value;
+    return value
+      .toLowerCase()
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  }
+}
+
+// Usage: {{ title | titleCase }}
+                </code></pre>
+
+                <h3>State Management with Signals (Angular 17):</h3>
+                <pre><code>
+import { signal, computed, effect } from '@angular/core';
+
+export class CounterComponent {
+  // Create reactive signal
+  count = signal(0);
+  
+  // Computed signal - auto updates when dependency changes
+  doubled = computed(() => this.count() * 2);
+  
+  // Effect - runs when signal changes
+  constructor() {
+    effect(() => {
+      console.log(`Count changed to: ${this.count()}`);
+    });
+  }
+  
+  increment() {
+    this.count.update(val => val + 1);
+  }
+  
+  reset() {
+    this.count.set(0);
+  }
+}
+
+// In template
+&lt;p&gt;Count: {{ count() }}&lt;/p&gt;
+&lt;p&gt;Doubled: {{ doubled() }}&lt;/p&gt;
+&lt;button (click)="increment()"&gt;Increment&lt;/button&gt;
+                </code></pre>
+
+                <h3>Common Interview Problems & Patterns:</h3>
+                <ul>
+                    <li><strong>Change Detection:</strong> OnPush vs Default strategy</li>
+                    <li><strong>Memory Leaks:</strong> Unsubscribe patterns, takeUntil operator</li>
+                    <li><strong>Component Communication:</strong> @Input/@Output, services, shared state</li>
+                    <li><strong>Performance:</strong> TrackBy in *ngFor, lazy loading routes</li>
+                    <li><strong>Error Handling:</strong> Global error handler, retry logic</li>
+                    <li><strong>Testing:</strong> Unit tests with TestBed, async/fakeAsync</li>
+                    <li><strong>Authentication:</strong> Guards, interceptors, JWT storage</li>
+                </ul>
+
+                <h3>Angular CLI Commands:</h3>
+                <pre><code>
+// Create new project
+ng new my-app
+
+// Generate components, services, etc
+ng generate component components/user-list
+ng generate service services/user
+ng generate directive directives/highlight
+ng generate pipe pipes/title-case
+
+// Development server
+ng serve --open
+
+// Build for production
+ng build --configuration production
+
+// Run tests
+ng test
+ng e2e
+                </code></pre>
+
+                <h3>Best Practices:</h3>
+                <ul>
+                    <li><strong>Smart vs Presentational Components:</strong> Separate data/logic from UI</li>
+                    <li><strong>OnPush Change Detection:</strong> Better performance with immutable patterns</li>
+                    <li><strong>Unsubscribe Pattern:</strong> Prevent memory leaks with takeUntil()</li>
+                    <li><strong>Standalone Components:</strong> Modern approach (Angular 14+)</li>
+                    <li><strong>Async Pipe:</strong> Auto-subscribe/unsubscribe in templates</li>
+                    <li><strong>Type Safety:</strong> Use typed forms and strict TypeScript</li>
+                    <li><strong>Lazy Loading:</strong> Split code by routes for faster initial load</li>
+                    <li><strong>Code Organization:</strong> Feature modules, shared module pattern</li>
+                </ul>
+
+                <h3>Real-world Application Structure:</h3>
+                <pre><code>
+src/
+├── app/
+│   ├── core/                    # Singleton services
+│   │   ├── services/
+│   │   ├── interceptors/
+│   │   └── guards/
+│   ├── shared/                  # Reusable components, pipes
+│   │   ├── components/
+│   │   ├── directives/
+│   │   └── pipes/
+│   ├── features/                # Feature modules
+│   │   ├── users/
+│   │   │   ├── components/
+│   │   │   ├── services/
+│   │   │   └── user-routing.module.ts
+│   │   └── products/
+│   ├── app.component.ts
+│   └── app.routes.ts
+├── main.ts
+└── styles.css
+                </code></pre>
+
+                <h3>Key Interview Questions:</h3>
+                <ul>
+                    <li>What's the difference between standalone and NgModule components?</li>
+                    <li>Explain change detection strategies and when to use OnPush</li>
+                    <li>How do you handle memory leaks in Angular?</li>
+                    <li>What are RxJS Observables and why use them?</li>
+                    <li>Difference between Reactive Forms and Template-driven Forms?</li>
+                    <li>How does dependency injection work in Angular?</li>
+                    <li>Explain Angular routing and lazy loading</li>
+                    <li>How to secure API calls with JWT in Angular?</li>
+                    <li>What are HTTP interceptors and their use cases?</li>
+                    <li>How to optimize Angular application performance?</li>
+                </ul>
             </div>
         </div>
     </div>

@@ -1,69 +1,702 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     <title>React Learning - Sonu Kumar</title>
-    <link rel="stylesheet" href="tutorial-styles.css">
-    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
-</head>
-<body class="page-react">
+    <link rel="stylesheet" href="tutorial-styles.css" />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  </head>
+  <body class="page-react">
     <header>
-        <div class="container">
-            <div class="hero">
-                <h1>React Learning Tutorial</h1>
-                <p>Master React Advanced Patterns</p>
-            </div>
+      <div class="container">
+        <div class="hero">
+          <h1>React Learning Tutorial</h1>
+          <p>Master React Advanced Patterns</p>
         </div>
+      </div>
     </header>
     <nav>
-        <div class="container">
-            <div class="nav-container">
-                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
-                    ☰
-                </button>
-                <ul class="nav-links" id="navLinks">
-                    <li><a href="tutorial-index.html">Home</a></li>
-                    <li><a href="java-learning.html">Java</a></li>
-                    <li><a href="javascript-learning.html">JavaScript</a></li>
-                    <li><a href="typescript-learning.html">TypeScript</a></li>
-                    <li><a href="angular-learning.html">Angular</a></li>
-                    <li><a href="react-learning.html" class="active">React</a></li>
-                    <li><a href="spring/spring-boot-learning.html">Spring Boot</a></li>
-                </ul>
-            </div>
+      <div class="container">
+        <div class="nav-container">
+          <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+            ☰
+          </button>
+          <ul class="nav-links" id="navLinks">
+            <li><a href="tutorial-index.html">Home</a></li>
+            <li><a href="java-learning.html">Java</a></li>
+            <li><a href="javascript-learning.html">JavaScript</a></li>
+            <li><a href="typescript-learning.html">TypeScript</a></li>
+            <li><a href="angular-learning.html">Angular</a></li>
+            <li><a href="react-learning.html" class="active">React</a></li>
+            <li><a href="spring/spring-boot-learning.html">Spring Boot</a></li>
+          </ul>
         </div>
+      </div>
     </nav>
-    
+
     <script>
-        function toggleMobileMenu() {
-            const navLinks = document.getElementById('navLinks');
-            navLinks.classList.toggle('active');
+      function toggleMobileMenu() {
+        const navLinks = document.getElementById("navLinks");
+        navLinks.classList.toggle("active");
+      }
+
+      document.addEventListener("click", function (event) {
+        const nav = document.querySelector("nav");
+        const navLinks = document.getElementById("navLinks");
+
+        if (!nav.contains(event.target)) {
+          navLinks.classList.remove("active");
         }
-        
-        document.addEventListener('click', function(event) {
-            const nav = document.querySelector('nav');
-            const navLinks = document.getElementById('navLinks');
-            
-            if (!nav.contains(event.target)) {
-                navLinks.classList.remove('active');
-            }
-        });
+      });
     </script>
     <div class="container">
-        <div class="content">
-            <div class="topic">
-                <h2>React Fundamentals</h2>
-                <p>Learn React 18, hooks, context, suspense, and advanced patterns.</p>
-            </div>
+      <div class="content">
+        <div class="topic">
+          <h2>React - Complete Guide</h2>
+
+          <h3>What is React?</h3>
+          <p>
+            React is a JavaScript library for building user interfaces using
+            components. It uses a virtual DOM for efficient updates, supports
+            state management, and follows a declarative approach. React 18+
+            introduced concurrent rendering, automatic batching, and transitions
+            for better performance.
+          </p>
+
+          <h3>React Core Concepts:</h3>
+          <ul>
+            <li>
+              <strong>Components:</strong> Reusable UI pieces (functional or
+              class-based)
+            </li>
+            <li><strong>JSX:</strong> HTML-like syntax in JavaScript</li>
+            <li><strong>State:</strong> Component data that can change</li>
+            <li><strong>Props:</strong> Parent to child communication</li>
+            <li><strong>Virtual DOM:</strong> Efficient rendering strategy</li>
+            <li>
+              <strong>Hooks:</strong> Functional components with state/lifecycle
+            </li>
+            <li>
+              <strong>Context:</strong> Global state without prop drilling
+            </li>
+          </ul>
+
+          <h3>Functional Components & JSX:</h3>
+          <pre><code>
+// Functional component - modern approach
+function Welcome(props) {
+    return &lt;h1&gt;Hello, {props.name}&lt;/h1&gt;;
+}
+
+// With destructuring
+function Greeting({ name, age }) {
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Name: {name}&lt;/p&gt;
+            &lt;p&gt;Age: {age}&lt;/p&gt;
+        &lt;/div&gt;
+    );
+}
+
+// JSX rules
+// - Single root element
+// - className instead of class
+// - htmlFor instead of for
+// - Event handlers in camelCase: onClick, onChange
+// - Expressions in {}
+
+function App() {
+    const title = 'React App';
+    const isValid = true;
+    
+    return (
+        &lt;div className="app"&gt;
+            &lt;h1&gt;{title}&lt;/h1&gt;
+            &lt;input type="text" onChange={(e) =&gt; console.log(e.target.value)} /&gt;
+            &lt;button onClick={() =&gt; console.log('clicked')}&gt;Click&lt;/button&gt;
+            
+            {isValid ? &lt;p&gt;Valid&lt;/p&gt; : &lt;p&gt;Invalid&lt;/p&gt;}
+            {isValid &amp;&amp; &lt;p&gt;Shown if valid&lt;/p&gt;}
+        &lt;/div&gt;
+    );
+}
+                </code></pre>
+
+          <h3>useState Hook - State Management:</h3>
+          <pre><code>
+import { useState } from 'react';
+
+function Counter() {
+    const [count, setCount] = useState(0);
+    const [user, setUser] = useState({ name: 'John', age: 30 });
+    
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Count: {count}&lt;/p&gt;
+            &lt;button onClick={() =&gt; setCount(count + 1)}&gt;Increment&lt;/button&gt;
+            
+            {/* Updating state correctly */}
+            &lt;button onClick={() =&gt; setCount(prevCount =&gt; prevCount + 1)}&gt;
+                Best Practice Increment
+            &lt;/button&gt;
+            
+            {/* Complex state */}
+            &lt;p&gt;User: {user.name}, Age: {user.age}&lt;/p&gt;
+            &lt;button onClick={() =&gt; setUser({ ...user, age: user.age + 1 })}&gt;
+                Increment Age
+            &lt;/button&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Multiple state variables
+function Form() {
+    const [formData, setFormData] = useState({
+        email: '',
+        password: ''
+    });
+    
+    const handleChange = (e) =&gt; {
+        const { name, value } = e.target;
+        setFormData(prev =&gt; ({
+            ...prev,
+            [name]: value
+        }));
+    };
+    
+    return (
+        &lt;form&gt;
+            &lt;input name="email" value={formData.email} onChange={handleChange} /&gt;
+            &lt;input name="password" type="password" value={formData.password} onChange={handleChange} /&gt;
+        &lt;/form&gt;
+    );
+}
+                </code></pre>
+
+          <h3>useEffect Hook - Side Effects:</h3>
+          <pre><code>
+import { useState, useEffect } from 'react';
+
+function UserProfile({ userId }) {
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
+    
+    // Run after every render (be careful!)
+    useEffect(() =&gt; {
+        console.log('Component rendered');
+    });
+    
+    // Run once on mount (dependency array empty)
+    useEffect(() =&gt; {
+        console.log('Component mounted');
+        return () =&gt; console.log('Component unmounted');
+    }, []);
+    
+    // Run when userId changes
+    useEffect(() =&gt; {
+        setLoading(true);
+        fetch(`/api/users/${userId}`)
+            .then(res =&gt; res.json())
+            .then(data =&gt; {
+                setUser(data);
+                setLoading(false);
+            })
+            .catch(err =&gt; console.error(err));
+    }, [userId]);  // Dependency array
+    
+    if (loading) return &lt;p&gt;Loading...&lt;/p&gt;;
+    if (!user) return &lt;p&gt;No user found&lt;/p&gt;;
+    
+    return &lt;div&gt;&lt;h1&gt;{user.name}&lt;/h1&gt;&lt;/div&gt;;
+}
+
+// Cleanup - prevent memory leaks
+function Timer() {
+    const [seconds, setSeconds] = useState(0);
+    
+    useEffect(() =&gt; {
+        const interval = setInterval(() =&gt; {
+            setSeconds(s =&gt; s + 1);
+        }, 1000);
+        
+        // Cleanup function
+        return () =&gt; clearInterval(interval);
+    }, []);
+    
+    return &lt;p&gt;Seconds: {seconds}&lt;/p&gt;;
+}
+                </code></pre>
+
+          <h3>useContext - Avoiding Prop Drilling:</h3>
+          <pre><code>
+import { createContext, useState, useContext } from 'react';
+
+// Create context
+const ThemeContext = createContext();
+
+// Provider component
+export function ThemeProvider({ children }) {
+    const [isDark, setIsDark] = useState(false);
+    
+    const toggleTheme = () =&gt; setIsDark(!isDark);
+    
+    const value = { isDark, toggleTheme };
+    
+    return (
+        &lt;ThemeContext.Provider value={value}&gt;
+            {children}
+        &lt;/ThemeContext.Provider&gt;
+    );
+}
+
+// Custom hook for using context
+export function useTheme() {
+    const context = useContext(ThemeContext);
+    if (!context) {
+        throw new Error('useTheme must be used within ThemeProvider');
+    }
+    return context;
+}
+
+// Using in components
+function Header() {
+    const { isDark, toggleTheme } = useTheme();
+    
+    return (
+        &lt;header style={{ background: isDark ? '#333' : '#fff' }}&gt;
+            &lt;button onClick={toggleTheme}&gt;
+                {isDark ? 'Light' : 'Dark'} Mode
+            &lt;/button&gt;
+        &lt;/header&gt;
+    );
+}
+
+// App setup
+function App() {
+    return (
+        &lt;ThemeProvider&gt;
+            &lt;Header /&gt;
+            &lt;Main /&gt;
+        &lt;/ThemeProvider&gt;
+    );
+}
+                </code></pre>
+
+          <h3>useReducer - Complex State Logic:</h3>
+          <pre><code>
+import { useReducer } from 'react';
+
+// Reducer function
+const initialState = { count: 0, error: null };
+
+function reducer(state, action) {
+    switch (action.type) {
+        case 'INCREMENT':
+            return { ...state, count: state.count + 1 };
+        case 'DECREMENT':
+            return { ...state, count: state.count - 1 };
+        case 'RESET':
+            return initialState;
+        case 'ERROR':
+            return { ...state, error: action.payload };
+        default:
+            return state;
+    }
+}
+
+function Counter() {
+    const [state, dispatch] = useReducer(reducer, initialState);
+    
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Count: {state.count}&lt;/p&gt;
+            &lt;button onClick={() =&gt; dispatch({ type: 'INCREMENT' })}&gt;+&lt;/button&gt;
+            &lt;button onClick={() =&gt; dispatch({ type: 'DECREMENT' })}&gt;-&lt;/button&gt;
+            &lt;button onClick={() =&gt; dispatch({ type: 'RESET' })}&gt;Reset&lt;/button&gt;
+            {state.error &amp;&amp; &lt;p&gt;Error: {state.error}&lt;/p&gt;}
+        &lt;/div&gt;
+    );
+}
+                </code></pre>
+
+          <h3>useMemo & useCallback - Performance:</h3>
+          <pre><code>
+import { useMemo, useCallback } from 'react';
+
+function ExpensiveComponent({ items }) {
+    // Memoize expensive calculation
+    const expensiveValue = useMemo(() =&gt; {
+        console.log('Computing expensive value...');
+        return items.reduce((sum, item) =&gt; sum + item.value, 0);
+    }, [items]);  // Recalculate only if items changes
+    
+    // Memoize callback - same reference unless dependencies change
+    const handleClick = useCallback(() =&gt; {
+        console.log('Clicked', items);
+    }, [items]);
+    
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Total: {expensiveValue}&lt;/p&gt;
+            &lt;ChildComponent onClick={handleClick} /&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Prevent unnecessary re-renders
+import { memo } from 'react';
+
+const ChildComponent = memo(({ onClick }) =&gt; {
+    console.log('ChildComponent rendered');
+    return &lt;button onClick={onClick}&gt;Click&lt;/button&gt;;
+});
+                </code></pre>
+
+          <h3>Custom Hooks:</h3>
+          <pre><code>
+// Custom hook for API fetching
+function useFetch(url) {
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    
+    useEffect(() =&gt; {
+        const fetchData = async () =&gt; {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error('API error');
+                const result = await response.json();
+                setData(result);
+            } catch (err) {
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+        
+        fetchData();
+    }, [url]);
+    
+    return { data, loading, error };
+}
+
+// Usage
+function UserList() {
+    const { data: users, loading, error } = useFetch('/api/users');
+    
+    if (loading) return &lt;p&gt;Loading...&lt;/p&gt;;
+    if (error) return &lt;p&gt;Error: {error}&lt;/p&gt;;
+    
+    return (
+        &lt;ul&gt;
+            {users?.map(user =&gt; &lt;li key={user.id}&gt;{user.name}&lt;/li&gt;)}
+        &lt;/ul&gt;
+    );
+}
+
+// Custom hook for form handling
+function useForm(initialValues, onSubmit) {
+    const [values, setValues] = useState(initialValues);
+    
+    const handleChange = (e) =&gt; {
+        const { name, value } = e.target;
+        setValues(prev =&gt; ({ ...prev, [name]: value }));
+    };
+    
+    const handleSubmit = (e) =&gt; {
+        e.preventDefault();
+        onSubmit(values);
+    };
+    
+    return { values, handleChange, handleSubmit };
+}
+                </code></pre>
+
+          <h3>Conditional Rendering & Lists:</h3>
+          <pre><code>
+function App({ isLoggedIn, items }) {
+    // Method 1: If-else
+    if (isLoggedIn) {
+        return &lt;Dashboard /&gt;;
+    }
+    return &lt;Login /&gt;;
+    
+    // Method 2: Ternary operator
+    return isLoggedIn ? &lt;Dashboard /&gt; : &lt;Login /&gt;;
+    
+    // Method 3: Logical AND
+    return isLoggedIn &amp;&amp; &lt;Dashboard /&gt;;
+    
+    // Method 4: Switch statement
+    switch (userRole) {
+        case 'admin':
+            return &lt;AdminPanel /&gt;;
+        case 'user':
+            return &lt;UserDashboard /&gt;;
+        default:
+            return &lt;GuestView /&gt;;
+    }
+}
+
+// Rendering lists - always use key
+function ItemList({ items }) {
+    return (
+        &lt;ul&gt;
+            {items.map(item =&gt; (
+                &lt;li key={item.id}&gt;{item.name}&lt;/li&gt;
+            ))}
+        &lt;/ul&gt;
+    );
+}
+
+// Filtering list
+function FilteredList({ items, filter }) {
+    return (
+        &lt;ul&gt;
+            {items
+                .filter(item =&gt; item.category === filter)
+                .map(item =&gt; (
+                    &lt;li key={item.id}&gt;{item.name}&lt;/li&gt;
+                ))}
+        &lt;/ul&gt;
+    );
+}
+                </code></pre>
+
+          <h3>Lifting State Up & Component Composition:</h3>
+          <pre><code>
+// State managed in parent, passed to children
+function TemperatureCalculator() {
+    const [celsius, setCelsius] = useState(0);
+    
+    const fahrenheit = (celsius * 9/5) + 32;
+    
+    return (
+        &lt;div&gt;
+            &lt;TemperatureInput
+                label="Celsius"
+                value={celsius}
+                onChange={(e) =&gt; setCelsius(e.target.value)}
+            /&gt;
+            &lt;TemperatureInput
+                label="Fahrenheit"
+                value={fahrenheit}
+                onChange={() =&gt; {}}
+                readOnly
+            /&gt;
+        &lt;/div&gt;
+    );
+}
+
+// Composition pattern - flexible components
+function Card({ header, body, footer, children }) {
+    return (
+        &lt;div className="card"&gt;
+            {header &amp;&amp; &lt;div className="header"&gt;{header}&lt;/div&gt;}
+            {body &amp;&amp; &lt;div className="body"&gt;{body}&lt;/div&gt;}
+            {children}
+            {footer &amp;&amp; &lt;div className="footer"&gt;{footer}&lt;/div&gt;}
+        &lt;/div&gt;
+    );
+}
+
+// Render props pattern
+function MouseTracker({ render }) {
+    const [position, setPosition] = useState({ x: 0, y: 0 });
+    
+    const handleMouseMove = (e) =&gt; {
+        setPosition({ x: e.clientX, y: e.clientY });
+    };
+    
+    return (
+        &lt;div onMouseMove={handleMouseMove}&gt;
+            {render(position)}
+        &lt;/div&gt;
+    );
+}
+
+// Usage
+&lt;MouseTracker render={({ x, y }) =&gt; &lt;p&gt;X: {x}, Y: {y}&lt;/p&gt;} /&gt;
+                </code></pre>
+
+          <h3>React Router - Navigation:</h3>
+          <pre><code>
+import { BrowserRouter, Routes, Route, Link, useParams } from 'react-router-dom';
+
+function App() {
+    return (
+        &lt;BrowserRouter&gt;
+            &lt;nav&gt;
+                &lt;Link to="/"&gt;Home&lt;/Link&gt;
+                &lt;Link to="/about"&gt;About&lt;/Link&gt;
+                &lt;Link to="/users/123"&gt;User&lt;/Link&gt;
+            &lt;/nav&gt;
+            
+            &lt;Routes&gt;
+                &lt;Route path="/" element={&lt;Home /&gt;} /&gt;
+                &lt;Route path="/about" element={&lt;About /&gt;} /&gt;
+                &lt;Route path="/users/:id" element={&lt;UserDetail /&gt;} /&gt;
+                &lt;Route path="*" element={&lt;NotFound /&gt;} /&gt;
+            &lt;/Routes&gt;
+        &lt;/BrowserRouter&gt;
+    );
+}
+
+function UserDetail() {
+    const { id } = useParams();
+    return &lt;h1&gt;User ID: {id}&lt;/h1&gt;;
+}
+                </code></pre>
+
+          <h3>Error Boundaries - Error Handling:</h3>
+          <pre><code>
+import { Component } from 'react';
+
+class ErrorBoundary extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { hasError: false, error: null };
+    }
+    
+    static getDerivedStateFromError(error) {
+        return { hasError: true, error };
+    }
+    
+    componentDidCatch(error, errorInfo) {
+        console.error('Error caught:', error, errorInfo);
+        // Log to error reporting service
+    }
+    
+    render() {
+        if (this.state.hasError) {
+            return &lt;h1&gt;Something went wrong: {this.state.error.message}&lt;/h1&gt;;
+        }
+        
+        return this.props.children;
+    }
+}
+
+// Usage
+&lt;ErrorBoundary&gt;
+    &lt;ProblematicComponent /&gt;
+&lt;/ErrorBoundary&gt;
+                </code></pre>
+
+          <h3>Performance Optimization Techniques:</h3>
+          <ul>
+            <li>
+              <strong>Code Splitting:</strong> Lazy load components with
+              React.lazy()
+            </li>
+            <li><strong>React.memo:</strong> Prevent unnecessary re-renders</li>
+            <li>
+              <strong>useMemo & useCallback:</strong> Memoize expensive
+              computations
+            </li>
+            <li><strong>Virtual List:</strong> Render only visible items</li>
+            <li>
+              <strong>Image Optimization:</strong> Lazy load images, use
+              next-gen formats
+            </li>
+            <li>
+              <strong>Bundle Analysis:</strong> Use Webpack Bundle Analyzer
+            </li>
+            <li><strong>Suspense:</strong> Handle loading states elegantly</li>
+          </ul>
+
+          <h3>State Management Solutions:</h3>
+          <ul>
+            <li>
+              <strong>Context + useReducer:</strong> Built-in solution for
+              mid-size apps
+            </li>
+            <li>
+              <strong>Redux:</strong> Centralized store, predictable state
+              management
+            </li>
+            <li><strong>Zustand:</strong> Simple, lightweight alternative</li>
+            <li><strong>Recoil:</strong> Atom-based state management</li>
+            <li>
+              <strong>Jotai:</strong> Primitive and flexible state management
+            </li>
+          </ul>
+
+          <h3>Common Interview Problems:</h3>
+          <ul>
+            <li>Virtual DOM vs Real DOM and reconciliation</li>
+            <li>When to use useState vs useReducer</li>
+            <li>Preventing memory leaks with useEffect cleanup</li>
+            <li>Key prop importance in lists</li>
+            <li>Lifting state up and prop drilling solutions</li>
+            <li>Performance optimization with React.memo and useMemo</li>
+            <li>Controlled vs uncontrolled components</li>
+            <li>Error boundaries and error handling</li>
+          </ul>
+
+          <h3>Best Practices:</h3>
+          <ul>
+            <li>Always use functional components with hooks</li>
+            <li>Keep components small and focused</li>
+            <li>Use semantic HTML</li>
+            <li>Implement proper accessibility (a11y)</li>
+            <li>Write testable components</li>
+            <li>Use TypeScript for type safety</li>
+            <li>Proper error handling and loading states</li>
+            <li>Avoid inline object/function definitions in render</li>
+          </ul>
+
+          <h3>Testing React Components:</h3>
+          <pre><code>
+import { render, screen, fireEvent } from '@testing-library/react';
+import { UserCard } from './UserCard';
+
+describe('UserCard', () =&gt; {
+    test('renders user information', () =&gt; {
+        render(&lt;UserCard user={{ name: 'John', age: 30 }} /&gt;);
+        expect(screen.getByText('John')).toBeInTheDocument();
+    });
+    
+    test('calls onClick when button is clicked', () =&gt; {
+        const handleClick = jest.fn();
+        render(&lt;UserCard user={{}} onClick={handleClick} /&gt;);
+        fireEvent.click(screen.getByRole('button'));
+        expect(handleClick).toHaveBeenCalled();
+    });
+});
+                </code></pre>
+
+          <h3>Key Interview Questions:</h3>
+          <ul>
+            <li>Difference between class and functional components</li>
+            <li>Explain React hooks and their purpose</li>
+            <li>How does virtual DOM work?</li>
+            <li>What are controlled vs uncontrolled components?</li>
+            <li>How to handle forms in React?</li>
+            <li>Difference between state and props</li>
+            <li>What is Context API and when to use it?</li>
+            <li>How to optimize React performance?</li>
+            <li>Explain React Fiber and reconciliation</li>
+            <li>How to handle errors in React?</li>
+          </ul>
         </div>
+      </div>
     </div>
     <footer>
-        <div class="container">
-            <p>&copy; 2025 Sonu Kumar - Senior Full Stack Developer | Java Spring Boot Angular React Expert | Available for remote work, enterprise consulting, and full-time opportunities | Contact: <a href="mailto:skrdeveloper1@gmail.com">skrdeveloper1@gmail.com</a> | LinkedIn: <a href="https://www.linkedin.com/in/sonuskr">linkedin.com/in/sonuskr</a></p>
-        </div>
+      <div class="container">
+        <p>
+          &copy; 2025 Sonu Kumar - Senior Full Stack Developer | Java Spring
+          Boot Angular React Expert | Available for remote work, enterprise
+          consulting, and full-time opportunities | Contact:
+          <a href="mailto:skrdeveloper1@gmail.com">skrdeveloper1@gmail.com</a> |
+          LinkedIn:
+          <a href="https://www.linkedin.com/in/sonuskr"
+            >linkedin.com/in/sonuskr</a
+          >
+        </p>
+      </div>
     </footer>
-</body>
+  </body>
 </html>

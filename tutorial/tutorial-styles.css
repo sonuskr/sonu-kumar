@@ -788,12 +788,12 @@ nav {
 }
 
 /* Syntax Highlighting */
-.code-block .language-java .keyword { color: #f7fafc; font-weight: bold; }
-.code-block .language-java .string { color: #68d391; }
-.code-block .language-java .comment { color: #a0aec0; font-style: italic; }
-.code-block .language-java .number { color: #fbb6ce; }
-.code-block .language-java .class-name { color: #63b3ed; }
-.code-block .language-java .method { color: #fbd38d; }
+.code-block .keyword { color: #c792ea; font-weight: bold; }
+.code-block .string { color: #c3e88d; }
+.code-block .comment { color: #546e7a; font-style: italic; }
+.code-block .number { color: #f78c6c; }
+.code-block .class { color: #ffcb6b; }
+.code-block .method { color: #82aaff; }
 
 .code {
     background: #1a202c;

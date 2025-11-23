@@ -55,8 +55,632 @@
     <div class="container">
         <div class="content">
             <div class="topic">
-                <h2>Spring Core Fundamentals</h2>
-                <p>Learn dependency injection, IoC container, beans, and Spring core features.</p>
+                <h2>Spring Core - Complete Guide</h2>
+                
+                <h3>What is Spring Framework?</h3>
+                <p>Spring is a lightweight, non-invasive framework for building Java applications. It provides a comprehensive programming and configuration model for modern Java-based enterprise applications. Spring Core is the foundation that enables dependency injection (DI) and inversion of control (IoC) patterns, forming the basis for other Spring modules.</p>
+                
+                <h3>Spring Framework Modules:</h3>
+                <ul>
+                    <li><strong>Spring Core:</strong> IoC container, beans, configuration</li>
+                    <li><strong>Spring AOP:</strong> Aspect-oriented programming</li>
+                    <li><strong>Spring Data Access:</strong> JDBC, ORM, transactions</li>
+                    <li><strong>Spring Web:</strong> Web, Servlet, WebSocket</li>
+                    <li><strong>Spring MVC:</strong> Model-View-Controller framework</li>
+                    <li><strong>Spring Security:</strong> Authentication & authorization</li>
+                    <li><strong>Spring Boot:</strong> Auto-configuration & embedded servers</li>
+                </ul>
+
+                <h3>IoC Container & Beans:</h3>
+                <pre><code>
+// What is a Bean?
+// A bean is an object managed by the Spring IoC container
+// Beans are created, configured, and assembled by Spring
+
+// Simple POJO class
+public class UserService {
+    public void login(String username) {
+        System.out.println("User " + username + " logged in");
+    }
+}
+
+// Registering bean - XML configuration
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"&gt;
+    &lt;bean id="userService" class="com.example.UserService"/&gt;
+    &lt;bean id="userDAO" class="com.example.UserDAO"/&gt;
+&lt;/beans&gt;
+
+// Creating and using beans
+ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
+UserService userService = context.getBean("userService", UserService.class);
+userService.login("john");
+
+// Alternative: Annotation-based configuration
+@Component
+public class UserService {
+    public void login(String username) {
+        System.out.println("User " + username + " logged in");
+    }
+}
+
+// Scanning components
+@Configuration
+@ComponentScan(basePackages = "com.example")
+public class AppConfig {
+}
+
+AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+UserService userService = context.getBean(UserService.class);
+                </code></pre>
+
+                <h3>Dependency Injection (DI) - Core Concept:</h3>
+                <pre><code>
+// Problem: Tight coupling
+public class UserService {
+    private UserDAO userDAO = new UserDAO();  // Hard to test, inflexible
+}
+
+// Solution: Dependency Injection
+// 1. Constructor Injection (Preferred)
+public class UserService {
+    private final UserDAO userDAO;
+    
+    public UserService(UserDAO userDAO) {
+        this.userDAO = userDAO;  // Dependency injected
+    }
+    
+    public User getUserById(Long id) {
+        return userDAO.findById(id);
+    }
+}
+
+// XML Configuration
+&lt;beans&gt;
+    &lt;bean id="userDAO" class="com.example.UserDAO"/&gt;
+    &lt;bean id="userService" class="com.example.UserService"&gt;
+        &lt;constructor-arg ref="userDAO"/&gt;
+    &lt;/bean&gt;
+&lt;/beans&gt;
+
+// Annotation-based
+@Component
+public class UserDAO {
+    public User findById(Long id) {
+        return new User(id, "John");
+    }
+}
+
+@Component
+public class UserService {
+    private final UserDAO userDAO;
+    
+    public UserService(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
+}
+
+// 2. Setter Injection
+public class UserService {
+    private UserDAO userDAO;
+    
+    public void setUserDAO(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
+}
+
+// XML Configuration
+&lt;bean id="userService" class="com.example.UserService"&gt;
+    &lt;property name="userDAO" ref="userDAO"/&gt;
+&lt;/bean&gt;
+
+// 3. Field Injection (Avoid in production)
+@Service
+public class UserService {
+    @Autowired
+    private UserDAO userDAO;
+}
+
+// 4. Method Injection
+@Service
+public class UserService {
+    private UserDAO userDAO;
+    
+    @Autowired
+    public void setDependencies(UserDAO dao) {
+        this.userDAO = dao;
+    }
+}
+                </code></pre>
+
+                <h3>Bean Scopes:</h3>
+                <pre><code>
+// Singleton (default) - one instance per container
+@Component
+@Scope("singleton")
+public class SingletonBean {
+}
+
+// XML: &lt;bean id="bean" class="..." scope="singleton"/&gt;
+
+// Prototype - new instance each time
+@Component
+@Scope("prototype")
+public class PrototypeBean {
+}
+
+// Request scope - one per HTTP request
+@Component
+@Scope("request")
+public class RequestScopedBean {
+}
+
+// Session scope - one per HTTP session
+@Component
+@Scope("session")
+public class SessionScopedBean {
+}
+
+// Application/Global Session scope
+@Component
+@Scope("application")
+public class ApplicationScopedBean {
+}
+
+// Custom scope
+@Component
+@Scope(scopeName = "custom")
+public class CustomScopedBean {
+}
+
+// Testing different scopes
+@Test
+public void testSingletonScope() {
+    UserService service1 = context.getBean("userService", UserService.class);
+    UserService service2 = context.getBean("userService", UserService.class);
+    assertSame(service1, service2);  // Same instance
+}
+
+@Test
+public void testPrototypeScope() {
+    RequestBean bean1 = context.getBean("requestBean", RequestBean.class);
+    RequestBean bean2 = context.getBean("requestBean", RequestBean.class);
+    assertNotSame(bean1, bean2);  // Different instances
+}
+                </code></pre>
+
+                <h3>Annotations & Configuration:</h3>
+                <pre><code>
+// Component registration annotations
+@Component         // Generic component
+@Service           // Service layer
+@Repository        // Data access layer
+@Controller        // MVC controller
+
+// Configuration and bean creation
+@Configuration
+public class AppConfig {
+    
+    @Bean
+    public UserDAO userDAO() {
+        return new UserDAO();
+    }
+    
+    @Bean
+    public UserService userService(UserDAO userDAO) {
+        return new UserService(userDAO);
+    }
+    
+    @Bean(name = {"userSvc", "service"})  // Multiple names
+    public UserService userService2() {
+        return new UserService(userDAO());
+    }
+    
+    @Bean
+    @Scope("prototype")
+    public RequestBean requestBean() {
+        return new RequestBean();
+    }
+}
+
+// Autowiring annotations
+@Autowired              // Field/constructor/setter injection
+@Qualifier("beanName")  // Specify which bean to inject
+@Resource(name="bean")  // JNDI resource injection
+@Inject                 // JSR-330 annotation
+
+// Conditional bean registration
+@Bean
+@ConditionalOnProperty(name = "app.enabled", havingValue = "true")
+public Feature enabledFeature() {
+    return new Feature();
+}
+
+@Bean
+@ConditionalOnMissingBean
+public DefaultService defaultService() {
+    return new DefaultService();
+}
+
+// Bean lifecycle annotations
+@PostConstruct   // Called after bean constructed
+public void init() {
+    System.out.println("Bean initialized");
+}
+
+@PreDestroy      // Called before bean destroyed
+public void cleanup() {
+    System.out.println("Bean destroyed");
+}
+                </code></pre>
+
+                <h3>Bean Lifecycle:</h3>
+                <pre><code>
+// Complete bean lifecycle
+public class BeanLifecycle implements InitializingBean, DisposableBean {
+    
+    // 1. Constructor
+    public BeanLifecycle() {
+        System.out.println("1. Constructor called");
+    }
+    
+    // 2. Setter injection
+    private String name;
+    
+    public void setName(String name) {
+        System.out.println("2. Setter called");
+        this.name = name;
+    }
+    
+    // 3. BeanNameAware - set bean name
+    @Override
+    public void setBeanName(String name) {
+        System.out.println("3. setBeanName called: " + name);
+    }
+    
+    // 4. BeanFactoryAware - set bean factory
+    @Override
+    public void setBeanFactory(BeanFactory factory) {
+        System.out.println("4. setBeanFactory called");
+    }
+    
+    // 5. ApplicationContextAware - set application context
+    @Override
+    public void setApplicationContext(ApplicationContext context) {
+        System.out.println("5. setApplicationContext called");
+    }
+    
+    // 6. BeanPostProcessor - postProcessBeforeInitialization
+    // Called by framework before init methods
+    
+    // 7. InitializingBean.afterPropertiesSet()
+    @Override
+    public void afterPropertiesSet() {
+        System.out.println("7. afterPropertiesSet called");
+    }
+    
+    // 8. @PostConstruct method
+    @PostConstruct
+    public void postConstruct() {
+        System.out.println("8. @PostConstruct called");
+    }
+    
+    // 9. Custom init-method
+    public void init() {
+        System.out.println("9. Custom init-method called");
+    }
+    
+    // 10. BeanPostProcessor - postProcessAfterInitialization
+    // Called after bean initialized
+    
+    // Bean ready for use...
+    
+    // 11. @PreDestroy method
+    @PreDestroy
+    public void preDestroy() {
+        System.out.println("11. @PreDestroy called");
+    }
+    
+    // 12. DisposableBean.destroy()
+    @Override
+    public void destroy() {
+        System.out.println("12. destroy called");
+    }
+    
+    // 13. Custom destroy-method
+    public void cleanup() {
+        System.out.println("13. Custom destroy-method called");
+    }
+}
+                </code></pre>
+
+                <h3>XML Configuration:</h3>
+                <pre><code>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"&gt;
+    
+    &lt;!-- Simple bean definition --&gt;
+    &lt;bean id="userDAO" class="com.example.UserDAO"/&gt;
+    
+    &lt;!-- Bean with properties --&gt;
+    &lt;bean id="dataSource" class="com.example.DataSource"&gt;
+        &lt;property name="url" value="jdbc:mysql://localhost/mydb"/&gt;
+        &lt;property name="username" value="root"/&gt;
+        &lt;property name="password" value="password"/&gt;
+    &lt;/bean&gt;
+    
+    &lt;!-- Constructor injection --&gt;
+    &lt;bean id="userService" class="com.example.UserService"&gt;
+        &lt;constructor-arg ref="userDAO"/&gt;
+        &lt;constructor-arg ref="dataSource"/&gt;
+    &lt;/bean&gt;
+    
+    &lt;!-- Collections --&gt;
+    &lt;bean id="configBean" class="com.example.ConfigBean"&gt;
+        &lt;property name="servers"&gt;
+            &lt;list&gt;
+                &lt;value&gt;server1&lt;/value&gt;
+                &lt;value&gt;server2&lt;/value&gt;
+            &lt;/list&gt;
+        &lt;/property&gt;
+        
+        &lt;property name="mapping"&gt;
+            &lt;map&gt;
+                &lt;entry key="key1" value="value1"/&gt;
+                &lt;entry key="key2" value="value2"/&gt;
+            &lt;/map&gt;
+        &lt;/property&gt;
+    &lt;/bean&gt;
+    
+    &lt;!-- Bean scope and lifecycle --&gt;
+    &lt;bean id="prototype" class="com.example.PrototypeBean" scope="prototype"
+        init-method="init" destroy-method="cleanup"/&gt;
+    
+    &lt;!-- Lazy initialization --&gt;
+    &lt;bean id="lazyBean" class="com.example.LazyBean" lazy-init="true"/&gt;
+    
+&lt;/beans&gt;
+                </code></pre>
+
+                <h3>Aspect-Oriented Programming (AOP):</h3>
+                <pre><code>
+// Enable AOP
+@Configuration
+@EnableAspectJAutoProxy
+public class AopConfig {
+}
+
+// Define Aspect
+@Aspect
+@Component
+public class LoggingAspect {
+    
+    // Pointcut - where to apply advice
+    @Pointcut("execution(* com.example.UserService.*(..))")
+    public void userServiceMethods() {
+    }
+    
+    // Before advice
+    @Before("userServiceMethods()")
+    public void logBefore(JoinPoint joinPoint) {
+        String methodName = joinPoint.getSignature().getName();
+        System.out.println("Before: " + methodName);
+    }
+    
+    // After advice
+    @After("userServiceMethods()")
+    public void logAfter(JoinPoint joinPoint) {
+        System.out.println("After: " + joinPoint.getSignature().getName());
+    }
+    
+    // Around advice - most powerful
+    @Around("userServiceMethods()")
+    public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
+        long startTime = System.currentTimeMillis();
+        Object result = joinPoint.proceed();  // Execute actual method
+        long duration = System.currentTimeMillis() - startTime;
+        System.out.println("Method took: " + duration + "ms");
+        return result;
+    }
+    
+    // After throwing advice
+    @AfterThrowing(pointcut = "userServiceMethods()", throwing = "ex")
+    public void logAfterThrowing(JoinPoint joinPoint, Exception ex) {
+        System.out.println("Exception: " + ex.getMessage());
+    }
+    
+    // After returning advice
+    @AfterReturning(pointcut = "userServiceMethods()", returning = "result")
+    public void logAfterReturning(JoinPoint joinPoint, Object result) {
+        System.out.println("Result: " + result);
+    }
+}
+
+// Pointcut expressions
+execution(* com.example.*.*(..))           // Any method in package
+@annotation(org.springframework.stereotype.Service)  // Methods with annotation
+bean(userService)                          // Beans named userService
+                </code></pre>
+
+                <h3>Event Handling:</h3>
+                <pre><code>
+// Create custom event
+public class UserCreatedEvent extends ApplicationEvent {
+    private final String username;
+    
+    public UserCreatedEvent(Object source, String username) {
+        super(source);
+        this.username = username;
+    }
+    
+    public String getUsername() {
+        return username;
+    }
+}
+
+// Publisher - send event
+@Service
+public class UserService {
+    @Autowired
+    private ApplicationEventPublisher eventPublisher;
+    
+    public void createUser(String username) {
+        User user = new User(username);
+        // ... save user
+        
+        // Publish event
+        eventPublisher.publishEvent(new UserCreatedEvent(this, username));
+    }
+}
+
+// Listener - handle event
+@Component
+public class UserCreatedListener implements ApplicationListener<UserCreatedEvent> {
+    
+    @Override
+    public void onApplicationEvent(UserCreatedEvent event) {
+        System.out.println("User created: " + event.getUsername());
+        // Send email, log, etc.
+    }
+}
+
+// Alternative: Annotation-based listener
+@Component
+public class UserEventListener {
+    
+    @EventListener
+    public void handleUserCreated(UserCreatedEvent event) {
+        System.out.println("User created: " + event.getUsername());
+    }
+    
+    @EventListener
+    public void handleUserDeleted(UserDeletedEvent event) {
+        System.out.println("User deleted: " + event.getUsername());
+    }
+}
+                </code></pre>
+
+                <h3>Resource Management:</h3>
+                <pre><code>
+// Accessing resources from classpath
+@Component
+public class ResourceLoader {
+    
+    @Autowired
+    private org.springframework.core.io.ResourceLoader resourceLoader;
+    
+    public void loadConfig() throws IOException {
+        Resource resource = resourceLoader.getResource("classpath:config.properties");
+        InputStream is = resource.getInputStream();
+        Properties props = new Properties();
+        props.load(is);
+    }
+}
+
+// Property injection
+@Component
+@PropertySource("classpath:app.properties")
+public class AppConfig {
+    
+    @Value("${app.name}")
+    private String appName;
+    
+    @Value("${app.version:1.0.0}")  // With default value
+    private String appVersion;
+    
+    @Value("${app.ports:8080,8081,8082}")
+    private String[] ports;
+    
+    @Value("#{'${app.features}'.split(',')}")
+    private List<String> features;
+}
+
+// Profile-specific properties
+// application.properties (default)
+// application-dev.properties
+// application-prod.properties
+
+@Configuration
+@Profile("production")
+public class ProdConfig {
+    // Production configuration
+}
+
+@Configuration
+@Profile("!production")
+public class DevConfig {
+    // Development configuration
+}
+                </code></pre>
+
+                <h3>Spring vs Spring Boot:</h3>
+                <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                    <tr style="background-color: #f2f2f2;">
+                        <th style="border: 1px solid #ddd; padding: 8px;">Feature</th>
+                        <th style="border: 1px solid #ddd; padding: 8px;">Spring</th>
+                        <th style="border: 1px solid #ddd; padding: 8px;">Spring Boot</th>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #ddd; padding: 8px;">Configuration</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">Manual</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">Auto-configured</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #ddd; padding: 8px;">Server</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">External (Tomcat)</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">Embedded</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #ddd; padding: 8px;">Dependency Management</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">Manual</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">Starters</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #ddd; padding: 8px;">Setup Time</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">Longer</td>
+                        <td style="border: 1px solid #ddd; padding: 8px;">Quick</td>
+                    </tr>
+                </table>
+
+                <h3>Common Interview Topics:</h3>
+                <ul>
+                    <li><strong>IoC Container:</strong> How Spring manages beans</li>
+                    <li><strong>Dependency Injection:</strong> Constructor vs setter vs field</li>
+                    <li><strong>Bean Scopes:</strong> Singleton, prototype, request, session</li>
+                    <li><strong>Bean Lifecycle:</strong> Initialization and destruction</li>
+                    <li><strong>AOP:</strong> Aspects, pointcuts, advice types</li>
+                    <li><strong>Auto-wiring:</strong> By type, by name, by qualifier</li>
+                    <li><strong>Circular Dependencies:</strong> Detection and resolution</li>
+                    <li><strong>Property Injection:</strong> @Value, @PropertySource</li>
+                    <li><strong>Event Handling:</strong> Application events and listeners</li>
+                </ul>
+
+                <h3>Best Practices:</h3>
+                <ul>
+                    <li>Prefer constructor injection for required dependencies</li>
+                    <li>Use setter injection for optional dependencies</li>
+                    <li>Avoid field injection in production code</li>
+                    <li>Keep beans stateless when using singleton scope</li>
+                    <li>Use proper scopes for thread-safety</li>
+                    <li>Implement proper initialization and destruction logic</li>
+                    <li>Use aspect-oriented programming for cross-cutting concerns</li>
+                    <li>Externalize configuration using properties files</li>
+                    <li>Follow SOLID principles in bean design</li>
+                </ul>
+
+                <h3>Key Interview Questions:</h3>
+                <ul>
+                    <li>What is IoC and how does Spring implement it?</li>
+                    <li>Explain different types of dependency injection</li>
+                    <li>What are bean scopes and their use cases?</li>
+                    <li>Describe the complete bean lifecycle</li>
+                    <li>What is AOP and how does it work in Spring?</li>
+                    <li>How does Spring handle circular dependencies?</li>
+                    <li>What's the difference between @Component and @Bean?</li>
+                    <li>Explain @Autowired and resolution strategies</li>
+                    <li>How to externalize configuration in Spring?</li>
+                    <li>What are Spring profiles and their purpose?</li>
+                </ul>
             </div>
         </div>
     </div>

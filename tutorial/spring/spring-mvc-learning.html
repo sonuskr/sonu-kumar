@@ -55,8 +55,590 @@
     <div class="container">
         <div class="content">
             <div class="topic">
-                <h2>Spring MVC Fundamentals</h2>
-                <p>Learn controllers, views, models, and Spring MVC architecture patterns.</p>
+                <h2>Spring MVC - Complete Guide</h2>
+                
+                <h3>What is Spring MVC?</h3>
+                <p>Spring MVC is a robust web framework for building web applications using the Model-View-Controller (MVC) design pattern. It provides a flexible architecture for handling HTTP requests, processing business logic, and rendering responses. Spring MVC integrates seamlessly with Spring Core for dependency injection and other enterprise features.</p>
+                
+                <h3>MVC Pattern Overview:</h3>
+                <ul>
+                    <li><strong>Model:</strong> Business data and logic</li>
+                    <li><strong>View:</strong> Presentation layer (JSP, Thymeleaf, FreeMarker)</li>
+                    <li><strong>Controller:</strong> Handles requests and coordinates between model and view</li>
+                </ul>
+
+                <h3>Spring MVC Request Flow:</h3>
+                <pre><code>
+1. DispatcherServlet receives HTTP request
+2. DispatcherServlet consults HandlerMapping to find Controller
+3. DispatcherServlet invokes the Controller method
+4. Controller executes business logic via Service/Model
+5. Controller returns ModelAndView
+6. DispatcherServlet consults ViewResolver
+7. ViewResolver returns View
+8. View renders the response
+9. DispatcherServlet returns response to client
+
+// XML Configuration - web.xml
+&lt;servlet&gt;
+    &lt;servlet-name&gt;dispatcher&lt;/servlet-name&gt;
+    &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;
+    &lt;init-param&gt;
+        &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
+        &lt;param-value&gt;/WEB-INF/spring-mvc-config.xml&lt;/param-value&gt;
+    &lt;/init-param&gt;
+&lt;/servlet&gt;
+
+&lt;servlet-mapping&gt;
+    &lt;servlet-name&gt;dispatcher&lt;/servlet-name&gt;
+    &lt;url-pattern&gt;/&lt;/url-pattern&gt;
+&lt;/servlet-mapping&gt;
+                </code></pre>
+
+                <h3>Controllers - Handling Requests:</h3>
+                <pre><code>
+// Basic Controller
+@Controller
+@RequestMapping("/users")
+public class UserController {
+    
+    @Autowired
+    private UserService userService;
+    
+    // Simple request mapping
+    @GetMapping
+    public ModelAndView listUsers() {
+        List<User> users = userService.findAll();
+        ModelAndView mv = new ModelAndView("user/list");
+        mv.addObject("users", users);
+        return mv;
+    }
+    
+    // Alternative - using Model
+    @GetMapping
+    public String listUsers(Model model) {
+        model.addAttribute("users", userService.findAll());
+        return "user/list";  // View name
+    }
+    
+    // Path variable
+    @GetMapping("/{id}")
+    public String getUser(@PathVariable Long id, Model model) {
+        User user = userService.findById(id);
+        model.addAttribute("user", user);
+        return "user/detail";
+    }
+    
+    // Query parameters
+    @GetMapping("/search")
+    public String searchUsers(@RequestParam String keyword, 
+                              @RequestParam(required = false, defaultValue = "1") int page,
+                              Model model) {
+        model.addAttribute("users", userService.search(keyword, page));
+        return "user/search-results";
+    }
+    
+    // Form submission
+    @PostMapping
+    public String createUser(@ModelAttribute User user) {
+        userService.save(user);
+        return "redirect:/users";  // Redirect after POST
+    }
+    
+    // PUT/DELETE requests
+    @PutMapping("/{id}")
+    public String updateUser(@PathVariable Long id, @ModelAttribute User user) {
+        userService.update(id, user);
+        return "redirect:/users/" + id;
+    }
+    
+    @DeleteMapping("/{id}")
+    public String deleteUser(@PathVariable Long id) {
+        userService.delete(id);
+        return "redirect:/users";
+    }
+}
+
+// REST Controller (returns JSON/XML)
+@RestController
+@RequestMapping("/api/users")
+public class UserRestController {
+    
+    @Autowired
+    private UserService userService;
+    
+    @GetMapping
+    public List<User> getAllUsers() {
+        return userService.findAll();
+    }
+    
+    @GetMapping("/{id}")
+    public ResponseEntity<User> getUser(@PathVariable Long id) {
+        return userService.findById(id)
+            .map(ResponseEntity::ok)
+            .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+    
+    @PostMapping
+    public ResponseEntity<User> createUser(@RequestBody User user) {
+        User created = userService.save(user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(created);
+    }
+}
+                </code></pre>
+
+                <h3>Request Parameter Binding:</h3>
+                <pre><code>
+@Controller
+public class BindingController {
+    
+    // Request parameter - query string
+    @GetMapping("/search")
+    public String search(@RequestParam String q, Model model) {
+        model.addAttribute("results", searchService.search(q));
+        return "results";
+    }
+    
+    // Optional request parameter
+    @GetMapping("/filter")
+    public String filter(@RequestParam(required = false) String category, Model model) {
+        model.addAttribute("items", itemService.filter(category));
+        return "items";
+    }
+    
+    // Default value
+    @GetMapping("/page")
+    public String listItems(@RequestParam(defaultValue = "1") int page, Model model) {
+        model.addAttribute("items", itemService.getPage(page));
+        return "items";
+    }
+    
+    // Path variable
+    @GetMapping("/products/{id}")
+    public String getProduct(@PathVariable Long id, Model model) {
+        model.addAttribute("product", productService.findById(id));
+        return "product";
+    }
+    
+    // Request header
+    @GetMapping("/data")
+    public String getData(@RequestHeader("User-Agent") String userAgent) {
+        System.out.println("User Agent: " + userAgent);
+        return "data";
+    }
+    
+    // Cookie value
+    @GetMapping("/user")
+    public String getUser(@CookieValue("userId") String userId) {
+        System.out.println("User ID: " + userId);
+        return "user";
+    }
+    
+    // Matrix variable
+    @GetMapping("/products/{id}")
+    public String productDetails(@PathVariable Long id,
+                                @MatrixVariable String color) {
+        return "product";
+    }
+    
+    // Model attribute - object binding
+    @PostMapping("/users")
+    public String createUser(@ModelAttribute User user, BindingResult result) {
+        if (result.hasErrors()) {
+            return "user/form";
+        }
+        userService.save(user);
+        return "redirect:/users";
+    }
+}
+                </code></pre>
+
+                <h3>View Resolution - Thymeleaf:</h3>
+                <pre><code>
+// Configuration
+@Configuration
+public class ViewConfig {
+    @Bean
+    public ThymeleafViewResolver viewResolver(
+            SpringTemplateEngine templateEngine) {
+        ThymeleafViewResolver resolver = new ThymeleafViewResolver();
+        resolver.setTemplateEngine(templateEngine);
+        return resolver;
+    }
+}
+
+// Template file - src/main/resources/templates/user/list.html
+&lt;!DOCTYPE html&gt;
+&lt;html xmlns:th="http://www.thymeleaf.org"&gt;
+&lt;head&gt;
+    &lt;title&gt;Users&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;!-- Variable interpolation --&gt;
+    &lt;h1&gt;[[${title}]]&lt;/h1&gt;
+    
+    &lt;!-- Conditional rendering --&gt;
+    &lt;div th:if="${users.size() > 0}"&gt;
+        &lt;table&gt;
+            &lt;!-- Iteration --&gt;
+            &lt;tr th:each="user : ${users}"&gt;
+                &lt;td th:text="${user.id}"&gt;&lt;/td&gt;
+                &lt;td th:text="${user.name}"&gt;&lt;/td&gt;
+                &lt;td&gt;
+                    &lt;a th:href="@{/users/{id}(id=${user.id})}"&gt;View&lt;/a&gt;
+                &lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/table&gt;
+    &lt;/div&gt;
+    
+    &lt;div th:unless="${users.size() > 0}"&gt;
+        &lt;p&gt;No users found&lt;/p&gt;
+    &lt;/div&gt;
+    
+    &lt;!-- Form submission --&gt;
+    &lt;form th:action="@{/users}" method="post" th:object="${user}"&gt;
+        &lt;input th:field="*{name}" required /&gt;
+        &lt;input th:field="*{email}" type="email" required /&gt;
+        &lt;span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"&gt;&lt;/span&gt;
+        &lt;button type="submit"&gt;Save&lt;/button&gt;
+    &lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                </code></pre>
+
+                <h3>Form Handling & Validation:</h3>
+                <pre><code>
+// Model class with validation
+@Data
+@NoArgsConstructor
+public class UserForm {
+    
+    @NotBlank(message = "Name is required")
+    @Size(min = 3, max = 50)
+    private String name;
+    
+    @Email(message = "Valid email required")
+    private String email;
+    
+    @NotNull
+    @Min(18)
+    private Integer age;
+}
+
+// Controller with form validation
+@Controller
+@RequestMapping("/users")
+public class UserFormController {
+    
+    // Display form
+    @GetMapping("/new")
+    public String showForm(Model model) {
+        model.addAttribute("user", new UserForm());
+        return "user/form";
+    }
+    
+    // Process form with validation
+    @PostMapping
+    public String createUser(@Valid @ModelAttribute("user") UserForm form,
+                            BindingResult result,
+                            Model model) {
+        
+        // Validation errors
+        if (result.hasErrors()) {
+            return "user/form";
+        }
+        
+        // Custom validation
+        if (userService.userExists(form.getEmail())) {
+            result.rejectValue("email", "user.email.exists", "Email already exists");
+            return "user/form";
+        }
+        
+        userService.save(form);
+        return "redirect:/users";
+    }
+}
+
+// Template with error handling
+&lt;form th:action="@{/users}" method="post" th:object="${user}"&gt;
+    &lt;div&gt;
+        &lt;label for="name"&gt;Name:&lt;/label&gt;
+        &lt;input id="name" type="text" th:field="*{name}" class="form-control" /&gt;
+        &lt;span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"&gt;&lt;/span&gt;
+    &lt;/div&gt;
+    
+    &lt;div&gt;
+        &lt;label for="email"&gt;Email:&lt;/label&gt;
+        &lt;input id="email" type="email" th:field="*{email}" class="form-control" /&gt;
+        &lt;span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"&gt;&lt;/span&gt;
+    &lt;/div&gt;
+    
+    &lt;button type="submit"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;
+                </code></pre>
+
+                <h3>Interceptors & Filters:</h3>
+                <pre><code>
+// Handler Interceptor
+@Component
+public class LoggingInterceptor implements HandlerInterceptor {
+    
+    @Override
+    public boolean preHandle(HttpServletRequest request, 
+                            HttpServletResponse response,
+                            Object handler) throws Exception {
+        System.out.println("Request: " + request.getRequestURI());
+        return true;  // Continue processing
+    }
+    
+    @Override
+    public void postHandle(HttpServletRequest request,
+                          HttpServletResponse response,
+                          Object handler,
+                          ModelAndView modelAndView) throws Exception {
+        System.out.println("Response status: " + response.getStatus());
+    }
+    
+    @Override
+    public void afterCompletion(HttpServletRequest request,
+                               HttpServletResponse response,
+                               Object handler,
+                               Exception ex) throws Exception {
+        if (ex != null) {
+            ex.printStackTrace();
+        }
+    }
+}
+
+// Register interceptor
+@Configuration
+public class WebConfig implements WebMvcConfigurer {
+    
+    @Autowired
+    private LoggingInterceptor loggingInterceptor;
+    
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(loggingInterceptor)
+            .addPathPatterns("/**")
+            .excludePathPatterns("/public/**");
+    }
+}
+
+// Servlet Filter
+@Component
+public class AuthenticationFilter implements Filter {
+    
+    @Override
+    public void doFilter(ServletRequest request,
+                        ServletResponse response,
+                        FilterChain chain) throws IOException, ServletException {
+        HttpServletRequest httpRequest = (HttpServletRequest) request;
+        String token = httpRequest.getHeader("Authorization");
+        
+        if (token != null && validateToken(token)) {
+            chain.doFilter(request, response);
+        } else {
+            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_UNAUTHORIZED);
+        }
+    }
+}
+                </code></pre>
+
+                <h3>Exception Handling:</h3>
+                <pre><code>
+// Controller-level exception handler
+@Controller
+public class UserController {
+    
+    @ExceptionHandler(UserNotFoundException.class)
+    public String handleUserNotFound(UserNotFoundException ex, Model model) {
+        model.addAttribute("error", "User not found: " + ex.getMessage());
+        return "error/not-found";
+    }
+    
+    @ExceptionHandler(IllegalArgumentException.class)
+    public String handleIllegalArgument(IllegalArgumentException ex, Model model) {
+        model.addAttribute("error", ex.getMessage());
+        return "error/bad-request";
+    }
+}
+
+// Global exception handler
+@ControllerAdvice
+public class GlobalExceptionHandler {
+    
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ModelAndView handleNotFound(ResourceNotFoundException ex) {
+        ModelAndView mv = new ModelAndView("error/404");
+        mv.addObject("error", ex.getMessage());
+        return mv;
+    }
+    
+    @ExceptionHandler(Exception.class)
+    public ModelAndView handleGeneral(Exception ex) {
+        ModelAndView mv = new ModelAndView("error/500");
+        mv.addObject("error", "Internal server error");
+        return mv;
+    }
+}
+
+// Custom exceptions
+public class UserNotFoundException extends RuntimeException {
+    public UserNotFoundException(Long id) {
+        super("User not found with id: " + id);
+    }
+}
+                </code></pre>
+
+                <h3>Session & Flash Attributes:</h3>
+                <pre><code>
+@Controller
+public class SessionController {
+    
+    // Session attributes - persisted across requests
+    @GetMapping("/login")
+    public String login(HttpSession session, Model model) {
+        session.setAttribute("userId", 123);
+        session.setAttribute("username", "john");
+        return "dashboard";
+    }
+    
+    // Using @SessionAttributes
+    @Controller
+    @SessionAttributes("user")
+    public class UserWizardController {
+        
+        @GetMapping("/step1")
+        public String step1(Model model) {
+            model.addAttribute("user", new User());
+            return "wizard/step1";
+        }
+        
+        @PostMapping("/step1")
+        public String processStep1(@ModelAttribute User user) {
+            // User kept in session
+            return "redirect:/wizard/step2";
+        }
+    }
+    
+    // Flash attributes - available after redirect
+    @PostMapping("/users")
+    public String createUser(User user, RedirectAttributes redirectAttrs) {
+        User created = userService.save(user);
+        redirectAttrs.addFlashAttribute("message", "User created successfully");
+        redirectAttrs.addFlashAttribute("user", created);
+        return "redirect:/users/" + created.getId();
+    }
+    
+    @GetMapping("/{id}")
+    public String viewUser(@PathVariable Long id, Model model) {
+        // Flash attributes available here
+        return "user/detail";
+    }
+}
+                </code></pre>
+
+                <h3>File Upload & Download:</h3>
+                <pre><code>
+@Controller
+@RequestMapping("/files")
+public class FileController {
+    
+    // File upload
+    @PostMapping("/upload")
+    public String uploadFile(@RequestParam("file") MultipartFile file,
+                            RedirectAttributes redirectAttrs) {
+        try {
+            if (file.isEmpty()) {
+                redirectAttrs.addFlashAttribute("error", "Please select a file");
+                return "redirect:/files/upload";
+            }
+            
+            String filename = file.getOriginalFilename();
+            byte[] bytes = file.getBytes();
+            
+            // Save file
+            Path path = Paths.get("uploads/" + filename);
+            Files.write(path, bytes);
+            
+            redirectAttrs.addFlashAttribute("message", "File uploaded successfully");
+        } catch (IOException e) {
+            redirectAttrs.addFlashAttribute("error", "Upload failed");
+        }
+        
+        return "redirect:/files";
+    }
+    
+    // File download
+    @GetMapping("/download/{filename}")
+    public ResponseEntity<byte[]> downloadFile(@PathVariable String filename) 
+            throws IOException {
+        Path path = Paths.get("uploads/" + filename);
+        byte[] fileContent = Files.readAllBytes(path);
+        
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        headers.setContentDispositionFormData("attachment", filename);
+        
+        return new ResponseEntity<>(fileContent, headers, HttpStatus.OK);
+    }
+}
+
+// Configuration
+@Configuration
+public class FileUploadConfig {
+    
+    @Bean
+    public CommonsMultipartResolver multipartResolver() {
+        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+        resolver.setMaxUploadSize(10485760);  // 10MB
+        return resolver;
+    }
+}
+                </code></pre>
+
+                <h3>Common Interview Topics:</h3>
+                <ul>
+                    <li><strong>DispatcherServlet:</strong> Front controller pattern</li>
+                    <li><strong>HandlerMapping:</strong> URL to controller mapping</li>
+                    <li><strong>ViewResolver:</strong> View template resolution</li>
+                    <li><strong>Controllers:</strong> @Controller vs @RestController</li>
+                    <li><strong>Request Binding:</strong> @PathVariable, @RequestParam, @ModelAttribute</li>
+                    <li><strong>Validation:</strong> JSR-303 annotations, BindingResult</li>
+                    <li><strong>Interceptors:</strong> Pre/post-processing of requests</li>
+                    <li><strong>Exception Handling:</strong> @ControllerAdvice, @ExceptionHandler</li>
+                    <li><strong>Session Management:</strong> HttpSession, @SessionAttributes</li>
+                    <li><strong>File Upload/Download:</strong> MultipartFile, ResponseEntity</li>
+                </ul>
+
+                <h3>Best Practices:</h3>
+                <ul>
+                    <li>Use @RestController for JSON APIs instead of @Controller</li>
+                    <li>Keep controllers thin - delegate business logic to services</li>
+                    <li>Use proper HTTP methods (GET, POST, PUT, DELETE)</li>
+                    <li>Validate input data with annotations and BindingResult</li>
+                    <li>Use proper status codes (200, 201, 400, 404, 500)</li>
+                    <li>Implement global exception handling with @ControllerAdvice</li>
+                    <li>Use redirects (PRG pattern) after form submissions</li>
+                    <li>Separate presentation logic from business logic</li>
+                    <li>Use proper naming conventions for request mappings</li>
+                    <li>Document APIs clearly with comments or Swagger</li>
+                </ul>
+
+                <h3>Key Interview Questions:</h3>
+                <ul>
+                    <li>Explain the Spring MVC request flow</li>
+                    <li>What is DispatcherServlet and its role?</li>
+                    <li>Difference between @Controller and @RestController</li>
+                    <li>How does view resolution work in Spring MVC?</li>
+                    <li>Explain @RequestParam vs @PathVariable vs @ModelAttribute</li>
+                    <li>How to validate form data in Spring MVC?</li>
+                    <li>What are interceptors and how to implement them?</li>
+                    <li>How to handle exceptions globally?</li>
+                    <li>Explain session management and @SessionAttributes</li>
+                    <li>How to handle file uploads in Spring MVC?</li>
+                </ul>
             </div>
         </div>
     </div>

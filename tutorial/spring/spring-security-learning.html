@@ -55,8 +55,605 @@
     <div class="container">
         <div class="content">
             <div class="topic">
-                <h2>Spring Security Fundamentals</h2>
-                <p>Learn authentication, authorization, JWT, OAuth2, and security best practices.</p>
+                <h2>Spring Security - Complete Guide</h2>
+                
+                <h3>What is Spring Security?</h3>
+                <p>Spring Security is a powerful and highly customizable authentication and access-control framework for Java applications. It provides comprehensive security services including authentication (who you are), authorization (what you can do), and protection against common vulnerabilities like CSRF, XSS, and SQL injection.</p>
+                
+                <h3>Core Security Concepts:</h3>
+                <ul>
+                    <li><strong>Authentication:</strong> Process of verifying user identity (username/password, OAuth, JWT)</li>
+                    <li><strong>Authorization:</strong> Determining what authenticated users can access</li>
+                    <li><strong>Principal:</strong> Authenticated user or entity</li>
+                    <li><strong>Credentials:</strong> Information used to authenticate (password, token)</li>
+                    <li><strong>Authority/Role:</strong> Permissions granted to a principal</li>
+                    <li><strong>SecurityContext:</strong> Holds security information for current user</li>
+                </ul>
+
+                <h3>Basic Configuration:</h3>
+                <pre><code>
+// Maven dependency
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-security&lt;/artifactId&gt;
+&lt;/dependency&gt;
+
+// Spring Security configuration (Spring Security 6+)
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+    
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .authorizeHttpRequests(authz -> authz
+                .requestMatchers("/", "/home", "/register").permitAll()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .requestMatchers("/user/**").hasRole("USER")
+                .anyRequest().authenticated()
+            )
+            .formLogin(form -> form
+                .loginPage("/login")
+                .defaultSuccessUrl("/home", true)
+                .failureUrl("/login?error=true")
+                .permitAll()
+            )
+            .logout(logout -> logout
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/home")
+                .permitAll()
+            )
+            .csrf(csrf -> csrf.disable());  // Only for testing!
+        
+        return http.build();
+    }
+    
+    @Bean
+    public UserDetailsService userDetailsService() {
+        UserDetails user = User.builder()
+            .username("user")
+            .password("{noop}password")  // {noop} = no operation encoder
+            .roles("USER")
+            .build();
+        
+        UserDetails admin = User.builder()
+            .username("admin")
+            .password("{noop}admin")
+            .roles("ADMIN", "USER")
+            .build();
+        
+        return new InMemoryUserDetailsManager(user, admin);
+    }
+    
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+}
+                </code></pre>
+
+                <h3>Authentication with Database:</h3>
+                <pre><code>
+// User entity
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    @Column(unique = true)
+    private String username;
+    
+    private String password;
+    
+    private boolean enabled = true;
+    
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "user_roles",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<>();
+}
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class Role {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    private String name;  // ROLE_USER, ROLE_ADMIN
+}
+
+// UserRepository
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
+    Optional<User> findByUsername(String username);
+}
+
+// UserDetailsService implementation
+@Service
+@Transactional
+public class CustomUserDetailsService implements UserDetailsService {
+    
+    @Autowired
+    private UserRepository userRepository;
+    
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByUsername(username)
+            .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
+        
+        Collection<GrantedAuthority> authorities = user.getRoles()
+            .stream()
+            .map(role -> new SimpleGrantedAuthority("ROLE_" + role.getName()))
+            .collect(Collectors.toSet());
+        
+        return new org.springframework.security.core.userdetails.User(
+            user.getUsername(),
+            user.getPassword(),
+            user.isEnabled(),
+            true,
+            true,
+            true,
+            authorities
+        );
+    }
+}
+
+// Configuration
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+    
+    @Autowired
+    private CustomUserDetailsService userDetailsService;
+    
+    @Bean
+    public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
+        return http.getSharedObject(AuthenticationManagerBuilder.class)
+            .userDetailsService(userDetailsService)
+            .passwordEncoder(passwordEncoder())
+            .and()
+            .build();
+    }
+    
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+    
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(authz -> authz
+            .requestMatchers("/public/**", "/register").permitAll()
+            .anyRequest().authenticated()
+        )
+        .formLogin(form -> form.permitAll())
+        .logout(logout -> logout.permitAll());
+        
+        return http.build();
+    }
+}
+                </code></pre>
+
+                <h3>Authorization & Access Control:</h3>
+                <pre><code>
+// Role-based access control
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+    
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http.authorizeHttpRequests(authz -> authz
+            .requestMatchers("/admin/**").hasRole("ADMIN")
+            .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+            .requestMatchers("/public/**").permitAll()
+            .anyRequest().authenticated()
+        )
+        .formLogin(form -> form.permitAll());
+        
+        return http.build();
+    }
+}
+
+// Method-level security
+@Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+public class MethodSecurityConfig {
+}
+
+@Service
+public class UserService {
+    
+    // Only ADMIN can access
+    @PreAuthorize("hasRole('ADMIN')")
+    public void deleteUser(Long id) {
+        // Delete user
+    }
+    
+    // Owner or ADMIN can access
+    @PreAuthorize("@userService.isOwner(#userId) or hasRole('ADMIN')")
+    public User getUserData(Long userId) {
+        return userRepository.findById(userId).orElse(null);
+    }
+    
+    // After method execution check
+    @PostAuthorize("returnObject.username == authentication.name or hasRole('ADMIN')")
+    public User getUserById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+    
+    public boolean isOwner(Long userId) {
+        return userId.equals(getCurrentUserId());
+    }
+    
+    private Long getCurrentUserId() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        // Get user ID from auth
+        return null;
+    }
+}
+
+// Controller access
+@RestController
+@RequestMapping("/api")
+public class UserController {
+    
+    @GetMapping("/public")
+    public String publicData() {
+        return "Public data";
+    }
+    
+    @GetMapping("/user")
+    @PreAuthorize("hasRole('USER')")
+    public String userData() {
+        return "User data";
+    }
+    
+    @DeleteMapping("/admin/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public void deleteUser(@PathVariable Long id) {
+        // Delete logic
+    }
+}
+                </code></pre>
+
+                <h3>JWT (JSON Web Tokens) Authentication:</h3>
+                <pre><code>
+// Dependency
+&lt;dependency&gt;
+    &lt;groupId&gt;io.jsonwebtoken&lt;/groupId&gt;
+    &lt;artifactId&gt;jjwt-api&lt;/artifactId&gt;
+    &lt;version&gt;0.12.3&lt;/version&gt;
+&lt;/dependency&gt;
+
+// JWT utility class
+@Component
+public class JwtTokenProvider {
+    
+    @Value("${jwt.secret:MySecretKeyForJWTToken1234567890}")
+    private String jwtSecret;
+    
+    @Value("${jwt.expiration:86400000}")  // 24 hours
+    private long jwtExpirationMs;
+    
+    public String generateToken(UserDetails userDetails) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("roles", userDetails.getAuthorities());
+        
+        return Jwts.builder()
+            .subject(userDetails.getUsername())
+            .claims(claims)
+            .issuedAt(new Date())
+            .expiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
+            .signWith(SignatureAlgorithm.HS512, jwtSecret)
+            .compact();
+    }
+    
+    public String getUsernameFromToken(String token) {
+        return Jwts.parserBuilder()
+            .setSigningKey(jwtSecret)
+            .build()
+            .parseClaimsJws(token)
+            .getBody()
+            .getSubject();
+    }
+    
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parserBuilder()
+                .setSigningKey(jwtSecret)
+                .build()
+                .parseClaimsJws(token);
+            return true;
+        } catch (JwtException | IllegalArgumentException ex) {
+            return false;
+        }
+    }
+}
+
+// JWT Filter
+@Component
+public class JwtAuthenticationFilter extends OncePerRequestFilter {
+    
+    @Autowired
+    private JwtTokenProvider jwtProvider;
+    
+    @Autowired
+    private UserDetailsService userDetailsService;
+    
+    @Override
+    protected void doFilterInternal(HttpServletRequest request,
+                                   HttpServletResponse response,
+                                   FilterChain filterChain) throws ServletException, IOException {
+        try {
+            String jwt = getJwtFromRequest(request);
+            
+            if (jwt != null && jwtProvider.validateToken(jwt)) {
+                String username = jwtProvider.getUsernameFromToken(jwt);
+                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+                
+                UsernamePasswordAuthenticationToken authentication = 
+                    new UsernamePasswordAuthenticationToken(
+                        userDetails, null, userDetails.getAuthorities());
+                
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
+        } catch (Exception ex) {
+            logger.error("Could not set user authentication", ex);
+        }
+        
+        filterChain.doFilter(request, response);
+    }
+    
+    private String getJwtFromRequest(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+        if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
+            return bearerToken.substring(7);
+        }
+        return null;
+    }
+}
+
+// Configuration
+@Configuration
+@EnableWebSecurity
+public class JwtSecurityConfig {
+    
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .csrf(csrf -> csrf.disable())
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .authorizeHttpRequests(authz -> authz
+                .requestMatchers("/api/auth/**").permitAll()
+                .anyRequest().authenticated()
+            )
+            .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
+        
+        return http.build();
+    }
+    
+    @Bean
+    public JwtAuthenticationFilter jwtAuthenticationFilter() {
+        return new JwtAuthenticationFilter();
+    }
+}
+
+// Login endpoint
+@RestController
+@RequestMapping("/api/auth")
+public class AuthController {
+    
+    @Autowired
+    private JwtTokenProvider jwtProvider;
+    
+    @Autowired
+    private AuthenticationManager authenticationManager;
+    
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+        Authentication authentication = authenticationManager.authenticate(
+            new UsernamePasswordAuthenticationToken(
+                loginRequest.getUsername(),
+                loginRequest.getPassword()
+            )
+        );
+        
+        String token = jwtProvider.generateToken((UserDetails) authentication.getPrincipal());
+        
+        return ResponseEntity.ok(new JwtResponse(token));
+    }
+}
+
+@Data
+public class LoginRequest {
+    private String username;
+    private String password;
+}
+
+@Data
+public class JwtResponse {
+    private String token;
+    private String type = "Bearer";
+    
+    public JwtResponse(String token) {
+        this.token = token;
+    }
+}
+                </code></pre>
+
+                <h3>CSRF Protection:</h3>
+                <pre><code>
+// Default CSRF protection (enabled by default)
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+    
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .csrf(csrf -> csrf
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+            );
+        
+        return http.build();
+    }
+}
+
+// HTML form with CSRF token
+&lt;form method="post" action="/users"&gt;
+    &lt;!-- CSRF token automatically included by Thymeleaf --&gt;
+    &lt;input type="hidden" name="_csrf" th:value="${_csrf.token}" /&gt;
+    &lt;input type="text" name="username" required /&gt;
+    &lt;button type="submit"&gt;Submit&lt;/button&gt;
+&lt;/form&gt;
+
+// AJAX with CSRF token
+const token = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+const header = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+
+fetch('/users', {
+    method: 'POST',
+    body: JSON.stringify(userData),
+    headers: {
+        'Content-Type': 'application/json',
+        [header]: token
+    }
+});
+                </code></pre>
+
+                <h3>OAuth2 Integration:</h3>
+                <pre><code>
+// Dependency
+&lt;dependency&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-oauth2-client&lt;/artifactId&gt;
+&lt;/dependency&gt;
+
+// Properties - application.yml
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: your-client-id
+            client-secret: your-client-secret
+            scope: profile,email
+          github:
+            client-id: your-client-id
+            client-secret: your-client-secret
+            scope: user:email
+
+// Configuration
+@Configuration
+@EnableWebSecurity
+public class OAuth2SecurityConfig {
+    
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .authorizeHttpRequests(authz -> authz
+                .anyRequest().authenticated()
+            )
+            .oauth2Login(oauth2 -> oauth2
+                .loginPage("/login")
+                .defaultSuccessUrl("/home", true)
+            );
+        
+        return http.build();
+    }
+}
+
+// Login page
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+    &lt;h1&gt;Login&lt;/h1&gt;
+    &lt;a href="/oauth2/authorization/google"&gt;Login with Google&lt;/a&gt;
+    &lt;a href="/oauth2/authorization/github"&gt;Login with GitHub&lt;/a&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+                </code></pre>
+
+                <h3>Security Best Practices:</h3>
+                <ul>
+                    <li><strong>Never store plain passwords:</strong> Use BCryptPasswordEncoder</li>
+                    <li><strong>HTTPS only:</strong> Enforce HTTPS in production</li>
+                    <li><strong>CSRF protection:</strong> Enable by default</li>
+                    <li><strong>XSS prevention:</strong> Use template engines with auto-escaping</li>
+                    <li><strong>SQL injection prevention:</strong> Use parameterized queries (JPA)</li>
+                    <li><strong>Input validation:</strong> Validate all user input</li>
+                    <li><strong>Principle of least privilege:</strong> Grant minimum necessary permissions</li>
+                    <li><strong>Secure password requirements:</strong> Enforce strong passwords</li>
+                    <li><strong>Rate limiting:</strong> Protect against brute force attacks</li>
+                    <li><strong>Audit logging:</strong> Log security events</li>
+                </ul>
+
+                <h3>Accessing Current User:</h3>
+                <pre><code>
+// In controller or service
+@RestController
+public class UserController {
+    
+    @GetMapping("/current-user")
+    public String getCurrentUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        Collection<? extends GrantedAuthority> authorities = auth.getAuthorities();
+        
+        return "User: " + username;
+    }
+    
+    // Alternative - using @AuthenticationPrincipal
+    @GetMapping("/profile")
+    public UserDetails getProfile(@AuthenticationPrincipal UserDetails userDetails) {
+        return userDetails;
+    }
+    
+    // In JSP/Thymeleaf template
+    // Current user: [[${#authentication.name}]]
+    // Has role admin: [[${hasRole('ADMIN')}]]
+}
+                </code></pre>
+
+                <h3>Common Interview Topics:</h3>
+                <ul>
+                    <li><strong>Authentication:</strong> How Spring Security authenticates users</li>
+                    <li><strong>Authorization:</strong> Role-based and method-level access control</li>
+                    <li><strong>JWT:</strong> Token generation, validation, and usage</li>
+                    <li><strong>OAuth2:</strong> Social login integration</li>
+                    <li><strong>CSRF:</strong> Cross-site request forgery protection</li>
+                    <li><strong>Password encoding:</strong> BCrypt, PBKDF2, scrypt</li>
+                    <li><strong>SecurityContext:</strong> Storing authentication information</li>
+                    <li><strong>Filters:</strong> Security filter chain</li>
+                    <li><strong>Session management:</strong> Stateful vs stateless</li>
+                    <li><strong>CORS:</strong> Cross-origin resource sharing</li>
+                </ul>
+
+                <h3>Key Interview Questions:</h3>
+                <ul>
+                    <li>What's the difference between authentication and authorization?</li>
+                    <li>How does Spring Security filter chain work?</li>
+                    <li>Explain JWT and its advantages over session-based auth</li>
+                    <li>How to implement role-based access control?</li>
+                    <li>What is CSRF and how to prevent it?</li>
+                    <li>How to implement OAuth2 login?</li>
+                    <li>Explain password encoding in Spring Security</li>
+                    <li>How to access current authenticated user?</li>
+                    <li>What's the difference between stateful and stateless authentication?</li>
+                    <li>How to implement method-level security?</li>
+                </ul>
             </div>
         </div>
     </div>
