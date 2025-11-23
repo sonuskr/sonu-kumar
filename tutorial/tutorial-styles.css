@@ -1,4 +1,5 @@
-/* Tutorial Common Styles */
+/* Tutorial Common Styles - Optimized */
+/* Critical CSS - Above the fold content */
 * { 
     margin: 0; 
     padding: 0; 
@@ -179,6 +180,41 @@ main {
     text-align: center; 
 }
 
+/* Breadcrumb Navigation */
+.breadcrumb {
+    background: #f8f9fa;
+    padding: 0.75rem 0;
+    font-size: 0.9rem;
+}
+
+.breadcrumb ol {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.breadcrumb li {
+    display: flex;
+    align-items: center;
+}
+
+.breadcrumb li:not(:last-child)::after {
+    content: '/';
+    margin: 0 0.5rem;
+    color: #6c757d;
+}
+
+.breadcrumb a {
+    color: #667eea;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
 /* Navigation Styles */
 nav { 
     background: #2c3e50; 
@@ -291,29 +327,27 @@ footer a {
 }
 
 /* Responsive Design */
+/* Mobile Optimizations */
 @media (max-width: 768px) {
-    h1 { 
-        font-size: 2rem; 
-    }
-    
-    .nav-links { 
-        flex-direction: column; 
-        align-items: center; 
-    }
-    
-    .nav-links li { 
-        margin: 0.3rem 0; 
-    }
-    
-    .nav-links a { 
-        font-size: 0.95rem; 
-    }
-    
-    .dropdown-content {
-        position: static;
-        display: block;
-        box-shadow: none;
-        background: #34495e;
-        margin-top: 0.5rem;
-    }
+    h1 { font-size: 2rem; }
+    .hero p { font-size: 1rem; }
+    .nav-links { flex-direction: column; align-items: center; }
+    .nav-links li { margin: 0.3rem 0; }
+    .nav-links a { font-size: 0.95rem; padding: 0.7rem 1rem; }
+    .dropdown-content { position: static; display: block; box-shadow: none; background: #34495e; margin-top: 0.5rem; }
+    .card { padding: 1.5rem; }
+    .topic { padding: 1.5rem; }
+    .container { padding: 0 15px; }
+}
+
+/* Performance: Reduce animations on low-end devices */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    body { background-color: #1a1a1a; color: #e0e0e0; }
+    .card, .topic { background: #2d2d2d; color: #e0e0e0; }
+    .topic h2 { color: #ffffff; }
 }
