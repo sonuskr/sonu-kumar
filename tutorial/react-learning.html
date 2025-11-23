@@ -11,23 +11,46 @@
 <body class="page-react">
     <header>
         <div class="container">
-            <h1>React Learning Tutorial</h1>
-            <p>Master React Advanced Patterns</p>
+            <div class="hero">
+                <h1>React Learning Tutorial</h1>
+                <p>Master React Advanced Patterns</p>
+            </div>
         </div>
     </header>
     <nav>
         <div class="container">
-            <ul class="nav-links">
-                <li><a href="tutorial-index.html">Home</a></li>
-                <li><a href="java-learning.html">Java</a></li>
-                <li><a href="javascript-learning.html">JavaScript</a></li>
-                <li><a href="typescript-learning.html">TypeScript</a></li>
-                <li><a href="angular-learning.html">Angular</a></li>
-                <li><a href="react-learning.html" class="active">React</a></li>
-                <li><a href="spring/spring-boot-learning.html">Spring Boot</a></li>
-            </ul>
+            <div class="nav-container">
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                    ☰
+                </button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="tutorial-index.html">Home</a></li>
+                    <li><a href="java-learning.html">Java</a></li>
+                    <li><a href="javascript-learning.html">JavaScript</a></li>
+                    <li><a href="typescript-learning.html">TypeScript</a></li>
+                    <li><a href="angular-learning.html">Angular</a></li>
+                    <li><a href="react-learning.html" class="active">React</a></li>
+                    <li><a href="spring/spring-boot-learning.html">Spring Boot</a></li>
+                </ul>
+            </div>
         </div>
     </nav>
+    
+    <script>
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+        
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('nav');
+            const navLinks = document.getElementById('navLinks');
+            
+            if (!nav.contains(event.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+    </script>
     <div class="container">
         <div class="content">
             <div class="topic">

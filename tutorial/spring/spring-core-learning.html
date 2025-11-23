@@ -11,23 +11,46 @@
 <body class="page-spring-core">
     <header>
         <div class="container">
-            <h1>Spring Core Learning Tutorial</h1>
-            <p>Master Spring Framework Core Concepts</p>
+            <div class="hero">
+                <h1>Spring Core Learning Tutorial</h1>
+                <p>Master Spring Framework Core Concepts</p>
+            </div>
         </div>
     </header>
     <nav>
         <div class="container">
-            <ul class="nav-links">
-                <li><a href="../tutorial-index.html">Home</a></li>
-                <li><a href="../java-learning.html">Java</a></li>
-                <li><a href="spring-core-learning.html" class="active">Spring Core</a></li>
-                <li><a href="spring-mvc-learning.html">Spring MVC</a></li>
-                <li><a href="spring-boot-learning.html">Spring Boot</a></li>
-                <li><a href="spring-security-learning.html">Spring Security</a></li>
-                <li><a href="spring-interview.html">Spring Interview</a></li>
-            </ul>
+            <div class="nav-container">
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                    ☰
+                </button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="../tutorial-index.html">Home</a></li>
+                    <li><a href="../java-learning.html">Java</a></li>
+                    <li><a href="spring-core-learning.html" class="active">Spring Core</a></li>
+                    <li><a href="spring-mvc-learning.html">Spring MVC</a></li>
+                    <li><a href="spring-boot-learning.html">Spring Boot</a></li>
+                    <li><a href="spring-security-learning.html">Spring Security</a></li>
+                    <li><a href="spring-interview.html">Spring Interview</a></li>
+                </ul>
+            </div>
         </div>
     </nav>
+    
+    <script>
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+        
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('nav');
+            const navLinks = document.getElementById('navLinks');
+            
+            if (!nav.contains(event.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+    </script>
     <div class="container">
         <div class="content">
             <div class="topic">

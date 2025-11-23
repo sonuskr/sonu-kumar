@@ -6,36 +6,51 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <title>String Programs - Sonu Kumar</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-        header { background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%); color: white; padding: 2rem 0; text-align: center; }
-        h1 { font-size: 2.5rem; margin-bottom: 1rem; }
-        .content { margin: 2rem 0; }
-        .topic { background: white; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); padding: 2rem; margin: 1rem 0; }
-        .code { background: #2d3748; color: #e2e8f0; padding: 1rem; border-radius: 5px; overflow-x: auto; }
-    </style>
+    <link rel="stylesheet" href="../tutorial-styles.css">
 </head>
-<body class="page-programs">
+<body class="page-string-programs">
     <header>
         <div class="container">
-            <h1>String Programs</h1>
-            <p>Master String Programming Challenges</p>
+            <div class="hero">
+                <h1>String Programs</h1>
+                <p>Master String Programming Challenges</p>
+            </div>
         </div>
     </header>
     <nav>
         <div class="container">
-            <ul class="nav-links">
-                <li><a href="../tutorial-index.html">Home</a></li>
-                <li><a href="array-programs.html">Array</a></li>
-                <li><a href="string-programs.html">String</a></li>
-                <li><a href="logical-programs.html">Logical</a></li>
-                <li><a href="pattern-programs.html">Pattern</a></li>
-                <li><a href="number-programs.html">Number</a></li>
-            </ul>
+            <div class="nav-container">
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                    ☰
+                </button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="../tutorial-index.html">Home</a></li>
+                    <li><a href="array-programs.html">Array</a></li>
+                    <li><a href="string-programs.html" class="active">String</a></li>
+                    <li><a href="logical-programs.html">Logical</a></li>
+                    <li><a href="pattern-programs.html">Pattern</a></li>
+                    <li><a href="number-programs.html">Number</a></li>
+                    <li><a href="sorting-programs.html">Sorting</a></li>
+                </ul>
+            </div>
         </div>
     </nav>
+    
+    <script>
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+        
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('nav');
+            const navLinks = document.getElementById('navLinks');
+            
+            if (!nav.contains(event.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+    </script>
     <div class="container">
         <div class="content">
             <div class="topic">

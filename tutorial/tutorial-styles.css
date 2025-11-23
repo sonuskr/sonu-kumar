@@ -52,6 +52,12 @@ h1 {
 .page-hashmap header { background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%); }
 .page-interview header { background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); }
 .page-programs header { background: linear-gradient(135deg, #f39c12 0%, #e67e22 100%); }
+.page-array-programs header { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%); }
+.page-string-programs header { background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%); }
+.page-logical-programs header { background: linear-gradient(135deg, #a29bfe 0%, #6c5ce7 100%); }
+.page-pattern-programs header { background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%); }
+.page-number-programs header { background: linear-gradient(135deg, #55efc4 0%, #00b894 100%); }
+.page-sorting-programs header { background: linear-gradient(135deg, #fdcb6e 0%, #e17055 100%); }
 
 /* Hero section for all pages */
 .hero { 
