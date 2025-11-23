@@ -70,36 +70,36 @@
 
           <section id="comparison" class="section">
             <h2>HashMap vs HashTable vs ConcurrentHashMap</h2>
-          <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
-            <tr style="background-color: #f2f2f2;">
-              <th style="border: 1px solid #ddd; padding: 8px;">Feature</th>
-              <th style="border: 1px solid #ddd; padding: 8px;">HashMap</th>
-              <th style="border: 1px solid #ddd; padding: 8px;">HashTable</th>
-              <th style="border: 1px solid #ddd; padding: 8px;">ConcurrentHashMap</th>
+          <table>
+            <tr>
+              <th>Feature</th>
+              <th>HashMap</th>
+              <th>HashTable</th>
+              <th>ConcurrentHashMap</th>
             </tr>
             <tr>
-              <td style="border: 1px solid #ddd; padding: 8px;">Thread Safe</td>
-              <td style="border: 1px solid #ddd; padding: 8px;">No</td>
-              <td style="border: 1px solid #ddd; padding: 8px;">Yes (Legacy)</td>
-              <td style="border: 1px solid #ddd; padding: 8px;">Yes (Segment Lock)</td>
+              <td>Thread Safe</td>
+              <td>No</td>
+              <td>Yes (Legacy)</td>
+              <td>Yes (Segment Lock)</td>
             </tr>
             <tr>
-              <td style="border: 1px solid #ddd; padding: 8px;">Null Key/Value</td>
-              <td style="border: 1px solid #ddd; padding: 8px;">Allowed</td>
-              <td style="border: 1px solid #ddd; padding: 8px;">Not Allowed</td>
-              <td style="border: 1px solid #ddd; padding: 8px;">Not Allowed</td>
+              <td>Null Key/Value</td>
+              <td>Allowed</td>
+              <td>Not Allowed</td>
+              <td>Not Allowed</td>
             </tr>
             <tr>
-              <td style="border: 1px solid #ddd; padding: 8px;">Performance</td>
-              <td style="border: 1px solid #ddd; padding: 8px;">Fast</td>
-              <td style="border: 1px solid #ddd; padding: 8px;">Slow</td>
-              <td style="border: 1px solid #ddd; padding: 8px;">Fast (Multi-thread)</td>
+              <td>Performance</td>
+              <td>Fast</td>
+              <td>Slow</td>
+              <td>Fast (Multi-thread)</td>
             </tr>
             <tr>
-              <td style="border: 1px solid #ddd; padding: 8px;">Iteration</td>
-              <td style="border: 1px solid #ddd; padding: 8px;">Fail-fast</td>
-              <td style="border: 1px solid #ddd; padding: 8px;">Fail-fast</td>
-              <td style="border: 1px solid #ddd; padding: 8px;">Weakly Consistent</td>
+              <td>Iteration</td>
+              <td>Fail-fast</td>
+              <td>Fail-fast</td>
+              <td>Weakly Consistent</td>
             </tr>
           </table>
 
@@ -292,42 +292,42 @@ public void put_double(K key, V value) {
 
           <section id="time-complexity" class="section">
             <h2>Time & Space Complexity</h2>
-          <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
-            <tr style="background-color: #f2f2f2;">
-              <th style="border: 1px solid #ddd; padding: 8px;">Operation</th>
-              <th style="border: 1px solid #ddd; padding: 8px;">Average</th>
-              <th style="border: 1px solid #ddd; padding: 8px;">Worst Case</th>
-              <th style="border: 1px solid #ddd; padding: 8px;">Notes</th>
+          <table>
+            <tr>
+              <th>Operation</th>
+              <th>Average</th>
+              <th>Worst Case</th>
+              <th>Notes</th>
             </tr>
             <tr>
-              <td style="border: 1px solid #ddd; padding: 8px;">put()</td>
-              <td style="border: 1px solid #ddd; padding: 8px;">O(1)</td>
-              <td style="border: 1px solid #ddd; padding: 8px;">O(n)</td>
-              <td style="border: 1px solid #ddd; padding: 8px;">With chaining, if all hash to same</td>
+              <td>put()</td>
+              <td>O(1)</td>
+              <td>O(n)</td>
+              <td>With chaining, if all hash to same</td>
             </tr>
             <tr>
-              <td style="border: 1px solid #ddd; padding: 8px;">get()</td>
-              <td style="border: 1px solid #ddd; padding: 8px;">O(1)</td>
-              <td style="border: 1px solid #ddd; padding: 8px;">O(n)</td>
-              <td style="border: 1px solid #ddd; padding: 8px;">Depends on chain length</td>
+              <td>get()</td>
+              <td>O(1)</td>
+              <td>O(n)</td>
+              <td>Depends on chain length</td>
             </tr>
             <tr>
-              <td style="border: 1px solid #ddd; padding: 8px;">remove()</td>
-              <td style="border: 1px solid #ddd; padding: 8px;">O(1)</td>
-              <td style="border: 1px solid #ddd; padding: 8px;">O(n)</td>
-              <td style="border: 1px solid #ddd; padding: 8px;">Same as get</td>
+              <td>remove()</td>
+              <td>O(1)</td>
+              <td>O(n)</td>
+              <td>Same as get</td>
             </tr>
             <tr>
-              <td style="border: 1px solid #ddd; padding: 8px;">containsKey()</td>
-              <td style="border: 1px solid #ddd; padding: 8px;">O(1)</td>
-              <td style="border: 1px solid #ddd; padding: 8px;">O(n)</td>
-              <td style="border: 1px solid #ddd; padding: 8px;">Same as get</td>
+              <td>containsKey()</td>
+              <td>O(1)</td>
+              <td>O(n)</td>
+              <td>Same as get</td>
             </tr>
             <tr>
-              <td style="border: 1px solid #ddd; padding: 8px;">Space</td>
-              <td style="border: 1px solid #ddd; padding: 8px;">O(n)</td>
-              <td style="border: 1px solid #ddd; padding: 8px;">O(n)</td>
-              <td style="border: 1px solid #ddd; padding: 8px;">Where n is number of entries</td>
+              <td>Space</td>
+              <td>O(n)</td>
+              <td>O(n)</td>
+              <td>Where n is number of entries</td>
             </tr>
           </table>
 

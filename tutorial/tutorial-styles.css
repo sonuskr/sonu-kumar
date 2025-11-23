@@ -1032,7 +1032,8 @@ footer {
     color: var(--text-white); 
     text-align: center; 
     padding: 2rem 0; 
-    margin-top: 3rem; 
+    margin-top: 3rem;
+    border-top: 1px solid var(--bg-dark-hover);
 }
 
 footer a { 

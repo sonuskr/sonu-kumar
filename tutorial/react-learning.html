@@ -280,7 +280,7 @@ function Header() {
     const { isDark, toggleTheme } = useTheme();
     
     return (
-        &lt;header style={{ background: isDark ? '#333' : '#fff' }}&gt;
+        &lt;header className={isDark ? 'dark-header' : 'light-header'}&gt;
             &lt;button onClick={toggleTheme}&gt;
                 {isDark ? 'Light' : 'Dark'} Mode
             &lt;/button&gt;
