@@ -54,26 +54,95 @@
                 navLinks.classList.remove('active');
             }
         });
+        
+        // Simple syntax highlighting
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeBlocks = document.querySelectorAll('.code-block code');
+            codeBlocks.forEach(block => {
+                let html = block.textContent || block.innerText;
+                
+                // Escape HTML entities first
+                html = html.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                
+                // Java keywords
+                html = html.replace(/\b(public|private|protected|static|final|class|interface|extends|implements|import|package|void|int|String|boolean|double|float|long|short|byte|char|if|else|for|while|do|switch|case|default|break|continue|return|try|catch|finally|throw|throws|new|this|super|null|true|false)\b/g, '<span class="keyword">$1</span>');
+                
+                // Strings
+                html = html.replace(/"([^"]*)"/g, '<span class="string">"$1"</span>');
+                html = html.replace(/'([^']*)'/g, '<span class="string">\'$1\'</span>');
+                
+                // Comments
+                html = html.replace(/\/\/.*$/gm, '<span class="comment">$&</span>');
+                html = html.replace(/\/\*[\s\S]*?\*\//g, '<span class="comment">$&</span>');
+                
+                // Numbers
+                html = html.replace(/\b\d+(\.\d+)?[fLdF]?\b/g, '<span class="number">$&</span>');
+                
+                // Method calls
+                html = html.replace(/\b([a-zA-Z_][a-zA-Z0-9_]*)\s*\(/g, '<span class="method">$1</span>(');
+                
+                // Class names (capitalized words)
+                html = html.replace(/\b[A-Z][a-zA-Z0-9_]*\b/g, '<span class="class">$&</span>');
+                
+                block.innerHTML = html;
+            });
+        });
     </script>
     <div class="container">
         <div class="content">
             <div class="topic">
-                <h2>String Data Structure - Complete Guide</h2>
+                <h1>String Data Structure - Complete Guide</h1>
                 
-                <h3>What is a String?</h3>
-                <p>A string is a sequence of characters. In Java, strings are immutable objects, meaning once created, their values cannot be changed.</p>
-                
-                <h3>Key Characteristics:</h3>
-                <ul>
-                    <li><strong>Immutable:</strong> Cannot be modified after creation</li>
-                    <li><strong>Sequence of Characters:</strong> Ordered collection of chars</li>
-                    <li><strong>Zero-Indexed:</strong> First character at index 0</li>
-                    <li><strong>Comparable:</strong> Can be compared lexicographically</li>
-                    <li><strong>Unicode Support:</strong> Supports all Unicode characters</li>
-                </ul>
+                <div class="table-of-contents">
+                    <h2>📚 Table of Contents</h2>
+                    <div class="toc-grid">
+                        <div class="toc-column">
+                            <ul>
+                                <li><a href="#what-is-string">What is String?</a></li>
+                                <li><a href="#characteristics">Key Characteristics</a></li>
+                                <li><a href="#creation">String Creation</a></li>
+                            </ul>
+                        </div>
+                        <div class="toc-column">
+                            <ul>
+                                <li><a href="#methods">Common Methods</a></li>
+                                <li><a href="#comparison">String vs StringBuilder</a></li>
+                                <li><a href="#problems">Interview Problems</a></li>
+                            </ul>
+                        </div>
+                        <div class="toc-column">
+                            <ul>
+                                <li><a href="#examples">Code Examples</a></li>
+                                <li><a href="#best-practices">Best Practices</a></li>
+                                <li><a href="#summary">Summary</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
-                <h3>String Creation:</h3>
-                <pre><code>
+                <section id="what-is-string" class="section">
+                    <h2>🚀 What is a String?</h2>
+                    <p>A string is a sequence of characters. In Java, strings are immutable objects, meaning once created, their values cannot be changed.</p>
+                </section>
+
+                <section id="characteristics" class="section">
+                    <h2>📊 Key Characteristics</h2>
+                    <ul>
+                        <li><strong>Immutable:</strong> Cannot be modified after creation</li>
+                        <li><strong>Sequence of Characters:</strong> Ordered collection of chars</li>
+                        <li><strong>Zero-Indexed:</strong> First character at index 0</li>
+                        <li><strong>Comparable:</strong> Can be compared lexicographically</li>
+                        <li><strong>Unicode Support:</strong> Supports all Unicode characters</li>
+                    </ul>
+                </section>
+
+                <section id="creation" class="section">
+                    <h2>🔧 String Creation</h2>
+                    
+                    <div class="subsection">
+                        <h3>Different Ways to Create Strings</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">
 // String literal (stored in string pool)
 String s1 = "Hello";
 
@@ -86,10 +155,18 @@ String s3 = new String(chars);
 
 // Note: s1 == s2 returns false (different memory locations)
 // But s1.equals(s2) returns true (same content)
-                </code></pre>
+                            </code></pre>
+                        </div>
+                    </div>
+                </section>
 
-                <h3>Common String Methods:</h3>
-                <pre><code>
+                <section id="methods" class="section">
+                    <h2>⚡ Common String Methods</h2>
+                    
+                    <div class="subsection">
+                        <h3>String Operations</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">
 String str = "Hello World";
 
 // Length
@@ -127,18 +204,26 @@ boolean ends = str.endsWith("World");      // true
 // Equals
 boolean equals = str.equals("Hello World");        // true
 boolean equalsIgnoreCase = str.equalsIgnoreCase("hello world");  // true
-                </code></pre>
+                            </code></pre>
+                        </div>
+                        
+                        <h3>⏱️ Time Complexity</h3>
+                        <ul>
+                            <li><strong>Access character:</strong> O(1)</li>
+                            <li><strong>Search:</strong> O(n)</li>
+                            <li><strong>Concatenation:</strong> O(n)</li>
+                            <li><strong>Substring:</strong> O(n)</li>
+                        </ul>
+                    </div>
+                </section>
 
-                <h3>Time Complexity:</h3>
-                <ul>
-                    <li><strong>Access character:</strong> O(1)</li>
-                    <li><strong>Search:</strong> O(n)</li>
-                    <li><strong>Concatenation:</strong> O(n)</li>
-                    <li><strong>Substring:</strong> O(n)</li>
-                </ul>
-
-                <h3>String vs StringBuilder vs StringBuffer:</h3>
-                <pre><code>
+                <section id="comparison" class="section">
+                    <h2>🔄 String vs StringBuilder vs StringBuffer</h2>
+                    
+                    <div class="subsection">
+                        <h3>Performance Comparison</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">
 // String - Immutable
 String s = "Hello";
 s = s + " World";  // Creates new String object
@@ -158,21 +243,31 @@ StringBuilder sb2 = new StringBuilder();
 for (int i = 0; i < 1000; i++) {
     sb2.append(i);  // Much faster than String concatenation
 }
-                </code></pre>
+                            </code></pre>
+                        </div>
+                    </div>
+                </section>
 
-                <h3>Common Interview Problems:</h3>
-                <ul>
-                    <li><strong>Reverse String:</strong> Reverse a string</li>
-                    <li><strong>Palindrome:</strong> Check if string is palindrome</li>
-                    <li><strong>Anagram:</strong> Check if two strings are anagrams</li>
-                    <li><strong>First Non-Repeating Character:</strong> Find first non-repeating char</li>
-                    <li><strong>Valid Parentheses:</strong> Check if parentheses are balanced</li>
-                    <li><strong>Longest Substring Without Repeating:</strong> Find longest substring</li>
-                    <li><strong>Pattern Matching:</strong> KMP or Rabin-Karp algorithm</li>
-                </ul>
+                <section id="problems" class="section">
+                    <h2>❓ Common Interview Problems</h2>
+                    <ul>
+                        <li><strong>Reverse String:</strong> Reverse a string</li>
+                        <li><strong>Palindrome:</strong> Check if string is palindrome</li>
+                        <li><strong>Anagram:</strong> Check if two strings are anagrams</li>
+                        <li><strong>First Non-Repeating Character:</strong> Find first non-repeating char</li>
+                        <li><strong>Valid Parentheses:</strong> Check if parentheses are balanced</li>
+                        <li><strong>Longest Substring Without Repeating:</strong> Find longest substring</li>
+                        <li><strong>Pattern Matching:</strong> KMP or Rabin-Karp algorithm</li>
+                    </ul>
+                </section>
 
-                <h3>Example: Palindrome Check</h3>
-                <pre><code>
+                <section id="examples" class="section">
+                    <h2>💻 Code Examples</h2>
+                    
+                    <div class="subsection">
+                        <h3>Palindrome Check</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">
 public static boolean isPalindrome(String s) {
     // Remove non-alphanumeric and convert to lowercase
     String cleaned = s.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
@@ -188,10 +283,14 @@ public static boolean isPalindrome(String s) {
     }
     return true;
 }
-                </code></pre>
-
-                <h3>Example: First Non-Repeating Character</h3>
-                <pre><code>
+                            </code></pre>
+                        </div>
+                    </div>
+                    
+                    <div class="subsection">
+                        <h3>First Non-Repeating Character</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">
 public static char firstNonRepeating(String s) {
     Map<Character, Integer> charCount = new HashMap<>();
     
@@ -208,17 +307,27 @@ public static char firstNonRepeating(String s) {
     }
     return '\0';  // No non-repeating character
 }
-                </code></pre>
+                            </code></pre>
+                        </div>
+                    </div>
+                </section>
 
-                <h3>Best Practices:</h3>
-                <ul>
-                    <li>Use String for immutable data</li>
-                    <li>Use StringBuilder for string concatenation in loops</li>
-                    <li>Use equals() instead of == for string comparison</li>
-                    <li>Use equalsIgnoreCase() for case-insensitive comparison</li>
-                    <li>Avoid creating unnecessary String objects</li>
-                    <li>Use StringBuilder.toString() only at the end</li>
-                </ul>
+                <section id="best-practices" class="section">
+                    <h2>✅ Best Practices</h2>
+                    <ul>
+                        <li>Use String for immutable data</li>
+                        <li>Use StringBuilder for string concatenation in loops</li>
+                        <li>Use equals() instead of == for string comparison</li>
+                        <li>Use equalsIgnoreCase() for case-insensitive comparison</li>
+                        <li>Avoid creating unnecessary String objects</li>
+                        <li>Use StringBuilder.toString() only at the end</li>
+                    </ul>
+                </section>
+
+                <section id="summary" class="section">
+                    <h2>📋 Summary</h2>
+                    <p>Strings are immutable sequences of characters in Java. Use StringBuilder for efficient string manipulation and always use equals() for string comparison.</p>
+                </section>
             </div>
         </div>
     </div>

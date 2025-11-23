@@ -53,35 +53,112 @@
           navLinks.classList.remove("active");
         }
       });
+
+      // Syntax highlighting
+      document.addEventListener('DOMContentLoaded', function() {
+        const codeBlocks = document.querySelectorAll('pre code');
+        codeBlocks.forEach(block => {
+          highlightJavaScript(block);
+        });
+      });
+
+      function highlightJavaScript(element) {
+        let code = element.textContent;
+        
+        // Keywords
+        code = code.replace(/\b(const|let|var|function|return|if|else|for|while|do|switch|case|break|continue|try|catch|finally|throw|new|this|class|extends|super|static|async|await|import|export|from|default|typeof|instanceof)\b/g, '<span class="keyword">$1</span>');
+        
+        // Strings
+        code = code.replace(/(['"`])((?:\\.|(?!\1)[^\\\r\n])*?)\1/g, '<span class="string">$1$2$1</span>');
+        
+        // Template literals
+        code = code.replace(/(`)([^`]*?)(`)/g, '<span class="string">$1$2$3</span>');
+        
+        // Numbers
+        code = code.replace(/\b(\d+(?:\.\d+)?)\b/g, '<span class="number">$1</span>');
+        
+        // Comments
+        code = code.replace(/\/\*[\s\S]*?\*\//g, '<span class="comment">$&</span>');
+        code = code.replace(/\/\/.*$/gm, '<span class="comment">$&</span>');
+        
+        // Built-in objects and methods
+        code = code.replace(/\b(console|document|window|Array|Object|String|Number|Boolean|Date|Math|JSON|Promise|Set|Map|WeakMap|WeakSet|RegExp|Error|setTimeout|setInterval|fetch|localStorage|sessionStorage)\b/g, '<span class="builtin">$1</span>');
+        
+        // Method calls
+        code = code.replace(/\.(\w+)\s*\(/g, '.<span class="method">$1</span>(');
+        
+        element.innerHTML = code;
+      }
     </script>
     <div class="container">
-      <div class="content">
-        <div class="topic">
-          <h2>JavaScript - Complete Guide</h2>
+        <div class="content">
+            <div class="topic">
+                <h1>JavaScript Fundamentals Refresher</h1>
+                
+                <div class="table-of-contents">
+                    <h2>📚 Table of Contents</h2>
+                    <div class="toc-grid">
+                        <div class="toc-column">
+                            <ul>
+                                <li><a href="#what-is-js">What is JavaScript?</a></li>
+                                <li><a href="#data-types">Data Types</a></li>
+                                <li><a href="#variables">Variables & Scope</a></li>
+                                <li><a href="#functions">Functions & Context</a></li>
+                                <li><a href="#strings">Strings & Templates</a></li>
+                                <li><a href="#objects">Objects & Prototypes</a></li>
+                            </ul>
+                        </div>
+                        <div class="toc-column">
+                            <ul>
+                                <li><a href="#arrays">Arrays & Methods</a></li>
+                                <li><a href="#promises">Promises & Async/Await</a></li>
+                                <li><a href="#dom">DOM Manipulation</a></li>
+                                <li><a href="#closures">Closures & Higher-Order</a></li>
+                                <li><a href="#errors">Error Handling</a></li>
+                                <li><a href="#regex">Regular Expressions</a></li>
+                            </ul>
+                        </div>
+                        <div class="toc-column">
+                            <ul>
+                                <li><a href="#es6">Modern ES6+ Features</a></li>
+                                <li><a href="#performance">Performance & Best Practices</a></li>
+                                <li><a href="#nodejs">Node.js Basics</a></li>
+                                <li><a href="#interview">Interview Questions</a></li>
+                                <li><a href="#summary">Summary & Best Practices</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
-          <h3>What is JavaScript?</h3>
-          <p>
-            JavaScript is a versatile, lightweight programming language that
-            runs in browsers and servers (Node.js). It's event-driven, supports
-            functional and object-oriented programming, and is essential for
-            modern web development. ES6+ introduced major features like arrow
-            functions, classes, and async/await.
-          </p>
+                <section id="what-is-js" class="section">
+                    <h2>🚀 What is JavaScript?</h2>
+                    <p>
+                        JavaScript is a versatile, lightweight programming language that
+                        runs in browsers and servers (Node.js). It's event-driven, supports
+                        functional and object-oriented programming, and is essential for
+                        modern web development. ES6+ introduced major features like arrow
+                        functions, classes, and async/await.
+                    </p>
+                </section>
 
-          <h3>JavaScript Data Types:</h3>
-          <ul>
-            <li>
-              <strong>Primitive:</strong> string, number, boolean, null,
-              undefined, symbol, bigint
-            </li>
-            <li>
-              <strong>Reference:</strong> object, array, function, date, regex,
-              map, set
-            </li>
-          </ul>
+                <section id="data-types" class="section">
+                    <h2>📊 JavaScript Data Types</h2>
+                    <div class="subsection">
+                        <h3>Primitive vs Reference Types</h3>
+                        <ul>
+                            <li><strong>Primitive:</strong> string, number, boolean, null, undefined, symbol, bigint</li>
+                            <li><strong>Reference:</strong> object, array, function, date, regex, map, set</li>
+                        </ul>
+                    </div>
+                </section>
 
-          <h3>Variables & Scope:</h3>
-          <pre><code>
+                <section id="variables" class="section">
+                    <h2>🔧 Variables & Scope</h2>
+                    
+                    <div class="subsection">
+                        <h3>Variable Declarations</h3>
+                        <div class="code-block">
+                            <pre><code class="language-javascript">
 // var - function scoped (avoid, legacy)
 var x = 5;
 
@@ -107,10 +184,18 @@ function outer() {
 }
 const fn = outer();
 console.log(fn());  // 15
-                </code></pre>
+                            </code></pre>
+                        </div>
+                    </div>
+                </section>
 
-          <h3>Arrow Functions & Function Context:</h3>
-          <pre><code>
+                <section id="functions" class="section">
+                    <h2>⚡ Arrow Functions & Function Context</h2>
+                    
+                    <div class="subsection">
+                        <h3>Function Syntax & Context</h3>
+                        <div class="code-block">
+                            <pre><code class="language-javascript">
 // Traditional function
 function add(a, b) {
     return a + b;
@@ -145,10 +230,18 @@ const [a, b, c] = [1, 2, 3];
 const { name, age } = { name: 'John', age: 30 };
 const person = { name: 'Jane', details: { city: 'NYC' } };
 const { details: { city } } = person;  // Nested destructuring
-                </code></pre>
+                            </code></pre>
+                        </div>
+                    </div>
+                </section>
 
-          <h3>Template Literals & String Methods:</h3>
-          <pre><code>
+                <section id="strings" class="section">
+                    <h2>📝 Template Literals & String Methods</h2>
+                    
+                    <div class="subsection">
+                        <h3>String Operations</h3>
+                        <div class="code-block">
+                            <pre><code class="language-javascript">
 // Template literals with interpolation
 const name = 'John';
 const age = 30;
@@ -172,10 +265,18 @@ str.toUpperCase();       // 'JAVASCRIPT'
 str.split('');           // ['J','a','v','a','S','c','r','i','p','t']
 str.replace('Java', 'Type');  // 'TypeScript'
 str.trim();              // Remove whitespace
-                </code></pre>
+                            </code></pre>
+                        </div>
+                    </div>
+                </section>
 
-          <h3>Objects & Prototypes:</h3>
-          <pre><code>
+                <section id="objects" class="section">
+                    <h2>🏗️ Objects & Prototypes</h2>
+                    
+                    <div class="subsection">
+                        <h3>Object Creation & Inheritance</h3>
+                        <div class="code-block">
+                            <pre><code class="language-javascript">
 // Object creation
 const obj = { name: 'John', age: 30 };
 const person = new Object();
@@ -231,10 +332,18 @@ class Dog extends Animal {
 const dog = new Dog('Buddy', 'Golden');
 console.log(dog.speak());      // 'Buddy barks'
 console.log(Animal.info());    // Static method
-                </code></pre>
+                            </code></pre>
+                        </div>
+                    </div>
+                </section>
 
-          <h3>Arrays & Array Methods:</h3>
-          <pre><code>
+                <section id="arrays" class="section">
+                    <h2>📋 Arrays & Array Methods</h2>
+                    
+                    <div class="subsection">
+                        <h3>Array Operations</h3>
+                        <div class="code-block">
+                            <pre><code class="language-javascript">
 const arr = [1, 2, 3, 4, 5];
 
 // Mutating methods (modify original)
@@ -272,7 +381,7 @@ const names = users.map(u => u.name);  // ['John', 'Jane']
 const adults = users.filter(u => u.age >= 30);  // [user objects]
                 </code></pre>
 
-          <h3>Promises & Async/Await:</h3>
+          <h3 id="promises">🔄 Promises & Async/Await:</h3>
           <pre><code>
 // Promise - handle async operations
 const promise = new Promise((resolve, reject) => {
@@ -321,7 +430,7 @@ const result = await Promise.race([promise1, promise2]);
 const result = await Promise.any([promise1, promise2]);
                 </code></pre>
 
-          <h3>DOM Manipulation:</h3>
+          <h3 id="dom">🌐 DOM Manipulation:</h3>
           <pre><code>
 // Selecting elements
 const el = document.getElementById('myId');
@@ -369,7 +478,7 @@ document.addEventListener('click', (e) => {
 });
                 </code></pre>
 
-          <h3>Closures & Higher-Order Functions:</h3>
+          <h3 id="closures">🔒 Closures & Higher-Order Functions:</h3>
           <pre><code>
 // Closure - function with access to outer scope
 function makeCounter() {
@@ -411,7 +520,7 @@ const addThenMultiply = compose(multiply2, add5);
 console.log(addThenMultiply(3));   // (3+5)*2 = 16
                 </code></pre>
 
-          <h3>Error Handling & Debugging:</h3>
+          <h3 id="errors">⚠️ Error Handling & Debugging:</h3>
           <pre><code>
 // Try-catch-finally
 try {
@@ -453,7 +562,7 @@ console.group('Group');
 console.groupEnd();
                 </code></pre>
 
-          <h3>Regular Expressions:</h3>
+          <h3 id="regex">🔍 Regular Expressions:</h3>
           <pre><code>
 // Creating regex
 const regex1 = /hello/i;                     // Literal, i=case insensitive
@@ -478,7 +587,7 @@ email.search(/@/);                  // 4
 /pattern/m                          // multiline
                 </code></pre>
 
-          <h3>Modern ES6+ Features:</h3>
+          <h3 id="es6">✨ Modern ES6+ Features:</h3>
           <pre><code>
 // Spread operator
 const arr = [1, 2, 3];
@@ -519,7 +628,7 @@ let obj = {};
 wm.set(obj, 'private data');
                 </code></pre>
 
-          <h3>Common Interview Problems:</h3>
+          <h3 id="interview">❓ Common Interview Problems:</h3>
           <ul>
             <li>
               <strong>Event Loop:</strong> Understand call stack, task queue,
@@ -546,7 +655,7 @@ wm.set(obj, 'private data');
             </li>
           </ul>
 
-          <h3>Performance & Best Practices:</h3>
+          <h3 id="performance">⚡ Performance & Best Practices:</h3>
           <pre><code>
 // Avoid global variables
 // ❌ BAD
@@ -603,7 +712,7 @@ function memoize(fn) {
 const factorial = memoize((n) => n <= 1 ? 1 : n * factorial(n - 1));
                 </code></pre>
 
-          <h3>Node.js Basics (Server-side JavaScript):</h3>
+          <h3 id="nodejs">🖥️ Node.js Basics (Server-side JavaScript):</h3>
           <pre><code>
 // Importing modules
 const fs = require('fs');
@@ -644,7 +753,7 @@ require('dotenv').config();
 const dbUrl = process.env.DATABASE_URL;
                 </code></pre>
 
-          <h3>Key Interview Questions:</h3>
+          <h3 id="key-questions">🎯 Key Interview Questions:</h3>
           <ul>
             <li>What's the difference between let, const, and var?</li>
             <li>Explain the event loop and call stack</li>
