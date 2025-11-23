@@ -19,108 +19,136 @@
       </div>
     </header>
     <nav></nav>
-    <script>window.activePage = 'javascript';</script>
+    <script>
+      window.activePage = "javascript";
+    </script>
     <script src="menu.js"></script>
     <script src="theme-selector.js"></script>
 
     <script>
-
       // Syntax highlighting
-      document.addEventListener('DOMContentLoaded', function() {
-        const codeBlocks = document.querySelectorAll('pre code');
-        codeBlocks.forEach(block => {
+      document.addEventListener("DOMContentLoaded", function () {
+        const codeBlocks = document.querySelectorAll("pre code");
+        codeBlocks.forEach((block) => {
           highlightJavaScript(block);
         });
       });
 
       function highlightJavaScript(element) {
         let code = element.textContent;
-        
+
         // Keywords
-        code = code.replace(/\b(const|let|var|function|return|if|else|for|while|do|switch|case|break|continue|try|catch|finally|throw|new|this|class|extends|super|static|async|await|import|export|from|default|typeof|instanceof)\b/g, '<span class="keyword">$1</span>');
-        
+        code = code.replace(
+          /\b(const|let|var|function|return|if|else|for|while|do|switch|case|break|continue|try|catch|finally|throw|new|this|class|extends|super|static|async|await|import|export|from|default|typeof|instanceof)\b/g,
+          '<span class="keyword">$1</span>'
+        );
+
         // Strings
-        code = code.replace(/(['"`])((?:\\.|(?!\1)[^\\\r\n])*?)\1/g, '<span class="string">$1$2$1</span>');
-        
+        code = code.replace(
+          /(['"`])((?:\\.|(?!\1)[^\\\r\n])*?)\1/g,
+          '<span class="string">$1$2$1</span>'
+        );
+
         // Template literals
-        code = code.replace(/(`)([^`]*?)(`)/g, '<span class="string">$1$2$3</span>');
-        
+        code = code.replace(
+          /(`)([^`]*?)(`)/g,
+          '<span class="string">$1$2$3</span>'
+        );
+
         // Numbers
-        code = code.replace(/\b(\d+(?:\.\d+)?)\b/g, '<span class="number">$1</span>');
-        
+        code = code.replace(
+          /\b(\d+(?:\.\d+)?)\b/g,
+          '<span class="number">$1</span>'
+        );
+
         // Comments
-        code = code.replace(/\/\*[\s\S]*?\*\//g, '<span class="comment">$&</span>');
+        code = code.replace(
+          /\/\*[\s\S]*?\*\//g,
+          '<span class="comment">$&</span>'
+        );
         code = code.replace(/\/\/.*$/gm, '<span class="comment">$&</span>');
-        
+
         // Built-in objects and methods
-        code = code.replace(/\b(console|document|window|Array|Object|String|Number|Boolean|Date|Math|JSON|Promise|Set|Map|WeakMap|WeakSet|RegExp|Error|setTimeout|setInterval|fetch|localStorage|sessionStorage)\b/g, '<span class="builtin">$1</span>');
-        
+        code = code.replace(
+          /\b(console|document|window|Array|Object|String|Number|Boolean|Date|Math|JSON|Promise|Set|Map|WeakMap|WeakSet|RegExp|Error|setTimeout|setInterval|fetch|localStorage|sessionStorage)\b/g,
+          '<span class="builtin">$1</span>'
+        );
+
         // Method calls
-        code = code.replace(/\.(\w+)\s*\(/g, '.<span class="method">$1</span>(');
-        
+        code = code.replace(
+          /\.(\w+)\s*\(/g,
+          '.<span class="method">$1</span>('
+        );
+
         element.innerHTML = code;
       }
     </script>
     <div class="container">
-        <div class="content-with-sidebar">
-            <div class="sidebar-toc">
-                <div class="toc-header">
-                    <h2>📚 Table of Contents</h2>
-                </div>
-                <nav class="toc-nav">
-                    <ul>
-                        <li><a href="#what-is-js">What is JavaScript?</a></li>
-                        <li><a href="#data-types">Data Types</a></li>
-                        <li><a href="#variables">Variables & Scope</a></li>
-                        <li><a href="#functions">Functions & Context</a></li>
-                        <li><a href="#strings">Strings & Templates</a></li>
-                        <li><a href="#objects">Objects & Prototypes</a></li>
-                        <li><a href="#arrays">Arrays & Methods</a></li>
-                        <li><a href="#promises">Promises & Async/Await</a></li>
-                        <li><a href="#dom">DOM Manipulation</a></li>
-                        <li><a href="#closures">Closures & Higher-Order</a></li>
-                        <li><a href="#errors">Error Handling</a></li>
-                        <li><a href="#regex">Regular Expressions</a></li>
-                        <li><a href="#es6">Modern ES6+ Features</a></li>
-                        <li><a href="#performance">Performance & Best Practices</a></li>
-                        <li><a href="#nodejs">Node.js Basics</a></li>
-                        <li><a href="#interview">Interview Questions</a></li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="main-content">
-                <div class="topic">
-                    <h1>JavaScript Fundamentals Refresher</h1>
+      <div class="content-with-sidebar">
+        <div class="sidebar-toc">
+          <div class="toc-header">
+            <h2>📚 Table of Contents</h2>
+          </div>
+          <nav class="toc-nav">
+            <ul>
+              <li><a href="#what-is-js">What is JavaScript?</a></li>
+              <li><a href="#data-types">Data Types</a></li>
+              <li><a href="#variables">Variables & Scope</a></li>
+              <li><a href="#functions">Functions & Context</a></li>
+              <li><a href="#strings">Strings & Templates</a></li>
+              <li><a href="#objects">Objects & Prototypes</a></li>
+              <li><a href="#arrays">Arrays & Methods</a></li>
+              <li><a href="#promises">Promises & Async/Await</a></li>
+              <li><a href="#dom">DOM Manipulation</a></li>
+              <li><a href="#closures">Closures & Higher-Order</a></li>
+              <li><a href="#errors">Error Handling</a></li>
+              <li><a href="#regex">Regular Expressions</a></li>
+              <li><a href="#es6">Modern ES6+ Features</a></li>
+              <li><a href="#performance">Performance & Best Practices</a></li>
+              <li><a href="#nodejs">Node.js Basics</a></li>
+              <li><a href="#interview">Interview Questions</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="main-content">
+          <div class="topic">
+            <h1>JavaScript Fundamentals Refresher</h1>
 
-                <section id="what-is-js" class="section">
-                    <h2>🚀 What is JavaScript?</h2>
-                    <p>
-                        JavaScript is a versatile, lightweight programming language that
-                        runs in browsers and servers (Node.js). It's event-driven, supports
-                        functional and object-oriented programming, and is essential for
-                        modern web development. ES6+ introduced major features like arrow
-                        functions, classes, and async/await.
-                    </p>
-                </section>
+            <section id="what-is-js" class="section">
+              <h2>🚀 What is JavaScript?</h2>
+              <p>
+                JavaScript is a versatile, lightweight programming language that
+                runs in browsers and servers (Node.js). It's event-driven,
+                supports functional and object-oriented programming, and is
+                essential for modern web development. ES6+ introduced major
+                features like arrow functions, classes, and async/await.
+              </p>
+            </section>
 
-                <section id="data-types" class="section">
-                    <h2>📊 JavaScript Data Types</h2>
-                    <div class="subsection">
-                        <h3>Primitive vs Reference Types</h3>
-                        <ul>
-                            <li><strong>Primitive:</strong> string, number, boolean, null, undefined, symbol, bigint</li>
-                            <li><strong>Reference:</strong> object, array, function, date, regex, map, set</li>
-                        </ul>
-                    </div>
-                </section>
+            <section id="data-types" class="section">
+              <h2>📊 JavaScript Data Types</h2>
+              <div class="subsection">
+                <h3>Primitive vs Reference Types</h3>
+                <ul>
+                  <li>
+                    <strong>Primitive:</strong> string, number, boolean, null,
+                    undefined, symbol, bigint
+                  </li>
+                  <li>
+                    <strong>Reference:</strong> object, array, function, date,
+                    regex, map, set
+                  </li>
+                </ul>
+              </div>
+            </section>
 
-                <section id="variables" class="section">
-                    <h2>🔧 Variables & Scope</h2>
-                    
-                    <div class="subsection">
-                        <h3>Variable Declarations</h3>
-                        <div class="code-block">
-                            <pre><code class="language-javascript">
+            <section id="variables" class="section">
+              <h2>🔧 Variables & Scope</h2>
+
+              <div class="subsection">
+                <h3>Variable Declarations</h3>
+                <div class="code-block">
+                  <pre><code class="language-javascript">
 // var - function scoped (avoid, legacy)
 var x = 5;
 
@@ -147,17 +175,17 @@ function outer() {
 const fn = outer();
 console.log(fn());  // 15
                             </code></pre>
-                        </div>
-                    </div>
-                </section>
+                </div>
+              </div>
+            </section>
 
-                <section id="functions" class="section">
-                    <h2>⚡ Arrow Functions & Function Context</h2>
-                    
-                    <div class="subsection">
-                        <h3>Function Syntax & Context</h3>
-                        <div class="code-block">
-                            <pre><code class="language-javascript">
+            <section id="functions" class="section">
+              <h2>⚡ Arrow Functions & Function Context</h2>
+
+              <div class="subsection">
+                <h3>Function Syntax & Context</h3>
+                <div class="code-block">
+                  <pre><code class="language-javascript">
 // Traditional function
 function add(a, b) {
     return a + b;
@@ -193,17 +221,17 @@ const { name, age } = { name: 'John', age: 30 };
 const person = { name: 'Jane', details: { city: 'NYC' } };
 const { details: { city } } = person;  // Nested destructuring
                             </code></pre>
-                        </div>
-                    </div>
-                </section>
+                </div>
+              </div>
+            </section>
 
-                <section id="strings" class="section">
-                    <h2>📝 Template Literals & String Methods</h2>
-                    
-                    <div class="subsection">
-                        <h3>String Operations</h3>
-                        <div class="code-block">
-                            <pre><code class="language-javascript">
+            <section id="strings" class="section">
+              <h2>📝 Template Literals & String Methods</h2>
+
+              <div class="subsection">
+                <h3>String Operations</h3>
+                <div class="code-block">
+                  <pre><code class="language-javascript">
 // Template literals with interpolation
 const name = 'John';
 const age = 30;
@@ -228,17 +256,17 @@ str.split('');           // ['J','a','v','a','S','c','r','i','p','t']
 str.replace('Java', 'Type');  // 'TypeScript'
 str.trim();              // Remove whitespace
                             </code></pre>
-                        </div>
-                    </div>
-                </section>
+                </div>
+              </div>
+            </section>
 
-                <section id="objects" class="section">
-                    <h2>🏗️ Objects & Prototypes</h2>
-                    
-                    <div class="subsection">
-                        <h3>Object Creation & Inheritance</h3>
-                        <div class="code-block">
-                            <pre><code class="language-javascript">
+            <section id="objects" class="section">
+              <h2>🏗️ Objects & Prototypes</h2>
+
+              <div class="subsection">
+                <h3>Object Creation & Inheritance</h3>
+                <div class="code-block">
+                  <pre><code class="language-javascript">
 // Object creation
 const obj = { name: 'John', age: 30 };
 const person = new Object();
@@ -295,17 +323,17 @@ const dog = new Dog('Buddy', 'Golden');
 console.log(dog.speak());      // 'Buddy barks'
 console.log(Animal.info());    // Static method
                             </code></pre>
-                        </div>
-                    </div>
-                </section>
+                </div>
+              </div>
+            </section>
 
-                <section id="arrays" class="section">
-                    <h2>📋 Arrays & Array Methods</h2>
-                    
-                    <div class="subsection">
-                        <h3>Array Operations</h3>
-                        <div class="code-block">
-                            <pre><code class="language-javascript">
+            <section id="arrays" class="section">
+              <h2>📋 Arrays & Array Methods</h2>
+
+              <div class="subsection">
+                <h3>Array Operations</h3>
+                <div class="code-block">
+                  <pre><code class="language-javascript">
 const arr = [1, 2, 3, 4, 5];
 
 // Mutating methods (modify original)
@@ -342,16 +370,16 @@ const users = [
 const names = users.map(u => u.name);  // ['John', 'Jane']
 const adults = users.filter(u => u.age >= 30);  // [user objects]
                             </code></pre>
-                        </div>
-                    </div>
-                </section>
+                </div>
+              </div>
+            </section>
 
-                <section id="promises" class="section">
-                    <h2>🔄 Promises & Async/Await</h2>
-                    <div class="subsection">
-                        <h3>Promise Operations</h3>
-                        <div class="code-block">
-                            <pre><code class="language-javascript">
+            <section id="promises" class="section">
+              <h2>🔄 Promises & Async/Await</h2>
+              <div class="subsection">
+                <h3>Promise Operations</h3>
+                <div class="code-block">
+                  <pre><code class="language-javascript">
 // Promise - handle async operations
 const promise = new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -398,16 +426,16 @@ const result = await Promise.race([promise1, promise2]);
 // Promise.any - first successful
 const result = await Promise.any([promise1, promise2]);
                             </code></pre>
-                        </div>
-                    </div>
-                </section>
+                </div>
+              </div>
+            </section>
 
-                <section id="dom" class="section">
-                    <h2>🌐 DOM Manipulation</h2>
-                    <div class="subsection">
-                        <h3>DOM Operations</h3>
-                        <div class="code-block">
-                            <pre><code class="language-javascript">
+            <section id="dom" class="section">
+              <h2>🌐 DOM Manipulation</h2>
+              <div class="subsection">
+                <h3>DOM Operations</h3>
+                <div class="code-block">
+                  <pre><code class="language-javascript">
 // Selecting elements
 const el = document.getElementById('myId');
 const els = document.querySelectorAll('.myClass');
@@ -453,16 +481,16 @@ document.addEventListener('click', (e) => {
     }
 });
                             </code></pre>
-                        </div>
-                    </div>
-                </section>
+                </div>
+              </div>
+            </section>
 
-                <section id="closures" class="section">
-                    <h2>🔒 Closures & Higher-Order Functions</h2>
-                    <div class="subsection">
-                        <h3>Closure Patterns</h3>
-                        <div class="code-block">
-                            <pre><code class="language-javascript">
+            <section id="closures" class="section">
+              <h2>🔒 Closures & Higher-Order Functions</h2>
+              <div class="subsection">
+                <h3>Closure Patterns</h3>
+                <div class="code-block">
+                  <pre><code class="language-javascript">
 // Closure - function with access to outer scope
 function makeCounter() {
     let count = 0;
@@ -502,16 +530,16 @@ const multiply2 = x => x * 2;
 const addThenMultiply = compose(multiply2, add5);
 console.log(addThenMultiply(3));   // (3+5)*2 = 16
                             </code></pre>
-                        </div>
-                    </div>
-                </section>
+                </div>
+              </div>
+            </section>
 
-                <section id="errors" class="section">
-                    <h2>⚠️ Error Handling & Debugging</h2>
-                    <div class="subsection">
-                        <h3>Error Management</h3>
-                        <div class="code-block">
-                            <pre><code class="language-javascript">
+            <section id="errors" class="section">
+              <h2>⚠️ Error Handling & Debugging</h2>
+              <div class="subsection">
+                <h3>Error Management</h3>
+                <div class="code-block">
+                  <pre><code class="language-javascript">
 // Try-catch-finally
 try {
     const result = riskyOperation();
@@ -551,16 +579,16 @@ console.group('Group');
     console.log('Item 2');
 console.groupEnd();
                             </code></pre>
-                        </div>
-                    </div>
-                </section>
+                </div>
+              </div>
+            </section>
 
-                <section id="regex" class="section">
-                    <h2>🔍 Regular Expressions</h2>
-                    <div class="subsection">
-                        <h3>Regex Patterns</h3>
-                        <div class="code-block">
-                            <pre><code class="language-javascript">
+            <section id="regex" class="section">
+              <h2>🔍 Regular Expressions</h2>
+              <div class="subsection">
+                <h3>Regex Patterns</h3>
+                <div class="code-block">
+                  <pre><code class="language-javascript">
 // Creating regex
 const regex1 = /hello/i;                     // Literal, i=case insensitive
 const regex2 = new RegExp('hello', 'i');     // Constructor
@@ -583,16 +611,16 @@ email.search(/@/);                  // 4
 /pattern/i                          // case insensitive
 /pattern/m                          // multiline
                             </code></pre>
-                        </div>
-                    </div>
-                </section>
+                </div>
+              </div>
+            </section>
 
-                <section id="es6" class="section">
-                    <h2>✨ Modern ES6+ Features</h2>
-                    <div class="subsection">
-                        <h3>ES6+ Syntax</h3>
-                        <div class="code-block">
-                            <pre><code class="language-javascript">
+            <section id="es6" class="section">
+              <h2>✨ Modern ES6+ Features</h2>
+              <div class="subsection">
+                <h3>ES6+ Syntax</h3>
+                <div class="code-block">
+                  <pre><code class="language-javascript">
 // Spread operator
 const arr = [1, 2, 3];
 const arr2 = [...arr, 4, 5];       // [1, 2, 3, 4, 5]
@@ -631,48 +659,18 @@ const wm = new WeakMap();
 let obj = {};
 wm.set(obj, 'private data');
                             </code></pre>
-                        </div>
-                    </div>
-                </section>
+                </div>
+              </div>
+            </section>
 
-                <section id="interview" class="section">
-                    <h2>❓ Common Interview Problems</h2>
-                    <div class="subsection">
-                        <h3>Key Concepts</h3>
-                        <ul>
-            <li>
-              <strong>Event Loop:</strong> Understand call stack, task queue,
-              microtask
-            </li>
-            <li>
-              <strong>this Context:</strong> How it changes in methods, arrow
-              functions, bind/call
-            </li>
-            <li>
-              <strong>Type Coercion:</strong> == vs ===, implicit conversions
-            </li>
-            <li>
-              <strong>Hoisting:</strong> var/function hoisting vs let/const
-            </li>
-            <li>
-              <strong>Callbacks & Promises:</strong> Callback hell, promise
-              chains
-            </li>
-            <li><strong>Closures:</strong> Memory leaks, function factories</li>
-            <li>
-              <strong>JSON:</strong> JSON.parse/stringify, handling circular
-              references
-            </li>
-                        </ul>
-                    </div>
-                </section>
 
-                <section id="performance" class="section">
-                    <h2>⚡ Performance & Best Practices</h2>
-                    <div class="subsection">
-                        <h3>Optimization Techniques</h3>
-                        <div class="code-block">
-                            <pre><code class="language-javascript">
+
+            <section id="performance" class="section">
+              <h2>⚡ Performance & Best Practices</h2>
+              <div class="subsection">
+                <h3>Optimization Techniques</h3>
+                <div class="code-block">
+                  <pre><code class="language-javascript">
 // Avoid global variables
 // ❌ BAD
 var globalVar = 'bad';
@@ -727,16 +725,16 @@ function memoize(fn) {
 
 const factorial = memoize((n) => n <= 1 ? 1 : n * factorial(n - 1));
                             </code></pre>
-                        </div>
-                    </div>
-                </section>
+                </div>
+              </div>
+            </section>
 
-                <section id="nodejs" class="section">
-                    <h2>🖥️ Node.js Basics</h2>
-                    <div class="subsection">
-                        <h3>Server-side JavaScript</h3>
-                        <div class="code-block">
-                            <pre><code class="language-javascript">
+            <section id="nodejs" class="section">
+              <h2>🖥️ Node.js Basics</h2>
+              <div class="subsection">
+                <h3>Server-side JavaScript</h3>
+                <div class="code-block">
+                  <pre><code class="language-javascript">
 // Importing modules
 const fs = require('fs');
 const express = require('express');
@@ -775,32 +773,46 @@ app.listen(3000, () => {
 require('dotenv').config();
 const dbUrl = process.env.DATABASE_URL;
                             </code></pre>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="interview" class="section">
-                    <h2>🎯 Key Interview Questions</h2>
-                    <div class="subsection">
-                        <h3>Essential Questions</h3>
-                        <ul>
-            <li>What's the difference between let, const, and var?</li>
-            <li>Explain the event loop and call stack</li>
-            <li>What are closures and provide an example</li>
-            <li>Difference between == and ===</li>
-            <li>Explain hoisting in JavaScript</li>
-            <li>What's the difference between map/filter/reduce?</li>
-            <li>How do promises work vs callbacks?</li>
-            <li>What is 'this' and how does it work?</li>
-            <li>Explain async/await and error handling</li>
-            <li>What's the difference between shallow and deep copy?</li>
-                        </ul>
-                    </div>
-                </section>
                 </div>
-            </div>
+              </div>
+            </section>
+
+            <section id="interview" class="section">
+              <h2>🎯 JavaScript Interview Guide</h2>
+              
+              <div class="subsection">
+                <h3>Key Concepts to Master</h3>
+                <ul>
+                  <li><strong>Event Loop:</strong> Understand call stack, task queue, microtask</li>
+                  <li><strong>this Context:</strong> How it changes in methods, arrow functions, bind/call</li>
+                  <li><strong>Type Coercion:</strong> == vs ===, implicit conversions</li>
+                  <li><strong>Hoisting:</strong> var/function hoisting vs let/const</li>
+                  <li><strong>Callbacks & Promises:</strong> Callback hell, promise chains</li>
+                  <li><strong>Closures:</strong> Memory leaks, function factories</li>
+                  <li><strong>JSON:</strong> JSON.parse/stringify, handling circular references</li>
+                </ul>
+              </div>
+              
+              <div class="subsection">
+                <h3>Essential Interview Questions</h3>
+                <ul>
+                  <li>What's the difference between let, const, and var?</li>
+                  <li>Explain the event loop and call stack</li>
+                  <li>What are closures and provide an example</li>
+                  <li>Difference between == and ===</li>
+                  <li>Explain hoisting in JavaScript</li>
+                  <li>What's the difference between map/filter/reduce?</li>
+                  <li>How do promises work vs callbacks?</li>
+                  <li>What is 'this' and how does it work?</li>
+                  <li>Explain async/await and error handling</li>
+                  <li>What's the difference between shallow and deep copy?</li>
+                </ul>
+              </div>
+            </section>
+          </div>
         </div>
+      </div>
     </div>
-      <script src="footer.js"></script>
-</body>
+    <script src="footer.js"></script>
+  </body>
 </html>
