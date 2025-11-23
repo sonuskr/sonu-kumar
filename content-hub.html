@@ -30,14 +30,40 @@
         .hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
         .hero p { font-size: 1.2rem; opacity: 0.9; }
         nav { background: #2c3e50; padding: 1rem 0; position: sticky; top: 0; z-index: 100; }
-        .nav-links { display: flex; justify-content: center; list-style: none; }
-        .nav-links li { margin: 0 1rem; }
-        .nav-links a { color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 5px; transition: background 0.3s; }
+        .nav-links { display: flex; justify-content: center; list-style: none; flex-wrap: wrap; }
+        .nav-links li { margin: 0 0.5rem; position: relative; }
+        .nav-links a { color: white; text-decoration: none; padding: 0.5rem 0.8rem; border-radius: 5px; transition: background 0.3s; white-space: nowrap; font-size: 0.9rem; }
         .nav-links a:hover { background: #34495e; }
+        .dropdown { position: relative; }
+        .dropdown > a::after { content: ' ▼'; font-size: 0.7rem; }
+        .dropdown-content { 
+            display: none; 
+            position: absolute; 
+            background: #34495e;
+            min-width: 180px; 
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1000; 
+            border-radius: 5px; 
+            top: 100%; 
+            left: 0;
+        }
+        .dropdown-content a { 
+            display: block; 
+            padding: 0.8rem 1rem; 
+            font-size: 0.85rem;
+        }
+        .dropdown-content a:hover { 
+            background: #2c3e50;
+        }
+        .dropdown:hover .dropdown-content { 
+            display: block; 
+        }
         main { padding: 2rem 0; }
         .section { margin-bottom: 4rem; }
         .section h2 { font-size: 2rem; color: #2c3e50; margin-bottom: 2rem; text-align: center; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+        @media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
         .card { background: white; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); padding: 2rem; transition: transform 0.3s; }
         .card:hover { transform: translateY(-5px); }
         .card h3 { color: #667eea; margin-bottom: 1rem; }
@@ -52,7 +78,8 @@
         @media (max-width: 768px) {
             .hero h1 { font-size: 2rem; }
             .nav-links { flex-direction: column; align-items: center; }
-            .nav-links li { margin: 0.5rem 0; }
+            .nav-links li { margin: 0.3rem 0; }
+            .nav-links a { font-size: 0.95rem; }
         }
     </style>
 </head>
@@ -69,391 +96,134 @@
     <nav>
         <div class="container">
             <ul class="nav-links">
-                <li><a href="#java">Java</a></li>
-                <li><a href="#spring-boot">Spring Boot</a></li>
-                <li><a href="#angular">Angular</a></li>
-                <li><a href="#react">React</a></li>
-                <li><a href="#typescript">TypeScript</a></li>
-                <li><a href="#html-css">HTML/CSS</a></li>
+                <li><a href="tutorial/java-learning.html">Java</a></li>
+                <li><a href="tutorial/javascript-learning.html">JavaScript</a></li>
+                <li><a href="tutorial/typescript-learning.html">TypeScript</a></li>
+                <li><a href="tutorial/angular-learning.html">Angular</a></li>
+                <li><a href="tutorial/react-learning.html">React</a></li>
+                <li class="dropdown">
+                    <a href="#">Spring</a>
+                    <div class="dropdown-content">
+                        <a href="tutorial/spring-core-learning.html">Spring Core</a>
+                        <a href="tutorial/spring-mvc-learning.html">Spring MVC</a>
+                        <a href="tutorial/spring-boot-learning.html">Spring Boot</a>
+                        <a href="tutorial/spring-security-learning.html">Spring Security</a>
+                    </div>
+                </li>
             </ul>
         </div>
     </nav>
 
     <main>
         <div class="container">
-            <!-- Java Section -->
-            <section id="java" class="section">
+            <section class="section">
                 <div class="grid">
                     <article class="card">
-                        <h3>Building Microservices with Spring Boot 3 and Java 17</h3>
+                        <h3>Java Enterprise Development</h3>
                         <div class="tech-stack">
                             <span class="tech-tag">Java 17</span>
-                            <span class="tech-tag">Spring Boot 3</span>
-                            <span class="tech-tag">Microservices</span>
-                            <span class="tech-tag">Docker</span>
+                            <span class="tech-tag">Java 21</span>
+                            <span class="tech-tag">JVM</span>
+                            <span class="tech-tag">Maven</span>
                         </div>
-                        <p>Complete guide to building scalable microservices architecture using Spring Boot 3, Java 17, and containerization with Docker. Learn enterprise-grade patterns and best practices.</p>
-                        <div class="highlight">
-                            <strong>Key Topics:</strong> Service Discovery, API Gateway, Circuit Breaker, Distributed Tracing, Event-Driven Architecture
-                        </div>
-                        <div class="code-snippet">
-@SpringBootApplication
-@EnableEurekaClient
-public class UserServiceApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(UserServiceApplication.class, args);
-    }
-}
-                        </div>
-                        <a href="#" class="btn">Read Full Tutorial</a>
+                        <p>Master Java enterprise development with latest features, performance optimization, and best practices for scalable applications.</p>
+                        <a href="tutorial/java-learning.html" class="btn">Learn Java</a>
                     </article>
 
                     <article class="card">
-                        <h3>Angular 17 with TypeScript 5: Modern Frontend Development</h3>
+                        <h3>JavaScript Modern Development</h3>
+                        <div class="tech-stack">
+                            <span class="tech-tag">ES6+</span>
+                            <span class="tech-tag">Async/Await</span>
+                            <span class="tech-tag">Promises</span>
+                            <span class="tech-tag">DOM</span>
+                        </div>
+                        <p>Learn modern JavaScript with ES6+ features, async programming, and advanced concepts for web development.</p>
+                        <a href="tutorial/javascript-learning.html" class="btn">Learn JavaScript</a>
+                    </article>
+
+                    <article class="card">
+                        <h3>TypeScript Advanced Types</h3>
+                        <div class="tech-stack">
+                            <span class="tech-tag">TypeScript 5</span>
+                            <span class="tech-tag">Generics</span>
+                            <span class="tech-tag">Decorators</span>
+                            <span class="tech-tag">Utility Types</span>
+                        </div>
+                        <p>Advanced TypeScript development with type safety, generics, decorators, and modern language features.</p>
+                        <a href="tutorial/typescript-learning.html" class="btn">Learn TypeScript</a>
+                    </article>
+
+                    <article class="card">
+                        <h3>Angular Modern Development</h3>
                         <div class="tech-stack">
                             <span class="tech-tag">Angular 17</span>
-                            <span class="tech-tag">TypeScript 5</span>
+                            <span class="tech-tag">Signals</span>
+                            <span class="tech-tag">Standalone</span>
                             <span class="tech-tag">RxJS</span>
-                            <span class="tech-tag">Angular Material</span>
                         </div>
-                        <p>Master Angular 17 features including standalone components, signals, and new control flow. Build responsive, performant web applications with TypeScript 5.</p>
-                        <div class="highlight">
-                            <strong>Key Topics:</strong> Standalone Components, Signals, New Control Flow, SSR, Performance Optimization
-                        </div>
-                        <div class="code-snippet">
-@Component({
-  selector: 'app-user',
-  standalone: true,
-  template: `
-    @if (user()) {
-      &lt;h2&gt;{{ user().name }}&lt;/h2&gt;
-    }
-  `
-})
-export class UserComponent {
-  user = signal&lt;User | null&gt;(null);
-}
-                        </div>
-                        <a href="#" class="btn">Read Full Tutorial</a>
+                        <p>Build modern, performant web applications with Angular 17, signals, standalone components, and reactive programming.</p>
+                        <a href="tutorial/angular-learning.html" class="btn">Learn Angular</a>
                     </article>
 
                     <article class="card">
-                        <h3>React 18 with TypeScript: Advanced Patterns and Hooks</h3>
+                        <h3>React Advanced Patterns</h3>
                         <div class="tech-stack">
                             <span class="tech-tag">React 18</span>
-                            <span class="tech-tag">TypeScript</span>
                             <span class="tech-tag">Hooks</span>
-                            <span class="tech-tag">Context API</span>
+                            <span class="tech-tag">Context</span>
+                            <span class="tech-tag">Suspense</span>
                         </div>
-                        <p>Deep dive into React 18 concurrent features, custom hooks, and TypeScript integration. Learn advanced patterns for building scalable React applications.</p>
-                        <div class="highlight">
-                            <strong>Key Topics:</strong> Concurrent Features, Suspense, Custom Hooks, Performance Optimization, State Management
-                        </div>
-                        <div class="code-snippet">
-const useUserData = (userId: string) => {
-  const [user, setUser] = useState&lt;User | null&gt;(null);
-  const [loading, setLoading] = useState(true);
-  
-  useEffect(() => {
-    fetchUser(userId).then(setUser).finally(() => setLoading(false));
-  }, [userId]);
-  
-  return { user, loading };
-};
-                        </div>
-                        <a href="#" class="btn">Read Full Tutorial</a>
+                        <p>Master React 18 with concurrent features, custom hooks, and advanced patterns for scalable applications.</p>
+                        <a href="tutorial/react-learning.html" class="btn">Learn React</a>
                     </article>
 
                     <article class="card">
-                        <h3>DevOps with Docker, Kubernetes, and AWS</h3>
+                        <h3>Spring Core Framework</h3>
                         <div class="tech-stack">
-                            <span class="tech-tag">Docker</span>
-                            <span class="tech-tag">Kubernetes</span>
-                            <span class="tech-tag">AWS</span>
-                            <span class="tech-tag">Jenkins</span>
+                            <span class="tech-tag">Spring 6</span>
+                            <span class="tech-tag">IoC</span>
+                            <span class="tech-tag">DI</span>
+                            <span class="tech-tag">Beans</span>
                         </div>
-                        <p>Complete DevOps pipeline setup with containerization, orchestration, and cloud deployment. Learn CI/CD best practices for enterprise applications.</p>
-                        <div class="highlight">
-                            <strong>Key Topics:</strong> Container Orchestration, Auto-scaling, Blue-Green Deployment, Monitoring, Security
-                        </div>
-                        <div class="code-snippet">
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: user-service
-spec:
-  replicas: 3
-  selector:
-    matchLabels:
-      app: user-service
-  template:
-    metadata:
-      labels:
-        app: user-service
-    spec:
-      containers:
-      - name: user-service
-        image: user-service:latest
-        ports:
-        - containerPort: 8080
-                        </div>
-                        <a href="#" class="btn">Read Full Tutorial</a>
-                    </article>
-                </div>
-            </section>
-
-            <!-- Project Case Studies Section -->
-            <section id="case-studies" class="section">
-                <h2>Real-World Project Case Studies</h2>
-                <div class="grid">
-                    <article class="card">
-                        <h3>TIAA Financial Services Platform Modernization</h3>
-                        <div class="tech-stack">
-                            <span class="tech-tag">Java Spring Boot</span>
-                            <span class="tech-tag">Angular</span>
-                            <span class="tech-tag">Microservices</span>
-                            <span class="tech-tag">AWS</span>
-                        </div>
-                        <p><strong>Challenge:</strong> Modernize legacy financial services platform to handle 10M+ users with improved performance and security.</p>
-                        <p><strong>Solution:</strong> Migrated monolithic architecture to microservices using Spring Boot, implemented Angular frontend, and deployed on AWS cloud infrastructure.</p>
-                        <div class="highlight">
-                            <strong>Results:</strong> 60% performance improvement, 99.9% uptime, reduced deployment time from 4 hours to 15 minutes
-                        </div>
-                        <p><strong>Technologies Used:</strong> Java 11, Spring Boot 2.7, Angular 14, MySQL, Redis, Docker, Kubernetes, AWS EKS</p>
-                        <a href="#" class="btn">View Full Case Study</a>
+                        <p>Learn Spring Framework core concepts including dependency injection, IoC container, and bean management.</p>
+                        <a href="tutorial/spring-core-learning.html" class="btn">Learn Spring Core</a>
                     </article>
 
                     <article class="card">
-                        <h3>GE HealthCare Medical Device Management System</h3>
+                        <h3>Spring MVC Web Development</h3>
                         <div class="tech-stack">
-                            <span class="tech-tag">Spring Boot</span>
-                            <span class="tech-tag">React</span>
-                            <span class="tech-tag">MongoDB</span>
-                            <span class="tech-tag">Azure</span>
+                            <span class="tech-tag">Spring MVC</span>
+                            <span class="tech-tag">Controllers</span>
+                            <span class="tech-tag">Views</span>
+                            <span class="tech-tag">Models</span>
                         </div>
-                        <p><strong>Challenge:</strong> Build real-time medical device monitoring system with strict compliance requirements (HIPAA, FDA).</p>
-                        <p><strong>Solution:</strong> Developed event-driven architecture with real-time data processing, secure APIs, and responsive dashboard.</p>
-                        <div class="highlight">
-                            <strong>Results:</strong> Real-time monitoring of 50K+ devices, 100% HIPAA compliance, 40% reduction in device downtime
-                        </div>
-                        <p><strong>Technologies Used:</strong> Java 17, Spring Boot 3, React 18, MongoDB, Apache Kafka, Azure Service Bus, Docker</p>
-                        <a href="#" class="btn">View Full Case Study</a>
+                        <p>Build web applications using Spring MVC architecture with controllers, views, and model binding.</p>
+                        <a href="tutorial/spring-mvc-learning.html" class="btn">Learn Spring MVC</a>
                     </article>
 
                     <article class="card">
-                        <h3>Mercedes-Benz Connected Car Platform</h3>
+                        <h3>Spring Boot Microservices</h3>
                         <div class="tech-stack">
-                            <span class="tech-tag">Microservices</span>
+                            <span class="tech-tag">Spring Boot 3</span>
+                            <span class="tech-tag">Auto Config</span>
                             <span class="tech-tag">REST APIs</span>
-                            <span class="tech-tag">Angular</span>
-                            <span class="tech-tag">IoT</span>
+                            <span class="tech-tag">Microservices</span>
                         </div>
-                        <p><strong>Challenge:</strong> Create scalable IoT platform for connected vehicles with real-time telemetry and predictive maintenance.</p>
-                        <p><strong>Solution:</strong> Built microservices architecture with event streaming, machine learning integration, and responsive web dashboard.</p>
-                        <div class="highlight">
-                            <strong>Results:</strong> Processing 1M+ vehicle events/second, 30% improvement in predictive maintenance accuracy
-                        </div>
-                        <p><strong>Technologies Used:</strong> Java 11, Spring Boot, Angular 15, Apache Kafka, Elasticsearch, AWS IoT Core</p>
-                        <a href="#" class="btn">View Full Case Study</a>
+                        <p>Build enterprise-grade microservices with Spring Boot 3, including auto-configuration and cloud-native patterns.</p>
+                        <a href="tutorial/spring-boot-learning.html" class="btn">Learn Spring Boot</a>
                     </article>
 
                     <article class="card">
-                        <h3>Flydubai Aviation Management System</h3>
+                        <h3>Spring Security & Authentication</h3>
                         <div class="tech-stack">
-                            <span class="tech-tag">Enterprise Java</span>
-                            <span class="tech-tag">TypeScript</span>
-                            <span class="tech-tag">Oracle DB</span>
-                            <span class="tech-tag">DevOps</span>
+                            <span class="tech-tag">Spring Security</span>
+                            <span class="tech-tag">JWT</span>
+                            <span class="tech-tag">OAuth2</span>
+                            <span class="tech-tag">Authentication</span>
                         </div>
-                        <p><strong>Challenge:</strong> Modernize flight operations and crew management system for Middle East's leading airline.</p>
-                        <p><strong>Solution:</strong> Developed comprehensive aviation management platform with crew scheduling, flight operations, and maintenance tracking.</p>
-                        <div class="highlight">
-                            <strong>Results:</strong> 50% reduction in crew scheduling time, improved flight on-time performance by 25%
-                        </div>
-                        <p><strong>Technologies Used:</strong> Java 8, Spring Framework, Angular 12, Oracle 19c, Jenkins, Docker</p>
-                        <a href="#" class="btn">View Full Case Study</a>
-                    </article>
-                </div>
-            </section>
-
-            <!-- Industry Insights Section -->
-            <section id="insights" class="section">
-                <h2>Industry Insights & Technology Trends</h2>
-                <div class="grid">
-                    <article class="card">
-                        <h3>The Future of Enterprise Java Development in 2024</h3>
-                        <p>Exploring the latest trends in Java ecosystem including Project Loom, GraalVM, and Spring Boot 3 adoption in enterprise environments.</p>
-                        <div class="highlight">
-                            <strong>Key Insights:</strong> Virtual threads adoption, native compilation benefits, cloud-native patterns, and performance improvements
-                        </div>
-                        <p><strong>Topics Covered:</strong> Project Loom, GraalVM Native Image, Spring Boot 3, Jakarta EE 10, Microservices Evolution</p>
-                        <a href="#" class="btn">Read Full Article</a>
-                    </article>
-
-                    <article class="card">
-                        <h3>Microservices vs Monolith: Making the Right Choice</h3>
-                        <p>Comprehensive analysis of when to choose microservices architecture vs monolithic approach based on real-world enterprise experience.</p>
-                        <div class="highlight">
-                            <strong>Key Insights:</strong> Team size impact, complexity trade-offs, operational overhead, and migration strategies
-                        </div>
-                        <p><strong>Topics Covered:</strong> Architecture Patterns, Scalability, Team Structure, DevOps Requirements, Cost Analysis</p>
-                        <a href="#" class="btn">Read Full Article</a>
-                    </article>
-
-                    <article class="card">
-                        <h3>Frontend Framework Evolution: Angular vs React in 2025</h3>
-                        <p>Detailed comparison of Angular and React ecosystems, performance benchmarks, and enterprise adoption trends.</p>
-                        <div class="highlight">
-                            <strong>Key Insights:</strong> Performance comparison, learning curve, ecosystem maturity, and enterprise readiness
-                        </div>
-                        <p><strong>Topics Covered:</strong> Framework Performance, Developer Experience, Community Support, Enterprise Features</p>
-                        <a href="#" class="btn">Read Full Article</a>
-                    </article>
-
-                    <article class="card">
-                        <h3>Cloud-Native Development: AWS vs Azure for Enterprise</h3>
-                        <p>Strategic analysis of cloud platforms for enterprise Java applications, cost optimization, and vendor lock-in considerations.</p>
-                        <div class="highlight">
-                            <strong>Key Insights:</strong> Service comparison, pricing models, migration strategies, and multi-cloud approaches
-                        </div>
-                        <p><strong>Topics Covered:</strong> Cloud Services, Cost Optimization, Security, Compliance, Migration Strategies</p>
-                        <a href="#" class="btn">Read Full Article</a>
-                    </article>
-                </div>
-            </section>
-
-            <!-- Best Practices Section -->
-            <section id="best-practices" class="section">
-                <h2>Development Best Practices & Guidelines</h2>
-                <div class="grid">
-                    <article class="card">
-                        <h3>Clean Code Principles for Java Spring Boot Applications</h3>
-                        <p>Essential coding standards and practices for maintainable, scalable Spring Boot applications based on 7+ years of enterprise experience.</p>
-                        <div class="highlight">
-                            <strong>Best Practices:</strong> SOLID principles, dependency injection, exception handling, testing strategies
-                        </div>
-                        <div class="code-snippet">
-@Service
-@Transactional(readOnly = true)
-public class UserService {
-    
-    private final UserRepository userRepository;
-    private final UserMapper userMapper;
-    
-    public UserService(UserRepository userRepository, UserMapper userMapper) {
-        this.userRepository = userRepository;
-        this.userMapper = userMapper;
-    }
-    
-    public UserDto findById(Long id) {
-        return userRepository.findById(id)
-            .map(userMapper::toDto)
-            .orElseThrow(() -> new UserNotFoundException(id));
-    }
-}
-                        </div>
-                        <a href="#" class="btn">View Complete Guide</a>
-                    </article>
-
-                    <article class="card">
-                        <h3>Angular Application Architecture Best Practices</h3>
-                        <p>Proven patterns for building scalable Angular applications including module structure, state management, and performance optimization.</p>
-                        <div class="highlight">
-                            <strong>Best Practices:</strong> Feature modules, lazy loading, OnPush strategy, reactive forms, error handling
-                        </div>
-                        <div class="code-snippet">
-@Component({
-  selector: 'app-user-list',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    &lt;ng-container *ngIf="users$ | async as users"&gt;
-      &lt;app-user-card 
-        *ngFor="let user of users; trackBy: trackByUserId"
-        [user]="user"&gt;
-      &lt;/app-user-card&gt;
-    &lt;/ng-container&gt;
-  `
-})
-export class UserListComponent {
-  users$ = this.userService.getUsers();
-  
-  trackByUserId(index: number, user: User): number {
-    return user.id;
-  }
-}
-                        </div>
-                        <a href="#" class="btn">View Complete Guide</a>
-                    </article>
-
-                    <article class="card">
-                        <h3>REST API Design and Security Best Practices</h3>
-                        <p>Comprehensive guide to designing secure, scalable REST APIs with proper authentication, validation, and error handling.</p>
-                        <div class="highlight">
-                            <strong>Best Practices:</strong> RESTful design, JWT security, input validation, rate limiting, API versioning
-                        </div>
-                        <div class="code-snippet">
-@RestController
-@RequestMapping("/api/v1/users")
-@Validated
-public class UserController {
-    
-    @GetMapping("/{id}")
-    public ResponseEntity&lt;UserDto&gt; getUser(
-            @PathVariable @Positive Long id) {
-        UserDto user = userService.findById(id);
-        return ResponseEntity.ok(user);
-    }
-    
-    @PostMapping
-    public ResponseEntity&lt;UserDto&gt; createUser(
-            @Valid @RequestBody CreateUserRequest request) {
-        UserDto user = userService.create(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(user);
-    }
-}
-                        </div>
-                        <a href="#" class="btn">View Complete Guide</a>
-                    </article>
-
-                    <article class="card">
-                        <h3>DevOps and CI/CD Pipeline Best Practices</h3>
-                        <p>Essential practices for setting up robust CI/CD pipelines, containerization, and deployment strategies for enterprise applications.</p>
-                        <div class="highlight">
-                            <strong>Best Practices:</strong> Pipeline as code, automated testing, security scanning, blue-green deployment
-                        </div>
-                        <div class="code-snippet">
-pipeline {
-    agent any
-    
-    stages {
-        stage('Build') {
-            steps {
-                sh './mvnw clean compile'
-            }
-        }
-        
-        stage('Test') {
-            steps {
-                sh './mvnw test'
-                publishTestResults testResultsPattern: 'target/surefire-reports/*.xml'
-            }
-        }
-        
-        stage('Security Scan') {
-            steps {
-                sh 'sonar-scanner'
-            }
-        }
-        
-        stage('Deploy') {
-            steps {
-                sh 'kubectl apply -f k8s/'
-            }
-        }
-    }
-}
-                        </div>
-                        <a href="#" class="btn">View Complete Guide</a>
+                        <p>Implement security features with Spring Security including authentication, authorization, and JWT tokens.</p>
+                        <a href="tutorial/spring-security-learning.html" class="btn">Learn Spring Security</a>
                     </article>
                 </div>
             </section>
