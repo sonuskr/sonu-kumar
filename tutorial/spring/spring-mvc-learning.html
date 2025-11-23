@@ -53,21 +53,51 @@
         });
     </script>
     <div class="container">
-        <div class="content">
-            <div class="topic">
-                <h2>Spring MVC - Complete Guide</h2>
+        <div class="content-with-sidebar">
+            <div class="sidebar-toc">
+                <div class="toc-header">
+                    <h2>📚 Table of Contents</h2>
+                </div>
+                <nav class="toc-nav">
+                    <ul>
+                        <li><a href="#what-is-spring-mvc">What is Spring MVC?</a></li>
+                        <li><a href="#mvc-pattern">MVC Pattern Overview</a></li>
+                        <li><a href="#request-flow">Spring MVC Request Flow</a></li>
+                        <li><a href="#controllers">Controllers</a></li>
+                        <li><a href="#request-binding">Request Parameter Binding</a></li>
+                        <li><a href="#view-resolution">View Resolution - Thymeleaf</a></li>
+                        <li><a href="#form-handling">Form Handling & Validation</a></li>
+                        <li><a href="#interceptors">Interceptors & Filters</a></li>
+                        <li><a href="#exception-handling">Exception Handling</a></li>
+                        <li><a href="#session-flash">Session & Flash Attributes</a></li>
+                        <li><a href="#file-upload">File Upload & Download</a></li>
+                        <li><a href="#interview-topics">Interview Topics</a></li>
+                        <li><a href="#best-practices">Best Practices</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="main-content">
+                <div class="topic">
+                    <h1>Spring MVC - Complete Guide</h1>
                 
-                <h3>What is Spring MVC?</h3>
+                <section id="what-is-spring-mvc" class="section">
+                    <h2>What is Spring MVC?</h2>
                 <p>Spring MVC is a robust web framework for building web applications using the Model-View-Controller (MVC) design pattern. It provides a flexible architecture for handling HTTP requests, processing business logic, and rendering responses. Spring MVC integrates seamlessly with Spring Core for dependency injection and other enterprise features.</p>
                 
-                <h3>MVC Pattern Overview:</h3>
+                </section>
+
+                <section id="mvc-pattern" class="section">
+                    <h2>MVC Pattern Overview</h2>
                 <ul>
                     <li><strong>Model:</strong> Business data and logic</li>
                     <li><strong>View:</strong> Presentation layer (JSP, Thymeleaf, FreeMarker)</li>
                     <li><strong>Controller:</strong> Handles requests and coordinates between model and view</li>
                 </ul>
 
-                <h3>Spring MVC Request Flow:</h3>
+                </section>
+
+                <section id="request-flow" class="section">
+                    <h2>Spring MVC Request Flow</h2>
                 <pre><code>
 1. DispatcherServlet receives HTTP request
 2. DispatcherServlet consults HandlerMapping to find Controller
@@ -95,7 +125,10 @@
 &lt;/servlet-mapping&gt;
                 </code></pre>
 
-                <h3>Controllers - Handling Requests:</h3>
+                </section>
+
+                <section id="controllers" class="section">
+                    <h2>Controllers - Handling Requests</h2>
                 <pre><code>
 // Basic Controller
 @Controller
@@ -187,7 +220,10 @@ public class UserRestController {
 }
                 </code></pre>
 
-                <h3>Request Parameter Binding:</h3>
+                </section>
+
+                <section id="request-binding" class="section">
+                    <h2>Request Parameter Binding</h2>
                 <pre><code>
 @Controller
 public class BindingController {
@@ -253,7 +289,10 @@ public class BindingController {
 }
                 </code></pre>
 
-                <h3>View Resolution - Thymeleaf:</h3>
+                </section>
+
+                <section id="view-resolution" class="section">
+                    <h2>View Resolution - Thymeleaf</h2>
                 <pre><code>
 // Configuration
 @Configuration
@@ -306,7 +345,10 @@ public class ViewConfig {
 &lt;/html&gt;
                 </code></pre>
 
-                <h3>Form Handling & Validation:</h3>
+                </section>
+
+                <section id="form-handling" class="section">
+                    <h2>Form Handling & Validation</h2>
                 <pre><code>
 // Model class with validation
 @Data
@@ -377,7 +419,10 @@ public class UserFormController {
 &lt;/form&gt;
                 </code></pre>
 
-                <h3>Interceptors & Filters:</h3>
+                </section>
+
+                <section id="interceptors" class="section">
+                    <h2>Interceptors & Filters</h2>
                 <pre><code>
 // Handler Interceptor
 @Component
@@ -445,7 +490,10 @@ public class AuthenticationFilter implements Filter {
 }
                 </code></pre>
 
-                <h3>Exception Handling:</h3>
+                </section>
+
+                <section id="exception-handling" class="section">
+                    <h2>Exception Handling</h2>
                 <pre><code>
 // Controller-level exception handler
 @Controller
@@ -491,7 +539,10 @@ public class UserNotFoundException extends RuntimeException {
 }
                 </code></pre>
 
-                <h3>Session & Flash Attributes:</h3>
+                </section>
+
+                <section id="session-flash" class="section">
+                    <h2>Session & Flash Attributes</h2>
                 <pre><code>
 @Controller
 public class SessionController {
@@ -539,7 +590,10 @@ public class SessionController {
 }
                 </code></pre>
 
-                <h3>File Upload & Download:</h3>
+                </section>
+
+                <section id="file-upload" class="section">
+                    <h2>File Upload & Download</h2>
                 <pre><code>
 @Controller
 @RequestMapping("/files")
@@ -598,7 +652,10 @@ public class FileUploadConfig {
 }
                 </code></pre>
 
-                <h3>Common Interview Topics:</h3>
+                </section>
+
+                <section id="interview-topics" class="section">
+                    <h2>Common Interview Topics</h2>
                 <ul>
                     <li><strong>DispatcherServlet:</strong> Front controller pattern</li>
                     <li><strong>HandlerMapping:</strong> URL to controller mapping</li>
@@ -612,7 +669,10 @@ public class FileUploadConfig {
                     <li><strong>File Upload/Download:</strong> MultipartFile, ResponseEntity</li>
                 </ul>
 
-                <h3>Best Practices:</h3>
+                </section>
+
+                <section id="best-practices" class="section">
+                    <h2>Best Practices</h2>
                 <ul>
                     <li>Use @RestController for JSON APIs instead of @Controller</li>
                     <li>Keep controllers thin - delegate business logic to services</li>
@@ -626,19 +686,21 @@ public class FileUploadConfig {
                     <li>Document APIs clearly with comments or Swagger</li>
                 </ul>
 
-                <h3>Key Interview Questions:</h3>
-                <ul>
-                    <li>Explain the Spring MVC request flow</li>
-                    <li>What is DispatcherServlet and its role?</li>
-                    <li>Difference between @Controller and @RestController</li>
-                    <li>How does view resolution work in Spring MVC?</li>
-                    <li>Explain @RequestParam vs @PathVariable vs @ModelAttribute</li>
-                    <li>How to validate form data in Spring MVC?</li>
-                    <li>What are interceptors and how to implement them?</li>
-                    <li>How to handle exceptions globally?</li>
-                    <li>Explain session management and @SessionAttributes</li>
-                    <li>How to handle file uploads in Spring MVC?</li>
-                </ul>
+                    <h3>Key Interview Questions</h3>
+                    <ul>
+                        <li>Explain the Spring MVC request flow</li>
+                        <li>What is DispatcherServlet and its role?</li>
+                        <li>Difference between @Controller and @RestController</li>
+                        <li>How does view resolution work in Spring MVC?</li>
+                        <li>Explain @RequestParam vs @PathVariable vs @ModelAttribute</li>
+                        <li>How to validate form data in Spring MVC?</li>
+                        <li>What are interceptors and how to implement them?</li>
+                        <li>How to handle exceptions globally?</li>
+                        <li>Explain session management and @SessionAttributes</li>
+                        <li>How to handle file uploads in Spring MVC?</li>
+                    </ul>
+                </section>
+                </div>
             </div>
         </div>
     </div>

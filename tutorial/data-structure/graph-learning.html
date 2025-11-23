@@ -55,14 +55,42 @@
       });
     </script>
     <div class="container">
-      <div class="content">
-        <div class="topic">
-          <h2>Graph - Complete Guide</h2>
+      <div class="content-with-sidebar">
+        <div class="sidebar-toc">
+          <div class="toc-header">
+            <h2>📚 Table of Contents</h2>
+          </div>
+          <nav class="toc-nav">
+            <ul>
+              <li><a href="#what-is-graph">What is Graph?</a></li>
+              <li><a href="#terminology">Graph Terminology</a></li>
+              <li><a href="#types">Types of Graphs</a></li>
+              <li><a href="#representations">Graph Representations</a></li>
+              <li><a href="#bfs">BFS Traversal</a></li>
+              <li><a href="#dfs">DFS Traversal</a></li>
+              <li><a href="#dijkstra">Dijkstra's Algorithm</a></li>
+              <li><a href="#bfs-shortest">BFS Shortest Path</a></li>
+              <li><a href="#topological">Topological Sorting</a></li>
+              <li><a href="#cycle-detection">Cycle Detection</a></li>
+              <li><a href="#interview-problems">Interview Problems</a></li>
+              <li><a href="#time-complexity">Time Complexity</a></li>
+              <li><a href="#applications">Applications</a></li>
+              <li><a href="#advantages">Pros & Cons</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="main-content">
+          <div class="topic">
+            <h1>Graph - Complete Guide</h1>
           
-          <h3>What is a Graph?</h3>
+          <section id="what-is-graph" class="section">
+            <h2>What is a Graph?</h2>
           <p>A graph is a non-linear data structure consisting of vertices (nodes) connected by edges. Used to represent networks, relationships, and complex structures.</p>
           
-          <h3>Graph Terminology:</h3>
+          </section>
+
+          <section id="terminology" class="section">
+            <h2>Graph Terminology</h2>
           <ul>
             <li><strong>Vertex/Node:</strong> A point in the graph</li>
             <li><strong>Edge:</strong> Connection between two vertices</li>
@@ -72,7 +100,10 @@
             <li><strong>Connected Graph:</strong> Path exists between every pair of vertices</li>
           </ul>
 
-          <h3>Types of Graphs:</h3>
+          </section>
+
+          <section id="types" class="section">
+            <h2>Types of Graphs</h2>
           <ul>
             <li><strong>Directed Graph:</strong> Edges have direction (A→B)</li>
             <li><strong>Undirected Graph:</strong> Edges have no direction</li>
@@ -81,7 +112,10 @@
             <li><strong>Bipartite:</strong> Vertices can be divided into two sets</li>
           </ul>
 
-          <h3>Graph Representations:</h3>
+          </section>
+
+          <section id="representations" class="section">
+            <h2>Graph Representations</h2>
           <pre><code>
 // 1. Adjacency Matrix (O(1) edge lookup)
 int[][] graph = new int[n][n];
@@ -108,7 +142,10 @@ class Edge {
 List<Edge>[] graph = new ArrayList[n];
           </code></pre>
 
-          <h3>Graph Traversal - BFS (Breadth-First Search)</h3>
+          </section>
+
+          <section id="bfs" class="section">
+            <h2>Graph Traversal - BFS (Breadth-First Search)</h2>
           <pre><code>
 public void bfs(int start, List<Integer>[] graph) {
     boolean[] visited = new boolean[graph.length];
@@ -131,7 +168,10 @@ public void bfs(int start, List<Integer>[] graph) {
 }
           </code></pre>
 
-          <h3>Graph Traversal - DFS (Depth-First Search)</h3>
+          </section>
+
+          <section id="dfs" class="section">
+            <h2>Graph Traversal - DFS (Depth-First Search)</h2>
           <pre><code>
 public void dfs(int node, List<Integer>[] graph, boolean[] visited) {
     visited[node] = true;
@@ -149,7 +189,10 @@ boolean[] visited = new boolean[n];
 dfs(0, graph, visited);
           </code></pre>
 
-          <h3>Shortest Path - Dijkstra's Algorithm</h3>
+          </section>
+
+          <section id="dijkstra" class="section">
+            <h2>Shortest Path - Dijkstra's Algorithm</h2>
           <pre><code>
 public int[] dijkstra(int[][] graph, int start) {
     int n = graph.length;
@@ -181,7 +224,10 @@ public int[] dijkstra(int[][] graph, int start) {
 }
           </code></pre>
 
-          <h3>Shortest Path - BFS (Unweighted)</h3>
+          </section>
+
+          <section id="bfs-shortest" class="section">
+            <h2>Shortest Path - BFS (Unweighted)</h2>
           <pre><code>
 public int[] bfsShortestPath(List<Integer>[] graph, int start) {
     int n = graph.length;
@@ -212,7 +258,10 @@ public int[] bfsShortestPath(List<Integer>[] graph, int start) {
 }
           </code></pre>
 
-          <h3>Topological Sorting (for DAG)</h3>
+          </section>
+
+          <section id="topological" class="section">
+            <h2>Topological Sorting (for DAG)</h2>
           <pre><code>
 public List<Integer> topologicalSort(List<Integer>[] graph) {
     int n = graph.length;
@@ -245,7 +294,10 @@ private void dfs(int node, List<Integer>[] graph,
 }
           </code></pre>
 
-          <h3>Detect Cycle in Graph</h3>
+          </section>
+
+          <section id="cycle-detection" class="section">
+            <h2>Detect Cycle in Graph</h2>
           <pre><code>
 // Undirected Graph
 public boolean hasCycle(List<Integer>[] graph) {
@@ -278,7 +330,10 @@ private boolean dfsCycle(int node, int parent,
 }
           </code></pre>
 
-          <h3>Common Interview Problems:</h3>
+          </section>
+
+          <section id="interview-problems" class="section">
+            <h2>Common Interview Problems</h2>
           <ul>
             <li><strong>Number of Islands:</strong> Count connected components</li>
             <li><strong>Bipartite Graph:</strong> Check if graph is bipartite</li>
@@ -289,7 +344,10 @@ private boolean dfsCycle(int node, int parent,
             <li><strong>Critical Connections:</strong> Find bridges in graph</li>
           </ul>
 
-          <h3>Time Complexity Comparison:</h3>
+          </section>
+
+          <section id="time-complexity" class="section">
+            <h2>Time Complexity Comparison</h2>
           <ul>
             <li><strong>BFS:</strong> O(V + E) - Visit each vertex and edge once</li>
             <li><strong>DFS:</strong> O(V + E) - Visit each vertex and edge once</li>
@@ -298,7 +356,10 @@ private boolean dfsCycle(int node, int parent,
             <li><strong>Cycle Detection:</strong> O(V + E)</li>
           </ul>
 
-          <h3>Real-world Applications:</h3>
+          </section>
+
+          <section id="applications" class="section">
+            <h2>Real-world Applications</h2>
           <ul>
             <li>Social Networks (connections between people)</li>
             <li>Google Maps (routing, shortest path)</li>
@@ -309,19 +370,24 @@ private boolean dfsCycle(int node, int parent,
             <li>Compiler Design (dependency resolution)</li>
           </ul>
 
-          <h3>Advantages & Disadvantages:</h3>
-          <p><strong>Advantages:</strong></p>
-          <ul>
-            <li>Represents complex relationships</li>
-            <li>Highly versatile</li>
-            <li>Efficient for network problems</li>
-          </ul>
-          <p><strong>Disadvantages:</strong></p>
-          <ul>
-            <li>Can be complex to implement</li>
-            <li>Memory intensive for dense graphs</li>
-            <li>Traversal can be expensive for large graphs</li>
-          </ul>
+          </section>
+
+          <section id="advantages" class="section">
+            <h2>Advantages & Disadvantages</h2>
+            <p><strong>Advantages:</strong></p>
+            <ul>
+              <li>Represents complex relationships</li>
+              <li>Highly versatile</li>
+              <li>Efficient for network problems</li>
+            </ul>
+            <p><strong>Disadvantages:</strong></p>
+            <ul>
+              <li>Can be complex to implement</li>
+              <li>Memory intensive for dense graphs</li>
+              <li>Traversal can be expensive for large graphs</li>
+            </ul>
+          </section>
+          </div>
         </div>
       </div>
     </div>

@@ -62,6 +62,30 @@
             }
         });
         
+        // Active section highlighting
+        function highlightActiveSection() {
+            const sections = document.querySelectorAll('.section');
+            const tocLinks = document.querySelectorAll('.toc-nav a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        // Initialize
+        window.addEventListener('scroll', highlightActiveSection);
+        
         // Simple syntax highlighting
         document.addEventListener('DOMContentLoaded', function() {
             const codeBlocks = document.querySelectorAll('.code-block code');
@@ -93,45 +117,40 @@
                 
                 block.innerHTML = html;
             });
+            
+            // Initialize sidebar functionality
+            highlightActiveSection();
         });
     </script>
     <div class="container">
-        <div class="content">
-            <div class="topic">
-                <h1>Java Object-Oriented Programming</h1>
-                
-                <div class="table-of-contents">
+        <div class="content-with-sidebar">
+            <!-- Sidebar TOC -->
+            <aside class="sidebar-toc">
+                <div class="toc-header">
                     <h2>📚 Table of Contents</h2>
-                    <div class="toc-grid">
-                        <div class="toc-column">
-                            <ul>
-                                <li><a href="#oop-principles">OOP Principles</a></li>
-                                <li><a href="#classes-objects">Classes & Objects</a></li>
-                                <li><a href="#encapsulation">Encapsulation</a></li>
-                                <li><a href="#inheritance">Inheritance</a></li>
-                                <li><a href="#polymorphism">Polymorphism</a></li>
-                            </ul>
-                        </div>
-                        <div class="toc-column">
-                            <ul>
-                                <li><a href="#abstraction">Abstraction</a></li>
-                                <li><a href="#interfaces">Interfaces</a></li>
-                                <li><a href="#constructors">Constructors</a></li>
-                                <li><a href="#access-modifiers">Access Modifiers</a></li>
-                                <li><a href="#static-final">Static & Final</a></li>
-                            </ul>
-                        </div>
-                        <div class="toc-column">
-                            <ul>
-                                <li><a href="#inner-classes">Inner Classes</a></li>
-                                <li><a href="#design-patterns">Design Patterns</a></li>
-                                <li><a href="#solid-principles">SOLID Principles</a></li>
-                                <li><a href="#best-practices">Best Practices</a></li>
-                                <li><a href="#examples">Real Examples</a></li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
+                <nav class="toc-nav">
+                    <ul>
+                        <li><a href="#oop-principles">OOP Principles</a></li>
+                        <li><a href="#classes-objects">Classes & Objects</a></li>
+                        <li><a href="#encapsulation">Encapsulation</a></li>
+                        <li><a href="#inheritance">Inheritance</a></li>
+                        <li><a href="#polymorphism">Polymorphism</a></li>
+                        <li><a href="#abstraction">Abstraction</a></li>
+                        <li><a href="#interfaces">Interfaces</a></li>
+                        <li><a href="#constructors">Constructors</a></li>
+                        <li><a href="#access-modifiers">Access Modifiers</a></li>
+                        <li><a href="#static-final">Static & Final</a></li>
+                        <li><a href="#inner-classes">Inner Classes</a></li>
+                        <li><a href="#solid-principles">SOLID Principles</a></li>
+                        <li><a href="#best-practices">Best Practices</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <div class="topic">
 
                 <section id="oop-principles" class="section">
                     <h2>🏛️ OOP Principles</h2>
@@ -1149,6 +1168,7 @@ class AreaCalculator {
                     <h3>🎯 OOP Mastery</h3>
                     <p>You've learned the fundamental concepts of Object-Oriented Programming in Java. These principles form the foundation for writing maintainable, scalable, and robust applications.</p>
                     <p><strong>Next Steps:</strong> Practice implementing design patterns, explore advanced OOP concepts, and apply SOLID principles in real projects.</p>
+                </div>
                 </div>
             </div>
         </div>

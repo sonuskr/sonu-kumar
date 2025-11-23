@@ -62,6 +62,30 @@
             }
         });
         
+        // Active section highlighting
+        function highlightActiveSection() {
+            const sections = document.querySelectorAll('.section');
+            const tocLinks = document.querySelectorAll('.toc-nav a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        // Initialize
+        window.addEventListener('scroll', highlightActiveSection);
+        
         // Simple syntax highlighting
         document.addEventListener('DOMContentLoaded', function() {
             const codeBlocks = document.querySelectorAll('.code-block code');
@@ -93,42 +117,39 @@
                 
                 block.innerHTML = html;
             });
+            
+            // Initialize sidebar functionality
+            highlightActiveSection();
         });
     </script>
-    <div class="container">
-        <div class="content">
-            <div class="topic">
-                <h1>Java Developer Interview Preparation</h1>
-                
-                <div class="table-of-contents">
+        <div class="container">
+        <div class="content-with-sidebar">
+            <!-- Sidebar TOC -->
+            <aside class="sidebar-toc">
+                <div class="toc-header">
                     <h2>📚 Table of Contents</h2>
-                    <div class="toc-grid">
-                        <div class="toc-column">
-                            <ul>
-                                <li><a href="#core-java">Core Java</a></li>
-                                <li><a href="#advanced-java">Advanced Java Concepts</a></li>
-                                <li><a href="#spring-boot">Spring & Spring Boot</a></li>
-                                <li><a href="#database-sql">Database & SQL</a></li>
-                            </ul>
-                        </div>
-                        <div class="toc-column">
-                            <ul>
-                                <li><a href="#microservices">Microservices & Architecture</a></li>
-                                <li><a href="#performance">Performance & Optimization</a></li>
-                                <li><a href="#concurrency">Concurrency & Multithreading</a></li>
-                                <li><a href="#design-patterns">Design Patterns</a></li>
-                            </ul>
-                        </div>
-                        <div class="toc-column">
-                            <ul>
-                                <li><a href="#system-design">System Design</a></li>
-                                <li><a href="#real-world">Real-World Scenarios</a></li>
-                                <li><a href="#tips">Interview Tips</a></li>
-                                <li><a href="#resources">Additional Resources</a></li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
+                <nav class="toc-nav">
+                    <ul>
+                        <li><a href="#core-java">Core Java Questions</a></li>
+                        <li><a href="#advanced-java">Advanced Java</a></li>
+                        <li><a href="#spring-boot">Spring & Spring Boot</a></li>
+                        <li><a href="#database-sql">Database & SQL</a></li>
+                        <li><a href="#microservices">Microservices</a></li>
+                        <li><a href="#performance">Performance</a></li>
+                        <li><a href="#concurrency">Concurrency</a></li>
+                        <li><a href="#design-patterns">Design Patterns</a></li>
+                        <li><a href="#system-design">System Design</a></li>
+                        <li><a href="#real-world">Real-World Scenarios</a></li>
+                        <li><a href="#tips">Interview Tips</a></li>
+                        <li><a href="#resources">Resources</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <div class="topic">
 
                 <section id="core-java" class="section">
                     <h2>☕ Core Java</h2>
@@ -986,6 +1007,9 @@ Learning:
                         <p><strong>Remember:</strong> Practice consistently, understand the fundamentals deeply, and don't hesitate to ask questions during the interview.</p>
                     </div>
                 </section>
+
+                </div>
+            </div>
             </div>
         </div>
     </div>

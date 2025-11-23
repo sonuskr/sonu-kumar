@@ -62,6 +62,30 @@
             }
         });
         
+        // Active section highlighting
+        function highlightActiveSection() {
+            const sections = document.querySelectorAll('.section');
+            const tocLinks = document.querySelectorAll('.toc-nav a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        // Initialize
+        window.addEventListener('scroll', highlightActiveSection);
+        
         // Simple syntax highlighting
         document.addEventListener('DOMContentLoaded', function() {
             const codeBlocks = document.querySelectorAll('.code-block code');
@@ -93,45 +117,37 @@
                 
                 block.innerHTML = html;
             });
+            
+            // Initialize sidebar functionality
+            highlightActiveSection();
         });
     </script>
-    <div class="container">
-        <div class="content">
-            <div class="topic">
-                <h1>Java 8 Features</h1>
-                
-                <div class="table-of-contents">
+        <div class="container">
+        <div class="content-with-sidebar">
+            <!-- Sidebar TOC -->
+            <aside class="sidebar-toc">
+                <div class="toc-header">
                     <h2>📚 Table of Contents</h2>
-                    <div class="toc-grid">
-                        <div class="toc-column">
-                            <ul>
-                                <li><a href="#lambda-expressions">Lambda Expressions</a></li>
-                                <li><a href="#functional-interfaces">Functional Interfaces</a></li>
-                                <li><a href="#method-references">Method References</a></li>
-                                <li><a href="#stream-api">Stream API</a></li>
-                                <li><a href="#optional">Optional Class</a></li>
-                            </ul>
-                        </div>
-                        <div class="toc-column">
-                            <ul>
-                                <li><a href="#default-methods">Default Methods</a></li>
-                                <li><a href="#static-methods">Static Methods in Interfaces</a></li>
-                                <li><a href="#date-time-api">Date & Time API</a></li>
-                                <li><a href="#collectors">Collectors</a></li>
-                                <li><a href="#parallel-streams">Parallel Streams</a></li>
-                            </ul>
-                        </div>
-                        <div class="toc-column">
-                            <ul>
-                                <li><a href="#nashorn">Nashorn JavaScript Engine</a></li>
-                                <li><a href="#base64">Base64 Encoding</a></li>
-                                <li><a href="#annotations">Repeating Annotations</a></li>
-                                <li><a href="#best-practices">Best Practices</a></li>
-                                <li><a href="#examples">Real Examples</a></li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
+                <nav class="toc-nav">
+                    <ul>
+                        <li><a href="#lambda-expressions">Lambda Expressions</a></li>
+                        <li><a href="#functional-interfaces">Functional Interfaces</a></li>
+                        <li><a href="#stream-api">Stream API</a></li>
+                        <li><a href="#optional">Optional Class</a></li>
+                        <li><a href="#method-references">Method References</a></li>
+                        <li><a href="#default-methods">Default Methods</a></li>
+                        <li><a href="#date-time-api">Date Time API</a></li>
+                        <li><a href="#collectors">Collectors</a></li>
+                        <li><a href="#parallel-streams">Parallel Streams</a></li>
+                        <li><a href="#best-practices">Best Practices</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <div class="topic">
 
                 <section id="lambda-expressions" class="section">
                     <h2>🚀 Lambda Expressions</h2>
@@ -1356,6 +1372,9 @@ public class EmployeeManagementSystem {
                     <p>You've learned the powerful features introduced in Java 8 that revolutionized Java programming. These features enable more functional, readable, and efficient code.</p>
                     <p><strong>Key Benefits:</strong> Lambda expressions reduce boilerplate code, Stream API enables powerful data processing, Optional prevents null pointer exceptions, and the new Date/Time API provides better time handling.</p>
                 </div>
+
+                </div>
+            </div>
             </div>
         </div>
     </div>

@@ -64,14 +64,44 @@
     </div>
     
     <div class="container">
-        <div class="content">
-            <div class="topic">
-                <h2>Spring Boot - Complete Guide</h2>
+        <div class="content-with-sidebar">
+            <div class="sidebar-toc">
+                <div class="toc-header">
+                    <h2>📚 Table of Contents</h2>
+                </div>
+                <nav class="toc-nav">
+                    <ul>
+                        <li><a href="#what-is-spring-boot">What is Spring Boot?</a></li>
+                        <li><a href="#evolution">Spring Boot Evolution</a></li>
+                        <li><a href="#project-setup">Project Setup</a></li>
+                        <li><a href="#main-application">Main Application Class</a></li>
+                        <li><a href="#rest-controllers">REST Controllers</a></li>
+                        <li><a href="#jpa-data">JPA & Data Access</a></li>
+                        <li><a href="#dependency-injection">Dependency Injection</a></li>
+                        <li><a href="#configuration">Configuration & Properties</a></li>
+                        <li><a href="#exception-handling">Exception Handling</a></li>
+                        <li><a href="#validation">Validation</a></li>
+                        <li><a href="#transactions">Transactions</a></li>
+                        <li><a href="#caching">Caching</a></li>
+                        <li><a href="#async-scheduling">Async & Scheduling</a></li>
+                        <li><a href="#testing">Testing</a></li>
+                        <li><a href="#interview-topics">Interview Topics</a></li>
+                        <li><a href="#microservices">Microservices Patterns</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="main-content">
+                <div class="topic">
+                    <h1>Spring Boot - Complete Guide</h1>
                 
-                <h3>What is Spring Boot?</h3>
+                <section id="what-is-spring-boot" class="section">
+                    <h2>What is Spring Boot?</h2>
                 <p>Spring Boot is an opinionated framework that simplifies Spring application development. It provides auto-configuration, embedded servers, and production-ready features out of the box. Spring Boot 3+ uses Java 17+ and supports the latest technologies for building microservices, REST APIs, and enterprise applications.</p>
                 
-                <h3>Spring Boot Evolution:</h3>
+                </section>
+
+                <section id="evolution" class="section">
+                    <h2>Spring Boot Evolution</h2>
                 <ul>
                     <li><strong>Spring Boot 1.x:</strong> Foundation (2014)</li>
                     <li><strong>Spring Boot 2.x:</strong> Java 11+ support, reactive programming</li>
@@ -79,7 +109,10 @@
                     <li><strong>Spring Boot 3.2+:</strong> Enhanced observability, improved performance</li>
                 </ul>
 
-                <h3>Project Setup (Maven/Gradle):</h3>
+                </section>
+
+                <section id="project-setup" class="section">
+                    <h2>Project Setup (Maven/Gradle)</h2>
                 <pre><code>
 // Maven - pom.xml
 &lt;parent&gt;
@@ -117,7 +150,10 @@ dependencies {
 }
                 </code></pre>
 
-                <h3>Main Application Class:</h3>
+                </section>
+
+                <section id="main-application" class="section">
+                    <h2>Main Application Class</h2>
                 <pre><code>
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -139,7 +175,10 @@ public class Application {
 }
                 </code></pre>
 
-                <h3>REST Controllers:</h3>
+                </section>
+
+                <section id="rest-controllers" class="section">
+                    <h2>REST Controllers</h2>
                 <pre><code>
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
@@ -194,7 +233,10 @@ public class UserController {
 }
                 </code></pre>
 
-                <h3>JPA & Data Access:</h3>
+                </section>
+
+                <section id="jpa-data" class="section">
+                    <h2>JPA & Data Access</h2>
                 <pre><code>
 import javax.persistence.*;
 import lombok.*;
@@ -263,7 +305,10 @@ public class UserService {
 }
                 </code></pre>
 
-                <h3>Dependency Injection & Beans:</h3>
+                </section>
+
+                <section id="dependency-injection" class="section">
+                    <h2>Dependency Injection & Beans</h2>
                 <pre><code>
 // Bean creation
 @Configuration
@@ -338,7 +383,10 @@ public class ConditionalBeanConfig {
 }
                 </code></pre>
 
-                <h3>Configuration & Properties:</h3>
+                </section>
+
+                <section id="configuration" class="section">
+                    <h2>Configuration & Properties</h2>
                 <pre><code>
 # application.properties
 server.port=8080
@@ -402,7 +450,10 @@ public class AppRunner {
 }
                 </code></pre>
 
-                <h3>Exception Handling:</h3>
+                </section>
+
+                <section id="exception-handling" class="section">
+                    <h2>Exception Handling</h2>
                 <pre><code>
 // Custom exception
 public class ResourceNotFoundException extends RuntimeException {
@@ -451,7 +502,10 @@ public class ErrorResponse {
 }
                 </code></pre>
 
-                <h3>Validation:</h3>
+                </section>
+
+                <section id="validation" class="section">
+                    <h2>Validation</h2>
                 <pre><code>
 import javax.validation.constraints.*;
 
@@ -507,7 +561,10 @@ public class UniqueUsernameValidator implements ConstraintValidator<UniqueUserna
 }
                 </code></pre>
 
-                <h3>Transactions:</h3>
+                </section>
+
+                <section id="transactions" class="section">
+                    <h2>Transactions</h2>
                 <pre><code>
 @Service
 public class UserService {
@@ -550,7 +607,10 @@ public class UserService {
 }
                 </code></pre>
 
-                <h3>Caching:</h3>
+                </section>
+
+                <section id="caching" class="section">
+                    <h2>Caching</h2>
                 <pre><code>
 @Configuration
 @EnableCaching
@@ -587,7 +647,10 @@ public class UserService {
 }
                 </code></pre>
 
-                <h3>Async & Scheduling:</h3>
+                </section>
+
+                <section id="async-scheduling" class="section">
+                    <h2>Async & Scheduling</h2>
                 <pre><code>
 @Configuration
 @EnableAsync
@@ -645,7 +708,10 @@ public class ScheduledTasks {
 }
                 </code></pre>
 
-                <h3>Testing:</h3>
+                </section>
+
+                <section id="testing" class="section">
+                    <h2>Testing</h2>
                 <pre><code>
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.test.web.servlet.MockMvc;
@@ -710,7 +776,10 @@ public class UserServiceTest {
 }
                 </code></pre>
 
-                <h3>Common Interview Topics:</h3>
+                </section>
+
+                <section id="interview-topics" class="section">
+                    <h2>Common Interview Topics</h2>
                 <ul>
                     <li><strong>Auto-Configuration:</strong> How @SpringBootApplication works</li>
                     <li><strong>Starters:</strong> spring-boot-starter-web, spring-boot-starter-data-jpa</li>
@@ -724,7 +793,10 @@ public class UserServiceTest {
                     <li><strong>Performance:</strong> Caching, async, lazy initialization</li>
                 </ul>
 
-                <h3>Microservices Patterns:</h3>
+                </section>
+
+                <section id="microservices" class="section">
+                    <h2>Microservices Patterns</h2>
                 <ul>
                     <li><strong>Service Discovery:</strong> Eureka, Consul</li>
                     <li><strong>Load Balancing:</strong> Ribbon, LoadBalancer</li>
@@ -735,19 +807,21 @@ public class UserServiceTest {
                     <li><strong>Configuration Server:</strong> Spring Cloud Config</li>
                 </ul>
 
-                <h3>Key Interview Questions:</h3>
-                <ul>
-                    <li>How does Spring Boot auto-configuration work?</li>
-                    <li>Difference between @Component, @Service, @Repository</li>
-                    <li>Explain dependency injection and its benefits</li>
-                    <li>What is @Transactional and how does it work?</li>
-                    <li>How to handle exceptions globally in Spring Boot?</li>
-                    <li>Explain JPA relationships (OneToOne, OneToMany, ManyToMany)</li>
-                    <li>What are Spring Boot starters?</li>
-                    <li>How to secure Spring Boot application?</li>
-                    <li>Difference between @PathVariable and @RequestParam</li>
-                    <li>How does Spring Boot handle database migrations?</li>
-                </ul>
+                    <h3>Key Interview Questions</h3>
+                    <ul>
+                        <li>How does Spring Boot auto-configuration work?</li>
+                        <li>Difference between @Component, @Service, @Repository</li>
+                        <li>Explain dependency injection and its benefits</li>
+                        <li>What is @Transactional and how does it work?</li>
+                        <li>How to handle exceptions globally in Spring Boot?</li>
+                        <li>Explain JPA relationships (OneToOne, OneToMany, ManyToMany)</li>
+                        <li>What are Spring Boot starters?</li>
+                        <li>How to secure Spring Boot application?</li>
+                        <li>Difference between @PathVariable and @RequestParam</li>
+                        <li>How does Spring Boot handle database migrations?</li>
+                    </ul>
+                </section>
+                </div>
             </div>
         </div>
     </div>

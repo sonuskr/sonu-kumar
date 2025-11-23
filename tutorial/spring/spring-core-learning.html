@@ -53,14 +53,42 @@
         });
     </script>
     <div class="container">
-        <div class="content">
-            <div class="topic">
-                <h2>Spring Core - Complete Guide</h2>
+        <div class="content-with-sidebar">
+            <div class="sidebar-toc">
+                <div class="toc-header">
+                    <h2>📚 Table of Contents</h2>
+                </div>
+                <nav class="toc-nav">
+                    <ul>
+                        <li><a href="#what-is-spring">What is Spring Framework?</a></li>
+                        <li><a href="#spring-modules">Spring Framework Modules</a></li>
+                        <li><a href="#ioc-beans">IoC Container & Beans</a></li>
+                        <li><a href="#dependency-injection">Dependency Injection</a></li>
+                        <li><a href="#bean-scopes">Bean Scopes</a></li>
+                        <li><a href="#annotations">Annotations & Configuration</a></li>
+                        <li><a href="#bean-lifecycle">Bean Lifecycle</a></li>
+                        <li><a href="#xml-config">XML Configuration</a></li>
+                        <li><a href="#aop">Aspect-Oriented Programming</a></li>
+                        <li><a href="#event-handling">Event Handling</a></li>
+                        <li><a href="#resource-management">Resource Management</a></li>
+                        <li><a href="#spring-vs-boot">Spring vs Spring Boot</a></li>
+                        <li><a href="#interview-topics">Interview Topics</a></li>
+                        <li><a href="#best-practices">Best Practices</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="main-content">
+                <div class="topic">
+                    <h1>Spring Core - Complete Guide</h1>
                 
-                <h3>What is Spring Framework?</h3>
+                <section id="what-is-spring" class="section">
+                    <h2>What is Spring Framework?</h2>
                 <p>Spring is a lightweight, non-invasive framework for building Java applications. It provides a comprehensive programming and configuration model for modern Java-based enterprise applications. Spring Core is the foundation that enables dependency injection (DI) and inversion of control (IoC) patterns, forming the basis for other Spring modules.</p>
                 
-                <h3>Spring Framework Modules:</h3>
+                </section>
+
+                <section id="spring-modules" class="section">
+                    <h2>Spring Framework Modules</h2>
                 <ul>
                     <li><strong>Spring Core:</strong> IoC container, beans, configuration</li>
                     <li><strong>Spring AOP:</strong> Aspect-oriented programming</li>
@@ -71,7 +99,10 @@
                     <li><strong>Spring Boot:</strong> Auto-configuration & embedded servers</li>
                 </ul>
 
-                <h3>IoC Container & Beans:</h3>
+                </section>
+
+                <section id="ioc-beans" class="section">
+                    <h2>IoC Container & Beans</h2>
                 <pre><code>
 // What is a Bean?
 // A bean is an object managed by the Spring IoC container
@@ -114,7 +145,10 @@ AnnotationConfigApplicationContext context = new AnnotationConfigApplicationCont
 UserService userService = context.getBean(UserService.class);
                 </code></pre>
 
-                <h3>Dependency Injection (DI) - Core Concept:</h3>
+                </section>
+
+                <section id="dependency-injection" class="section">
+                    <h2>Dependency Injection (DI) - Core Concept</h2>
                 <pre><code>
 // Problem: Tight coupling
 public class UserService {
@@ -193,7 +227,10 @@ public class UserService {
 }
                 </code></pre>
 
-                <h3>Bean Scopes:</h3>
+                </section>
+
+                <section id="bean-scopes" class="section">
+                    <h2>Bean Scopes</h2>
                 <pre><code>
 // Singleton (default) - one instance per container
 @Component
@@ -249,7 +286,10 @@ public void testPrototypeScope() {
 }
                 </code></pre>
 
-                <h3>Annotations & Configuration:</h3>
+                </section>
+
+                <section id="annotations" class="section">
+                    <h2>Annotations & Configuration</h2>
                 <pre><code>
 // Component registration annotations
 @Component         // Generic component
@@ -314,7 +354,10 @@ public void cleanup() {
 }
                 </code></pre>
 
-                <h3>Bean Lifecycle:</h3>
+                </section>
+
+                <section id="bean-lifecycle" class="section">
+                    <h2>Bean Lifecycle</h2>
                 <pre><code>
 // Complete bean lifecycle
 public class BeanLifecycle implements InitializingBean, DisposableBean {
@@ -394,7 +437,10 @@ public class BeanLifecycle implements InitializingBean, DisposableBean {
 }
                 </code></pre>
 
-                <h3>XML Configuration:</h3>
+                </section>
+
+                <section id="xml-config" class="section">
+                    <h2>XML Configuration</h2>
                 <pre><code>
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;beans xmlns="http://www.springframework.org/schema/beans"&gt;
@@ -442,7 +488,10 @@ public class BeanLifecycle implements InitializingBean, DisposableBean {
 &lt;/beans&gt;
                 </code></pre>
 
-                <h3>Aspect-Oriented Programming (AOP):</h3>
+                </section>
+
+                <section id="aop" class="section">
+                    <h2>Aspect-Oriented Programming (AOP)</h2>
                 <pre><code>
 // Enable AOP
 @Configuration
@@ -502,7 +551,10 @@ execution(* com.example.*.*(..))           // Any method in package
 bean(userService)                          // Beans named userService
                 </code></pre>
 
-                <h3>Event Handling:</h3>
+                </section>
+
+                <section id="event-handling" class="section">
+                    <h2>Event Handling</h2>
                 <pre><code>
 // Create custom event
 public class UserCreatedEvent extends ApplicationEvent {
@@ -560,7 +612,10 @@ public class UserEventListener {
 }
                 </code></pre>
 
-                <h3>Resource Management:</h3>
+                </section>
+
+                <section id="resource-management" class="section">
+                    <h2>Resource Management</h2>
                 <pre><code>
 // Accessing resources from classpath
 @Component
@@ -613,7 +668,10 @@ public class DevConfig {
 }
                 </code></pre>
 
-                <h3>Spring vs Spring Boot:</h3>
+                </section>
+
+                <section id="spring-vs-boot" class="section">
+                    <h2>Spring vs Spring Boot</h2>
                 <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
                     <tr style="background-color: #f2f2f2;">
                         <th style="border: 1px solid #ddd; padding: 8px;">Feature</th>
@@ -642,7 +700,10 @@ public class DevConfig {
                     </tr>
                 </table>
 
-                <h3>Common Interview Topics:</h3>
+                </section>
+
+                <section id="interview-topics" class="section">
+                    <h2>Common Interview Topics</h2>
                 <ul>
                     <li><strong>IoC Container:</strong> How Spring manages beans</li>
                     <li><strong>Dependency Injection:</strong> Constructor vs setter vs field</li>
@@ -655,7 +716,10 @@ public class DevConfig {
                     <li><strong>Event Handling:</strong> Application events and listeners</li>
                 </ul>
 
-                <h3>Best Practices:</h3>
+                </section>
+
+                <section id="best-practices" class="section">
+                    <h2>Best Practices</h2>
                 <ul>
                     <li>Prefer constructor injection for required dependencies</li>
                     <li>Use setter injection for optional dependencies</li>
@@ -668,19 +732,21 @@ public class DevConfig {
                     <li>Follow SOLID principles in bean design</li>
                 </ul>
 
-                <h3>Key Interview Questions:</h3>
-                <ul>
-                    <li>What is IoC and how does Spring implement it?</li>
-                    <li>Explain different types of dependency injection</li>
-                    <li>What are bean scopes and their use cases?</li>
-                    <li>Describe the complete bean lifecycle</li>
-                    <li>What is AOP and how does it work in Spring?</li>
-                    <li>How does Spring handle circular dependencies?</li>
-                    <li>What's the difference between @Component and @Bean?</li>
-                    <li>Explain @Autowired and resolution strategies</li>
-                    <li>How to externalize configuration in Spring?</li>
-                    <li>What are Spring profiles and their purpose?</li>
-                </ul>
+                    <h3>Key Interview Questions</h3>
+                    <ul>
+                        <li>What is IoC and how does Spring implement it?</li>
+                        <li>Explain different types of dependency injection</li>
+                        <li>What are bean scopes and their use cases?</li>
+                        <li>Describe the complete bean lifecycle</li>
+                        <li>What is AOP and how does it work in Spring?</li>
+                        <li>How does Spring handle circular dependencies?</li>
+                        <li>What's the difference between @Component and @Bean?</li>
+                        <li>Explain @Autowired and resolution strategies</li>
+                        <li>How to externalize configuration in Spring?</li>
+                        <li>What are Spring profiles and their purpose?</li>
+                    </ul>
+                </section>
+                </div>
             </div>
         </div>
     </div>

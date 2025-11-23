@@ -53,11 +53,40 @@
       });
     </script>
     <div class="container">
-      <div class="content">
-        <div class="topic">
-          <h2>React - Complete Guide</h2>
+      <div class="content-with-sidebar">
+        <div class="sidebar-toc">
+          <div class="toc-header">
+            <h2>📚 Table of Contents</h2>
+          </div>
+          <nav class="toc-nav">
+            <ul>
+              <li><a href="#what-is-react">What is React?</a></li>
+              <li><a href="#core-concepts">React Core Concepts</a></li>
+              <li><a href="#components">Functional Components & JSX</a></li>
+              <li><a href="#usestate">useState Hook</a></li>
+              <li><a href="#useeffect">useEffect Hook</a></li>
+              <li><a href="#usecontext">useContext</a></li>
+              <li><a href="#usereducer">useReducer</a></li>
+              <li><a href="#performance">useMemo & useCallback</a></li>
+              <li><a href="#custom-hooks">Custom Hooks</a></li>
+              <li><a href="#conditional">Conditional Rendering</a></li>
+              <li><a href="#lifting-state">Lifting State Up</a></li>
+              <li><a href="#router">React Router</a></li>
+              <li><a href="#error-boundaries">Error Boundaries</a></li>
+              <li><a href="#optimization">Performance Optimization</a></li>
+              <li><a href="#state-management">State Management</a></li>
+              <li><a href="#interview">Interview Questions</a></li>
+              <li><a href="#best-practices">Best Practices</a></li>
+              <li><a href="#testing">Testing</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="main-content">
+          <div class="topic">
+            <h1>React - Complete Guide</h1>
 
-          <h3>What is React?</h3>
+          <section id="what-is-react" class="section">
+            <h2>What is React?</h2>
           <p>
             React is a JavaScript library for building user interfaces using
             components. It uses a virtual DOM for efficient updates, supports
@@ -66,7 +95,10 @@
             for better performance.
           </p>
 
-          <h3>React Core Concepts:</h3>
+          </section>
+
+          <section id="core-concepts" class="section">
+            <h2>React Core Concepts</h2>
           <ul>
             <li>
               <strong>Components:</strong> Reusable UI pieces (functional or
@@ -84,7 +116,10 @@
             </li>
           </ul>
 
-          <h3>Functional Components & JSX:</h3>
+          </section>
+
+          <section id="components" class="section">
+            <h2>Functional Components & JSX</h2>
           <pre><code>
 // Functional component - modern approach
 function Welcome(props) {
@@ -125,7 +160,10 @@ function App() {
 }
                 </code></pre>
 
-          <h3>useState Hook - State Management:</h3>
+          </section>
+
+          <section id="usestate" class="section">
+            <h2>useState Hook - State Management</h2>
           <pre><code>
 import { useState } from 'react';
 
@@ -176,7 +214,10 @@ function Form() {
 }
                 </code></pre>
 
-          <h3>useEffect Hook - Side Effects:</h3>
+          </section>
+
+          <section id="useeffect" class="section">
+            <h2>useEffect Hook - Side Effects</h2>
           <pre><code>
 import { useState, useEffect } from 'react';
 
@@ -230,7 +271,10 @@ function Timer() {
 }
                 </code></pre>
 
-          <h3>useContext - Avoiding Prop Drilling:</h3>
+          </section>
+
+          <section id="usecontext" class="section">
+            <h2>useContext - Avoiding Prop Drilling</h2>
           <pre><code>
 import { createContext, useState, useContext } from 'react';
 
@@ -285,7 +329,10 @@ function App() {
 }
                 </code></pre>
 
-          <h3>useReducer - Complex State Logic:</h3>
+          </section>
+
+          <section id="usereducer" class="section">
+            <h2>useReducer - Complex State Logic</h2>
           <pre><code>
 import { useReducer } from 'react';
 
@@ -322,7 +369,10 @@ function Counter() {
 }
                 </code></pre>
 
-          <h3>useMemo & useCallback - Performance:</h3>
+          </section>
+
+          <section id="performance" class="section">
+            <h2>useMemo & useCallback - Performance</h2>
           <pre><code>
 import { useMemo, useCallback } from 'react';
 
@@ -355,7 +405,10 @@ const ChildComponent = memo(({ onClick }) =&gt; {
 });
                 </code></pre>
 
-          <h3>Custom Hooks:</h3>
+          </section>
+
+          <section id="custom-hooks" class="section">
+            <h2>Custom Hooks</h2>
           <pre><code>
 // Custom hook for API fetching
 function useFetch(url) {
@@ -415,7 +468,10 @@ function useForm(initialValues, onSubmit) {
 }
                 </code></pre>
 
-          <h3>Conditional Rendering & Lists:</h3>
+          </section>
+
+          <section id="conditional" class="section">
+            <h2>Conditional Rendering & Lists</h2>
           <pre><code>
 function App({ isLoggedIn, items }) {
     // Method 1: If-else
@@ -466,7 +522,10 @@ function FilteredList({ items, filter }) {
 }
                 </code></pre>
 
-          <h3>Lifting State Up & Component Composition:</h3>
+          </section>
+
+          <section id="lifting-state" class="section">
+            <h2>Lifting State Up & Component Composition</h2>
           <pre><code>
 // State managed in parent, passed to children
 function TemperatureCalculator() {
@@ -522,7 +581,10 @@ function MouseTracker({ render }) {
 &lt;MouseTracker render={({ x, y }) =&gt; &lt;p&gt;X: {x}, Y: {y}&lt;/p&gt;} /&gt;
                 </code></pre>
 
-          <h3>React Router - Navigation:</h3>
+          </section>
+
+          <section id="router" class="section">
+            <h2>React Router - Navigation</h2>
           <pre><code>
 import { BrowserRouter, Routes, Route, Link, useParams } from 'react-router-dom';
 
@@ -551,7 +613,10 @@ function UserDetail() {
 }
                 </code></pre>
 
-          <h3>Error Boundaries - Error Handling:</h3>
+          </section>
+
+          <section id="error-boundaries" class="section">
+            <h2>Error Boundaries - Error Handling</h2>
           <pre><code>
 import { Component } from 'react';
 
@@ -585,7 +650,10 @@ class ErrorBoundary extends Component {
 &lt;/ErrorBoundary&gt;
                 </code></pre>
 
-          <h3>Performance Optimization Techniques:</h3>
+          </section>
+
+          <section id="optimization" class="section">
+            <h2>Performance Optimization Techniques</h2>
           <ul>
             <li>
               <strong>Code Splitting:</strong> Lazy load components with
@@ -607,7 +675,10 @@ class ErrorBoundary extends Component {
             <li><strong>Suspense:</strong> Handle loading states elegantly</li>
           </ul>
 
-          <h3>State Management Solutions:</h3>
+          </section>
+
+          <section id="state-management" class="section">
+            <h2>State Management Solutions</h2>
           <ul>
             <li>
               <strong>Context + useReducer:</strong> Built-in solution for
@@ -624,7 +695,10 @@ class ErrorBoundary extends Component {
             </li>
           </ul>
 
-          <h3>Common Interview Problems:</h3>
+          </section>
+
+          <section id="interview" class="section">
+            <h2>Common Interview Problems</h2>
           <ul>
             <li>Virtual DOM vs Real DOM and reconciliation</li>
             <li>When to use useState vs useReducer</li>
@@ -636,7 +710,10 @@ class ErrorBoundary extends Component {
             <li>Error boundaries and error handling</li>
           </ul>
 
-          <h3>Best Practices:</h3>
+          </section>
+
+          <section id="best-practices" class="section">
+            <h2>Best Practices</h2>
           <ul>
             <li>Always use functional components with hooks</li>
             <li>Keep components small and focused</li>
@@ -648,7 +725,10 @@ class ErrorBoundary extends Component {
             <li>Avoid inline object/function definitions in render</li>
           </ul>
 
-          <h3>Testing React Components:</h3>
+          </section>
+
+          <section id="testing" class="section">
+            <h2>Testing React Components</h2>
           <pre><code>
 import { render, screen, fireEvent } from '@testing-library/react';
 import { UserCard } from './UserCard';
@@ -668,19 +748,24 @@ describe('UserCard', () =&gt; {
 });
                 </code></pre>
 
-          <h3>Key Interview Questions:</h3>
-          <ul>
-            <li>Difference between class and functional components</li>
-            <li>Explain React hooks and their purpose</li>
-            <li>How does virtual DOM work?</li>
-            <li>What are controlled vs uncontrolled components?</li>
-            <li>How to handle forms in React?</li>
-            <li>Difference between state and props</li>
-            <li>What is Context API and when to use it?</li>
-            <li>How to optimize React performance?</li>
-            <li>Explain React Fiber and reconciliation</li>
-            <li>How to handle errors in React?</li>
-          </ul>
+          </section>
+
+          <section id="key-questions" class="section">
+            <h2>Key Interview Questions</h2>
+            <ul>
+              <li>Difference between class and functional components</li>
+              <li>Explain React hooks and their purpose</li>
+              <li>How does virtual DOM work?</li>
+              <li>What are controlled vs uncontrolled components?</li>
+              <li>How to handle forms in React?</li>
+              <li>Difference between state and props</li>
+              <li>What is Context API and when to use it?</li>
+              <li>How to optimize React performance?</li>
+              <li>Explain React Fiber and reconciliation</li>
+              <li>How to handle errors in React?</li>
+            </ul>
+          </section>
+          </div>
         </div>
       </div>
     </div>

@@ -54,14 +54,43 @@
       });
     </script>
     <div class="container">
-      <div class="content">
-        <div class="topic">
-          <h2>TypeScript - Complete Guide</h2>
+      <div class="content-with-sidebar">
+        <div class="sidebar-toc">
+          <div class="toc-header">
+            <h2>📚 Table of Contents</h2>
+          </div>
+          <nav class="toc-nav">
+            <ul>
+              <li><a href="#what-is-typescript">What is TypeScript?</a></li>
+              <li><a href="#basic-types">Basic Types</a></li>
+              <li><a href="#interfaces">Interfaces & Objects</a></li>
+              <li><a href="#classes">Classes & Inheritance</a></li>
+              <li><a href="#generics">Generics</a></li>
+              <li><a href="#advanced-types">Advanced Types</a></li>
+              <li><a href="#decorators">Decorators</a></li>
+              <li><a href="#utility-types">Utility Types</a></li>
+              <li><a href="#type-narrowing">Type Narrowing</a></li>
+              <li><a href="#modules">Modules & Namespaces</a></li>
+              <li><a href="#enums">Enum Types</a></li>
+              <li><a href="#async">Async/Await & Promises</a></li>
+              <li><a href="#configuration">Configuration</a></li>
+              <li><a href="#interview">Interview Questions</a></li>
+              <li><a href="#best-practices">Best Practices</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="main-content">
+          <div class="topic">
+            <h1>TypeScript - Complete Guide</h1>
           
-          <h3>What is TypeScript?</h3>
+          <section id="what-is-typescript" class="section">
+            <h2>What is TypeScript?</h2>
           <p>TypeScript is a superset of JavaScript that adds static type checking, interfaces, and other object-oriented features. It compiles to clean, readable JavaScript and helps catch errors at compile-time rather than runtime. Essential for large-scale applications and frameworks like Angular and modern React projects.</p>
           
-          <h3>Basic Types:</h3>
+          </section>
+
+          <section id="basic-types" class="section">
+            <h2>Basic Types</h2>
           <pre><code>
 // Primitive types
 let isDone: boolean = true;
@@ -95,7 +124,10 @@ let myAge: Age = 30;
 let myStatus: Status = 'pending';
           </code></pre>
 
-          <h3>Interfaces & Objects:</h3>
+          </section>
+
+          <section id="interfaces" class="section">
+            <h2>Interfaces & Objects</h2>
           <pre><code>
 // Interface definition
 interface User {
@@ -152,7 +184,10 @@ interface Nameable {
 type PrintableNameable = Printable & Nameable;
           </code></pre>
 
-          <h3>Classes & Inheritance:</h3>
+          </section>
+
+          <section id="classes" class="section">
+            <h2>Classes & Inheritance</h2>
           <pre><code>
 // Basic class
 class Animal {
@@ -232,7 +267,10 @@ class Rectangle {
 }
           </code></pre>
 
-          <h3>Generics - Reusable Components:</h3>
+          </section>
+
+          <section id="generics" class="section">
+            <h2>Generics - Reusable Components</h2>
           <pre><code>
 // Generic function
 function identity<T>(arg: T): T {
@@ -300,7 +338,10 @@ function printProperty<T, K extends keyof T>(obj: T, key: K): void {
 }
           </code></pre>
 
-          <h3>Advanced Types:</h3>
+          </section>
+
+          <section id="advanced-types" class="section">
+            <h2>Advanced Types</h2>
           <pre><code>
 // Mapped types - transform existing types
 interface User {
@@ -359,7 +400,10 @@ function getValue(): string {
 type Result = ReturnType<typeof getValue>;  // string
           </code></pre>
 
-          <h3>Decorators (Experimental):</h3>
+          </section>
+
+          <section id="decorators" class="section">
+            <h2>Decorators (Experimental)</h2>
           <pre><code>
 // Class decorator
 function Log(target: Function) {
@@ -417,7 +461,10 @@ class Person {
 }
           </code></pre>
 
-          <h3>Utility Types (Built-in):</h3>
+          </section>
+
+          <section id="utility-types" class="section">
+            <h2>Utility Types (Built-in)</h2>
           <pre><code>
 interface User {
     id: number;
@@ -464,7 +511,10 @@ type Return = ReturnType<() => string>;  // string
 type Instance = InstanceType<typeof User>;  // User
           </code></pre>
 
-          <h3>Type Narrowing:</h3>
+          </section>
+
+          <section id="type-narrowing" class="section">
+            <h2>Type Narrowing</h2>
           <pre><code>
 // typeof guard
 function processValue(value: string | number) {
@@ -530,7 +580,10 @@ const name = user?.name;                    // undefined
 const defaultName = user?.name ?? 'Guest';  // 'Guest'
           </code></pre>
 
-          <h3>Modules & Namespaces:</h3>
+          </section>
+
+          <section id="modules" class="section">
+            <h2>Modules & Namespaces</h2>
           <pre><code>
 // Exporting
 export interface User {
@@ -566,7 +619,10 @@ namespace Utilities {
 Utilities.log('Hello');
           </code></pre>
 
-          <h3>Enum Types:</h3>
+          </section>
+
+          <section id="enums" class="section">
+            <h2>Enum Types</h2>
           <pre><code>
 // Numeric enum
 enum Direction {
@@ -607,7 +663,10 @@ function processStatus(status: Status) {
 }
           </code></pre>
 
-          <h3>Async/Await & Promises:</h3>
+          </section>
+
+          <section id="async" class="section">
+            <h2>Async/Await & Promises</h2>
           <pre><code>
 // Promise types
 function fetchUser(id: number): Promise<User> {
@@ -649,7 +708,10 @@ async function handleOperation<T>(
 }
           </code></pre>
 
-          <h3>Configuration (tsconfig.json):</h3>
+          </section>
+
+          <section id="configuration" class="section">
+            <h2>Configuration (tsconfig.json)</h2>
           <pre><code>
 // Common compiler options
 {
@@ -683,7 +745,10 @@ async function handleOperation<T>(
 }
           </code></pre>
 
-          <h3>Common Interview Problems:</h3>
+          </section>
+
+          <section id="interview" class="section">
+            <h2>Common Interview Problems</h2>
           <ul>
               <li><strong>Type vs Interface:</strong> When to use each</li>
               <li><strong>Generic Constraints:</strong> Using extends keyword</li>
@@ -695,7 +760,10 @@ async function handleOperation<T>(
               <li><strong>Type Narrowing:</strong> Guards and assertions</li>
           </ul>
 
-          <h3>Best Practices:</h3>
+          </section>
+
+          <section id="best-practices" class="section">
+            <h2>Best Practices</h2>
           <ul>
               <li>Enable strict mode in tsconfig.json</li>
               <li>Use interfaces for public API contracts</li>
@@ -709,29 +777,31 @@ async function handleOperation<T>(
               <li>Use readonly for immutable data</li>
           </ul>
 
-          <h3>TypeScript vs JavaScript:</h3>
-          <ul>
-              <li><strong>Type Safety:</strong> Catch errors at compile-time</li>
-              <li><strong>Better IDE Support:</strong> Autocomplete and refactoring</li>
-              <li><strong>Self-Documenting:</strong> Types serve as documentation</li>
-              <li><strong>Interfaces:</strong> Define contracts between code</li>
-              <li><strong>Compilation Step:</strong> Adds build complexity</li>
-              <li><strong>Learning Curve:</strong> More concepts to understand</li>
-          </ul>
+            <h3>TypeScript vs JavaScript:</h3>
+            <ul>
+                <li><strong>Type Safety:</strong> Catch errors at compile-time</li>
+                <li><strong>Better IDE Support:</strong> Autocomplete and refactoring</li>
+                <li><strong>Self-Documenting:</strong> Types serve as documentation</li>
+                <li><strong>Interfaces:</strong> Define contracts between code</li>
+                <li><strong>Compilation Step:</strong> Adds build complexity</li>
+                <li><strong>Learning Curve:</strong> More concepts to understand</li>
+            </ul>
 
-          <h3>Key Interview Questions:</h3>
-          <ul>
-              <li>What's the difference between type and interface?</li>
-              <li>Explain generic constraints and their use cases</li>
-              <li>What are utility types and provide examples</li>
-              <li>How does TypeScript handle type narrowing?</li>
-              <li>What is the keyof operator used for?</li>
-              <li>Explain conditional types and infer keyword</li>
-              <li>How do mapped types work?</li>
-              <li>What's the difference between any and unknown?</li>
-              <li>How to use decorators in TypeScript?</li>
-              <li>What are discriminated unions and their benefits?</li>
-          </ul>
+            <h3>Key Interview Questions:</h3>
+            <ul>
+                <li>What's the difference between type and interface?</li>
+                <li>Explain generic constraints and their use cases</li>
+                <li>What are utility types and provide examples</li>
+                <li>How does TypeScript handle type narrowing?</li>
+                <li>What is the keyof operator used for?</li>
+                <li>Explain conditional types and infer keyword</li>
+                <li>How do mapped types work?</li>
+                <li>What's the difference between any and unknown?</li>
+                <li>How to use decorators in TypeScript?</li>
+                <li>What are discriminated unions and their benefits?</li>
+            </ul>
+          </section>
+          </div>
         </div>
       </div>
     </div>

@@ -62,6 +62,30 @@
             }
         });
         
+        // Active section highlighting
+        function highlightActiveSection() {
+            const sections = document.querySelectorAll('.section');
+            const tocLinks = document.querySelectorAll('.toc-nav a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        // Initialize
+        window.addEventListener('scroll', highlightActiveSection);
+        
         // Simple syntax highlighting
         document.addEventListener('DOMContentLoaded', function() {
             const codeBlocks = document.querySelectorAll('.code-block code');
@@ -93,45 +117,37 @@
                 
                 block.innerHTML = html;
             });
+            
+            // Initialize sidebar functionality
+            highlightActiveSection();
         });
     </script>
-    <div class="container">
-        <div class="content">
-            <div class="topic">
-                <h1>Java Exception Handling</h1>
-                
-                <div class="table-of-contents">
+        <div class="container">
+        <div class="content-with-sidebar">
+            <!-- Sidebar TOC -->
+            <aside class="sidebar-toc">
+                <div class="toc-header">
                     <h2>📚 Table of Contents</h2>
-                    <div class="toc-grid">
-                        <div class="toc-column">
-                            <ul>
-                                <li><a href="#exception-basics">Exception Basics</a></li>
-                                <li><a href="#exception-hierarchy">Exception Hierarchy</a></li>
-                                <li><a href="#try-catch-finally">Try-Catch-Finally</a></li>
-                                <li><a href="#checked-unchecked">Checked vs Unchecked</a></li>
-                                <li><a href="#throwing-exceptions">Throwing Exceptions</a></li>
-                            </ul>
-                        </div>
-                        <div class="toc-column">
-                            <ul>
-                                <li><a href="#custom-exceptions">Custom Exceptions</a></li>
-                                <li><a href="#try-with-resources">Try-with-Resources</a></li>
-                                <li><a href="#exception-chaining">Exception Chaining</a></li>
-                                <li><a href="#multi-catch">Multi-catch Blocks</a></li>
-                                <li><a href="#common-exceptions">Common Exceptions</a></li>
-                            </ul>
-                        </div>
-                        <div class="toc-column">
-                            <ul>
-                                <li><a href="#best-practices">Best Practices</a></li>
-                                <li><a href="#performance">Performance Impact</a></li>
-                                <li><a href="#logging">Exception Logging</a></li>
-                                <li><a href="#testing">Testing Exceptions</a></li>
-                                <li><a href="#real-examples">Real-World Examples</a></li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
+                <nav class="toc-nav">
+                    <ul>
+                        <li><a href="#exception-basics">Exception Basics</a></li>
+                        <li><a href="#exception-hierarchy">Exception Hierarchy</a></li>
+                        <li><a href="#try-catch-finally">Try-Catch-Finally</a></li>
+                        <li><a href="#checked-unchecked">Checked vs Unchecked</a></li>
+                        <li><a href="#throwing-exceptions">Throwing Exceptions</a></li>
+                        <li><a href="#custom-exceptions">Custom Exceptions</a></li>
+                        <li><a href="#try-with-resources">Try-with-Resources</a></li>
+                        <li><a href="#multi-catch">Multi-catch Blocks</a></li>
+                        <li><a href="#best-practices">Best Practices</a></li>
+                        <li><a href="#real-examples">Real-World Examples</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <div class="topic">
 
                 <section id="exception-basics" class="section">
                     <h2>⚠️ Exception Basics</h2>
@@ -1006,6 +1022,7 @@ class DatabaseException extends Exception {
                     <h3>🎯 Exception Handling Mastery</h3>
                     <p>You've learned comprehensive exception handling in Java. Proper exception handling makes your applications robust, maintainable, and user-friendly.</p>
                     <p><strong>Key Takeaways:</strong> Always handle exceptions appropriately, use specific exception types, provide meaningful messages, and follow best practices for clean, maintainable code.</p>
+                </div>
                 </div>
             </div>
         </div>

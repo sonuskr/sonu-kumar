@@ -53,14 +53,46 @@
         });
     </script>
     <div class="container">
-        <div class="content">
-            <div class="topic">
-                <h2>Angular - Complete Guide</h2>
+        <div class="content-with-sidebar">
+            <div class="sidebar-toc">
+                <div class="toc-header">
+                    <h2>📚 Table of Contents</h2>
+                </div>
+                <nav class="toc-nav">
+                    <ul>
+                        <li><a href="#what-is-angular">What is Angular?</a></li>
+                        <li><a href="#evolution">Angular Evolution</a></li>
+                        <li><a href="#architecture">Angular Architecture</a></li>
+                        <li><a href="#components">Creating Components</a></li>
+                        <li><a href="#lifecycle">Component Lifecycle</a></li>
+                        <li><a href="#dependency-injection">Dependency Injection</a></li>
+                        <li><a href="#data-binding">Data Binding</a></li>
+                        <li><a href="#control-flow">Control Flow</a></li>
+                        <li><a href="#rxjs">RxJS Observables</a></li>
+                        <li><a href="#forms">Reactive Forms</a></li>
+                        <li><a href="#routing">Routing</a></li>
+                        <li><a href="#http">HTTP Services</a></li>
+                        <li><a href="#directives">Custom Directives</a></li>
+                        <li><a href="#pipes">Pipes</a></li>
+                        <li><a href="#signals">State Management</a></li>
+                        <li><a href="#interview">Interview Questions</a></li>
+                        <li><a href="#cli">Angular CLI</a></li>
+                        <li><a href="#best-practices">Best Practices</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="main-content">
+                <div class="topic">
+                    <h1>Angular - Complete Guide</h1>
                 
-                <h3>What is Angular?</h3>
+                <section id="what-is-angular" class="section">
+                    <h2>What is Angular?</h2>
                 <p>Angular is a modern TypeScript-based framework for building single-page applications (SPAs) with a component-based architecture. It provides a complete solution for building dynamic, interactive web applications with built-in dependency injection, routing, forms handling, and HTTP services.</p>
                 
-                <h3>Angular Evolution:</h3>
+                </section>
+
+                <section id="evolution" class="section">
+                    <h2>Angular Evolution</h2>
                 <ul>
                     <li><strong>Angular 2:</strong> Complete rewrite in TypeScript (2016)</li>
                     <li><strong>Angular 4-9:</strong> Incremental improvements, RxJS integration</li>
@@ -71,7 +103,10 @@
                     <li><strong>Angular 17:</strong> New @if/@for/@switch, signals API preview</li>
                 </ul>
 
-                <h3>Angular Architecture - Core Building Blocks:</h3>
+                </section>
+
+                <section id="architecture" class="section">
+                    <h2>Angular Architecture - Core Building Blocks</h2>
                 <ul>
                     <li><strong>Components:</strong> Basic UI building blocks with template, class, metadata</li>
                     <li><strong>Modules (NgModule):</strong> Logical grouping of components, services, pipes</li>
@@ -82,7 +117,10 @@
                     <li><strong>Dependency Injection:</strong> Invert control pattern for service management</li>
                 </ul>
 
-                <h3>Creating a Component (Modern Angular 17):</h3>
+                </section>
+
+                <section id="components" class="section">
+                    <h2>Creating a Component (Modern Angular 17)</h2>
                 <pre><code>
 // Standalone component (Angular 14+)
 import { Component, Input, Output, EventEmitter } from '@angular/core';
@@ -117,7 +155,10 @@ export class UserCardComponent {
 }
                 </code></pre>
 
-                <h3>Component Lifecycle Hooks:</h3>
+                </section>
+
+                <section id="lifecycle" class="section">
+                    <h2>Component Lifecycle Hooks</h2>
                 <pre><code>
 import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
 
@@ -149,7 +190,10 @@ export class LifecycleComponent
 }
                 </code></pre>
 
-                <h3>Dependency Injection:</h3>
+                </section>
+
+                <section id="dependency-injection" class="section">
+                    <h2>Dependency Injection</h2>
                 <pre><code>
 // Service definition
 import { Injectable } from '@angular/core';
@@ -188,7 +232,10 @@ export class UsersComponent implements OnInit {
 }
                 </code></pre>
 
-                <h3>Data Binding & Template Syntax:</h3>
+                </section>
+
+                <section id="data-binding" class="section">
+                    <h2>Data Binding & Template Syntax</h2>
                 <pre><code>
 // Property binding: [] - one way, component to template
 &lt;img [src]="imageUrl" [alt]="imageName" /&gt;
@@ -211,7 +258,10 @@ export class UsersComponent implements OnInit {
 &lt;app-user-card [user]="currentUser" (delete)="onDelete($event)"&gt;&lt;/app-user-card&gt;
                 </code></pre>
 
-                <h3>Control Flow (Angular 17+):</h3>
+                </section>
+
+                <section id="control-flow" class="section">
+                    <h2>Control Flow (Angular 17+)</h2>
                 <pre><code>
 // @if - replaces *ngIf
 &lt;div *ngIf="isLoggedIn; else notLoggedIn"&gt;
@@ -247,7 +297,10 @@ export class UsersComponent implements OnInit {
 }
                 </code></pre>
 
-                <h3>RxJS Observables & Reactive Programming:</h3>
+                </section>
+
+                <section id="rxjs" class="section">
+                    <h2>RxJS Observables & Reactive Programming</h2>
                 <pre><code>
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { map, filter, switchMap, takeUntil } from 'rxjs/operators';
@@ -275,7 +328,10 @@ getUser(id: number) {
 &lt;div&gt;{{ user$ | async | json }}&lt;/div&gt;
                 </code></pre>
 
-                <h3>Reactive Forms (Type-Safe):</h3>
+                </section>
+
+                <section id="forms" class="section">
+                    <h2>Reactive Forms (Type-Safe)</h2>
                 <pre><code>
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
@@ -322,7 +378,10 @@ export class UserFormComponent {
 }
                 </code></pre>
 
-                <h3>Routing:</h3>
+                </section>
+
+                <section id="routing" class="section">
+                    <h2>Routing</h2>
                 <pre><code>
 import { Routes } from '@angular/router';
 import { UsersComponent } from './users/users.component';
@@ -356,7 +415,10 @@ export class UserDetailComponent {
 }
                 </code></pre>
 
-                <h3>HTTP Services with Error Handling:</h3>
+                </section>
+
+                <section id="http" class="section">
+                    <h2>HTTP Services with Error Handling</h2>
                 <pre><code>
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, retry } from 'rxjs/operators';
@@ -398,7 +460,10 @@ export class DataService {
 }
                 </code></pre>
 
-                <h3>Custom Directives:</h3>
+                </section>
+
+                <section id="directives" class="section">
+                    <h2>Custom Directives</h2>
                 <pre><code>
 import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 
@@ -426,7 +491,10 @@ export class HighlightDirective {
 // Usage: &lt;div appHighlight="lightblue"&gt;Hover me&lt;/div&gt;
                 </code></pre>
 
-                <h3>Pipes (Data Transformation):</h3>
+                </section>
+
+                <section id="pipes" class="section">
+                    <h2>Pipes (Data Transformation)</h2>
                 <pre><code>
 // Built-in pipes
 {{ date | date:'short' }}
@@ -457,7 +525,10 @@ export class TitleCasePipe implements PipeTransform {
 // Usage: {{ title | titleCase }}
                 </code></pre>
 
-                <h3>State Management with Signals (Angular 17):</h3>
+                </section>
+
+                <section id="signals" class="section">
+                    <h2>State Management with Signals (Angular 17)</h2>
                 <pre><code>
 import { signal, computed, effect } from '@angular/core';
 
@@ -490,7 +561,10 @@ export class CounterComponent {
 &lt;button (click)="increment()"&gt;Increment&lt;/button&gt;
                 </code></pre>
 
-                <h3>Common Interview Problems & Patterns:</h3>
+                </section>
+
+                <section id="interview" class="section">
+                    <h2>Common Interview Problems & Patterns</h2>
                 <ul>
                     <li><strong>Change Detection:</strong> OnPush vs Default strategy</li>
                     <li><strong>Memory Leaks:</strong> Unsubscribe patterns, takeUntil operator</li>
@@ -501,7 +575,10 @@ export class CounterComponent {
                     <li><strong>Authentication:</strong> Guards, interceptors, JWT storage</li>
                 </ul>
 
-                <h3>Angular CLI Commands:</h3>
+                </section>
+
+                <section id="cli" class="section">
+                    <h2>Angular CLI Commands</h2>
                 <pre><code>
 // Create new project
 ng new my-app
@@ -523,7 +600,10 @@ ng test
 ng e2e
                 </code></pre>
 
-                <h3>Best Practices:</h3>
+                </section>
+
+                <section id="best-practices" class="section">
+                    <h2>Best Practices</h2>
                 <ul>
                     <li><strong>Smart vs Presentational Components:</strong> Separate data/logic from UI</li>
                     <li><strong>OnPush Change Detection:</strong> Better performance with immutable patterns</li>
@@ -535,8 +615,8 @@ ng e2e
                     <li><strong>Code Organization:</strong> Feature modules, shared module pattern</li>
                 </ul>
 
-                <h3>Real-world Application Structure:</h3>
-                <pre><code>
+                    <h3>Real-world Application Structure:</h3>
+                    <pre><code>
 src/
 ├── app/
 │   ├── core/                    # Singleton services
@@ -557,21 +637,23 @@ src/
 │   └── app.routes.ts
 ├── main.ts
 └── styles.css
-                </code></pre>
+                    </code></pre>
 
-                <h3>Key Interview Questions:</h3>
-                <ul>
-                    <li>What's the difference between standalone and NgModule components?</li>
-                    <li>Explain change detection strategies and when to use OnPush</li>
-                    <li>How do you handle memory leaks in Angular?</li>
-                    <li>What are RxJS Observables and why use them?</li>
-                    <li>Difference between Reactive Forms and Template-driven Forms?</li>
-                    <li>How does dependency injection work in Angular?</li>
-                    <li>Explain Angular routing and lazy loading</li>
-                    <li>How to secure API calls with JWT in Angular?</li>
-                    <li>What are HTTP interceptors and their use cases?</li>
-                    <li>How to optimize Angular application performance?</li>
-                </ul>
+                    <h3>Key Interview Questions:</h3>
+                    <ul>
+                        <li>What's the difference between standalone and NgModule components?</li>
+                        <li>Explain change detection strategies and when to use OnPush</li>
+                        <li>How do you handle memory leaks in Angular?</li>
+                        <li>What are RxJS Observables and why use them?</li>
+                        <li>Difference between Reactive Forms and Template-driven Forms?</li>
+                        <li>How does dependency injection work in Angular?</li>
+                        <li>Explain Angular routing and lazy loading</li>
+                        <li>How to secure API calls with JWT in Angular?</li>
+                        <li>What are HTTP interceptors and their use cases?</li>
+                        <li>How to optimize Angular application performance?</li>
+                    </ul>
+                </section>
+                </div>
             </div>
         </div>
     </div>

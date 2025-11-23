@@ -91,44 +91,35 @@
       }
     </script>
     <div class="container">
-        <div class="content">
-            <div class="topic">
-                <h1>JavaScript Fundamentals Refresher</h1>
-                
-                <div class="table-of-contents">
+        <div class="content-with-sidebar">
+            <div class="sidebar-toc">
+                <div class="toc-header">
                     <h2>📚 Table of Contents</h2>
-                    <div class="toc-grid">
-                        <div class="toc-column">
-                            <ul>
-                                <li><a href="#what-is-js">What is JavaScript?</a></li>
-                                <li><a href="#data-types">Data Types</a></li>
-                                <li><a href="#variables">Variables & Scope</a></li>
-                                <li><a href="#functions">Functions & Context</a></li>
-                                <li><a href="#strings">Strings & Templates</a></li>
-                                <li><a href="#objects">Objects & Prototypes</a></li>
-                            </ul>
-                        </div>
-                        <div class="toc-column">
-                            <ul>
-                                <li><a href="#arrays">Arrays & Methods</a></li>
-                                <li><a href="#promises">Promises & Async/Await</a></li>
-                                <li><a href="#dom">DOM Manipulation</a></li>
-                                <li><a href="#closures">Closures & Higher-Order</a></li>
-                                <li><a href="#errors">Error Handling</a></li>
-                                <li><a href="#regex">Regular Expressions</a></li>
-                            </ul>
-                        </div>
-                        <div class="toc-column">
-                            <ul>
-                                <li><a href="#es6">Modern ES6+ Features</a></li>
-                                <li><a href="#performance">Performance & Best Practices</a></li>
-                                <li><a href="#nodejs">Node.js Basics</a></li>
-                                <li><a href="#interview">Interview Questions</a></li>
-                                <li><a href="#summary">Summary & Best Practices</a></li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
+                <nav class="toc-nav">
+                    <ul>
+                        <li><a href="#what-is-js">What is JavaScript?</a></li>
+                        <li><a href="#data-types">Data Types</a></li>
+                        <li><a href="#variables">Variables & Scope</a></li>
+                        <li><a href="#functions">Functions & Context</a></li>
+                        <li><a href="#strings">Strings & Templates</a></li>
+                        <li><a href="#objects">Objects & Prototypes</a></li>
+                        <li><a href="#arrays">Arrays & Methods</a></li>
+                        <li><a href="#promises">Promises & Async/Await</a></li>
+                        <li><a href="#dom">DOM Manipulation</a></li>
+                        <li><a href="#closures">Closures & Higher-Order</a></li>
+                        <li><a href="#errors">Error Handling</a></li>
+                        <li><a href="#regex">Regular Expressions</a></li>
+                        <li><a href="#es6">Modern ES6+ Features</a></li>
+                        <li><a href="#performance">Performance & Best Practices</a></li>
+                        <li><a href="#nodejs">Node.js Basics</a></li>
+                        <li><a href="#interview">Interview Questions</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="main-content">
+                <div class="topic">
+                    <h1>JavaScript Fundamentals Refresher</h1>
 
                 <section id="what-is-js" class="section">
                     <h2>🚀 What is JavaScript?</h2>
@@ -817,7 +808,7 @@ const dbUrl = process.env.DATABASE_URL;
                     </div>
                 </section>
 
-                <section id="key-questions" class="section">
+                <section id="interview" class="section">
                     <h2>🎯 Key Interview Questions</h2>
                     <div class="subsection">
                         <h3>Essential Questions</h3>
@@ -835,6 +826,7 @@ const dbUrl = process.env.DATABASE_URL;
                         </ul>
                     </div>
                 </section>
+                </div>
             </div>
         </div>
     </div>

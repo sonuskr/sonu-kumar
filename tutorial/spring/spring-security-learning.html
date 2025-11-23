@@ -53,14 +53,39 @@
         });
     </script>
     <div class="container">
-        <div class="content">
-            <div class="topic">
-                <h2>Spring Security - Complete Guide</h2>
+        <div class="content-with-sidebar">
+            <div class="sidebar-toc">
+                <div class="toc-header">
+                    <h2>📚 Table of Contents</h2>
+                </div>
+                <nav class="toc-nav">
+                    <ul>
+                        <li><a href="#what-is-spring-security">What is Spring Security?</a></li>
+                        <li><a href="#core-concepts">Core Security Concepts</a></li>
+                        <li><a href="#basic-configuration">Basic Configuration</a></li>
+                        <li><a href="#database-auth">Database Authentication</a></li>
+                        <li><a href="#authorization">Authorization & Access Control</a></li>
+                        <li><a href="#jwt-auth">JWT Authentication</a></li>
+                        <li><a href="#csrf-protection">CSRF Protection</a></li>
+                        <li><a href="#oauth2">OAuth2 Integration</a></li>
+                        <li><a href="#best-practices">Security Best Practices</a></li>
+                        <li><a href="#current-user">Accessing Current User</a></li>
+                        <li><a href="#interview-topics">Interview Topics</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="main-content">
+                <div class="topic">
+                    <h1>Spring Security - Complete Guide</h1>
                 
-                <h3>What is Spring Security?</h3>
+                <section id="what-is-spring-security" class="section">
+                    <h2>What is Spring Security?</h2>
                 <p>Spring Security is a powerful and highly customizable authentication and access-control framework for Java applications. It provides comprehensive security services including authentication (who you are), authorization (what you can do), and protection against common vulnerabilities like CSRF, XSS, and SQL injection.</p>
                 
-                <h3>Core Security Concepts:</h3>
+                </section>
+
+                <section id="core-concepts" class="section">
+                    <h2>Core Security Concepts</h2>
                 <ul>
                     <li><strong>Authentication:</strong> Process of verifying user identity (username/password, OAuth, JWT)</li>
                     <li><strong>Authorization:</strong> Determining what authenticated users can access</li>
@@ -70,7 +95,10 @@
                     <li><strong>SecurityContext:</strong> Holds security information for current user</li>
                 </ul>
 
-                <h3>Basic Configuration:</h3>
+                </section>
+
+                <section id="basic-configuration" class="section">
+                    <h2>Basic Configuration</h2>
                 <pre><code>
 // Maven dependency
 &lt;dependency&gt;
@@ -132,7 +160,10 @@ public class SecurityConfig {
 }
                 </code></pre>
 
-                <h3>Authentication with Database:</h3>
+                </section>
+
+                <section id="database-auth" class="section">
+                    <h2>Authentication with Database</h2>
                 <pre><code>
 // User entity
 @Entity
@@ -244,7 +275,10 @@ public class SecurityConfig {
 }
                 </code></pre>
 
-                <h3>Authorization & Access Control:</h3>
+                </section>
+
+                <section id="authorization" class="section">
+                    <h2>Authorization & Access Control</h2>
                 <pre><code>
 // Role-based access control
 @Configuration
@@ -327,7 +361,10 @@ public class UserController {
 }
                 </code></pre>
 
-                <h3>JWT (JSON Web Tokens) Authentication:</h3>
+                </section>
+
+                <section id="jwt-auth" class="section">
+                    <h2>JWT (JSON Web Tokens) Authentication</h2>
                 <pre><code>
 // Dependency
 &lt;dependency&gt;
@@ -492,7 +529,10 @@ public class JwtResponse {
 }
                 </code></pre>
 
-                <h3>CSRF Protection:</h3>
+                </section>
+
+                <section id="csrf-protection" class="section">
+                    <h2>CSRF Protection</h2>
                 <pre><code>
 // Default CSRF protection (enabled by default)
 @Configuration
@@ -532,7 +572,10 @@ fetch('/users', {
 });
                 </code></pre>
 
-                <h3>OAuth2 Integration:</h3>
+                </section>
+
+                <section id="oauth2" class="section">
+                    <h2>OAuth2 Integration</h2>
                 <pre><code>
 // Dependency
 &lt;dependency&gt;
@@ -586,7 +629,10 @@ public class OAuth2SecurityConfig {
 &lt;/html&gt;
                 </code></pre>
 
-                <h3>Security Best Practices:</h3>
+                </section>
+
+                <section id="best-practices" class="section">
+                    <h2>Security Best Practices</h2>
                 <ul>
                     <li><strong>Never store plain passwords:</strong> Use BCryptPasswordEncoder</li>
                     <li><strong>HTTPS only:</strong> Enforce HTTPS in production</li>
@@ -600,7 +646,10 @@ public class OAuth2SecurityConfig {
                     <li><strong>Audit logging:</strong> Log security events</li>
                 </ul>
 
-                <h3>Accessing Current User:</h3>
+                </section>
+
+                <section id="current-user" class="section">
+                    <h2>Accessing Current User</h2>
                 <pre><code>
 // In controller or service
 @RestController
@@ -627,7 +676,10 @@ public class UserController {
 }
                 </code></pre>
 
-                <h3>Common Interview Topics:</h3>
+                </section>
+
+                <section id="interview-topics" class="section">
+                    <h2>Common Interview Topics</h2>
                 <ul>
                     <li><strong>Authentication:</strong> How Spring Security authenticates users</li>
                     <li><strong>Authorization:</strong> Role-based and method-level access control</li>
@@ -641,19 +693,21 @@ public class UserController {
                     <li><strong>CORS:</strong> Cross-origin resource sharing</li>
                 </ul>
 
-                <h3>Key Interview Questions:</h3>
-                <ul>
-                    <li>What's the difference between authentication and authorization?</li>
-                    <li>How does Spring Security filter chain work?</li>
-                    <li>Explain JWT and its advantages over session-based auth</li>
-                    <li>How to implement role-based access control?</li>
-                    <li>What is CSRF and how to prevent it?</li>
-                    <li>How to implement OAuth2 login?</li>
-                    <li>Explain password encoding in Spring Security</li>
-                    <li>How to access current authenticated user?</li>
-                    <li>What's the difference between stateful and stateless authentication?</li>
-                    <li>How to implement method-level security?</li>
-                </ul>
+                    <h3>Key Interview Questions</h3>
+                    <ul>
+                        <li>What's the difference between authentication and authorization?</li>
+                        <li>How does Spring Security filter chain work?</li>
+                        <li>Explain JWT and its advantages over session-based auth</li>
+                        <li>How to implement role-based access control?</li>
+                        <li>What is CSRF and how to prevent it?</li>
+                        <li>How to implement OAuth2 login?</li>
+                        <li>Explain password encoding in Spring Security</li>
+                        <li>How to access current authenticated user?</li>
+                        <li>What's the difference between stateful and stateless authentication?</li>
+                        <li>How to implement method-level security?</li>
+                    </ul>
+                </section>
+                </div>
             </div>
         </div>
     </div>

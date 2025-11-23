@@ -55,14 +55,40 @@
         });
     </script>
     <div class="container">
-        <div class="content">
-            <div class="topic">
-                <h2>Queue - Complete Guide</h2>
+        <div class="content-with-sidebar">
+            <div class="sidebar-toc">
+                <div class="toc-header">
+                    <h2>📚 Table of Contents</h2>
+                </div>
+                <nav class="toc-nav">
+                    <ul>
+                        <li><a href="#what-is-queue">What is Queue?</a></li>
+                        <li><a href="#characteristics">Key Characteristics</a></li>
+                        <li><a href="#types">Types of Queues</a></li>
+                        <li><a href="#time-complexity">Time Complexity</a></li>
+                        <li><a href="#implementation">Queue Implementation</a></li>
+                        <li><a href="#circular-queue">Circular Queue</a></li>
+                        <li><a href="#interview-problems">Interview Problems</a></li>
+                        <li><a href="#level-order">Level Order Traversal</a></li>
+                        <li><a href="#binary-generation">Binary Generation</a></li>
+                        <li><a href="#rotting-oranges">Rotting Oranges</a></li>
+                        <li><a href="#applications">Applications</a></li>
+                        <li><a href="#advantages">Pros & Cons</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="main-content">
+                <div class="topic">
+                    <h1>Queue - Complete Guide</h1>
                 
-                <h3>What is a Queue?</h3>
+                <section id="what-is-queue" class="section">
+                    <h2>What is a Queue?</h2>
                 <p>A queue is a linear data structure that follows the FIFO (First In, First Out) principle. The first element added is the first one to be removed.</p>
                 
-                <h3>Key Characteristics:</h3>
+                </section>
+
+                <section id="characteristics" class="section">
+                    <h2>Key Characteristics</h2>
                 <ul>
                     <li><strong>FIFO:</strong> First In, First Out principle</li>
                     <li><strong>Operations:</strong> Enqueue (add), Dequeue (remove), Front, Rear</li>
@@ -70,7 +96,10 @@
                     <li><strong>Fair Processing:</strong> Fair scheduling and buffering</li>
                 </ul>
 
-                <h3>Types of Queues:</h3>
+                </section>
+
+                <section id="types" class="section">
+                    <h2>Types of Queues</h2>
                 <ul>
                     <li><strong>Simple Queue:</strong> Standard FIFO queue</li>
                     <li><strong>Circular Queue:</strong> Rear connects back to front</li>
@@ -78,7 +107,10 @@
                     <li><strong>Deque (Double Ended):</strong> Add/remove from both ends</li>
                 </ul>
 
-                <h3>Time Complexity:</h3>
+                </section>
+
+                <section id="time-complexity" class="section">
+                    <h2>Time Complexity</h2>
                 <ul>
                     <li><strong>Enqueue:</strong> O(1) - Add to rear</li>
                     <li><strong>Dequeue:</strong> O(1) - Remove from front</li>
@@ -86,7 +118,10 @@
                     <li><strong>Search:</strong> O(n) - Linear search</li>
                 </ul>
 
-                <h3>Queue Implementation (Array-based):</h3>
+                </section>
+
+                <section id="implementation" class="section">
+                    <h2>Queue Implementation (Array-based)</h2>
                 <pre><code>
 class Queue {
     int[] arr;
@@ -138,7 +173,10 @@ int front = queue.poll();   // Dequeue (30)
 int peek = queue.peek();     // View front (20)
                 </code></pre>
 
-                <h3>Circular Queue Implementation:</h3>
+                </section>
+
+                <section id="circular-queue" class="section">
+                    <h2>Circular Queue Implementation</h2>
                 <pre><code>
 class CircularQueue {
     int[] arr;
@@ -178,7 +216,10 @@ class CircularQueue {
 }
                 </code></pre>
 
-                <h3>Common Interview Problems:</h3>
+                </section>
+
+                <section id="interview-problems" class="section">
+                    <h2>Common Interview Problems</h2>
                 <ul>
                     <li><strong>Binary Number Generation:</strong> Generate binary numbers from 1 to n</li>
                     <li><strong>Level Order Traversal:</strong> BFS in tree/graph</li>
@@ -189,7 +230,10 @@ class CircularQueue {
                     <li><strong>First Unique Number:</strong> Find first non-repeating number</li>
                 </ul>
 
-                <h3>Example: Level Order Traversal (BFS)</h3>
+                </section>
+
+                <section id="level-order" class="section">
+                    <h2>Example: Level Order Traversal (BFS)</h2>
                 <pre><code>
 public List<List<Integer>> levelOrder(TreeNode root) {
     List<List<Integer>> result = new ArrayList<>();
@@ -215,7 +259,10 @@ public List<List<Integer>> levelOrder(TreeNode root) {
 }
                 </code></pre>
 
-                <h3>Example: Binary Number Generation (Leetcode)</h3>
+                </section>
+
+                <section id="binary-generation" class="section">
+                    <h2>Example: Binary Number Generation (Leetcode)</h2>
                 <pre><code>
 public static List<String> generateBinary(int n) {
     List<String> result = new ArrayList<>();
@@ -235,7 +282,10 @@ public static List<String> generateBinary(int n) {
 // Output for n=5: [1, 10, 11, 100, 101]
                 </code></pre>
 
-                <h3>Example: Rotting Oranges (Time to rot all)</h3>
+                </section>
+
+                <section id="rotting-oranges" class="section">
+                    <h2>Example: Rotting Oranges (Time to rot all)</h2>
                 <pre><code>
 public int orangesRotting(int[][] grid) {
     Queue<int[]> queue = new LinkedList<>();
@@ -280,7 +330,10 @@ public int orangesRotting(int[][] grid) {
 }
                 </code></pre>
 
-                <h3>Real-world Applications:</h3>
+                </section>
+
+                <section id="applications" class="section">
+                    <h2>Real-world Applications</h2>
                 <ul>
                     <li>Job scheduling and task management</li>
                     <li>Breadth-first search (BFS) in graphs</li>
@@ -291,19 +344,24 @@ public int orangesRotting(int[][] grid) {
                     <li>Asynchronous data processing</li>
                 </ul>
 
-                <h3>Advantages & Disadvantages:</h3>
-                <p><strong>Advantages:</strong></p>
-                <ul>
-                    <li>Fair processing order</li>
-                    <li>Efficient O(1) operations</li>
-                    <li>Useful for buffering</li>
-                </ul>
-                <p><strong>Disadvantages:</strong></p>
-                <ul>
-                    <li>No random access</li>
-                    <li>Can overflow/underflow</li>
-                    <li>Wasted space in simple array-based implementation</li>
-                </ul>
+                </section>
+
+                <section id="advantages" class="section">
+                    <h2>Advantages & Disadvantages</h2>
+                    <p><strong>Advantages:</strong></p>
+                    <ul>
+                        <li>Fair processing order</li>
+                        <li>Efficient O(1) operations</li>
+                        <li>Useful for buffering</li>
+                    </ul>
+                    <p><strong>Disadvantages:</strong></p>
+                    <ul>
+                        <li>No random access</li>
+                        <li>Can overflow/underflow</li>
+                        <li>Wasted space in simple array-based implementation</li>
+                    </ul>
+                </section>
+                </div>
             </div>
         </div>
     </div>

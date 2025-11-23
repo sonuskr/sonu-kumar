@@ -326,6 +326,90 @@ nav {
     display: block; 
 }
 
+/* Content Layout with Sidebar */
+.content-with-sidebar {
+    display: flex;
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.sidebar-toc {
+    width: 280px;
+    position: sticky;
+    top: 80px;
+    height: fit-content;
+    max-height: calc(100vh - 100px);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 12px;
+    overflow-y: auto;
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.toc-header {
+    padding: 1.5rem 1rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.toc-header h2 {
+    color: white;
+    font-size: 1.1rem;
+    margin: 0;
+    text-align: center;
+}
+
+.toc-nav {
+    padding: 1rem 0;
+}
+
+.toc-nav h3 {
+    color: white;
+    font-size: 1.1rem;
+    margin: 0 0 1rem 0;
+    text-align: center;
+    padding: 0 1rem;
+}
+
+.toc-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.toc-nav li {
+    margin: 0;
+}
+
+.toc-nav a {
+    display: block;
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    padding: 0.6rem 1rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border-left: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.toc-nav a:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+    border-left-color: white;
+    padding-left: 1.5rem;
+}
+
+.toc-nav a.active {
+    color: white;
+    background: rgba(255, 255, 255, 0.15);
+    border-left-color: #48bb78;
+    font-weight: 600;
+}
+
+.main-content {
+    flex: 1;
+    min-width: 0;
+}
+
 /* Content Styles */
 .content {
     margin: 2rem 0;
@@ -336,9 +420,14 @@ nav {
     background: white;
     border-radius: 12px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-    padding: 3rem;
-    margin: 2rem 0;
+    padding: 8px;
+    margin: 0 0 2rem;
     border: 1px solid #e2e8f0;
+}
+
+.topic h1 {
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
 }
 
 /* Table of Contents Styles */
@@ -395,8 +484,12 @@ nav {
 /* Section Styles */
 .section {
     margin: 4rem 0;
-    padding: 2rem 0;
+    padding: 8px 0;
     border-bottom: 1px solid #e2e8f0;
+}
+
+#getting-started {
+    margin-top: 8px;
 }
 
 .section:last-child {
@@ -821,6 +914,24 @@ footer a {
 
 /* Responsive Design */
 /* Mobile Optimizations */
+@media (max-width: 1024px) {
+    .content-with-sidebar {
+        flex-direction: column;
+    }
+    
+    .sidebar-toc {
+        width: 100%;
+        position: static;
+        max-height: none;
+        order: -1;
+    }
+    
+    .toc-nav {
+        max-height: 200px;
+        overflow-y: auto;
+    }
+}
+
 @media (max-width: 768px) {
     h1 { font-size: 2rem; }
     .hero h1 { font-size: 1.8rem; }
@@ -866,6 +977,15 @@ footer a {
     
     .mobile-menu-toggle {
         display: block;
+    }
+    
+    .toc-header {
+        padding: 1rem;
+    }
+    
+    .toc-nav a {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
     }
     
     .nav-links {

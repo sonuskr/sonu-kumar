@@ -62,6 +62,30 @@
             }
         });
         
+        // Active section highlighting
+        function highlightActiveSection() {
+            const sections = document.querySelectorAll('.section');
+            const tocLinks = document.querySelectorAll('.toc-nav a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        // Initialize
+        window.addEventListener('scroll', highlightActiveSection);
+        
         // Simple syntax highlighting
         document.addEventListener('DOMContentLoaded', function() {
             const codeBlocks = document.querySelectorAll('.code-block code');
@@ -93,45 +117,39 @@
                 
                 block.innerHTML = html;
             });
+            
+            // Initialize sidebar functionality
+            highlightActiveSection();
         });
     </script>
-    <div class="container">
-        <div class="content">
-            <div class="topic">
-                <h1>Java Collections Framework</h1>
-                
-                <div class="table-of-contents">
+        <div class="container">
+        <div class="content-with-sidebar">
+            <!-- Sidebar TOC -->
+            <aside class="sidebar-toc">
+                <div class="toc-header">
                     <h2>📚 Table of Contents</h2>
-                    <div class="toc-grid">
-                        <div class="toc-column">
-                            <ul>
-                                <li><a href="#overview">Collections Overview</a></li>
-                                <li><a href="#list-interface">List Interface</a></li>
-                                <li><a href="#set-interface">Set Interface</a></li>
-                                <li><a href="#map-interface">Map Interface</a></li>
-                                <li><a href="#queue-interface">Queue Interface</a></li>
-                            </ul>
-                        </div>
-                        <div class="toc-column">
-                            <ul>
-                                <li><a href="#iterators">Iterators & Streams</a></li>
-                                <li><a href="#algorithms">Collections Algorithms</a></li>
-                                <li><a href="#concurrent">Concurrent Collections</a></li>
-                                <li><a href="#performance">Performance Analysis</a></li>
-                                <li><a href="#best-practices">Best Practices</a></li>
-                            </ul>
-                        </div>
-                        <div class="toc-column">
-                            <ul>
-                                <li><a href="#custom-collections">Custom Collections</a></li>
-                                <li><a href="#generics">Generics & Wildcards</a></li>
-                                <li><a href="#comparisons">Collections Comparison</a></li>
-                                <li><a href="#real-world">Real-World Examples</a></li>
-                                <li><a href="#interview-questions">Interview Questions</a></li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
+                <nav class="toc-nav">
+                    <ul>
+                        <li><a href="#overview">Collection Overview</a></li>
+                        <li><a href="#list-interface">List Interface</a></li>
+                        <li><a href="#set-interface">Set Interface</a></li>
+                        <li><a href="#map-interface">Map Interface</a></li>
+                        <li><a href="#queue-interface">Queue Interface</a></li>
+                        <li><a href="#iterators">Iterators & Streams</a></li>
+                        <li><a href="#algorithms">Collections Algorithms</a></li>
+                        <li><a href="#concurrent">Concurrent Collections</a></li>
+                        <li><a href="#performance">Performance Analysis</a></li>
+                        <li><a href="#best-practices">Best Practices</a></li>
+                        <li><a href="#real-world">Real-World Examples</a></li>
+                        <li><a href="#interview-questions">Interview Questions</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <div class="topic">
 
                 <section id="overview" class="section">
                     <h2>🏗️ Collections Framework Overview</h2>
@@ -1224,6 +1242,9 @@ System.out.println("Current list: " + cowList); // Shows "D" as well</code></pre
                     <p>You've now learned the comprehensive Java Collections Framework! Master these concepts through practice and real-world application.</p>
                     <p><strong>Next Steps:</strong> Practice implementing custom collections, solve algorithm problems using different data structures, and explore advanced concurrent programming patterns.</p>
                 </div>
+
+                </div>
+            </div>
             </div>
         </div>
     </div>

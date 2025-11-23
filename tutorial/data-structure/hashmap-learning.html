@@ -55,14 +55,41 @@
         });
     </script>
     <div class="container">
-      <div class="content">
-        <div class="topic">
-          <h2>HashMap - Complete Guide</h2>
+      <div class="content-with-sidebar">
+        <div class="sidebar-toc">
+          <div class="toc-header">
+            <h2>📚 Table of Contents</h2>
+          </div>
+          <nav class="toc-nav">
+            <ul>
+              <li><a href="#what-is-hashmap">What is HashMap?</a></li>
+              <li><a href="#key-concepts">Key Concepts</a></li>
+              <li><a href="#comparison">HashMap vs HashTable</a></li>
+              <li><a href="#basic-operations">Basic Operations</a></li>
+              <li><a href="#hash-function">Hash Function</a></li>
+              <li><a href="#collision-resolution">Collision Resolution</a></li>
+              <li><a href="#interview-problems">Interview Problems</a></li>
+              <li><a href="#time-complexity">Time & Space Complexity</a></li>
+              <li><a href="#two-sum">Two Sum Example</a></li>
+              <li><a href="#group-anagrams">Group Anagrams</a></li>
+              <li><a href="#advantages">Pros & Cons</a></li>
+              <li><a href="#applications">Applications</a></li>
+              <li><a href="#interview-questions">Interview Questions</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="main-content">
+          <div class="topic">
+            <h1>HashMap - Complete Guide</h1>
           
-          <h3>What is a HashMap?</h3>
+          <section id="what-is-hashmap" class="section">
+            <h2>What is a HashMap?</h2>
           <p>HashMap is a data structure that implements a hash table - a structure that maps keys to values using a hash function. It provides O(1) average case access time for get and put operations.</p>
           
-          <h3>Key Concepts:</h3>
+          </section>
+
+          <section id="key-concepts" class="section">
+            <h2>Key Concepts</h2>
           <ul>
             <li><strong>Hash Function:</strong> Maps keys to array indices</li>
             <li><strong>Collision:</strong> When two keys hash to same index</li>
@@ -72,7 +99,10 @@
             <li><strong>Chaining:</strong> Linked list in bucket for collision handling</li>
           </ul>
 
-          <h3>HashMap vs HashTable vs ConcurrentHashMap:</h3>
+          </section>
+
+          <section id="comparison" class="section">
+            <h2>HashMap vs HashTable vs ConcurrentHashMap</h2>
           <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
             <tr style="background-color: #f2f2f2;">
               <th style="border: 1px solid #ddd; padding: 8px;">Feature</th>
@@ -106,7 +136,10 @@
             </tr>
           </table>
 
-          <h3>Basic HashMap Operations:</h3>
+          </section>
+
+          <section id="basic-operations" class="section">
+            <h2>Basic HashMap Operations</h2>
           <pre><code>
 Map<String, Integer> map = new HashMap<>();
 
@@ -139,7 +172,10 @@ for (Map.Entry<String, Integer> entry : map.entrySet()) {
 }
           </code></pre>
 
-          <h3>Hash Function Implementation:</h3>
+          </section>
+
+          <section id="hash-function" class="section">
+            <h2>Hash Function Implementation</h2>
           <pre><code>
 class SimpleHashMap<K, V> {
     private static final int CAPACITY = 16;
@@ -224,7 +260,10 @@ class SimpleHashMap<K, V> {
 }
           </code></pre>
 
-          <h3>Collision Resolution Strategies:</h3>
+          </section>
+
+          <section id="collision-resolution" class="section">
+            <h2>Collision Resolution Strategies</h2>
           <pre><code>
 // 1. Chaining (Java HashMaps default)
 // Multiple entries in same bucket using linked list
@@ -267,7 +306,10 @@ public void put_double(K key, V value) {
 }
           </code></pre>
 
-          <h3>Common Interview Problems:</h3>
+          </section>
+
+          <section id="interview-problems" class="section">
+            <h2>Common Interview Problems</h2>
           <ul>
             <li><strong>Two Sum:</strong> Find pair of numbers with target sum</li>
             <li><strong>Contains Duplicate:</strong> Check if array has duplicates</li>
@@ -279,7 +321,10 @@ public void put_double(K key, V value) {
             <li><strong>Word Pattern:</strong> Verify if pattern matches string</li>
           </ul>
 
-          <h3>Time & Space Complexity:</h3>
+          </section>
+
+          <section id="time-complexity" class="section">
+            <h2>Time & Space Complexity</h2>
           <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
             <tr style="background-color: #f2f2f2;">
               <th style="border: 1px solid #ddd; padding: 8px;">Operation</th>
@@ -319,7 +364,10 @@ public void put_double(K key, V value) {
             </tr>
           </table>
 
-          <h3>Example - Two Sum Problem:</h3>
+          </section>
+
+          <section id="two-sum" class="section">
+            <h2>Example - Two Sum Problem</h2>
           <pre><code>
 public int[] twoSum(int[] nums, int target) {
     Map<Integer, Integer> map = new HashMap<>();
@@ -340,7 +388,10 @@ public int[] twoSum(int[] nums, int target) {
 // Time: O(n), Space: O(n)
           </code></pre>
 
-          <h3>Example - Group Anagrams:</h3>
+          </section>
+
+          <section id="group-anagrams" class="section">
+            <h2>Example - Group Anagrams</h2>
           <pre><code>
 public List<List<String>> groupAnagrams(String[] strs) {
     Map<String, List<String>> map = new HashMap<>();
@@ -362,7 +413,10 @@ public List<List<String>> groupAnagrams(String[] strs) {
 // Time: O(n*k*logk), Space: O(n*k)
           </code></pre>
 
-          <h3>Advantages & Disadvantages:</h3>
+          </section>
+
+          <section id="advantages" class="section">
+            <h2>Advantages & Disadvantages</h2>
           <p><strong>Advantages:</strong></p>
           <ul>
             <li>O(1) average time for basic operations</li>
@@ -379,7 +433,10 @@ public List<List<String>> groupAnagrams(String[] strs) {
             <li>Not thread-safe (use ConcurrentHashMap)</li>
           </ul>
 
-          <h3>Real-world Applications:</h3>
+          </section>
+
+          <section id="applications" class="section">
+            <h2>Real-world Applications</h2>
           <ul>
             <li>Caching and memoization</li>
             <li>Database indexing</li>
@@ -390,16 +447,21 @@ public List<List<String>> groupAnagrams(String[] strs) {
             <li>Session storage</li>
           </ul>
 
-          <h3>Key Interview Questions:</h3>
-          <ul>
-            <li>How does HashMap handle hash collisions?</li>
-            <li>Why is load factor important? When to rehash?</li>
-            <li>What's the difference between HashMap and HashTable?</li>
-            <li>Can you explain the hash function and its properties?</li>
-            <li>What's time complexity of get/put in worst case?</li>
-            <li>How would you implement a custom HashMap?</li>
-            <li>When would you use TreeMap over HashMap?</li>
-          </ul>
+          </section>
+
+          <section id="interview-questions" class="section">
+            <h2>Key Interview Questions</h2>
+            <ul>
+              <li>How does HashMap handle hash collisions?</li>
+              <li>Why is load factor important? When to rehash?</li>
+              <li>What's the difference between HashMap and HashTable?</li>
+              <li>Can you explain the hash function and its properties?</li>
+              <li>What's time complexity of get/put in worst case?</li>
+              <li>How would you implement a custom HashMap?</li>
+              <li>When would you use TreeMap over HashMap?</li>
+            </ul>
+          </section>
+          </div>
         </div>
       </div>
     </div>

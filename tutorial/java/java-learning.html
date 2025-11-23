@@ -47,6 +47,8 @@
         </div>
     </nav>
     
+
+    
     <script>
         function toggleMobileMenu() {
             const navLinks = document.getElementById('navLinks');
@@ -61,6 +63,30 @@
                 navLinks.classList.remove('active');
             }
         });
+        
+        // Active section highlighting
+        function highlightActiveSection() {
+            const sections = document.querySelectorAll('.section');
+            const tocLinks = document.querySelectorAll('.toc-nav a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        // Initialize
+        window.addEventListener('scroll', highlightActiveSection);
         
         // Simple syntax highlighting
         document.addEventListener('DOMContentLoaded', function() {
@@ -93,51 +119,48 @@
                 
                 block.innerHTML = html;
             });
+            
+            // Initialize sidebar functionality
+            highlightActiveSection();
         });
     </script>
     <div class="container">
-        <div class="content">
-            <div class="topic">
-                <h1>Java Fundamentals Refresher</h1>
-                
-                <div class="table-of-contents">
+        <div class="content-with-sidebar">
+            <!-- Sidebar TOC -->
+            <aside class="sidebar-toc">
+                <div class="toc-header">
                     <h2>📚 Table of Contents</h2>
-                    <div class="toc-grid">
-                        <div class="toc-column">
-                            <ul>
-                                <li><a href="#getting-started">Getting Started</a></li>
-                                <li><a href="#variables-data-types">Variables and Data Types</a></li>
-                                <li><a href="#operators">Operators</a></li>
-                                <li><a href="#control-flow">Control Flow</a></li>
-                                <li><a href="#arrays">Arrays</a></li>
-                                <li><a href="#strings">Strings</a></li>
-                                <li><a href="#oop">Object-Oriented Programming</a></li>
-                            </ul>
-                        </div>
-                        <div class="toc-column">
-                            <ul>
-                                <li><a href="#classes-objects">Classes and Objects</a></li>
-                                <li><a href="#inheritance">Inheritance</a></li>
-                                <li><a href="#polymorphism">Polymorphism</a></li>
-                                <li><a href="#encapsulation">Encapsulation</a></li>
-                                <li><a href="#abstraction">Abstraction</a></li>
-                                <li><a href="#interfaces">Interfaces</a></li>
-                                <li><a href="#collections">Collections Framework</a></li>
-                            </ul>
-                        </div>
-                        <div class="toc-column">
-                            <ul>
-                                <li><a href="#exception-handling">Exception Handling</a></li>
-                                <li><a href="#generics">Generics</a></li>
-                                <li><a href="#lambda-streams">Lambda & Streams</a></li>
-                                <li><a href="#java8-features">Java 8+ Features</a></li>
-                                <li><a href="#file-io">File I/O</a></li>
-                                <li><a href="#annotations">Annotations</a></li>
-                                <li><a href="#summary">Summary & Best Practices</a></li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
+                <nav class="toc-nav">
+                    <ul>
+                        <li><a href="#getting-started">Getting Started</a></li>
+                        <li><a href="#variables-data-types">Variables and Data Types</a></li>
+                        <li><a href="#operators">Operators</a></li>
+                        <li><a href="#control-flow">Control Flow</a></li>
+                        <li><a href="#arrays">Arrays</a></li>
+                        <li><a href="#strings">Strings</a></li>
+                        <li><a href="#oop">Object-Oriented Programming</a></li>
+                        <li><a href="#classes-objects">Classes and Objects</a></li>
+                        <li><a href="#inheritance">Inheritance</a></li>
+                        <li><a href="#polymorphism">Polymorphism</a></li>
+                        <li><a href="#encapsulation">Encapsulation</a></li>
+                        <li><a href="#abstraction">Abstraction</a></li>
+                        <li><a href="#interfaces">Interfaces</a></li>
+                        <li><a href="#collections">Collections Framework</a></li>
+                        <li><a href="#exception-handling">Exception Handling</a></li>
+                        <li><a href="#generics">Generics</a></li>
+                        <li><a href="#lambda-streams">Lambda & Streams</a></li>
+                        <li><a href="#java8-features">Java 8+ Features</a></li>
+                        <li><a href="#file-io">File I/O</a></li>
+                        <li><a href="#annotations">Annotations</a></li>
+                        <li><a href="#summary">Summary & Best Practices</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <div class="topic">
 
                 <section id="getting-started" class="section">
                     <h2>🚀 Getting Started</h2>
@@ -1508,6 +1531,7 @@ String result = sb.toString();</code></pre>
                         <p><strong>Remember:</strong> Practice consistently, build projects, and don't hesitate to experiment with the code examples provided.</p>
                     </div>
                 </section>
+                                </div>
             </div>
         </div>
     </div>
