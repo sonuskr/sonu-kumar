@@ -1,14 +1,11 @@
 // Navigation menu generator
-function generateNavMenu(activePage = '') {
-    // Detect if we're in a subdirectory
-    const isInSubdir = window.location.pathname.includes('/java/') || 
-                      window.location.pathname.includes('/spring/') || 
-                      window.location.pathname.includes('/data-structure/') || 
-                      window.location.pathname.includes('/programs/') || 
-                      window.location.pathname.includes('/interview/');
-    const basePath = isInSubdir ? '../' : '';
-    
-    return `
+function generateNavMenu(activePage = "") {
+  // Detect if we're in a subdirectory
+  const subdirs = ["/java/", "/spring/", "/data-structure/", "/programs/", "/interview/"];
+  const isInSubdir = subdirs.some(dir => window.location.pathname.includes(dir));
+  const basePath = isInSubdir ? "../" : "";
+
+  return `
         <div class="container">
             <div class="nav-container">
                 <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
@@ -26,10 +23,18 @@ function generateNavMenu(activePage = '') {
                             <a href="${basePath}java/java-interview.html">Java Interview</a>
                         </div>
                     </li>
-                    <li><a href="${basePath}javascript-learning.html"${activePage === 'javascript' ? ' class="active"' : ''}>JavaScript</a></li>
-                    <li><a href="${basePath}typescript-learning.html"${activePage === 'typescript' ? ' class="active"' : ''}>TypeScript</a></li>
-                    <li><a href="${basePath}angular-learning.html"${activePage === 'angular' ? ' class="active"' : ''}>Angular</a></li>
-                    <li><a href="${basePath}react-learning.html"${activePage === 'react' ? ' class="active"' : ''}>React</a></li>
+                    <li><a href="${basePath}javascript-learning.html"${
+    activePage === "javascript" ? ' class="active"' : ""
+  }>JavaScript</a></li>
+                    <li><a href="${basePath}typescript-learning.html"${
+    activePage === "typescript" ? ' class="active"' : ""
+  }>TypeScript</a></li>
+                    <li><a href="${basePath}angular-learning.html"${
+    activePage === "angular" ? ' class="active"' : ""
+  }>Angular</a></li>
+                    <li><a href="${basePath}react-learning.html"${
+    activePage === "react" ? ' class="active"' : ""
+  }>React</a></li>
                     <li class="dropdown">
                         <a href="#">Spring</a>
                         <div class="dropdown-content">
@@ -82,64 +87,68 @@ function generateNavMenu(activePage = '') {
 
 // Menu functionality
 function toggleMobileMenu() {
-    const navLinks = document.getElementById('navLinks');
-    navLinks.classList.toggle('active');
+  const navLinks = document.getElementById("navLinks");
+  navLinks.classList.toggle("active");
 }
 
 function initializeMenuEvents() {
-    // Close mobile menu and dropdowns when clicking outside
-    document.addEventListener('click', function(event) {
-        const nav = document.querySelector('nav');
-        const navLinks = document.getElementById('navLinks');
-        
-        if (nav && navLinks && !nav.contains(event.target)) {
-            navLinks.classList.remove('active');
-            // Close all dropdowns
-            document.querySelectorAll('.dropdown.active').forEach(function(dropdown) {
-                dropdown.classList.remove('active');
-            });
+  // Close mobile menu and dropdowns when clicking outside
+  document.addEventListener("click", function (event) {
+    const nav = document.querySelector("nav");
+    const navLinks = document.getElementById("navLinks");
+
+    if (nav && navLinks && !nav.contains(event.target)) {
+      navLinks.classList.remove("active");
+      // Close all dropdowns
+      document
+        .querySelectorAll(".dropdown.active")
+        .forEach(function (dropdown) {
+          dropdown.classList.remove("active");
+        });
+    }
+  });
+
+  // Handle dropdown clicks on mobile
+  document.querySelectorAll(".dropdown > a").forEach(function (dropdownLink) {
+    dropdownLink.addEventListener("click", function (e) {
+      if (window.innerWidth <= 768) {
+        e.preventDefault();
+
+        // Close other dropdowns first
+        document.querySelectorAll(".dropdown.active").forEach(
+          function (dropdown) {
+            if (dropdown !== this.parentElement) {
+              dropdown.classList.remove("active");
+            }
+          }.bind(this)
+        );
+
+        // Toggle current dropdown
+        if (this.parentElement) {
+          this.parentElement.classList.toggle("active");
         }
+      }
     });
-    
-    // Handle dropdown clicks on mobile
-    document.querySelectorAll('.dropdown > a').forEach(function(dropdownLink) {
-        dropdownLink.addEventListener('click', function(e) {
-            if (window.innerWidth <= 768) {
-                e.preventDefault();
-                
-                // Close other dropdowns first
-                document.querySelectorAll('.dropdown.active').forEach(function(dropdown) {
-                    if (dropdown !== this.parentElement) {
-                        dropdown.classList.remove('active');
-                    }
-                }.bind(this));
-                
-                // Toggle current dropdown
-                if (this.parentElement) {
-                    this.parentElement.classList.toggle('active');
-                }
-            }
-        });
+  });
+
+  // Close dropdowns when clicking on dropdown items
+  document.querySelectorAll(".dropdown-content a").forEach(function (link) {
+    link.addEventListener("click", function () {
+      if (window.innerWidth <= 768) {
+        // Close the dropdown
+        this.closest(".dropdown").classList.remove("active");
+        // Close the mobile menu
+        document.getElementById("navLinks").classList.remove("active");
+      }
     });
-    
-    // Close dropdowns when clicking on dropdown items
-    document.querySelectorAll('.dropdown-content a').forEach(function(link) {
-        link.addEventListener('click', function() {
-            if (window.innerWidth <= 768) {
-                // Close the dropdown
-                this.closest('.dropdown').classList.remove('active');
-                // Close the mobile menu
-                document.getElementById('navLinks').classList.remove('active');
-            }
-        });
-    });
+  });
 }
 
 // Initialize menu on page load
-document.addEventListener('DOMContentLoaded', function() {
-    const nav = document.querySelector('nav');
-    if (nav && typeof window.activePage !== 'undefined') {
-        nav.innerHTML = generateNavMenu(window.activePage);
-        initializeMenuEvents();
-    }
+document.addEventListener("DOMContentLoaded", function () {
+  const nav = document.querySelector("nav");
+  if (nav && typeof window.activePage !== "undefined") {
+    nav.innerHTML = generateNavMenu(window.activePage);
+    initializeMenuEvents();
+  }
 });
