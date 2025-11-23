@@ -7,9 +7,10 @@
 }
 
 body { 
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
     line-height: 1.6; 
-    color: #333; 
+    color: #2d3748; 
+    background: #f7fafc; 
 }
 
 .container { 
@@ -100,14 +101,16 @@ header .container {
 
 .card { 
     background: white; 
-    border-radius: 10px; 
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
+    border-radius: 12px; 
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1); 
     padding: 2rem; 
-    transition: transform 0.3s; 
+    transition: all 0.3s ease; 
+    border: 1px solid #e2e8f0; 
 }
 
 .card:hover { 
-    transform: translateY(-5px); 
+    transform: translateY(-8px); 
+    box-shadow: 0 20px 25px rgba(0,0,0,0.1), 0 10px 10px rgba(0,0,0,0.04); 
 }
 
 .card h3 { 
@@ -140,12 +143,16 @@ header .container {
     color: white; 
     padding: 0.8rem 1.5rem; 
     text-decoration: none; 
-    border-radius: 5px; 
-    transition: background 0.3s; 
+    border-radius: 8px; 
+    transition: all 0.3s ease; 
+    font-weight: 500; 
+    box-shadow: 0 2px 4px rgba(49, 130, 206, 0.2); 
 }
 
 .btn:hover { 
     background: #2c5aa0; 
+    transform: translateY(-2px); 
+    box-shadow: 0 4px 8px rgba(49, 130, 206, 0.3); 
 }
 
 main { 
@@ -412,9 +419,18 @@ footer a {
     .container { padding: 0 15px; }
 }
 
+/* Scroll behavior and accessibility */
+html { scroll-behavior: smooth; }
+
+*:focus {
+    outline: 2px solid #4299e1;
+    outline-offset: 2px;
+}
+
 /* Performance: Reduce animations on low-end devices */
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    html { scroll-behavior: auto; }
 }
 
 /* Dark mode support */
