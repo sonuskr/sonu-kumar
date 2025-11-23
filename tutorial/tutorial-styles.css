@@ -224,13 +224,34 @@ nav {
     z-index: 100; 
 }
 
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .nav-links { 
     display: flex; 
-    justify-content: center; 
+    justify-content: flex-start; 
     list-style: none; 
     flex-wrap: wrap; 
     margin: 0; 
     padding: 0; 
+}
+
+.mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.mobile-menu-toggle:hover {
+    background: #34495e;
+    border-radius: 5px;
 }
 
 .nav-links li { 
@@ -331,10 +352,55 @@ footer a {
 @media (max-width: 768px) {
     h1 { font-size: 2rem; }
     .hero p { font-size: 1rem; }
-    .nav-links { flex-direction: column; align-items: center; }
-    .nav-links li { margin: 0.3rem 0; }
-    .nav-links a { font-size: 0.95rem; padding: 0.7rem 1rem; }
-    .dropdown-content { position: static; display: block; box-shadow: none; background: #34495e; margin-top: 0.5rem; }
+    
+    .mobile-menu-toggle {
+        display: block;
+    }
+    
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #2c3e50;
+        flex-direction: column;
+        padding: 1rem 0;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    
+    .nav-links.active {
+        display: flex;
+    }
+    
+    .nav-links li {
+        margin: 0;
+        width: 100%;
+    }
+    
+    .nav-links a {
+        display: block;
+        padding: 0.8rem 1rem;
+        border-bottom: 1px solid #34495e;
+        width: 100%;
+    }
+    
+    .dropdown-content {
+        position: static;
+        display: none;
+        box-shadow: none;
+        background: #34495e;
+        margin: 0;
+    }
+    
+    .dropdown.active .dropdown-content {
+        display: block;
+    }
+    
+    .dropdown > a::after {
+        float: right;
+    }
+    
     .card { padding: 1.5rem; }
     .topic { padding: 1.5rem; }
     .container { padding: 0 15px; }
