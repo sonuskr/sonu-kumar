@@ -12,6 +12,20 @@ function generateNavMenu(activePage = "") {
                     ☰
                 </button>
                 <ul class="nav-links" id="navLinks">
+                    <li><a href="${basePath}tutorial-index.html">Home</a></li>
+                    <li class="dropdown">
+                        <a href="#">Data Structures</a>
+                        <div class="dropdown-content">
+                            <a href="${basePath}data-structure/array-learning.html">Array</a>
+                            <a href="${basePath}data-structure/string-learning.html">String</a>
+                            <a href="${basePath}data-structure/linkedlist-learning.html">Linked List</a>
+                            <a href="${basePath}data-structure/stack-learning.html">Stack</a>
+                            <a href="${basePath}data-structure/queue-learning.html">Queue</a>
+                            <a href="${basePath}data-structure/tree-learning.html">Tree</a>
+                            <a href="${basePath}data-structure/graph-learning.html">Graph</a>
+                            <a href="${basePath}data-structure/hashmap-learning.html">HashMap</a>
+                        </div>
+                    </li>
                     <li class="dropdown">
                         <a href="#">Java</a>
                         <div class="dropdown-content">
@@ -21,6 +35,16 @@ function generateNavMenu(activePage = "") {
                             <a href="${basePath}java/java-8.html">Java 8</a>
                             <a href="${basePath}java/java-collection.html">Java Collections</a>
                             <a href="${basePath}java/java-interview.html">Java Interview</a>
+                        </div>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#">Spring</a>
+                        <div class="dropdown-content">
+                            <a href="${basePath}spring/spring-core-learning.html">Spring Core</a>
+                            <a href="${basePath}spring/spring-mvc-learning.html">Spring MVC</a>
+                            <a href="${basePath}spring/spring-boot-learning.html">Spring Boot</a>
+                            <a href="${basePath}spring/spring-security-learning.html">Spring Security</a>
+                            <a href="${basePath}spring/spring-interview.html">Spring Interview</a>
                         </div>
                     </li>
                     <li><a href="${basePath}javascript-learning.html"${
@@ -36,26 +60,14 @@ function generateNavMenu(activePage = "") {
     activePage === "react" ? ' class="active"' : ""
   }>React</a></li>
                     <li class="dropdown">
-                        <a href="#">Spring</a>
+                        <a href="#">Programs</a>
                         <div class="dropdown-content">
-                            <a href="${basePath}spring/spring-core-learning.html">Spring Core</a>
-                            <a href="${basePath}spring/spring-mvc-learning.html">Spring MVC</a>
-                            <a href="${basePath}spring/spring-boot-learning.html">Spring Boot</a>
-                            <a href="${basePath}spring/spring-security-learning.html">Spring Security</a>
-                            <a href="${basePath}spring/spring-interview.html">Spring Interview</a>
-                        </div>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#">Data Structures</a>
-                        <div class="dropdown-content">
-                            <a href="${basePath}data-structure/array-learning.html">Array</a>
-                            <a href="${basePath}data-structure/string-learning.html">String</a>
-                            <a href="${basePath}data-structure/linkedlist-learning.html">Linked List</a>
-                            <a href="${basePath}data-structure/stack-learning.html">Stack</a>
-                            <a href="${basePath}data-structure/queue-learning.html">Queue</a>
-                            <a href="${basePath}data-structure/tree-learning.html">Tree</a>
-                            <a href="${basePath}data-structure/graph-learning.html">Graph</a>
-                            <a href="${basePath}data-structure/hashmap-learning.html">HashMap</a>
+                            <a href="${basePath}programs/array-programs.html">Array Programs</a>
+                            <a href="${basePath}programs/string-programs.html">String Programs</a>
+                            <a href="${basePath}programs/logical-programs.html">Logical Programs</a>
+                            <a href="${basePath}programs/pattern-programs.html">Pattern Programs</a>
+                            <a href="${basePath}programs/number-programs.html">Number Programs</a>
+                            <a href="${basePath}programs/sorting-programs.html">Sorting Programs</a>
                         </div>
                     </li>
                     <li class="dropdown">
@@ -66,17 +78,6 @@ function generateNavMenu(activePage = "") {
                             <a href="${basePath}interview/coding-interview.html">Coding Interview</a>
                             <a href="${basePath}interview/system-design.html">System Design</a>
                             <a href="${basePath}interview/behavioral-interview.html">Behavioral Interview</a>
-                        </div>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#">Programs</a>
-                        <div class="dropdown-content">
-                            <a href="${basePath}programs/array-programs.html">Array Programs</a>
-                            <a href="${basePath}programs/string-programs.html">String Programs</a>
-                            <a href="${basePath}programs/logical-programs.html">Logical Programs</a>
-                            <a href="${basePath}programs/pattern-programs.html">Pattern Programs</a>
-                            <a href="${basePath}programs/number-programs.html">Number Programs</a>
-                            <a href="${basePath}programs/sorting-programs.html">Sorting Programs</a>
                         </div>
                     </li>
                 </ul>
