@@ -54,8 +54,317 @@
     <div class="container">
         <div class="content">
             <div class="topic">
-                <h2>Spring Interview Preparation</h2>
-                <p>Comprehensive Spring Framework interview questions covering Core, MVC, Boot, and Security concepts.</p>
+                <h2>🔥 TOP SPRING MVC INTERVIEW QUESTIONS (Most Asked)</h2>
+                
+                <div class="question">
+                    <h3>1. What is Spring MVC?</h3>
+                    <p>Spring MVC (Model–View–Controller) is a web framework for building web applications & REST APIs.</p>
+                </div>
+
+                <div class="question">
+                    <h3>2. Explain MVC architecture.</h3>
+                    <p><strong>Model:</strong> Data & business logic<br>
+                    <strong>View:</strong> UI (HTML, JSP, Thymeleaf)<br>
+                    <strong>Controller:</strong> Handles requests and returns responses</p>
+                </div>
+
+                <div class="question">
+                    <h3>3. What is DispatcherServlet?</h3>
+                    <p>The front controller in Spring MVC.<br>
+                    It receives all incoming requests and dispatches them to appropriate controllers.</p>
+                </div>
+
+                <div class="question">
+                    <h3>4. What is @Controller?</h3>
+                    <p>Used to create web controllers that return HTML views.</p>
+                </div>
+
+                <div class="question">
+                    <h3>5. What is @RestController?</h3>
+                    <p>Combination of @Controller + @ResponseBody.<br>
+                    Returns JSON instead of HTML.</p>
+                </div>
+
+                <div class="question">
+                    <h3>6. Difference: @Controller vs @RestController</h3>
+                    <table>
+                        <tr><th>@Controller</th><th>@RestController</th></tr>
+                        <tr><td>Returns HTML pages</td><td>Returns JSON</td></tr>
+                        <tr><td>Used for web apps</td><td>Used for REST APIs</td></tr>
+                    </table>
+                </div>
+
+                <div class="question">
+                    <h3>7. What is @RequestMapping?</h3>
+                    <p>Maps HTTP requests to controller methods.</p>
+                </div>
+
+                <div class="question">
+                    <h3>8. What are @GetMapping, @PostMapping?</h3>
+                    <p>Specialized versions of @RequestMapping for specific HTTP methods.</p>
+                </div>
+
+                <div class="question">
+                    <h3>9. What is @PathVariable?</h3>
+                    <p>Extracts values from the URL.</p>
+                    <pre><code>@GetMapping("/users/{id}")
+public User getUser(@PathVariable int id) { }</code></pre>
+                </div>
+
+                <div class="question">
+                    <h3>10. What is @RequestParam?</h3>
+                    <p>Extracts query parameters.</p>
+                    <pre><code>@GetMapping("/search")
+public String search(@RequestParam String keyword) { }</code></pre>
+                </div>
+
+                <div class="question">
+                    <h3>11. What is Model?</h3>
+                    <p>Used to send data from controller to view.</p>
+                    <pre><code>model.addAttribute("msg", "Hello");</code></pre>
+                </div>
+
+                <div class="question">
+                    <h3>12. What is ModelAndView?</h3>
+                    <p>Object that carries both model data and view name.</p>
+                </div>
+
+                <div class="question">
+                    <h3>13. What is ViewResolver?</h3>
+                    <p>Resolves logical view names to actual view files.<br>
+                    <strong>Example:</strong> home → home.html or home.jsp</p>
+                </div>
+
+                <div class="question">
+                    <h3>14. What is InternalResourceViewResolver?</h3>
+                    <p>Used to resolve JSP files.</p>
+                </div>
+
+                <div class="question">
+                    <h3>15. What is @ResponseBody?</h3>
+                    <p>Tells Spring to return JSON instead of a view.</p>
+                </div>
+
+                <div class="question">
+                    <h3>16. What is form validation in Spring MVC?</h3>
+                    <p>Use: @Valid and BindingResult</p>
+                    <pre><code>@PostMapping("/save")
+public String save(@Valid User user, BindingResult result) { }</code></pre>
+                </div>
+
+                <div class="question">
+                    <h3>17. What is @ModelAttribute?</h3>
+                    <p>Binds form data to a model object.</p>
+                </div>
+
+                <div class="question">
+                    <h3>18. What is @InitBinder?</h3>
+                    <p>Customizes how data is bound (e.g., date formats).</p>
+                </div>
+
+                <div class="question">
+                    <h3>19. Difference between @RequestBody and @ModelAttribute?</h3>
+                    <table>
+                        <tr><th>@RequestBody</th><th>@ModelAttribute</th></tr>
+                        <tr><td>Reads JSON</td><td>Reads form data</td></tr>
+                        <tr><td>Used for REST APIs</td><td>Used for MVC forms</td></tr>
+                    </table>
+                </div>
+
+                <div class="question">
+                    <h3>20. What is HandlerInterceptor?</h3>
+                    <p>Used for pre-processing and post-processing logic (logging, auth).</p>
+                </div>
+
+                <div class="question">
+                    <h3>21. What is Exception Handling in Spring MVC?</h3>
+                    <p>Three ways:<br>
+                    • @ExceptionHandler<br>
+                    • @ControllerAdvice<br>
+                    • @RestControllerAdvice</p>
+                </div>
+
+                <div class="question">
+                    <h3>22. How to handle global exceptions?</h3>
+                    <p>Using: @RestControllerAdvice</p>
+                </div>
+
+                <div class="question">
+                    <h3>23. What is FlashAttribute?</h3>
+                    <p>Used to send data during redirects.</p>
+                </div>
+
+                <div class="question">
+                    <h3>24. What is the role of Web.xml in Spring MVC?</h3>
+                    <p>Old style configuration of DispatcherServlet (not required in Spring Boot).</p>
+                </div>
+
+                <div class="question">
+                    <h3>25. Can Spring MVC return JSON?</h3>
+                    <p>Yes → using @RestController or @ResponseBody.</p>
+                </div>
+
+                <div class="question">
+                    <h3>26. What is Jackson in Spring MVC?</h3>
+                    <p>Library used for JSON serialization & deserialization.</p>
+                </div>
+
+                <div class="question">
+                    <h3>27. What is @CrossOrigin?</h3>
+                    <p>Enables CORS support for APIs.</p>
+                </div>
+
+                <div class="question">
+                    <h3>28. What is BindingResult?</h3>
+                    <p>Captures validation errors when using @Valid.</p>
+                </div>
+
+                <div class="question">
+                    <h3>29. Difference between @RequestBody and @ResponseBody?</h3>
+                    <p>@RequestBody → Converts JSON → Java object<br>
+                    @ResponseBody → Converts Java → JSON</p>
+                </div>
+
+                <div class="question">
+                    <h3>30. What is ResourceHandler?</h3>
+                    <p>Used to expose static resources like images, CSS, JS.</p>
+                </div>
+
+                <h2>🟦 ADVANCED SPRING MVC QUESTIONS (31–50)</h2>
+
+                <div class="question">
+                    <h3>31. What is HandlerMapping?</h3>
+                    <p>Maps HTTP requests to handler/controller methods.</p>
+                </div>
+
+                <div class="question">
+                    <h3>32. What is HandlerAdapter?</h3>
+                    <p>Executes the appropriate controller method.</p>
+                </div>
+
+                <div class="question">
+                    <h3>33. What is HttpMessageConverter?</h3>
+                    <p>Converts HTTP request/response to/from Java objects.<br>
+                    <strong>Examples:</strong><br>
+                    • MappingJackson2HttpMessageConverter (JSON)<br>
+                    • StringHttpMessageConverter</p>
+                </div>
+
+                <div class="question">
+                    <h3>34. How do you customize JSON output?</h3>
+                    <p>Using @JsonIgnore, @JsonProperty, @JsonInclude.</p>
+                </div>
+
+                <div class="question">
+                    <h3>35. What is a multipart file in Spring?</h3>
+                    <p>Uploading a file using MultipartResolver.</p>
+                </div>
+
+                <div class="question">
+                    <h3>36. How to upload file in Spring MVC?</h3>
+                    <p>Using: MultipartFile file</p>
+                </div>
+
+                <div class="question">
+                    <h3>37. What is Simpler than Spring MVC?</h3>
+                    <p>Spring Boot (auto-configured Spring MVC).</p>
+                </div>
+
+                <div class="question">
+                    <h3>38. Difference between Spring MVC and Servlet?</h3>
+                    <table>
+                        <tr><th>Servlet</th><th>Spring MVC</th></tr>
+                        <tr><td>Low level</td><td>High level</td></tr>
+                        <tr><td>Manual parsing</td><td>Auto-parses</td></tr>
+                        <tr><td>One servlet = one class</td><td>Many controllers possible</td></tr>
+                    </table>
+                </div>
+
+                <div class="question">
+                    <h3>39. Can we mix JSP + Thymeleaf?</h3>
+                    <p>Not recommended.</p>
+                </div>
+
+                <div class="question">
+                    <h3>40. What is HiddenHttpMethodFilter?</h3>
+                    <p>Allows PUT/DELETE methods from HTML forms.</p>
+                </div>
+
+                <div class="question">
+                    <h3>41. What is ViewControllerRegistry?</h3>
+                    <p>Maps static pages without controller.</p>
+                </div>
+
+                <div class="question">
+                    <h3>42. What is @SessionAttributes?</h3>
+                    <p>Stores attribute in session.</p>
+                </div>
+
+                <div class="question">
+                    <h3>43. What is @CookieValue?</h3>
+                    <p>Reads cookie values.</p>
+                </div>
+
+                <div class="question">
+                    <h3>44. What is Content Negotiation?</h3>
+                    <p>Returning response based on required format:<br>
+                    • JSON<br>
+                    • XML<br>
+                    • HTML</p>
+                </div>
+
+                <div class="question">
+                    <h3>45. What are RESTful constraints?</h3>
+                    <p>• Stateless<br>
+                    • Uniform interface<br>
+                    • Client-server<br>
+                    • Cacheable<br>
+                    • Layered</p>
+                </div>
+
+                <div class="question">
+                    <h3>46. What is ETag in Spring MVC?</h3>
+                    <p>Used for caching and versioning of responses.</p>
+                </div>
+
+                <div class="question">
+                    <h3>47. What is difference between Spring MVC and WebFlux?</h3>
+                    <table>
+                        <tr><th>MVC</th><th>WebFlux</th></tr>
+                        <tr><td>Synchronous</td><td>Asynchronous</td></tr>
+                        <tr><td>Servlet API</td><td>Reactive</td></tr>
+                        <tr><td>Blocking</td><td>Non-blocking</td></tr>
+                    </table>
+                </div>
+
+                <div class="question">
+                    <h3>48. What is @RequestHeader?</h3>
+                    <p>Reads HTTP headers.</p>
+                </div>
+
+                <div class="question">
+                    <h3>49. What is Content-Type?</h3>
+                    <p>Determines request body format (JSON/XML/Form).</p>
+                </div>
+
+                <div class="question">
+                    <h3>50. Why Spring MVC is popular?</h3>
+                    <p>• Easy to build REST APIs<br>
+                    • Loose coupling<br>
+                    • AOP support<br>
+                    • Integration with Spring Boot<br>
+                    • Flexible annotations</p>
+                </div>
+
+                <div class="next-topics">
+                    <h2>🎯 Want next?</h2>
+                    <p>Choose one:</p>
+                    <ul>
+                        <li>1️⃣ Spring Security + JWT Interview Questions</li>
+                        <li>2️⃣ Microservices + Spring Cloud Interview Questions</li>
+                        <li>3️⃣ REST API Interview Questions</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

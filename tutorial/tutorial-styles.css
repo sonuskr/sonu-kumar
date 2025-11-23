@@ -440,9 +440,225 @@ html { scroll-behavior: smooth; }
     html { scroll-behavior: auto; }
 }
 
+/* Interview Questions Specific Styles */
+.question {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border-left: 4px solid #48bb78;
+    transition: all 0.3s ease;
+}
+
+.question:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1), 0 4px 6px rgba(0,0,0,0.05);
+    border-left-color: #38a169;
+}
+
+.question h3 {
+    color: #2d3748;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.question p {
+    color: #4a5568;
+    line-height: 1.7;
+    margin-bottom: 0.5rem;
+}
+
+.question pre {
+    background: #2d3748;
+    color: #e2e8f0;
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+    border: 1px solid #4a5568;
+}
+
+.question code {
+    font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+    font-size: 0.9rem;
+}
+
+.question table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    background: #f7fafc;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.question table th {
+    background: #4299e1;
+    color: white;
+    padding: 0.8rem;
+    text-align: left;
+    font-weight: 600;
+}
+
+.question table td {
+    padding: 0.8rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.question table tr:last-child td {
+    border-bottom: none;
+}
+
+.question table tr:nth-child(even) {
+    background: #f8f9fa;
+}
+
+.question strong {
+    color: #2d3748;
+    font-weight: 600;
+}
+
+.next-topics {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 10px;
+    padding: 1.2rem;
+    margin: 2rem 0;
+    text-align: center;
+    box-shadow: 0 6px 15px rgba(102, 126, 234, 0.2);
+}
+
+.next-topics h2 {
+    color: white;
+    margin-bottom: 0.8rem;
+    font-size: 1.3rem;
+}
+
+.next-topics p {
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+.next-topics ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.8rem;
+    margin-top: 1rem;
+}
+
+.next-topics li {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 0.7rem;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.next-topics li:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+}
+
+/* Section Headers */
+.topic h2 {
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    color: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    margin: 2rem 0;
+    font-size: 1.8rem;
+    box-shadow: 0 4px 15px rgba(72, 187, 120, 0.3);
+}
+
+/* Advanced section styling */
+.topic h2:contains("ADVANCED") {
+    background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);
+    box-shadow: 0 4px 15px rgba(66, 153, 225, 0.3);
+}
+
+/* Responsive adjustments for interview questions */
+@media (max-width: 768px) {
+    .question {
+        padding: 1rem;
+        margin: 1rem 0;
+    }
+    
+    .question h3 {
+        font-size: 1.1rem;
+    }
+    
+    .question table {
+        font-size: 0.9rem;
+    }
+    
+    .question table th,
+    .question table td {
+        padding: 0.6rem;
+    }
+    
+    .next-topics {
+        padding: 1rem;
+    }
+    
+    .next-topics ul {
+        grid-template-columns: 1fr;
+    }
+    
+    .next-topics li {
+        padding: 0.6rem;
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .question pre {
+        font-size: 0.8rem;
+        padding: 0.8rem;
+    }
+    
+    .question table {
+        font-size: 0.8rem;
+    }
+}
+
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {
     body { background-color: #1a1a1a; color: #e0e0e0; }
     .card, .topic { background: #2d2d2d; color: #e0e0e0; }
     .topic h2 { color: #ffffff; }
+    
+    .question {
+        background: #2d2d2d;
+        border-left-color: #48bb78;
+    }
+    
+    .question h3 {
+        color: #e2e8f0;
+    }
+    
+    .question p {
+        color: #cbd5e0;
+    }
+    
+    .question table {
+        background: #1a202c;
+    }
+    
+    .question table tr:nth-child(even) {
+        background: #2d3748;
+    }
 }
