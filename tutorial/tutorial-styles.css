@@ -364,7 +364,8 @@ footer a {
 /* Mobile Optimizations */
 @media (max-width: 768px) {
     h1 { font-size: 2rem; }
-    .hero p { font-size: 1rem; }
+    .hero h1 { font-size: 1.8rem; }
+    .hero p { font-size: 0.9rem; }
     
     .mobile-menu-toggle {
         display: block;
@@ -417,6 +418,12 @@ footer a {
     .card { padding: 1.5rem; }
     .topic { padding: 1.5rem; }
     .container { padding: 0 15px; }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+    .hero h1 { font-size: 1.5rem; }
+    .hero p { font-size: 0.8rem; }
 }
 
 /* Scroll behavior and accessibility */

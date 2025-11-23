@@ -6,24 +6,53 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="dns-prefetch" href="https://fonts.gstatic.com">
     <title>HashMap Data Structure - Sonu Kumar</title>
+    <link rel="stylesheet" href="../tutorial-styles.css">
 </head>
 <body class="page-hashmap">
     <header>
         <div class="container">
-            <h1>HashMap Data Structure</h1>
-            <p>Master HashMap Operations & Hash Algorithms</p>
+            <div class="hero">
+                <h1>HashMap Data Structure</h1>
+                <p>Master HashMap Operations & Hash Algorithms</p>
+            </div>
         </div>
     </header>
     <nav>
         <div class="container">
-            <ul class="nav-links">
-                <li><a href="../tutorial-index.html">Home</a></li>
-                <li><a href="tree-learning.html">Tree</a></li>
-                <li><a href="graph-learning.html">Graph</a></li>
-                <li><a href="hashmap-learning.html">HashMap</a></li>
-            </ul>
+            <div class="nav-container">
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                    ☰
+                </button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="../tutorial-index.html">Home</a></li>
+                    <li><a href="array-learning.html">Array</a></li>
+                    <li><a href="string-learning.html">String</a></li>
+                    <li><a href="linkedlist-learning.html">Linked List</a></li>
+                    <li><a href="stack-learning.html">Stack</a></li>
+                    <li><a href="queue-learning.html">Queue</a></li>
+                    <li><a href="tree-learning.html">Tree</a></li>
+                    <li><a href="graph-learning.html">Graph</a></li>
+                    <li><a href="hashmap-learning.html" class="active">HashMap</a></li>
+                </ul>
+            </div>
         </div>
     </nav>
+    
+    <script>
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+        
+        document.addEventListener('click', function(event) {
+            const nav = document.querySelector('nav');
+            const navLinks = document.getElementById('navLinks');
+            
+            if (!nav.contains(event.target)) {
+                navLinks.classList.remove('active');
+            }
+        });
+    </script>
     <div class="container">
         <div class="content">
             <div class="topic">
