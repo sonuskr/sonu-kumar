@@ -635,6 +635,84 @@ html { scroll-behavior: smooth; }
     }
 }
 
+/* Tab Styles */
+.tabs {
+    display: flex;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 0.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    gap: 0.5rem;
+}
+
+.tab-button {
+    background: transparent;
+    border: 1px solid #e2e8f0;
+    padding: 0.6rem 1.2rem;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #6b7280;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.tab-button:hover {
+    color: #374151;
+    background: #f8f9fa;
+    border-color: #cbd5e0;
+    transform: translateY(-1px);
+}
+
+.tab-button.active {
+    color: white;
+    background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    box-shadow: 0 4px 12px rgba(72, 187, 120, 0.3);
+    transform: translateY(-2px);
+}
+
+.tab-content {
+    display: none;
+    animation: fadeIn 0.3s ease-in;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive tabs */
+@media (max-width: 768px) {
+    .tabs {
+        padding: 0.3rem;
+        gap: 0.3rem;
+    }
+    
+    .tab-button {
+        padding: 0.7rem 1rem;
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .tabs {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .tab-button {
+        padding: 0.8rem;
+        font-size: 0.9rem;
+    }
+}
+
 /* Dark mode support */
 @media (prefers-color-scheme: dark) {
     body { background-color: #1a1a1a; color: #e0e0e0; }
@@ -660,5 +738,24 @@ html { scroll-behavior: smooth; }
     
     .question table tr:nth-child(even) {
         background: #2d3748;
+    }
+    
+    .tabs {
+        background: #2d3748;
+    }
+    
+    .tab-button {
+        color: #cbd5e0;
+    }
+    
+    .tab-button:hover {
+        color: #e2e8f0;
+        background: rgba(45, 55, 72, 0.7);
+    }
+    
+    .tab-button.active {
+        color: white;
+        background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+        box-shadow: 0 4px 12px rgba(72, 187, 120, 0.4);
     }
 }
