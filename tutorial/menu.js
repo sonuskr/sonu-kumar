@@ -24,6 +24,7 @@ function generateNavMenu(activePage = "") {
                             <a href="${basePath}data-structure/tree-learning.html">Tree</a>
                             <a href="${basePath}data-structure/graph-learning.html">Graph</a>
                             <a href="${basePath}data-structure/hashmap-learning.html">HashMap</a>
+                            <a href="${basePath}data-structure/searching-algorithms.html">Searching Algorithms</a>
                         </div>
                     </li>
                     <li class="dropdown">
@@ -34,6 +35,7 @@ function generateNavMenu(activePage = "") {
                             <a href="${basePath}java/java-exception.html">Java Exception</a>
                             <a href="${basePath}java/java-8.html">Java 8</a>
                             <a href="${basePath}java/java-collection.html">Java Collections</a>
+                            <a href="${basePath}java/multithreading-learning.html">Java Multithreading</a>
                             <a href="${basePath}java/java-interview.html">Java Interview</a>
                         </div>
                     </li>

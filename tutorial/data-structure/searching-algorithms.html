@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <title>Searching Algorithms - Sonu Kumar</title>
+    <link rel="stylesheet" href="../tutorial-styles.css" />
+    <link rel="icon" type="image/svg+xml" href="../../favicon.svg">
+  </head>
+  <body class="page-searching">
+    <header>
+      <div class="container">
+        <div class="hero">
+          <h1>Searching Algorithms</h1>
+          <p>Master Linear & Binary Search Techniques</p>
+        </div>
+      </div>
+    </header>
+    <nav></nav>
+    <script>window.activePage = "datastructure";</script>
+    <script src="../menu.js"></script>
+    <script src="../theme-selector.js"></script>    
+    <div class="breadcrumb">
+        <div class="container">
+            <ol>
+                <li><a href="../tutorial-index.html">Home</a></li>
+                <li><a href="../tutorial-index.html#data-structures">Data Structures</a></li>
+                <li>Searching Algorithms</li>
+            </ol>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="content-with-sidebar">
+            <div class="sidebar-toc">
+                <div class="toc-header">
+                    <h2>📚 Table of Contents</h2>
+                </div>
+                <nav class="toc-nav">
+                    <ul>
+                        <li><a href="#what-is-searching">What is Searching?</a></li>
+                        <li><a href="#linear-search">Linear Search</a></li>
+                        <li><a href="#binary-search">Binary Search</a></li>
+                        <li><a href="#time-complexity">Time Complexity</a></li>
+                        <li><a href="#implementations">Implementations</a></li>
+                        <li><a href="#problems">Interview Problems</a></li>
+                        <li><a href="#examples">Code Examples</a></li>
+                        <li><a href="#comparison">Algorithm Comparison</a></li>
+                        <li><a href="#summary">Summary</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="main-content">
+                <div class="topic">
+                    <h1>Searching Algorithms - Complete Guide</h1>
+
+                <section id="what-is-searching" class="section">
+                    <h2>🚀 What is Searching?</h2>
+                    <p>Searching is the process of finding a particular element in a collection of data. It's one of the most fundamental operations in computer science.</p>
+                </section>
+
+                <section id="linear-search" class="section">
+                    <h2>📊 Linear Search</h2>
+                    <p>Linear search checks each element sequentially until the target is found or the end is reached.</p>
+                    <ul>
+                        <li><strong>Time Complexity:</strong> O(n)</li>
+                        <li><strong>Space Complexity:</strong> O(1)</li>
+                        <li><strong>Works on:</strong> Sorted and unsorted arrays</li>
+                        <li><strong>Best Case:</strong> O(1) - Element at first position</li>
+                        <li><strong>Worst Case:</strong> O(n) - Element at last position or not found</li>
+                    </ul>
+                </section>
+
+                <section id="binary-search" class="section">
+                    <h2>⚡ Binary Search</h2>
+                    <p>Binary search divides the search space in half with each comparison, requiring a sorted array.</p>
+                    <ul>
+                        <li><strong>Time Complexity:</strong> O(log n)</li>
+                        <li><strong>Space Complexity:</strong> O(1) iterative, O(log n) recursive</li>
+                        <li><strong>Prerequisite:</strong> Array must be sorted</li>
+                        <li><strong>Best Case:</strong> O(1) - Element at middle</li>
+                        <li><strong>Worst Case:</strong> O(log n)</li>
+                    </ul>
+                </section>
+
+                <section id="time-complexity" class="section">
+                    <h2>⏱️ Time Complexity Comparison</h2>
+                    <ul>
+                        <li><strong>Linear Search:</strong> O(n) - Checks every element</li>
+                        <li><strong>Binary Search:</strong> O(log n) - Eliminates half each time</li>
+                        <li><strong>For 1 million elements:</strong> Linear: 1M operations, Binary: 20 operations</li>
+                    </ul>
+                </section>
+
+                <section id="implementations" class="section">
+                    <h2>🔧 Java Implementations</h2>
+                    
+                    <div class="subsection">
+                        <h3>Linear Search</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">
+public static int linearSearch(int[] arr, int target) {
+    for (int i = 0; i < arr.length; i++) {
+        if (arr[i] == target) {
+            return i;  // Found at index i
+        }
+    }
+    return -1;  // Not found
+}
+
+// Usage
+int[] numbers = {5, 2, 8, 1, 9, 3};
+int index = linearSearch(numbers, 8);  // Returns 2
+                            </code></pre>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Binary Search (Iterative)</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">
+public static int binarySearch(int[] arr, int target) {
+    int left = 0, right = arr.length - 1;
+    
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        
+        if (arr[mid] == target) {
+            return mid;  // Found
+        }
+        
+        if (arr[mid] < target) {
+            left = mid + 1;  // Search right half
+        } else {
+            right = mid - 1;  // Search left half
+        }
+    }
+    return -1;  // Not found
+}
+
+// Usage
+int[] sortedNumbers = {1, 2, 3, 5, 8, 9};
+int index = binarySearch(sortedNumbers, 5);  // Returns 3
+                            </code></pre>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>Binary Search (Recursive)</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">
+public static int binarySearchRecursive(int[] arr, int target, int left, int right) {
+    if (left > right) {
+        return -1;  // Not found
+    }
+    
+    int mid = left + (right - left) / 2;
+    
+    if (arr[mid] == target) {
+        return mid;  // Found
+    }
+    
+    if (arr[mid] > target) {
+        return binarySearchRecursive(arr, target, left, mid - 1);
+    } else {
+        return binarySearchRecursive(arr, target, mid + 1, right);
+    }
+}
+
+// Wrapper method
+public static int binarySearch(int[] arr, int target) {
+    return binarySearchRecursive(arr, target, 0, arr.length - 1);
+}
+                            </code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="problems" class="section">
+                    <h2>❓ Common Interview Problems</h2>
+                    <ul>
+                        <li><strong>Find First/Last Occurrence:</strong> Binary search variations</li>
+                        <li><strong>Search in Rotated Array:</strong> Modified binary search</li>
+                        <li><strong>Find Peak Element:</strong> Binary search on unsorted array</li>
+                        <li><strong>Search 2D Matrix:</strong> Treat as 1D sorted array</li>
+                        <li><strong>Find Missing Number:</strong> Binary search approach</li>
+                        <li><strong>Square Root:</strong> Binary search on answer</li>
+                    </ul>
+                </section>
+
+                <section id="examples" class="section">
+                    <h2>💻 Example: Search in Rotated Sorted Array</h2>
+                    
+                    <div class="subsection">
+                        <h3>Problem Solution</h3>
+                        <div class="code-block">
+                            <pre><code class="language-java">
+public static int searchRotated(int[] nums, int target) {
+    int left = 0, right = nums.length - 1;
+    
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        
+        if (nums[mid] == target) {
+            return mid;
+        }
+        
+        // Left half is sorted
+        if (nums[left] <= nums[mid]) {
+            if (target >= nums[left] && target < nums[mid]) {
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        // Right half is sorted
+        else {
+            if (target > nums[mid] && target <= nums[right]) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+    }
+    return -1;
+}
+
+// Example: [4,5,6,7,0,1,2], target = 0 → returns 4
+                            </code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="comparison" class="section">
+                    <h2>⚖️ Algorithm Comparison</h2>
+                    
+                    <div class="dos-donts">
+                        <div class="dos">
+                            <h3>✅ Linear Search</h3>
+                            <ul>
+                                <li>Works on unsorted data</li>
+                                <li>Simple implementation</li>
+                                <li>No preprocessing needed</li>
+                                <li>Good for small datasets</li>
+                            </ul>
+                        </div>
+                        <div class="donts">
+                            <h3>⚡ Binary Search</h3>
+                            <ul>
+                                <li>Much faster O(log n)</li>
+                                <li>Efficient for large datasets</li>
+                                <li>Requires sorted array</li>
+                                <li>More complex implementation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="summary" class="section">
+                    <h2>📋 Summary</h2>
+                    <p>Choose Linear Search for unsorted data or small datasets. Use Binary Search for large sorted datasets where O(log n) performance is crucial. Binary search is a powerful divide-and-conquer algorithm that forms the basis for many advanced searching techniques.</p>
+                </section>
+
+                <section id="most-asked-algorithms" class="section">
+                    <h2>🔥 Most Asked Algorithms in Interviews</h2>
+                    
+                    <div class="subsection">
+                        <h3>TOP 10 MUST-KNOW ALGORITHMS</h3>
+                        
+                        <h4>1. Two Pointers</h4>
+                        <p><strong>What it does:</strong> Uses two pointers moving towards each other or in same direction to solve problems efficiently.</p>
+                        <p><strong>How it works:</strong> Start with pointers at different positions, move them based on conditions until they meet or cross.</p>
+                        <p><strong>Time Complexity:</strong> O(n) | <strong>Space:</strong> O(1)</p>
+                        <div class="code-block">
+                            <pre><code class="language-java">
+// Two Sum (Sorted Array)
+public int[] twoSum(int[] nums, int target) {
+    int left = 0, right = nums.length - 1;
+    while (left < right) {
+        int sum = nums[left] + nums[right];
+        if (sum == target) return new int[]{left, right};
+        else if (sum < target) left++;  // Need larger sum
+        else right--;                   // Need smaller sum
+    }
+    return new int[]{};
+}
+                            </code></pre>
+                        </div>
+
+                        <h4>2. Sliding Window</h4>
+                        <p><strong>What it does:</strong> Maintains a window of elements and slides it to find optimal subarray/substring.</p>
+                        <p><strong>How it works:</strong> Expand window by moving right pointer, shrink by moving left pointer when condition is violated.</p>
+                        <p><strong>Time Complexity:</strong> O(n) | <strong>Space:</strong> O(k) where k is window size</p>
+                        <div class="code-block">
+                            <pre><code class="language-java">
+// Longest Substring Without Repeating Characters
+public int lengthOfLongestSubstring(String s) {
+    Set<Character> window = new HashSet<>();
+    int left = 0, maxLen = 0;
+    
+    for (int right = 0; right < s.length(); right++) {
+        // Shrink window until no duplicates
+        while (window.contains(s.charAt(right))) {
+            window.remove(s.charAt(left++));
+        }
+        window.add(s.charAt(right));
+        maxLen = Math.max(maxLen, right - left + 1);
+    }
+    return maxLen;
+}
+                            </code></pre>
+                        </div>
+
+                        <h4>3. DFS (Depth-First Search)</h4>
+                        <p><strong>What it does:</strong> Explores as far as possible along each branch before backtracking.</p>
+                        <p><strong>How it works:</strong> Uses recursion or stack to go deep into one path, then backtracks to explore other paths.</p>
+                        <p><strong>Time Complexity:</strong> O(V + E) | <strong>Space:</strong> O(V) for recursion stack</p>
+                        <div class="code-block">
+                            <pre><code class="language-java">
+// Tree DFS - Preorder Traversal
+public void dfs(TreeNode root, List<Integer> result) {
+    if (root == null) return;
+    
+    result.add(root.val);    // Process current node
+    dfs(root.left, result);  // Go left first
+    dfs(root.right, result); // Then right
+}
+
+// Graph DFS
+public void dfsGraph(int node, boolean[] visited, List<List<Integer>> adj) {
+    visited[node] = true;
+    System.out.println(node);
+    
+    for (int neighbor : adj.get(node)) {
+        if (!visited[neighbor]) {
+            dfsGraph(neighbor, visited, adj);
+        }
+    }
+}
+                            </code></pre>
+                        </div>
+
+                        <h4>4. BFS (Breadth-First Search)</h4>
+                        <p><strong>What it does:</strong> Explores all neighbors at current depth before moving to next depth level.</p>
+                        <p><strong>How it works:</strong> Uses queue to process nodes level by level, guarantees shortest path in unweighted graphs.</p>
+                        <p><strong>Time Complexity:</strong> O(V + E) | <strong>Space:</strong> O(V) for queue</p>
+                        <div class="code-block">
+                            <pre><code class="language-java">
+// Tree BFS - Level Order Traversal
+public List<List<Integer>> levelOrder(TreeNode root) {
+    List<List<Integer>> result = new ArrayList<>();
+    if (root == null) return result;
+    
+    Queue<TreeNode> queue = new LinkedList<>();
+    queue.offer(root);
+    
+    while (!queue.isEmpty()) {
+        int levelSize = queue.size();
+        List<Integer> level = new ArrayList<>();
+        
+        for (int i = 0; i < levelSize; i++) {
+            TreeNode node = queue.poll();
+            level.add(node.val);
+            
+            if (node.left != null) queue.offer(node.left);
+            if (node.right != null) queue.offer(node.right);
+        }
+        result.add(level);
+    }
+    return result;
+}
+                            </code></pre>
+                        </div>
+
+                        <h4>5. Dynamic Programming</h4>
+                        <p><strong>What it does:</strong> Solves complex problems by breaking into simpler subproblems and storing results.</p>
+                        <p><strong>How it works:</strong> Identifies overlapping subproblems, stores solutions in table to avoid recomputation.</p>
+                        <p><strong>Time Complexity:</strong> Varies | <strong>Space:</strong> O(n) for memoization table</p>
+                        <div class="code-block">
+                            <pre><code class="language-java">
+// Fibonacci - Bottom Up DP
+public int fib(int n) {
+    if (n <= 1) return n;
+    
+    int[] dp = new int[n + 1];
+    dp[0] = 0; dp[1] = 1;
+    
+    for (int i = 2; i <= n; i++) {
+        dp[i] = dp[i-1] + dp[i-2];  // Use previous results
+    }
+    return dp[n];
+}
+
+// Coin Change - Classic DP
+public int coinChange(int[] coins, int amount) {
+    int[] dp = new int[amount + 1];
+    Arrays.fill(dp, amount + 1);
+    dp[0] = 0;
+    
+    for (int i = 1; i <= amount; i++) {
+        for (int coin : coins) {
+            if (coin <= i) {
+                dp[i] = Math.min(dp[i], dp[i - coin] + 1);
+            }
+        }
+    }
+    return dp[amount] > amount ? -1 : dp[amount];
+}
+                            </code></pre>
+                        </div>
+
+                        <h4>6. Merge Sort</h4>
+                        <p><strong>What it does:</strong> Divides array into halves, sorts them separately, then merges sorted halves.</p>
+                        <p><strong>How it works:</strong> Divide-and-conquer approach, recursively splits until single elements, then merges back.</p>
+                        <p><strong>Time Complexity:</strong> O(n log n) | <strong>Space:</strong> O(n) for temporary arrays</p>
+                        <div class="code-block">
+                            <pre><code class="language-java">
+public void mergeSort(int[] arr, int left, int right) {
+    if (left < right) {
+        int mid = left + (right - left) / 2;
+        
+        mergeSort(arr, left, mid);      // Sort left half
+        mergeSort(arr, mid + 1, right); // Sort right half
+        merge(arr, left, mid, right);   // Merge sorted halves
+    }
+}
+
+private void merge(int[] arr, int left, int mid, int right) {
+    int[] temp = new int[right - left + 1];
+    int i = left, j = mid + 1, k = 0;
+    
+    // Merge two sorted halves
+    while (i <= mid && j <= right) {
+        if (arr[i] <= arr[j]) temp[k++] = arr[i++];
+        else temp[k++] = arr[j++];
+    }
+    
+    while (i <= mid) temp[k++] = arr[i++];
+    while (j <= right) temp[k++] = arr[j++];
+    
+    System.arraycopy(temp, 0, arr, left, temp.length);
+}
+                            </code></pre>
+                        </div>
+
+                        <h4>7. Quick Sort</h4>
+                        <p><strong>What it does:</strong> Picks pivot element, partitions array around pivot, recursively sorts partitions.</p>
+                        <p><strong>How it works:</strong> Choose pivot, move smaller elements left, larger right, then sort both sides.</p>
+                        <p><strong>Time Complexity:</strong> O(n log n) average, O(n²) worst | <strong>Space:</strong> O(log n)</p>
+                        <div class="code-block">
+                            <pre><code class="language-java">
+public void quickSort(int[] arr, int low, int high) {
+    if (low < high) {
+        int pi = partition(arr, low, high);  // Partition index
+        
+        quickSort(arr, low, pi - 1);   // Sort left of pivot
+        quickSort(arr, pi + 1, high);  // Sort right of pivot
+    }
+}
+
+private int partition(int[] arr, int low, int high) {
+    int pivot = arr[high];  // Choose last element as pivot
+    int i = low - 1;
+    
+    for (int j = low; j < high; j++) {
+        if (arr[j] < pivot) {
+            i++;
+            swap(arr, i, j);  // Move smaller elements left
+        }
+    }
+    swap(arr, i + 1, high);  // Place pivot in correct position
+    return i + 1;
+}
+                            </code></pre>
+                        </div>
+
+                        <h4>8. Backtracking</h4>
+                        <p><strong>What it does:</strong> Explores all possible solutions by making choices and undoing them if they don't work.</p>
+                        <p><strong>How it works:</strong> Make a choice, explore recursively, if no solution found, backtrack and try next choice.</p>
+                        <p><strong>Time Complexity:</strong> Exponential (varies by problem) | <strong>Space:</strong> O(depth)</p>
+                        <div class="code-block">
+                            <pre><code class="language-java">
+// Generate all permutations
+public List<List<Integer>> permute(int[] nums) {
+    List<List<Integer>> result = new ArrayList<>();
+    backtrack(result, new ArrayList<>(), nums);
+    return result;
+}
+
+private void backtrack(List<List<Integer>> result, List<Integer> current, int[] nums) {
+    // Base case: permutation complete
+    if (current.size() == nums.length) {
+        result.add(new ArrayList<>(current));
+        return;
+    }
+    
+    for (int num : nums) {
+        if (current.contains(num)) continue;  // Skip used numbers
+        
+        current.add(num);                     // Make choice
+        backtrack(result, current, nums);     // Explore
+        current.remove(current.size() - 1);   // Backtrack
+    }
+}
+                            </code></pre>
+                        </div>
+
+                        <h4>9. Union-Find (Disjoint Set)</h4>
+                        <p><strong>What it does:</strong> Efficiently tracks connected components and supports union/find operations.</p>
+                        <p><strong>How it works:</strong> Each element points to parent, path compression and union by rank optimize operations.</p>
+                        <p><strong>Time Complexity:</strong> O(α(n)) amortized | <strong>Space:</strong> O(n)</p>
+                        <div class="code-block">
+                            <pre><code class="language-java">
+class UnionFind {
+    int[] parent, rank;
+    int components;
+    
+    public UnionFind(int n) {
+        parent = new int[n];
+        rank = new int[n];
+        components = n;
+        for (int i = 0; i < n; i++) parent[i] = i;  // Each node is its own parent
+    }
+    
+    // Find with path compression
+    public int find(int x) {
+        if (parent[x] != x) {
+            parent[x] = find(parent[x]);  // Path compression
+        }
+        return parent[x];
+    }
+    
+    // Union by rank
+    public boolean union(int x, int y) {
+        int rootX = find(x), rootY = find(y);
+        if (rootX == rootY) return false;  // Already connected
+        
+        // Union by rank for efficiency
+        if (rank[rootX] < rank[rootY]) parent[rootX] = rootY;
+        else if (rank[rootX] > rank[rootY]) parent[rootY] = rootX;
+        else { parent[rootY] = rootX; rank[rootX]++; }
+        
+        components--;
+        return true;
+    }
+}
+                            </code></pre>
+                        </div>
+
+                        <h4>10. Dijkstra's Algorithm</h4>
+                        <p><strong>What it does:</strong> Finds shortest path from source to all other vertices in weighted graph.</p>
+                        <p><strong>How it works:</strong> Uses priority queue to always process closest unvisited vertex, updates distances to neighbors.</p>
+                        <p><strong>Time Complexity:</strong> O((V + E) log V) | <strong>Space:</strong> O(V)</p>
+                        <div class="code-block">
+                            <pre><code class="language-java">
+public int[] dijkstra(List<List<int[]>> graph, int src) {
+    int n = graph.size();
+    int[] dist = new int[n];
+    Arrays.fill(dist, Integer.MAX_VALUE);
+    dist[src] = 0;
+    
+    // Priority queue: [vertex, distance]
+    PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[1] - b[1]);
+    pq.offer(new int[]{src, 0});
+    
+    while (!pq.isEmpty()) {
+        int[] curr = pq.poll();
+        int u = curr[0], d = curr[1];
+        
+        if (d > dist[u]) continue;  // Skip if we found better path
+        
+        // Check all neighbors
+        for (int[] edge : graph.get(u)) {
+            int v = edge[0], weight = edge[1];
+            int newDist = dist[u] + weight;
+            
+            if (newDist < dist[v]) {
+                dist[v] = newDist;
+                pq.offer(new int[]{v, newDist});
+            }
+        }
+    }
+    return dist;
+}
+                            </code></pre>
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>📊 Frequency Ranking</h3>
+                        <p><strong>Most Asked (90%+ interviews):</strong></p>
+                        <ul>
+                            <li>Two Pointers</li>
+                            <li>Binary Search</li>
+                            <li>DFS/BFS</li>
+                            <li>Sliding Window</li>
+                            <li>HashMap/HashSet</li>
+                        </ul>
+                        
+                        <p><strong>Very Common (70%+ interviews):</strong></p>
+                        <ul>
+                            <li>Dynamic Programming</li>
+                            <li>Sorting (Merge/Quick)</li>
+                            <li>Backtracking</li>
+                            <li>Greedy Algorithms</li>
+                            <li>Stack/Queue operations</li>
+                        </ul>
+                        
+                        <p><strong>Common (50%+ interviews):</strong></p>
+                        <ul>
+                            <li>Union-Find</li>
+                            <li>Trie</li>
+                            <li>Heap/Priority Queue</li>
+                            <li>Graph algorithms (Dijkstra, Topological Sort)</li>
+                            <li>Bit manipulation</li>
+                        </ul>
+                    </div>
+
+                    <div class="subsection">
+                        <h3>🎯 Practice Strategy</h3>
+                        <ul>
+                            <li><strong>Week 1-2:</strong> Master Two Pointers + Binary Search</li>
+                            <li><strong>Week 3-4:</strong> DFS/BFS + Sliding Window</li>
+                            <li><strong>Week 5-6:</strong> Dynamic Programming basics</li>
+                            <li><strong>Week 7-8:</strong> Sorting + Backtracking</li>
+                        </ul>
+                        <p>Focus on <strong>patterns</strong>, not individual problems. Once you master these 10 algorithms, you can solve 80% of coding interview questions!</p>
+                    </div>
+                </section>
+                </div>
+            </div>
+        </div>
+    </div>
+      <script src="../footer.js"></script>
+</body>
+</html>
