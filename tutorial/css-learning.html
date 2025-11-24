@@ -7,9 +7,18 @@
     <link rel="stylesheet" href="tutorial-styles.css">
 </head>
 <body>
+    <header>
+        <div class="container">
+            <div class="hero">
+                <h1>CSS Tutorial - Complete Guide</h1>
+                <p>Master CSS styling, layouts, and responsive design</p>
+            </div>
+        </div>
+    </header>
     <nav></nav>
     
-    <div class="content-with-sidebar">
+    <div class="container">
+        <div class="content-with-sidebar">
         <div class="sidebar-toc">
             <div class="toc-header">CSS Topics</div>
             <nav class="toc-nav">
@@ -29,7 +38,7 @@
         </div>
         
         <div class="main-content">
-            <h1>CSS Tutorial - Complete Guide</h1>
+            <div class="topic">
             
             <section id="introduction">
                 <h2>What is CSS?</h2>
@@ -436,10 +445,11 @@ p::first-letter { font-size: 2em; }
                 <h3>5. What are CSS Grid advantages over Flexbox?</h3>
                 <p><strong>Answer:</strong> CSS Grid is two-dimensional (rows and columns), better for complex layouts. Flexbox is one-dimensional, better for component layouts.</p>
             </section>
+            </div>
         </div>
     </div>
 
-    <footer></footer>
+
 
     <script>
         window.activePage = "css";

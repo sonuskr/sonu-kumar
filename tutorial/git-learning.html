@@ -7,9 +7,18 @@
     <link rel="stylesheet" href="tutorial-styles.css">
 </head>
 <body>
+    <header>
+        <div class="container">
+            <div class="hero">
+                <h1>Git Tutorial - Complete Guide</h1>
+                <p>Master Git version control and collaboration workflows</p>
+            </div>
+        </div>
+    </header>
     <nav></nav>
     
-    <div class="content-with-sidebar">
+    <div class="container">
+        <div class="content-with-sidebar">
         <div class="sidebar-toc">
             <div class="toc-header">Git Topics</div>
             <nav class="toc-nav">
@@ -28,7 +37,7 @@
         </div>
         
         <div class="main-content">
-            <h1>Git Tutorial - Complete Guide</h1>
+            <div class="topic">
             
             <section id="introduction">
                 <h2>What is Git?</h2>
@@ -450,10 +459,11 @@ logs/</code></pre>
                 - Discard changes: <code>git reset --hard HEAD~1</code>
                 </p>
             </section>
+            </div>
         </div>
     </div>
 
-    <footer></footer>
+   
 
     <script>
         window.activePage = "git";
