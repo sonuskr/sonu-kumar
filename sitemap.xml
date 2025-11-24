@@ -25,6 +25,18 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://sonuskr.github.io/sonuskr/tutorial/html-learning.html</loc>
+    <lastmod>2025-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sonuskr.github.io/sonuskr/tutorial/css-learning.html</loc>
+    <lastmod>2025-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://sonuskr.github.io/sonuskr/tutorial/javascript-learning.html</loc>
     <lastmod>2025-11-23</lastmod>
     <changefreq>weekly</changefreq>
@@ -45,6 +57,12 @@
   <url>
     <loc>https://sonuskr.github.io/sonuskr/tutorial/react-learning.html</loc>
     <lastmod>2025-11-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sonuskr.github.io/sonuskr/tutorial/git-learning.html</loc>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -75,6 +93,12 @@
   <url>
     <loc>https://sonuskr.github.io/sonuskr/tutorial/java/java-collection.html</loc>
     <lastmod>2025-11-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sonuskr.github.io/sonuskr/tutorial/java/multithreading-learning.html</loc>
+    <lastmod>2025-01-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -163,6 +187,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://sonuskr.github.io/sonuskr/tutorial/data-structure/searching-algorithms.html</loc>
+    <lastmod>2025-01-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://sonuskr.github.io/sonuskr/tutorial/interview/hackerrank-programs.html</loc>
     <lastmod>2025-11-23</lastmod>
     <changefreq>weekly</changefreq>
@@ -174,12 +204,7 @@
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
-  <url>
-    <loc>https://sonuskr.github.io/sonuskr/tutorial/interview/coding-interview.html</loc>
-    <lastmod>2025-11-23</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.6</priority>
-  </url>
+
   <url>
     <loc>https://sonuskr.github.io/sonuskr/tutorial/interview/system-design.html</loc>
     <lastmod>2025-11-23</lastmod>
