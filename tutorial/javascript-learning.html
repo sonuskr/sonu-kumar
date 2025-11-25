@@ -26,7 +26,9 @@
             const codeBlocks = document.querySelectorAll('pre code');
             codeBlocks.forEach(block => {
                 highlightJS(block);
-            });
+                        updateActiveNav();
+        });
+                    updateActiveNav();
         });
         
         function highlightJS(element) {
@@ -47,6 +49,30 @@
             
             element.innerHTML = code;
         }
+        
+        // Active navigation highlighting
+        function updateActiveNav() {
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.toc-nav a');
+            
+            let currentSection = '';
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= 100) {
+                    currentSection = section.id;
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', updateActiveNav);
+        updateActiveNav();
     </script>
     
     <div class="container">
@@ -660,13 +686,15 @@ button.addEventListener('click', function(event) {
     console.log('Button clicked!');
     console.log('Event type:', event.type);
     console.log('Target element:', event.target);
-});
+            updateActiveNav();
+        });
 
 // Arrow function event listener
 button.addEventListener('click', (event) => {
     event.preventDefault(); // Prevent default behavior
     console.log('Arrow function handler');
-});
+            updateActiveNav();
+        });
 
 // Named function handler
 function handleButtonClick(event) {
@@ -683,7 +711,8 @@ button.addEventListener('click', handleClick, {
     once: true,      // Execute only once
     passive: true,   // Never calls preventDefault()
     capture: true    // Capture phase instead of bubble phase
-});
+            updateActiveNav();
+        });
 
 // Multiple event types
 const input = document.getElementById('myInput');
@@ -691,28 +720,34 @@ const input = document.getElementById('myInput');
 ['focus', 'blur', 'input'].forEach(eventType => {
     input.addEventListener(eventType, (event) => {
         console.log(`${eventType} event triggered`);
-    });
-});
+                updateActiveNav();
+        });
+            updateActiveNav();
+        });
 
 // Common event types
 document.addEventListener('DOMContentLoaded', () => {
     console.log('DOM fully loaded');
-});
+            updateActiveNav();
+        });
 
 window.addEventListener('load', () => {
     console.log('Page fully loaded including images');
-});
+            updateActiveNav();
+        });
 
 window.addEventListener('resize', () => {
     console.log('Window resized');
-});
+            updateActiveNav();
+        });
 
 document.addEventListener('keydown', (event) => {
     console.log('Key pressed:', event.key);
     if (event.key === 'Escape') {
         console.log('Escape key pressed');
     }
-});
+            updateActiveNav();
+        });
 
 // Form events
 const form = document.getElementById('myForm');
@@ -722,11 +757,13 @@ form.addEventListener('submit', (event) => {
     
     const formData = new FormData(form);
     console.log('Form data:', Object.fromEntries(formData));
-});
+            updateActiveNav();
+        });
 
 input.addEventListener('input', (event) => {
     console.log('Input value changed:', event.target.value);
-});
+            updateActiveNav();
+        });
 
 input.addEventListener('change', (event) => {
     console.log('Input value committed:', event.target.value);
@@ -743,7 +780,8 @@ list.addEventListener('click', (event) => {
         console.log('List item clicked:', event.target.textContent);
         event.target.classList.toggle('selected');
     }
-});
+            updateActiveNav();
+        });
 
 // Add new list items dynamically
 function addListItem(text) {
@@ -758,12 +796,14 @@ const inner = document.getElementById('inner');
 
 outer.addEventListener('click', () => {
     console.log('Outer div clicked');
-});
+            updateActiveNav();
+        });
 
 inner.addEventListener('click', (event) => {
     console.log('Inner div clicked');
     event.stopPropagation(); // Stop event from bubbling up
-});
+            updateActiveNav();
+        });
 
 // Capture phase
 outer.addEventListener('click', () => {
@@ -773,11 +813,13 @@ outer.addEventListener('click', () => {
 // Custom events
 const customEvent = new CustomEvent('myCustomEvent', {
     detail: { message: 'Hello from custom event!' }
-});
+            updateActiveNav();
+        });
 
 document.addEventListener('myCustomEvent', (event) => {
     console.log('Custom event received:', event.detail.message);
-});
+            updateActiveNav();
+        });
 
 // Dispatch custom event
 document.dispatchEvent(customEvent);
@@ -787,26 +829,31 @@ const element = document.getElementById('mouseTarget');
 
 element.addEventListener('mouseenter', () => {
     console.log('Mouse entered');
-});
+            updateActiveNav();
+        });
 
 element.addEventListener('mouseleave', () => {
     console.log('Mouse left');
-});
+            updateActiveNav();
+        });
 
 element.addEventListener('mousemove', (event) => {
     console.log('Mouse position:', event.clientX, event.clientY);
-});
+            updateActiveNav();
+        });
 
 // Touch events (mobile)
 element.addEventListener('touchstart', (event) => {
     console.log('Touch started');
     event.preventDefault(); // Prevent scrolling
-});
+            updateActiveNav();
+        });
 
 element.addEventListener('touchmove', (event) => {
     const touch = event.touches[0];
     console.log('Touch position:', touch.clientX, touch.clientY);
-});
+            updateActiveNav();
+        });
 
 element.addEventListener('touchend', () => {
     console.log('Touch ended');
@@ -832,7 +879,8 @@ const myPromise = new Promise((resolve, reject) => {
             reject(new Error('Operation failed!'));
         }
     }, 1000);
-});
+            updateActiveNav();
+        });
 
 // Using Promises
 myPromise
@@ -848,7 +896,8 @@ myPromise
     })
     .finally(() => {
         console.log('Promise completed');
-    });
+                updateActiveNav();
+        });
 
 // Promise utility methods
 const promise1 = Promise.resolve('Quick success');
@@ -862,7 +911,8 @@ Promise.all([promise1, promise3])
     })
     .catch(error => {
         console.log('One failed:', error);
-    });
+                updateActiveNav();
+        });
 
 // Promise.allSettled - wait for all promises (success or failure)
 Promise.allSettled([promise1, promise2, promise3])
@@ -873,14 +923,17 @@ Promise.allSettled([promise1, promise2, promise3])
             } else {
                 console.log(`Promise ${index} failed:`, result.reason);
             }
+                    updateActiveNav();
         });
-    });
+                updateActiveNav();
+        });
 
 // Promise.race - first promise to resolve/reject wins
 Promise.race([promise1, promise3])
     .then(result => {
         console.log('First to finish:', result);
-    });
+                updateActiveNav();
+        });
 
 // Fetch API (returns Promise)
 fetch('https://jsonplaceholder.typicode.com/posts/1')

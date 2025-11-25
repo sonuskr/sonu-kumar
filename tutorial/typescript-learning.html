@@ -26,7 +26,9 @@
             const codeBlocks = document.querySelectorAll('pre code');
             codeBlocks.forEach(block => {
                 highlightTS(block);
-            });
+                        updateActiveNav();
+        });
+                    updateActiveNav();
         });
         
         function highlightTS(element) {
@@ -47,6 +49,30 @@
             
             element.innerHTML = code;
         }
+        
+        // Active navigation highlighting
+        function updateActiveNav() {
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.toc-nav a');
+            
+            let currentSection = '';
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= 100) {
+                    currentSection = section.id;
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', updateActiveNav);
+        updateActiveNav();
     </script>
     
     <div class="container">
@@ -701,7 +727,8 @@ interface Product {
 }
 
 const productRepo = new GenericRepository<Product>();
-productRepo.add({ id: 1, name: "Laptop", price: 999 });
+productRepo.add({ id: 1, name: "Laptop", price: 999             updateActiveNav();
+        });
 
 // Mixins
 type Constructor = new (...args: any[]) => {};

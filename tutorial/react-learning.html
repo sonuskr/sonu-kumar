@@ -26,7 +26,9 @@
             const codeBlocks = document.querySelectorAll('pre code');
             codeBlocks.forEach(block => {
                 highlightReact(block);
-            });
+                        updateActiveNav();
+        });
+                    updateActiveNav();
         });
         
         function highlightReact(element) {
@@ -47,6 +49,30 @@
             
             element.innerHTML = code;
         }
+        
+        // Active navigation highlighting
+        function updateActiveNav() {
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.toc-nav a');
+            
+            let currentSection = '';
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= 100) {
+                    currentSection = section.id;
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', updateActiveNav);
+        updateActiveNav();
     </script>
     
     <div class="container">
@@ -267,22 +293,26 @@ class UserList extends Component {
   
   fetchUsers = async () =&gt; {
     try {
-      this.setState({ loading: true, error: null });
+      this.setState({ loading: true, error: null             updateActiveNav();
+        });
       
       this.abortController = new AbortController();
       const response = await fetch('/api/users', {
         signal: this.abortController.signal
-      });
+                  updateActiveNav();
+        });
       
       if (!response.ok) {
         throw new Error('Failed to fetch users');
       }
       
       const users = await response.json();
-      this.setState({ users, loading: false });
+      this.setState({ users, loading: false             updateActiveNav();
+        });
     } catch (error) {
       if (error.name !== 'AbortError') {
-        this.setState({ error: error.message, loading: false });
+        this.setState({ error: error.message, loading: false             updateActiveNav();
+        });
       }
     }
   };
@@ -347,9 +377,11 @@ class DataProvider extends Component {
     try {
       const response = await fetch(this.props.url);
       const data = await response.json();
-      this.setState({ data, loading: false });
+      this.setState({ data, loading: false             updateActiveNav();
+        });
     } catch (error) {
-      this.setState({ error, loading: false });
+      this.setState({ error, loading: false             updateActiveNav();
+        });
     }
   };
   
@@ -451,7 +483,8 @@ function Counter() {
     name: '',
     email: '',
     age: 0
-  });
+              updateActiveNav();
+        });
   
   const updateUser = (field, value) =&gt; {
     setUser(prevUser =&gt; ({
@@ -614,13 +647,16 @@ function UserManager() {
   const [state, dispatch] = useReducer(userReducer, initialState);
   
   const fetchUsers = async () =&gt; {
-    dispatch({ type: 'FETCH_START' });
+    dispatch({ type: 'FETCH_START'             updateActiveNav();
+        });
     try {
       const response = await fetch('/api/users');
       const users = await response.json();
-      dispatch({ type: 'FETCH_SUCCESS', payload: users });
+      dispatch({ type: 'FETCH_SUCCESS', payload: users             updateActiveNav();
+        });
     } catch (error) {
-      dispatch({ type: 'FETCH_ERROR', payload: error.message });
+      dispatch({ type: 'FETCH_ERROR', payload: error.message             updateActiveNav();
+        });
     }
   };
   
@@ -671,7 +707,8 @@ function TodoList({ todos }) {
       if (filter === 'completed') return todo.completed;
       if (filter === 'active') return !todo.completed;
       return true;
-    });
+                updateActiveNav();
+        });
   }, [todos, filter]);
   
   return (
@@ -774,7 +811,8 @@ function useLocalStorage(key, initialValue) {
       console.error('Error reading from localStorage:', error);
       return initialValue;
     }
-  });
+              updateActiveNav();
+        });
   
   const setValue = (value) =&gt; {
     try {
@@ -792,8 +830,10 @@ function useLocalStorage(key, initialValue) {
 // Custom hook for form handling
 function useForm(initialValues, validationRules = {}) {
   const [values, setValues] = useState(initialValues);
-  const [errors, setErrors] = useState({});
-  const [touched, setTouched] = useState({});
+  const [errors, setErrors] = useState({            updateActiveNav();
+        });
+  const [touched, setTouched] = useState({            updateActiveNav();
+        });
   
   const handleChange = (name, value) =&gt; {
     setValues(prev =&gt; ({ ...prev, [name]: value }));
@@ -836,15 +876,18 @@ function useForm(initialValues, validationRules = {}) {
       if (!fieldValid) {
         isValid = false;
       }
-    });
+                updateActiveNav();
+        });
     
     return isValid;
   };
   
   const reset = () =&gt; {
     setValues(initialValues);
-    setErrors({});
-    setTouched({});
+    setErrors({            updateActiveNav();
+        });
+    setTouched({            updateActiveNav();
+        });
   };
   
   return {
