@@ -8,96 +8,221 @@
     <title>Spring MVC Learning - Sonu Kumar</title>
     <link rel="stylesheet" href="../tutorial-styles.css">
 </head>
-<body class="page-spring-mvc">
+<body class="page-spring">
     <header>
         <div class="container">
             <div class="hero">
-                <h1>Spring MVC Learning Tutorial</h1>
-                <p>Master Spring MVC Web Development</p>
+                <h1>Spring MVC Framework</h1>
+                <p>Master Model-View-Controller Pattern for Web Applications</p>
             </div>
         </div>
     </header>
     <nav></nav>
-    <script>window.activePage = "spring";</script>
+    <script>window.activePage = 'spring';</script>
     <script src="../menu.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeBlocks = document.querySelectorAll('pre code');
+            codeBlocks.forEach(block => {
+                highlightJava(block);
+            });
+        });
+        
+        function highlightJava(element) {
+            let code = element.textContent;
+            
+            code = code.replace(/\b(public|private|protected|static|final|class|interface|extends|implements|import|package|void|int|String|boolean|double|float|long|short|byte|char|if|else|for|while|do|switch|case|default|break|continue|return|try|catch|finally|throw|throws|new|this|super|null|true|false|abstract|synchronized|volatile|transient|native|strictfp|enum|assert|@Controller|@RestController|@RequestMapping|@GetMapping|@PostMapping|@PutMapping|@DeleteMapping|@PathVariable|@RequestParam|@RequestBody|@ResponseBody|@ModelAttribute|@Valid|@Autowired)\b/g, '<span class="keyword">$1</span>');
+            
+            code = code.replace(/"([^"]*)"/g, '<span class="string">"$1"</span>');
+            code = code.replace(/'([^']*)'/g, '<span class="string">\'$1\'</span>');
+            
+            code = code.replace(/\/\/.*$/gm, '<span class="comment">$&</span>');
+            code = code.replace(/\/\*[\s\S]*?\*\//g, '<span class="comment">$&</span>');
+            
+            code = code.replace(/\b\d+(\.\d+)?[fLdF]?\b/g, '<span class="number">$&</span>');
+            
+            code = code.replace(/\b([a-zA-Z_][a-zA-Z0-9_]*)\s*\(/g, '<span class="method">$1</span>(');
+            
+            code = code.replace(/\b[A-Z][a-zA-Z0-9_]*\b/g, '<span class="class">$&</span>');
+            
+            element.innerHTML = code;
+        }
+    </script>
+    
+    <div class="container">
         <div class="content-with-sidebar">
-            <div class="sidebar-toc">
+            <aside class="sidebar-toc">
                 <div class="toc-header">
-                    <h2>📚 Table of Contents</h2>
+                    <h2>📚 Spring MVC Topics</h2>
                 </div>
                 <nav class="toc-nav">
                     <ul>
-                        <li><a href="#what-is-spring-mvc">What is Spring MVC?</a></li>
-                        <li><a href="#mvc-pattern">MVC Pattern Overview</a></li>
-                        <li><a href="#request-flow">Spring MVC Request Flow</a></li>
+                        <li><a href="#overview">Spring MVC Overview</a></li>
+                        <li><a href="#architecture">MVC Architecture</a></li>
                         <li><a href="#controllers">Controllers</a></li>
-                        <li><a href="#request-binding">Request Parameter Binding</a></li>
-                        <li><a href="#view-resolution">View Resolution - Thymeleaf</a></li>
-                        <li><a href="#form-handling">Form Handling & Validation</a></li>
-                        <li><a href="#interceptors">Interceptors & Filters</a></li>
+                        <li><a href="#request-mapping">Request Mapping</a></li>
+                        <li><a href="#data-binding">Data Binding</a></li>
+                        <li><a href="#validation">Validation</a></li>
+                        <li><a href="#view-resolution">View Resolution</a></li>
+                        <li><a href="#rest-apis">REST APIs</a></li>
                         <li><a href="#exception-handling">Exception Handling</a></li>
-                        <li><a href="#session-flash">Session & Flash Attributes</a></li>
-                        <li><a href="#file-upload">File Upload & Download</a></li>
-                        <li><a href="#interview-topics">Interview Topics</a></li>
+                        <li><a href="#interceptors">Interceptors</a></li>
                         <li><a href="#best-practices">Best Practices</a></li>
+                        <li><a href="#interview">Interview Questions</a></li>
                     </ul>
                 </nav>
-            </div>
+            </aside>
+
             <div class="main-content">
-                <div class="topic">
-                    <h1>Spring MVC - Complete Guide</h1>
-                
-                <section id="what-is-spring-mvc" class="section">
-                    <h2>What is Spring MVC?</h2>
-                <p>Spring MVC is a robust web framework for building web applications using the Model-View-Controller (MVC) design pattern. It provides a flexible architecture for handling HTTP requests, processing business logic, and rendering responses. Spring MVC integrates seamlessly with Spring Core for dependency injection and other enterprise features.</p>
-                
+            <div class="topic">
+
+                <section id="overview" class="section">
+                    <h2>🚀 Spring MVC Overview</h2>
+                    
+                    <div class="subsection">
+                        <h3>What is Spring MVC?</h3>
+                        <p><strong>Definition:</strong> Spring MVC is a web framework built on the Model-View-Controller design pattern. It provides a clean separation of concerns and flexible configuration for building web applications and RESTful services.</p>
+                        
+                        <h4>Key Features:</h4>
+                        <ul>
+                            <li><strong>MVC Pattern:</strong> Clear separation between Model, View, and Controller</li>
+                            <li><strong>Flexible Configuration:</strong> Annotation-based and XML configuration</li>
+                            <li><strong>RESTful Support:</strong> Built-in support for REST APIs</li>
+                            <li><strong>Data Binding:</strong> Automatic binding of request parameters to objects</li>
+                            <li><strong>Validation:</strong> Integrated validation framework</li>
+                            <li><strong>View Technologies:</strong> Support for JSP, Thymeleaf, JSON, XML</li>
+                        </ul>
+                        
+                        <h4>Spring MVC Configuration:</h4>
+                        <div class="code-block">
+                            <pre><code>// Java Configuration
+@Configuration
+@EnableWebMvc
+@ComponentScan(basePackages = "com.example")
+public class WebConfig implements WebMvcConfigurer {
+    
+    @Bean
+    public ViewResolver viewResolver() {
+        InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+        resolver.setPrefix("/WEB-INF/views/");
+        resolver.setSuffix(".jsp");
+        return resolver;
+    }
+    
+    @Override
+    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+        configurer.enable();
+    }
+    
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/**")
+                .addResourceLocations("/resources/");
+    }
+}
+
+// Web Application Initializer
+public class WebAppInitializer implements WebApplicationInitializer {
+    
+    @Override
+    public void onStartup(ServletContext servletContext) throws ServletException {
+        AnnotationConfigWebApplicationContext context = 
+            new AnnotationConfigWebApplicationContext();
+        context.register(WebConfig.class);
+        
+        DispatcherServlet servlet = new DispatcherServlet(context);
+        ServletRegistration.Dynamic registration = 
+            servletContext.addServlet("dispatcher", servlet);
+        registration.setLoadOnStartup(1);
+        registration.addMapping("/");
+    }
+}</code></pre>
+                        </div>
+                    </div>
                 </section>
 
-                <section id="mvc-pattern" class="section">
-                    <h2>MVC Pattern Overview</h2>
-                <ul>
-                    <li><strong>Model:</strong> Business data and logic</li>
-                    <li><strong>View:</strong> Presentation layer (JSP, Thymeleaf, FreeMarker)</li>
-                    <li><strong>Controller:</strong> Handles requests and coordinates between model and view</li>
-                </ul>
+                <section id="architecture" class="section">
+                    <h2>🏗️ MVC Architecture</h2>
+                    
+                    <div class="subsection">
+                        <h3>Spring MVC Request Flow</h3>
+                        <div class="code-block">
+                            <pre><code>Request Flow:
+1. Client Request → DispatcherServlet
+2. DispatcherServlet → HandlerMapping (find controller)
+3. HandlerMapping → Controller
+4. Controller → Business Logic → Model
+5. Controller → ViewName
+6. DispatcherServlet → ViewResolver
+7. ViewResolver → View
+8. View → Response to Client
 
-                </section>
+Components:
+├── DispatcherServlet (Front Controller)
+├── HandlerMapping (URL to Controller mapping)
+├── Controller (Handle requests)
+├── ModelAndView (Data and view name)
+├── ViewResolver (Resolve view names)
+└── View (Render response)</code></pre>
+                        </div>
+                        
+                        <h3>Core Components</h3>
+                        <div class="code-block">
+                            <pre><code>// DispatcherServlet Configuration
+public class MyWebAppInitializer implements WebApplicationInitializer {
+    
+    @Override
+    public void onStartup(ServletContext container) {
+        // Create the 'root' Spring application context
+        AnnotationConfigWebApplicationContext rootContext = 
+            new AnnotationConfigWebApplicationContext();
+        rootContext.register(RootConfig.class);
+        
+        // Manage the lifecycle of the root application context
+        container.addListener(new ContextLoaderListener(rootContext));
+        
+        // Create the dispatcher servlet's Spring application context
+        AnnotationConfigWebApplicationContext dispatcherContext = 
+            new AnnotationConfigWebApplicationContext();
+        dispatcherContext.register(WebConfig.class);
+        
+        // Register and map the dispatcher servlet
+        ServletRegistration.Dynamic dispatcher = 
+            container.addServlet("dispatcher", new DispatcherServlet(dispatcherContext));
+        dispatcher.setLoadOnStartup(1);
+        dispatcher.addMapping("/");
+    }
+}
 
-                <section id="request-flow" class="section">
-                    <h2>Spring MVC Request Flow</h2>
-                <pre><code>
-1. DispatcherServlet receives HTTP request
-2. DispatcherServlet consults HandlerMapping to find Controller
-3. DispatcherServlet invokes the Controller method
-4. Controller executes business logic via Service/Model
-5. Controller returns ModelAndView
-6. DispatcherServlet consults ViewResolver
-7. ViewResolver returns View
-8. View renders the response
-9. DispatcherServlet returns response to client
-
-// XML Configuration - web.xml
-&lt;servlet&gt;
-    &lt;servlet-name&gt;dispatcher&lt;/servlet-name&gt;
-    &lt;servlet-class&gt;org.springframework.web.servlet.DispatcherServlet&lt;/servlet-class&gt;
-    &lt;init-param&gt;
-        &lt;param-name&gt;contextConfigLocation&lt;/param-name&gt;
-        &lt;param-value&gt;/WEB-INF/spring-mvc-config.xml&lt;/param-value&gt;
-    &lt;/init-param&gt;
-&lt;/servlet&gt;
-
-&lt;servlet-mapping&gt;
-    &lt;servlet-name&gt;dispatcher&lt;/servlet-name&gt;
-    &lt;url-pattern&gt;/&lt;/url-pattern&gt;
-&lt;/servlet-mapping&gt;
-                </code></pre>
-
+// Handler Mapping Configuration
+@Configuration
+public class WebConfig implements WebMvcConfigurer {
+    
+    @Bean
+    public HandlerMapping handlerMapping() {
+        RequestMappingHandlerMapping mapping = new RequestMappingHandlerMapping();
+        mapping.setOrder(0);
+        return mapping;
+    }
+    
+    @Bean
+    public HandlerAdapter handlerAdapter() {
+        RequestMappingHandlerAdapter adapter = new RequestMappingHandlerAdapter();
+        return adapter;
+    }
+}</code></pre>
+                        </div>
+                    </div>
                 </section>
 
                 <section id="controllers" class="section">
-                    <h2>Controllers - Handling Requests</h2>
-                <pre><code>
-// Basic Controller
+                    <h2>🎮 Controllers</h2>
+                    
+                    <div class="subsection">
+                        <h3>Basic Controllers</h3>
+                        <div class="code-block">
+                            <pre><code>// Traditional MVC Controller
 @Controller
 @RequestMapping("/users")
 public class UserController {
@@ -105,572 +230,884 @@ public class UserController {
     @Autowired
     private UserService userService;
     
-    // Simple request mapping
-    @GetMapping
-    public ModelAndView listUsers() {
-        List<User> users = userService.findAll();
-        ModelAndView mv = new ModelAndView("user/list");
-        mv.addObject("users", users);
-        return mv;
-    }
-    
-    // Alternative - using Model
+    // Display user list
     @GetMapping
     public String listUsers(Model model) {
-        model.addAttribute("users", userService.findAll());
-        return "user/list";  // View name
+        List<User> users = userService.findAll();
+        model.addAttribute("users", users);
+        return "users/list"; // Returns view name
     }
     
-    // Path variable
+    // Show user details
     @GetMapping("/{id}")
-    public String getUser(@PathVariable Long id, Model model) {
+    public String showUser(@PathVariable Long id, Model model) {
         User user = userService.findById(id);
         model.addAttribute("user", user);
-        return "user/detail";
+        return "users/detail";
     }
     
-    // Query parameters
-    @GetMapping("/search")
-    public String searchUsers(@RequestParam String keyword, 
-                              @RequestParam(required = false, defaultValue = "1") int page,
-                              Model model) {
-        model.addAttribute("users", userService.search(keyword, page));
-        return "user/search-results";
+    // Show create form
+    @GetMapping("/new")
+    public String newUserForm(Model model) {
+        model.addAttribute("user", new User());
+        return "users/form";
     }
     
-    // Form submission
+    // Handle form submission
     @PostMapping
-    public String createUser(@ModelAttribute User user) {
-        userService.save(user);
-        return "redirect:/users";  // Redirect after POST
+    public String createUser(@Valid @ModelAttribute User user, 
+                           BindingResult result, 
+                           RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()) {
+            return "users/form";
+        }
+        
+        User savedUser = userService.save(user);
+        redirectAttributes.addFlashAttribute("message", "User created successfully!");
+        return "redirect:/users/" + savedUser.getId();
     }
     
-    // PUT/DELETE requests
+    // Show edit form
+    @GetMapping("/{id}/edit")
+    public String editUserForm(@PathVariable Long id, Model model) {
+        User user = userService.findById(id);
+        model.addAttribute("user", user);
+        return "users/form";
+    }
+    
+    // Handle update
     @PutMapping("/{id}")
-    public String updateUser(@PathVariable Long id, @ModelAttribute User user) {
-        userService.update(id, user);
+    public String updateUser(@PathVariable Long id, 
+                           @Valid @ModelAttribute User user,
+                           BindingResult result) {
+        if (result.hasErrors()) {
+            return "users/form";
+        }
+        
+        user.setId(id);
+        userService.save(user);
         return "redirect:/users/" + id;
     }
     
+    // Handle delete
     @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable Long id) {
-        userService.delete(id);
+        userService.deleteById(id);
         return "redirect:/users";
     }
-}
-
-// REST Controller (returns JSON/XML)
+}</code></pre>
+                        </div>
+                        
+                        <h3>REST Controllers</h3>
+                        <div class="code-block">
+                            <pre><code>// REST API Controller
 @RestController
 @RequestMapping("/api/users")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserRestController {
     
     @Autowired
     private UserService userService;
     
+    // Get all users
     @GetMapping
-    public List<User> getAllUsers() {
-        return userService.findAll();
+    public ResponseEntity<List<User>> getAllUsers(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortBy) {
+        
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+        Page<User> users = userService.findAll(pageable);
+        
+        return ResponseEntity.ok()
+                .header("X-Total-Count", String.valueOf(users.getTotalElements()))
+                .body(users.getContent());
     }
     
+    // Get user by ID
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@PathVariable Long id) {
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
         return userService.findById(id)
-            .map(ResponseEntity::ok)
-            .orElseGet(() -> ResponseEntity.notFound().build());
+                .map(user -> ResponseEntity.ok().body(user))
+                .orElse(ResponseEntity.notFound().build());
     }
     
+    // Create new user
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        User created = userService.save(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(created);
+    public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
+        User savedUser = userService.save(user);
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(savedUser.getId())
+                .toUri();
+        
+        return ResponseEntity.created(location).body(savedUser);
     }
-}
-                </code></pre>
-
+    
+    // Update user
+    @PutMapping("/{id}")
+    public ResponseEntity<User> updateUser(@PathVariable Long id, 
+                                         @Valid @RequestBody User user) {
+        return userService.findById(id)
+                .map(existingUser -> {
+                    user.setId(id);
+                    User updatedUser = userService.save(user);
+                    return ResponseEntity.ok(updatedUser);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+    
+    // Partial update
+    @PatchMapping("/{id}")
+    public ResponseEntity<User> partialUpdateUser(@PathVariable Long id,
+                                                @RequestBody Map<String, Object> updates) {
+        return userService.findById(id)
+                .map(user -> {
+                    updates.forEach((key, value) -> {
+                        switch (key) {
+                            case "name":
+                                user.setName((String) value);
+                                break;
+                            case "email":
+                                user.setEmail((String) value);
+                                break;
+                            // Add more fields as needed
+                        }
+                    });
+                    User updatedUser = userService.save(user);
+                    return ResponseEntity.ok(updatedUser);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+    
+    // Delete user
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+        return userService.findById(id)
+                .map(user -> {
+                    userService.deleteById(id);
+                    return ResponseEntity.ok().build();
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+    
+    // Search users
+    @GetMapping("/search")
+    public ResponseEntity<List<User>> searchUsers(
+            @RequestParam String query,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        
+        Pageable pageable = PageRequest.of(page, size);
+        List<User> users = userService.searchUsers(query, pageable);
+        return ResponseEntity.ok(users);
+    }
+}</code></pre>
+                        </div>
+                    </div>
                 </section>
 
-                <section id="request-binding" class="section">
-                    <h2>Request Parameter Binding</h2>
-                <pre><code>
-@Controller
-public class BindingController {
+                <section id="request-mapping" class="section">
+                    <h2>🗺️ Request Mapping</h2>
+                    
+                    <div class="subsection">
+                        <h3>Mapping Annotations</h3>
+                        <div class="code-block">
+                            <pre><code>@Controller
+@RequestMapping("/api/products")
+public class ProductController {
     
-    // Request parameter - query string
-    @GetMapping("/search")
-    public String search(@RequestParam String q, Model model) {
-        model.addAttribute("results", searchService.search(q));
-        return "results";
+    // Basic mapping
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public String listProducts() {
+        return "products/list";
     }
     
-    // Optional request parameter
-    @GetMapping("/filter")
-    public String filter(@RequestParam(required = false) String category, Model model) {
-        model.addAttribute("items", itemService.filter(category));
-        return "items";
+    // HTTP method specific mappings
+    @GetMapping("/")
+    public String getAllProducts() { return "products/list"; }
+    
+    @PostMapping("/")
+    public String createProduct() { return "redirect:/products"; }
+    
+    @PutMapping("/{id}")
+    public String updateProduct(@PathVariable Long id) { 
+        return "redirect:/products/" + id; 
     }
     
-    // Default value
-    @GetMapping("/page")
-    public String listItems(@RequestParam(defaultValue = "1") int page, Model model) {
-        model.addAttribute("items", itemService.getPage(page));
-        return "items";
+    @DeleteMapping("/{id}")
+    public String deleteProduct(@PathVariable Long id) { 
+        return "redirect:/products"; 
     }
     
-    // Path variable
-    @GetMapping("/products/{id}")
+    @PatchMapping("/{id}")
+    public String partialUpdate(@PathVariable Long id) { 
+        return "redirect:/products/" + id; 
+    }
+    
+    // Path variables
+    @GetMapping("/{id}")
     public String getProduct(@PathVariable Long id, Model model) {
-        model.addAttribute("product", productService.findById(id));
-        return "product";
+        // id is automatically converted to Long
+        return "products/detail";
     }
     
-    // Request header
-    @GetMapping("/data")
-    public String getData(@RequestHeader("User-Agent") String userAgent) {
-        System.out.println("User Agent: " + userAgent);
-        return "data";
+    @GetMapping("/{category}/{id}")
+    public String getProductByCategory(@PathVariable String category,
+                                     @PathVariable Long id) {
+        return "products/detail";
     }
     
-    // Cookie value
-    @GetMapping("/user")
-    public String getUser(@CookieValue("userId") String userId) {
-        System.out.println("User ID: " + userId);
-        return "user";
+    // Optional path variables
+    @GetMapping({"/", "/{category}"})
+    public String getProducts(@PathVariable(required = false) String category) {
+        if (category != null) {
+            // Filter by category
+        }
+        return "products/list";
     }
     
-    // Matrix variable
-    @GetMapping("/products/{id}")
-    public String productDetails(@PathVariable Long id,
-                                @MatrixVariable String color) {
-        return "product";
+    // Request parameters
+    @GetMapping("/search")
+    public String searchProducts(@RequestParam String query,
+                               @RequestParam(defaultValue = "0") int page,
+                               @RequestParam(defaultValue = "10") int size,
+                               @RequestParam(required = false) String category) {
+        return "products/search";
     }
     
-    // Model attribute - object binding
-    @PostMapping("/users")
-    public String createUser(@ModelAttribute User user, BindingResult result) {
+    // Multiple request parameters
+    @GetMapping("/filter")
+    public String filterProducts(@RequestParam Map<String, String> params) {
+        // Access all parameters as a map
+        return "products/list";
+    }
+    
+    // Headers and content type
+    @PostMapping(value = "/upload", 
+                consumes = "multipart/form-data",
+                produces = "application/json")
+    @ResponseBody
+    public ResponseEntity<String> uploadFile(@RequestParam("file") MultipartFile file) {
+        return ResponseEntity.ok("File uploaded successfully");
+    }
+    
+    // Custom headers
+    @GetMapping(value = "/download/{id}", 
+                headers = "Accept=application/pdf")
+    public ResponseEntity<byte[]> downloadPdf(@PathVariable Long id) {
+        // Return PDF content
+        return ResponseEntity.ok()
+                .header("Content-Type", "application/pdf")
+                .body(new byte[0]);
+    }
+}</code></pre>
+                        </div>
+                        
+                        <h3>Advanced Request Mapping</h3>
+                        <div class="code-block">
+                            <pre><code>@RestController
+@RequestMapping("/api/advanced")
+public class AdvancedMappingController {
+    
+    // Regex in path variables
+    @GetMapping("/users/{id:[0-9]+}")
+    public User getUserById(@PathVariable Long id) {
+        // id must be numeric
+        return userService.findById(id);
+    }
+    
+    // Matrix variables
+    @GetMapping("/products/{category};color={color};size={size}")
+    public List<Product> getProducts(@PathVariable String category,
+                                   @MatrixVariable String color,
+                                   @MatrixVariable String size) {
+        return productService.findByCategoryAndColorAndSize(category, color, size);
+    }
+    
+    // Request mapping with conditions
+    @GetMapping(value = "/data", 
+                params = "version=1")
+    public String getDataV1() {
+        return "Version 1 data";
+    }
+    
+    @GetMapping(value = "/data", 
+                params = "version=2")
+    public String getDataV2() {
+        return "Version 2 data";
+    }
+    
+    // Content negotiation
+    @GetMapping(value = "/user/{id}", 
+                produces = "application/json")
+    public User getUserAsJson(@PathVariable Long id) {
+        return userService.findById(id);
+    }
+    
+    @GetMapping(value = "/user/{id}", 
+                produces = "application/xml")
+    public User getUserAsXml(@PathVariable Long id) {
+        return userService.findById(id);
+    }
+    
+    // Custom request mapping annotation
+    @Target(ElementType.METHOD)
+    @Retention(RetentionPolicy.RUNTIME)
+    @RequestMapping(method = RequestMethod.GET, produces = "application/json")
+    public @interface JsonGetMapping {
+        String value() default "";
+    }
+    
+    @JsonGetMapping("/custom")
+    public Map<String, Object> customMapping() {
+        return Map.of("message", "Custom mapping works!");
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="data-binding" class="section">
+                    <h2>🔗 Data Binding</h2>
+                    
+                    <div class="subsection">
+                        <h3>Request Data Binding</h3>
+                        <div class="code-block">
+                            <pre><code>// Model for data binding
+public class User {
+    private Long id;
+    private String name;
+    private String email;
+    private LocalDate birthDate;
+    private Address address;
+    private List<String> hobbies;
+    
+    // Constructors, getters, setters
+}
+
+public class Address {
+    private String street;
+    private String city;
+    private String zipCode;
+    // Getters and setters
+}
+
+@Controller
+@RequestMapping("/users")
+public class UserController {
+    
+    // Form data binding
+    @PostMapping
+    public String createUser(@ModelAttribute User user, 
+                           BindingResult result,
+                           Model model) {
         if (result.hasErrors()) {
-            return "user/form";
+            return "users/form";
         }
         userService.save(user);
         return "redirect:/users";
     }
-}
-                </code></pre>
-
-                </section>
-
-                <section id="view-resolution" class="section">
-                    <h2>View Resolution - Thymeleaf</h2>
-                <pre><code>
-// Configuration
-@Configuration
-public class ViewConfig {
-    @Bean
-    public ThymeleafViewResolver viewResolver(
-            SpringTemplateEngine templateEngine) {
-        ThymeleafViewResolver resolver = new ThymeleafViewResolver();
-        resolver.setTemplateEngine(templateEngine);
-        return resolver;
-    }
-}
-
-// Template file - src/main/resources/templates/user/list.html
-&lt;!DOCTYPE html&gt;
-&lt;html xmlns:th="http://www.thymeleaf.org"&gt;
-&lt;head&gt;
-    &lt;title&gt;Users&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-    &lt;!-- Variable interpolation --&gt;
-    &lt;h1&gt;[[${title}]]&lt;/h1&gt;
     
-    &lt;!-- Conditional rendering --&gt;
-    &lt;div th:if="${users.size() > 0}"&gt;
-        &lt;table&gt;
-            &lt;!-- Iteration --&gt;
-            &lt;tr th:each="user : ${users}"&gt;
-                &lt;td th:text="${user.id}"&gt;&lt;/td&gt;
-                &lt;td th:text="${user.name}"&gt;&lt;/td&gt;
-                &lt;td&gt;
-                    &lt;a th:href="@{/users/{id}(id=${user.id})}"&gt;View&lt;/a&gt;
-                &lt;/td&gt;
-            &lt;/tr&gt;
-        &lt;/table&gt;
-    &lt;/div&gt;
-    
-    &lt;div th:unless="${users.size() > 0}"&gt;
-        &lt;p&gt;No users found&lt;/p&gt;
-    &lt;/div&gt;
-    
-    &lt;!-- Form submission --&gt;
-    &lt;form th:action="@{/users}" method="post" th:object="${user}"&gt;
-        &lt;input th:field="*{name}" required /&gt;
-        &lt;input th:field="*{email}" type="email" required /&gt;
-        &lt;span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"&gt;&lt;/span&gt;
-        &lt;button type="submit"&gt;Save&lt;/button&gt;
-    &lt;/form&gt;
-&lt;/body&gt;
-&lt;/html&gt;
-                </code></pre>
-
-                </section>
-
-                <section id="form-handling" class="section">
-                    <h2>Form Handling & Validation</h2>
-                <pre><code>
-// Model class with validation
-@Data
-@NoArgsConstructor
-public class UserForm {
-    
-    @NotBlank(message = "Name is required")
-    @Size(min = 3, max = 50)
-    private String name;
-    
-    @Email(message = "Valid email required")
-    private String email;
-    
-    @NotNull
-    @Min(18)
-    private Integer age;
-}
-
-// Controller with form validation
-@Controller
-@RequestMapping("/users")
-public class UserFormController {
-    
-    // Display form
-    @GetMapping("/new")
-    public String showForm(Model model) {
-        model.addAttribute("user", new UserForm());
-        return "user/form";
+    // JSON data binding
+    @PostMapping("/api")
+    @ResponseBody
+    public ResponseEntity<User> createUserApi(@RequestBody User user) {
+        User savedUser = userService.save(user);
+        return ResponseEntity.ok(savedUser);
     }
     
-    // Process form with validation
-    @PostMapping
-    public String createUser(@Valid @ModelAttribute("user") UserForm form,
-                            BindingResult result,
+    // Request parameter binding
+    @GetMapping("/search")
+    public String searchUsers(@RequestParam String name,
+                            @RequestParam(required = false) String email,
+                            @RequestParam(defaultValue = "0") int page,
                             Model model) {
-        
-        // Validation errors
-        if (result.hasErrors()) {
-            return "user/form";
+        List<User> users = userService.search(name, email, page);
+        model.addAttribute("users", users);
+        return "users/search";
+    }
+    
+    // Path variable binding
+    @GetMapping("/{id}")
+    public String getUser(@PathVariable Long id, Model model) {
+        User user = userService.findById(id);
+        model.addAttribute("user", user);
+        return "users/detail";
+    }
+    
+    // Header binding
+    @GetMapping("/profile")
+    public String getUserProfile(@RequestHeader("User-Agent") String userAgent,
+                               @RequestHeader(value = "Accept-Language", 
+                                            defaultValue = "en") String language,
+                               Model model) {
+        // Use headers for processing
+        return "users/profile";
+    }
+    
+    // Cookie binding
+    @GetMapping("/preferences")
+    public String getUserPreferences(@CookieValue(value = "theme", 
+                                                defaultValue = "light") String theme,
+                                   Model model) {
+        model.addAttribute("theme", theme);
+        return "users/preferences";
+    }
+}</code></pre>
+                        </div>
+                        
+                        <h3>Custom Data Binding</h3>
+                        <div class="code-block">
+                            <pre><code>// Custom Property Editor
+public class CustomDateEditor extends PropertyEditorSupport {
+    
+    private final DateTimeFormatter formatter;
+    
+    public CustomDateEditor(String pattern) {
+        this.formatter = DateTimeFormatter.ofPattern(pattern);
+    }
+    
+    @Override
+    public void setAsText(String text) throws IllegalArgumentException {
+        try {
+            LocalDate date = LocalDate.parse(text, formatter);
+            setValue(date);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Invalid date format: " + text);
         }
-        
-        // Custom validation
-        if (userService.userExists(form.getEmail())) {
-            result.rejectValue("email", "user.email.exists", "Email already exists");
-            return "user/form";
-        }
-        
-        userService.save(form);
-        return "redirect:/users";
+    }
+    
+    @Override
+    public String getAsText() {
+        LocalDate date = (LocalDate) getValue();
+        return date != null ? date.format(formatter) : "";
     }
 }
 
-// Template with error handling
-&lt;form th:action="@{/users}" method="post" th:object="${user}"&gt;
-    &lt;div&gt;
-        &lt;label for="name"&gt;Name:&lt;/label&gt;
-        &lt;input id="name" type="text" th:field="*{name}" class="form-control" /&gt;
-        &lt;span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error"&gt;&lt;/span&gt;
-    &lt;/div&gt;
+// Register custom editors
+@ControllerAdvice
+public class GlobalControllerAdvice {
     
-    &lt;div&gt;
-        &lt;label for="email"&gt;Email:&lt;/label&gt;
-        &lt;input id="email" type="email" th:field="*{email}" class="form-control" /&gt;
-        &lt;span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"&gt;&lt;/span&gt;
-    &lt;/div&gt;
-    
-    &lt;button type="submit"&gt;Submit&lt;/button&gt;
-&lt;/form&gt;
-                </code></pre>
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(LocalDate.class, 
+                                   new CustomDateEditor("yyyy-MM-dd"));
+    }
+}
 
-                </section>
-
-                <section id="interceptors" class="section">
-                    <h2>Interceptors & Filters</h2>
-                <pre><code>
-// Handler Interceptor
+// Custom Converter
 @Component
-public class LoggingInterceptor implements HandlerInterceptor {
+public class StringToUserConverter implements Converter<String, User> {
+    
+    @Autowired
+    private UserService userService;
     
     @Override
-    public boolean preHandle(HttpServletRequest request, 
-                            HttpServletResponse response,
-                            Object handler) throws Exception {
-        System.out.println("Request: " + request.getRequestURI());
-        return true;  // Continue processing
-    }
-    
-    @Override
-    public void postHandle(HttpServletRequest request,
-                          HttpServletResponse response,
-                          Object handler,
-                          ModelAndView modelAndView) throws Exception {
-        System.out.println("Response status: " + response.getStatus());
-    }
-    
-    @Override
-    public void afterCompletion(HttpServletRequest request,
-                               HttpServletResponse response,
-                               Object handler,
-                               Exception ex) throws Exception {
-        if (ex != null) {
-            ex.printStackTrace();
+    public User convert(String id) {
+        try {
+            Long userId = Long.parseLong(id);
+            return userService.findById(userId);
+        } catch (NumberFormatException e) {
+            return null;
         }
     }
 }
 
-// Register interceptor
+// Register converter
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
     
     @Autowired
-    private LoggingInterceptor loggingInterceptor;
+    private StringToUserConverter stringToUserConverter;
     
     @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(loggingInterceptor)
-            .addPathPatterns("/**")
-            .excludePathPatterns("/public/**");
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addConverter(stringToUserConverter);
     }
 }
 
-// Servlet Filter
+// Custom Formatter
 @Component
-public class AuthenticationFilter implements Filter {
+public class LocalDateFormatter implements Formatter<LocalDate> {
     
     @Override
-    public void doFilter(ServletRequest request,
-                        ServletResponse response,
-                        FilterChain chain) throws IOException, ServletException {
-        HttpServletRequest httpRequest = (HttpServletRequest) request;
-        String token = httpRequest.getHeader("Authorization");
+    public LocalDate parse(String text, Locale locale) throws ParseException {
+        return LocalDate.parse(text, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    }
+    
+    @Override
+    public String print(LocalDate date, Locale locale) {
+        return date.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="validation" class="section">
+                    <h2>✅ Validation</h2>
+                    
+                    <div class="subsection">
+                        <h3>Bean Validation</h3>
+                        <div class="code-block">
+                            <pre><code>// User model with validation annotations
+public class User {
+    
+    @NotNull(message = "ID cannot be null")
+    private Long id;
+    
+    @NotBlank(message = "Name is required")
+    @Size(min = 2, max = 50, message = "Name must be between 2 and 50 characters")
+    private String name;
+    
+    @NotBlank(message = "Email is required")
+    @Email(message = "Email should be valid")
+    private String email;
+    
+    @Past(message = "Birth date must be in the past")
+    private LocalDate birthDate;
+    
+    @Min(value = 18, message = "Age must be at least 18")
+    @Max(value = 100, message = "Age must not exceed 100")
+    private Integer age;
+    
+    @Pattern(regexp = "^\\+?[1-9]\\d{1,14}$", message = "Invalid phone number")
+    private String phoneNumber;
+    
+    @Valid
+    @NotNull(message = "Address is required")
+    private Address address;
+    
+    @Size(max = 5, message = "Maximum 5 hobbies allowed")
+    private List<@NotBlank(message = "Hobby cannot be blank") String> hobbies;
+    
+    // Constructors, getters, setters
+}
+
+public class Address {
+    
+    @NotBlank(message = "Street is required")
+    private String street;
+    
+    @NotBlank(message = "City is required")
+    private String city;
+    
+    @Pattern(regexp = "\\d{5}", message = "ZIP code must be 5 digits")
+    private String zipCode;
+    
+    // Getters and setters
+}
+
+// Controller with validation
+@Controller
+@RequestMapping("/users")
+public class UserController {
+    
+    @PostMapping
+    public String createUser(@Valid @ModelAttribute User user,
+                           BindingResult result,
+                           Model model) {
         
-        if (token != null && validateToken(token)) {
-            chain.doFilter(request, response);
-        } else {
-            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_UNAUTHORIZED);
+        // Check for validation errors
+        if (result.hasErrors()) {
+            model.addAttribute("user", user);
+            return "users/form";
         }
+        
+        userService.save(user);
+        return "redirect:/users";
+    }
+    
+    @PostMapping("/api")
+    @ResponseBody
+    public ResponseEntity<?> createUserApi(@Valid @RequestBody User user,
+                                         BindingResult result) {
+        
+        if (result.hasErrors()) {
+            Map<String, String> errors = new HashMap<>();
+            result.getFieldErrors().forEach(error -> 
+                errors.put(error.getField(), error.getDefaultMessage())
+            );
+            return ResponseEntity.badRequest().body(errors);
+        }
+        
+        User savedUser = userService.save(user);
+        return ResponseEntity.ok(savedUser);
+    }
+}</code></pre>
+                        </div>
+                        
+                        <h3>Custom Validation</h3>
+                        <div class="code-block">
+                            <pre><code>// Custom validation annotation
+@Target({ElementType.FIELD, ElementType.PARAMETER})
+@Retention(RetentionPolicy.RUNTIME)
+@Constraint(validatedBy = UniqueEmailValidator.class)
+public @interface UniqueEmail {
+    String message() default "Email already exists";
+    Class<?>[] groups() default {};
+    Class<? extends Payload>[] payload() default {};
+}
+
+// Custom validator implementation
+@Component
+public class UniqueEmailValidator implements ConstraintValidator<UniqueEmail, String> {
+    
+    @Autowired
+    private UserService userService;
+    
+    @Override
+    public boolean isValid(String email, ConstraintValidatorContext context) {
+        if (email == null) {
+            return true; // Let @NotNull handle null values
+        }
+        return !userService.existsByEmail(email);
     }
 }
-                </code></pre>
 
+// Class-level validation
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+@Constraint(validatedBy = PasswordMatchValidator.class)
+public @interface PasswordMatch {
+    String message() default "Passwords do not match";
+    Class<?>[] groups() default {};
+    Class<? extends Payload>[] payload() default {};
+}
+
+public class PasswordMatchValidator implements ConstraintValidator<PasswordMatch, Object> {
+    
+    @Override
+    public boolean isValid(Object obj, ConstraintValidatorContext context) {
+        if (obj instanceof UserRegistrationForm) {
+            UserRegistrationForm form = (UserRegistrationForm) obj;
+            return Objects.equals(form.getPassword(), form.getConfirmPassword());
+        }
+        return true;
+    }
+}
+
+// Using custom validation
+@PasswordMatch
+public class UserRegistrationForm {
+    
+    @NotBlank
+    @UniqueEmail
+    private String email;
+    
+    @NotBlank
+    @Size(min = 8, message = "Password must be at least 8 characters")
+    private String password;
+    
+    @NotBlank
+    private String confirmPassword;
+    
+    // Getters and setters
+}
+
+// Validation groups
+public interface CreateGroup {}
+public interface UpdateGroup {}
+
+public class User {
+    
+    @NotNull(groups = UpdateGroup.class)
+    private Long id;
+    
+    @NotBlank(groups = {CreateGroup.class, UpdateGroup.class})
+    private String name;
+    
+    @UniqueEmail(groups = CreateGroup.class)
+    private String email;
+    
+    // Other fields
+}
+
+// Controller with validation groups
+@PostMapping
+public String createUser(@Validated(CreateGroup.class) @ModelAttribute User user,
+                       BindingResult result) {
+    // Validation logic
+    return "redirect:/users";
+}
+
+@PutMapping("/{id}")
+public String updateUser(@Validated(UpdateGroup.class) @ModelAttribute User user,
+                       BindingResult result) {
+    // Validation logic
+    return "redirect:/users/" + user.getId();
+}</code></pre>
+                        </div>
+                    </div>
                 </section>
 
                 <section id="exception-handling" class="section">
-                    <h2>Exception Handling</h2>
-                <pre><code>
-// Controller-level exception handler
-@Controller
-public class UserController {
-    
-    @ExceptionHandler(UserNotFoundException.class)
-    public String handleUserNotFound(UserNotFoundException ex, Model model) {
-        model.addAttribute("error", "User not found: " + ex.getMessage());
-        return "error/not-found";
-    }
-    
-    @ExceptionHandler(IllegalArgumentException.class)
-    public String handleIllegalArgument(IllegalArgumentException ex, Model model) {
-        model.addAttribute("error", ex.getMessage());
-        return "error/bad-request";
-    }
-}
-
-// Global exception handler
+                    <h2>🚨 Exception Handling</h2>
+                    
+                    <div class="subsection">
+                        <h3>Global Exception Handling</h3>
+                        <div class="code-block">
+                            <pre><code>// Global exception handler
 @ControllerAdvice
 public class GlobalExceptionHandler {
     
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public ModelAndView handleNotFound(ResourceNotFoundException ex) {
-        ModelAndView mv = new ModelAndView("error/404");
-        mv.addObject("error", ex.getMessage());
-        return mv;
+    private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    
+    // Handle validation errors
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public Map<String, String> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        Map<String, String> errors = new HashMap<>();
+        ex.getBindingResult().getFieldErrors().forEach(error -> 
+            errors.put(error.getField(), error.getDefaultMessage())
+        );
+        return errors;
     }
     
+    // Handle custom business exceptions
+    @ExceptionHandler(UserNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ModelAndView handleUserNotFound(UserNotFoundException ex, HttpServletRequest request) {
+        logger.error("User not found: {}", ex.getMessage());
+        
+        ModelAndView mav = new ModelAndView("error/404");
+        mav.addObject("message", ex.getMessage());
+        mav.addObject("url", request.getRequestURL());
+        return mav;
+    }
+    
+    // Handle REST API exceptions
+    @ExceptionHandler(UserNotFoundException.class)
+    @ResponseBody
+    public ResponseEntity<ErrorResponse> handleUserNotFoundApi(UserNotFoundException ex) {
+        ErrorResponse error = new ErrorResponse(
+            "USER_NOT_FOUND",
+            ex.getMessage(),
+            System.currentTimeMillis()
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
+    
+    // Handle access denied
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public String handleAccessDenied(AccessDeniedException ex, Model model) {
+        model.addAttribute("message", "Access denied: " + ex.getMessage());
+        return "error/403";
+    }
+    
+    // Handle general exceptions
     @ExceptionHandler(Exception.class)
-    public ModelAndView handleGeneral(Exception ex) {
-        ModelAndView mv = new ModelAndView("error/500");
-        mv.addObject("error", "Internal server error");
-        return mv;
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ModelAndView handleGeneral(Exception ex, HttpServletRequest request) {
+        logger.error("Unexpected error occurred", ex);
+        
+        ModelAndView mav = new ModelAndView("error/500");
+        mav.addObject("message", "An unexpected error occurred");
+        mav.addObject("url", request.getRequestURL());
+        return mav;
     }
 }
 
-// Custom exceptions
+// Custom exception classes
 public class UserNotFoundException extends RuntimeException {
     public UserNotFoundException(Long id) {
         super("User not found with id: " + id);
     }
 }
-                </code></pre>
 
-                </section>
+public class EmailAlreadyExistsException extends RuntimeException {
+    public EmailAlreadyExistsException(String email) {
+        super("Email already exists: " + email);
+    }
+}
 
-                <section id="session-flash" class="section">
-                    <h2>Session & Flash Attributes</h2>
-                <pre><code>
+// Error response DTO
+public class ErrorResponse {
+    private String code;
+    private String message;
+    private long timestamp;
+    
+    // Constructors, getters, setters
+}
+
+// Controller-specific exception handling
 @Controller
-public class SessionController {
+@RequestMapping("/users")
+public class UserController {
     
-    // Session attributes - persisted across requests
-    @GetMapping("/login")
-    public String login(HttpSession session, Model model) {
-        session.setAttribute("userId", 123);
-        session.setAttribute("username", "john");
-        return "dashboard";
-    }
-    
-    // Using @SessionAttributes
-    @Controller
-    @SessionAttributes("user")
-    public class UserWizardController {
-        
-        @GetMapping("/step1")
-        public String step1(Model model) {
-            model.addAttribute("user", new User());
-            return "wizard/step1";
-        }
-        
-        @PostMapping("/step1")
-        public String processStep1(@ModelAttribute User user) {
-            // User kept in session
-            return "redirect:/wizard/step2";
-        }
-    }
-    
-    // Flash attributes - available after redirect
-    @PostMapping("/users")
-    public String createUser(User user, RedirectAttributes redirectAttrs) {
-        User created = userService.save(user);
-        redirectAttrs.addFlashAttribute("message", "User created successfully");
-        redirectAttrs.addFlashAttribute("user", created);
-        return "redirect:/users/" + created.getId();
+    @ExceptionHandler(UserNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public String handleUserNotFound(UserNotFoundException ex, Model model) {
+        model.addAttribute("error", ex.getMessage());
+        return "users/not-found";
     }
     
     @GetMapping("/{id}")
-    public String viewUser(@PathVariable Long id, Model model) {
-        // Flash attributes available here
-        return "user/detail";
+    public String getUser(@PathVariable Long id, Model model) {
+        User user = userService.findById(id)
+                .orElseThrow(() -> new UserNotFoundException(id));
+        model.addAttribute("user", user);
+        return "users/detail";
     }
-}
-                </code></pre>
-
+}</code></pre>
+                        </div>
+                    </div>
                 </section>
 
-                <section id="file-upload" class="section">
-                    <h2>File Upload & Download</h2>
-                <pre><code>
-@Controller
-@RequestMapping("/files")
-public class FileController {
-    
-    // File upload
-    @PostMapping("/upload")
-    public String uploadFile(@RequestParam("file") MultipartFile file,
-                            RedirectAttributes redirectAttrs) {
-        try {
-            if (file.isEmpty()) {
-                redirectAttrs.addFlashAttribute("error", "Please select a file");
-                return "redirect:/files/upload";
-            }
-            
-            String filename = file.getOriginalFilename();
-            byte[] bytes = file.getBytes();
-            
-            // Save file
-            Path path = Paths.get("uploads/" + filename);
-            Files.write(path, bytes);
-            
-            redirectAttrs.addFlashAttribute("message", "File uploaded successfully");
-        } catch (IOException e) {
-            redirectAttrs.addFlashAttribute("error", "Upload failed");
-        }
-        
-        return "redirect:/files";
-    }
-    
-    // File download
-    @GetMapping("/download/{filename}")
-    public ResponseEntity<byte[]> downloadFile(@PathVariable String filename) 
-            throws IOException {
-        Path path = Paths.get("uploads/" + filename);
-        byte[] fileContent = Files.readAllBytes(path);
-        
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-        headers.setContentDispositionFormData("attachment", filename);
-        
-        return new ResponseEntity<>(fileContent, headers, HttpStatus.OK);
-    }
-}
-
-// Configuration
-@Configuration
-public class FileUploadConfig {
-    
-    @Bean
-    public CommonsMultipartResolver multipartResolver() {
-        CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-        resolver.setMaxUploadSize(10485760);  // 10MB
-        return resolver;
-    }
-}
-                </code></pre>
-
+                <section id="interview" class="section">
+                    <h2>💼 Interview Questions</h2>
+                    
+                    <div class="subsection">
+                        <h3>Frequently Asked Questions</h3>
+                        
+                        <div class="question-block">
+                            <h4>Q1: Explain the Spring MVC request flow</h4>
+                            <p><strong>Answer:</strong> Request → DispatcherServlet → HandlerMapping → Controller → ModelAndView → ViewResolver → View → Response. DispatcherServlet acts as front controller coordinating the entire process.</p>
+                        </div>
+                        
+                        <div class="question-block">
+                            <h4>Q2: What's the difference between @Controller and @RestController?</h4>
+                            <p><strong>Answer:</strong></p>
+                            <ul>
+                                <li><strong>@Controller:</strong> Returns view names, used for traditional MVC</li>
+                                <li><strong>@RestController:</strong> Combines @Controller + @ResponseBody, returns data directly</li>
+                                <li><strong>Usage:</strong> @Controller for web pages, @RestController for APIs</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="question-block">
+                            <h4>Q3: How does data binding work in Spring MVC?</h4>
+                            <p><strong>Answer:</strong> Spring MVC automatically binds request parameters to method parameters or model objects using WebDataBinder. Supports form data, JSON, path variables, and request parameters with type conversion.</p>
+                        </div>
+                        
+                        <div class="question-block">
+                            <h4>Q4: What are the different ways to handle exceptions in Spring MVC?</h4>
+                            <p><strong>Answer:</strong></p>
+                            <ul>
+                                <li><strong>@ExceptionHandler:</strong> Method-level exception handling</li>
+                                <li><strong>@ControllerAdvice:</strong> Global exception handling</li>
+                                <li><strong>HandlerExceptionResolver:</strong> Custom exception resolution</li>
+                                <li><strong>@ResponseStatus:</strong> Map exceptions to HTTP status codes</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="question-block">
+                            <h4>Q5: Explain validation in Spring MVC</h4>
+                            <p><strong>Answer:</strong> Spring MVC integrates with Bean Validation (JSR-303/380) using @Valid annotation. Supports field-level, class-level, and custom validation with BindingResult for error handling.</p>
+                        </div>
+                    </div>
                 </section>
 
-                <section id="interview-topics" class="section">
-                    <h2>Common Interview Topics</h2>
-                <ul>
-                    <li><strong>DispatcherServlet:</strong> Front controller pattern</li>
-                    <li><strong>HandlerMapping:</strong> URL to controller mapping</li>
-                    <li><strong>ViewResolver:</strong> View template resolution</li>
-                    <li><strong>Controllers:</strong> @Controller vs @RestController</li>
-                    <li><strong>Request Binding:</strong> @PathVariable, @RequestParam, @ModelAttribute</li>
-                    <li><strong>Validation:</strong> JSR-303 annotations, BindingResult</li>
-                    <li><strong>Interceptors:</strong> Pre/post-processing of requests</li>
-                    <li><strong>Exception Handling:</strong> @ControllerAdvice, @ExceptionHandler</li>
-                    <li><strong>Session Management:</strong> HttpSession, @SessionAttributes</li>
-                    <li><strong>File Upload/Download:</strong> MultipartFile, ResponseEntity</li>
-                </ul>
-
-                </section>
-
-                <section id="best-practices" class="section">
-                    <h2>Best Practices</h2>
-                <ul>
-                    <li>Use @RestController for JSON APIs instead of @Controller</li>
-                    <li>Keep controllers thin - delegate business logic to services</li>
-                    <li>Use proper HTTP methods (GET, POST, PUT, DELETE)</li>
-                    <li>Validate input data with annotations and BindingResult</li>
-                    <li>Use proper status codes (200, 201, 400, 404, 500)</li>
-                    <li>Implement global exception handling with @ControllerAdvice</li>
-                    <li>Use redirects (PRG pattern) after form submissions</li>
-                    <li>Separate presentation logic from business logic</li>
-                    <li>Use proper naming conventions for request mappings</li>
-                    <li>Document APIs clearly with comments or Swagger</li>
-                </ul>
-
-                    <h3>Key Interview Questions</h3>
-                    <ul>
-                        <li>Explain the Spring MVC request flow</li>
-                        <li>What is DispatcherServlet and its role?</li>
-                        <li>Difference between @Controller and @RestController</li>
-                        <li>How does view resolution work in Spring MVC?</li>
-                        <li>Explain @RequestParam vs @PathVariable vs @ModelAttribute</li>
-                        <li>How to validate form data in Spring MVC?</li>
-                        <li>What are interceptors and how to implement them?</li>
-                        <li>How to handle exceptions globally?</li>
-                        <li>Explain session management and @SessionAttributes</li>
-                        <li>How to handle file uploads in Spring MVC?</li>
-                    </ul>
-                </section>
-                </div>
+            </div>
             </div>
         </div>
     </div>
+    
+    <footer></footer>
     <script src="../footer.js"></script>
 </body>
 </html>

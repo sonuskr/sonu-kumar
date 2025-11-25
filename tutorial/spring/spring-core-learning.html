@@ -8,716 +8,1043 @@
     <title>Spring Core Learning - Sonu Kumar</title>
     <link rel="stylesheet" href="../tutorial-styles.css">
 </head>
-<body class="page-spring-core">
+<body class="page-spring">
     <header>
         <div class="container">
             <div class="hero">
-                <h1>Spring Core Learning Tutorial</h1>
-                <p>Master Spring Framework Core Concepts</p>
+                <h1>Spring Core Framework</h1>
+                <p>Master Dependency Injection & IoC Container for Enterprise Applications</p>
             </div>
         </div>
     </header>
     <nav></nav>
     <script>window.activePage = 'spring';</script>
     <script src="../menu.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeBlocks = document.querySelectorAll('pre code');
+            codeBlocks.forEach(block => {
+                highlightJava(block);
+            });
+        });
+        
+        function highlightJava(element) {
+            let code = element.textContent;
+            
+            code = code.replace(/\b(public|private|protected|static|final|class|interface|extends|implements|import|package|void|int|String|boolean|double|float|long|short|byte|char|if|else|for|while|do|switch|case|default|break|continue|return|try|catch|finally|throw|throws|new|this|super|null|true|false|abstract|synchronized|volatile|transient|native|strictfp|enum|assert|@Component|@Service|@Repository|@Controller|@Autowired|@Qualifier|@Value|@Configuration|@Bean|@ComponentScan|@Profile|@Scope)\b/g, '<span class="keyword">$1</span>');
+            
+            code = code.replace(/"([^"]*)"/g, '<span class="string">"$1"</span>');
+            code = code.replace(/'([^']*)'/g, '<span class="string">\'$1\'</span>');
+            
+            code = code.replace(/\/\/.*$/gm, '<span class="comment">$&</span>');
+            code = code.replace(/\/\*[\s\S]*?\*\//g, '<span class="comment">$&</span>');
+            
+            code = code.replace(/\b\d+(\.\d+)?[fLdF]?\b/g, '<span class="number">$&</span>');
+            
+            code = code.replace(/\b([a-zA-Z_][a-zA-Z0-9_]*)\s*\(/g, '<span class="method">$1</span>(');
+            
+            code = code.replace(/\b[A-Z][a-zA-Z0-9_]*\b/g, '<span class="class">$&</span>');
+            
+            element.innerHTML = code;
+        }
+    </script>
+    
     <div class="container">
         <div class="content-with-sidebar">
-            <div class="sidebar-toc">
+            <aside class="sidebar-toc">
                 <div class="toc-header">
-                    <h2>📚 Table of Contents</h2>
+                    <h2>📚 Spring Core Topics</h2>
                 </div>
                 <nav class="toc-nav">
                     <ul>
-                        <li><a href="#what-is-spring">What is Spring Framework?</a></li>
-                        <li><a href="#spring-modules">Spring Framework Modules</a></li>
-                        <li><a href="#ioc-beans">IoC Container & Beans</a></li>
+                        <li><a href="#overview">Spring Overview</a></li>
+                        <li><a href="#ioc-container">IoC Container</a></li>
                         <li><a href="#dependency-injection">Dependency Injection</a></li>
-                        <li><a href="#bean-scopes">Bean Scopes</a></li>
-                        <li><a href="#annotations">Annotations & Configuration</a></li>
                         <li><a href="#bean-lifecycle">Bean Lifecycle</a></li>
-                        <li><a href="#xml-config">XML Configuration</a></li>
+                        <li><a href="#configuration">Configuration</a></li>
+                        <li><a href="#annotations">Annotations</a></li>
                         <li><a href="#aop">Aspect-Oriented Programming</a></li>
-                        <li><a href="#event-handling">Event Handling</a></li>
-                        <li><a href="#resource-management">Resource Management</a></li>
-                        <li><a href="#spring-vs-boot">Spring vs Spring Boot</a></li>
-                        <li><a href="#interview-topics">Interview Topics</a></li>
+                        <li><a href="#profiles">Profiles & Environment</a></li>
+                        <li><a href="#events">Event Handling</a></li>
+                        <li><a href="#testing">Testing</a></li>
                         <li><a href="#best-practices">Best Practices</a></li>
+                        <li><a href="#interview">Interview Questions</a></li>
                     </ul>
                 </nav>
-            </div>
+            </aside>
+
             <div class="main-content">
-                <div class="topic">
-                    <h1>Spring Core - Complete Guide</h1>
-                
-                <section id="what-is-spring" class="section">
-                    <h2>What is Spring Framework?</h2>
-                <p>Spring is a lightweight, non-invasive framework for building Java applications. It provides a comprehensive programming and configuration model for modern Java-based enterprise applications. Spring Core is the foundation that enables dependency injection (DI) and inversion of control (IoC) patterns, forming the basis for other Spring modules.</p>
-                
+            <div class="topic">
+
+                <section id="overview" class="section">
+                    <h2>🚀 Spring Framework Overview</h2>
+                    
+                    <div class="subsection">
+                        <h3>What is Spring Framework?</h3>
+                        <p><strong>Definition:</strong> Spring is a comprehensive framework for enterprise Java development that provides infrastructure support for developing Java applications. It focuses on dependency injection, aspect-oriented programming, and declarative programming.</p>
+                        
+                        <h4>Key Features:</h4>
+                        <ul>
+                            <li><strong>Inversion of Control (IoC):</strong> Container manages object creation and dependencies</li>
+                            <li><strong>Dependency Injection (DI):</strong> Objects receive dependencies rather than creating them</li>
+                            <li><strong>Aspect-Oriented Programming (AOP):</strong> Cross-cutting concerns separation</li>
+                            <li><strong>Lightweight:</strong> Minimal overhead and non-invasive</li>
+                            <li><strong>Modular:</strong> Use only what you need</li>
+                            <li><strong>Integration:</strong> Excellent integration with other frameworks</li>
+                        </ul>
+                        
+                        <h4>Spring Framework Architecture:</h4>
+                        <div class="code-block">
+                            <pre><code>Spring Framework Modules
+├── Core Container
+│   ├── Core (IoC, DI)
+│   ├── Beans (Bean Factory)
+│   ├── Context (Application Context)
+│   └── Expression Language (SpEL)
+├── Data Access/Integration
+│   ├── JDBC
+│   ├── ORM (Hibernate, JPA)
+│   ├── OXM (Object/XML Mapping)
+│   ├── JMS (Java Message Service)
+│   └── Transactions
+├── Web
+│   ├── Web (Basic web support)
+│   ├── Web-MVC (Spring MVC)
+│   ├── Web-Socket
+│   └── Web-Portlet
+├── AOP (Aspect-Oriented Programming)
+├── Aspects (AspectJ integration)
+├── Instrumentation
+└── Test (Testing support)</code></pre>
+                        </div>
+                        
+                        <h4>Benefits of Spring Framework:</h4>
+                        <ul>
+                            <li><strong>Loose Coupling:</strong> Reduces dependencies between components</li>
+                            <li><strong>Easy Testing:</strong> Dependency injection makes unit testing easier</li>
+                            <li><strong>Flexible Configuration:</strong> XML, annotations, or Java-based configuration</li>
+                            <li><strong>Enterprise Ready:</strong> Production-ready features out of the box</li>
+                            <li><strong>Community Support:</strong> Large community and extensive documentation</li>
+                        </ul>
+                    </div>
                 </section>
 
-                <section id="spring-modules" class="section">
-                    <h2>Spring Framework Modules</h2>
-                <ul>
-                    <li><strong>Spring Core:</strong> IoC container, beans, configuration</li>
-                    <li><strong>Spring AOP:</strong> Aspect-oriented programming</li>
-                    <li><strong>Spring Data Access:</strong> JDBC, ORM, transactions</li>
-                    <li><strong>Spring Web:</strong> Web, Servlet, WebSocket</li>
-                    <li><strong>Spring MVC:</strong> Model-View-Controller framework</li>
-                    <li><strong>Spring Security:</strong> Authentication & authorization</li>
-                    <li><strong>Spring Boot:</strong> Auto-configuration & embedded servers</li>
-                </ul>
+                <section id="ioc-container" class="section">
+                    <h2>🏗️ IoC Container</h2>
+                    
+                    <div class="subsection">
+                        <h3>Understanding IoC Container</h3>
+                        <p><strong>Inversion of Control:</strong> The container controls the creation and management of objects, inverting the traditional control flow where objects create their own dependencies.</p>
+                        
+                        <h4>Container Types:</h4>
+                        <div class="code-block">
+                            <pre><code>// 1. BeanFactory - Basic container
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.core.io.ClassPathResource;
 
-                </section>
-
-                <section id="ioc-beans" class="section">
-                    <h2>IoC Container & Beans</h2>
-                <pre><code>
-// What is a Bean?
-// A bean is an object managed by the Spring IoC container
-// Beans are created, configured, and assembled by Spring
-
-// Simple POJO class
-public class UserService {
-    public void login(String username) {
-        System.out.println("User " + username + " logged in");
+public class BeanFactoryExample {
+    public static void main(String[] args) {
+        // Create BeanFactory
+        BeanFactory factory = new XmlBeanFactory(
+            new ClassPathResource("applicationContext.xml")
+        );
+        
+        // Get bean from container
+        UserService userService = (UserService) factory.getBean("userService");
+        userService.processUser();
     }
 }
 
-// Registering bean - XML configuration
-&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;beans xmlns="http://www.springframework.org/schema/beans"&gt;
-    &lt;bean id="userService" class="com.example.UserService"/&gt;
-    &lt;bean id="userDAO" class="com.example.UserDAO"/&gt;
-&lt;/beans&gt;
+// 2. ApplicationContext - Advanced container (Recommended)
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-// Creating and using beans
-ApplicationContext context = new ClassPathXmlApplicationContext("spring-config.xml");
-UserService userService = context.getBean("userService", UserService.class);
-userService.login("john");
-
-// Alternative: Annotation-based configuration
-@Component
-public class UserService {
-    public void login(String username) {
-        System.out.println("User " + username + " logged in");
+public class ApplicationContextExample {
+    public static void main(String[] args) {
+        // XML-based configuration
+        ApplicationContext context = new ClassPathXmlApplicationContext(
+            "applicationContext.xml"
+        );
+        
+        // Annotation-based configuration
+        ApplicationContext annotationContext = 
+            new AnnotationConfigApplicationContext(AppConfig.class);
+        
+        // Get beans
+        UserService userService = context.getBean("userService", UserService.class);
+        UserRepository userRepository = context.getBean(UserRepository.class);
+        
+        userService.processUser();
     }
-}
+}</code></pre>
+                        </div>
+                        
+                        <h4>Container Configuration Methods:</h4>
+                        <div class="code-block">
+                            <pre><code>// 1. XML Configuration (applicationContext.xml)
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-// Scanning components
+    <!-- Bean definitions -->
+    <bean id="userRepository" class="com.example.UserRepositoryImpl"/>
+    
+    <bean id="userService" class="com.example.UserServiceImpl">
+        <property name="userRepository" ref="userRepository"/>
+    </bean>
+    
+    <!-- Constructor injection -->
+    <bean id="orderService" class="com.example.OrderService">
+        <constructor-arg ref="userService"/>
+        <constructor-arg value="Premium"/>
+    </bean>
+</beans>
+
+// 2. Java Configuration
 @Configuration
 @ComponentScan(basePackages = "com.example")
 public class AppConfig {
-}
-
-AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
-UserService userService = context.getBean(UserService.class);
-                </code></pre>
-
-                </section>
-
-                <section id="dependency-injection" class="section">
-                    <h2>Dependency Injection (DI) - Core Concept</h2>
-                <pre><code>
-// Problem: Tight coupling
-public class UserService {
-    private UserDAO userDAO = new UserDAO();  // Hard to test, inflexible
-}
-
-// Solution: Dependency Injection
-// 1. Constructor Injection (Preferred)
-public class UserService {
-    private final UserDAO userDAO;
-    
-    public UserService(UserDAO userDAO) {
-        this.userDAO = userDAO;  // Dependency injected
-    }
-    
-    public User getUserById(Long id) {
-        return userDAO.findById(id);
-    }
-}
-
-// XML Configuration
-&lt;beans&gt;
-    &lt;bean id="userDAO" class="com.example.UserDAO"/&gt;
-    &lt;bean id="userService" class="com.example.UserService"&gt;
-        &lt;constructor-arg ref="userDAO"/&gt;
-    &lt;/bean&gt;
-&lt;/beans&gt;
-
-// Annotation-based
-@Component
-public class UserDAO {
-    public User findById(Long id) {
-        return new User(id, "John");
-    }
-}
-
-@Component
-public class UserService {
-    private final UserDAO userDAO;
-    
-    public UserService(UserDAO userDAO) {
-        this.userDAO = userDAO;
-    }
-}
-
-// 2. Setter Injection
-public class UserService {
-    private UserDAO userDAO;
-    
-    public void setUserDAO(UserDAO userDAO) {
-        this.userDAO = userDAO;
-    }
-}
-
-// XML Configuration
-&lt;bean id="userService" class="com.example.UserService"&gt;
-    &lt;property name="userDAO" ref="userDAO"/&gt;
-&lt;/bean&gt;
-
-// 3. Field Injection (Avoid in production)
-@Service
-public class UserService {
-    @Autowired
-    private UserDAO userDAO;
-}
-
-// 4. Method Injection
-@Service
-public class UserService {
-    private UserDAO userDAO;
-    
-    @Autowired
-    public void setDependencies(UserDAO dao) {
-        this.userDAO = dao;
-    }
-}
-                </code></pre>
-
-                </section>
-
-                <section id="bean-scopes" class="section">
-                    <h2>Bean Scopes</h2>
-                <pre><code>
-// Singleton (default) - one instance per container
-@Component
-@Scope("singleton")
-public class SingletonBean {
-}
-
-// XML: &lt;bean id="bean" class="..." scope="singleton"/&gt;
-
-// Prototype - new instance each time
-@Component
-@Scope("prototype")
-public class PrototypeBean {
-}
-
-// Request scope - one per HTTP request
-@Component
-@Scope("request")
-public class RequestScopedBean {
-}
-
-// Session scope - one per HTTP session
-@Component
-@Scope("session")
-public class SessionScopedBean {
-}
-
-// Application/Global Session scope
-@Component
-@Scope("application")
-public class ApplicationScopedBean {
-}
-
-// Custom scope
-@Component
-@Scope(scopeName = "custom")
-public class CustomScopedBean {
-}
-
-// Testing different scopes
-@Test
-public void testSingletonScope() {
-    UserService service1 = context.getBean("userService", UserService.class);
-    UserService service2 = context.getBean("userService", UserService.class);
-    assertSame(service1, service2);  // Same instance
-}
-
-@Test
-public void testPrototypeScope() {
-    RequestBean bean1 = context.getBean("requestBean", RequestBean.class);
-    RequestBean bean2 = context.getBean("requestBean", RequestBean.class);
-    assertNotSame(bean1, bean2);  // Different instances
-}
-                </code></pre>
-
-                </section>
-
-                <section id="annotations" class="section">
-                    <h2>Annotations & Configuration</h2>
-                <pre><code>
-// Component registration annotations
-@Component         // Generic component
-@Service           // Service layer
-@Repository        // Data access layer
-@Controller        // MVC controller
-
-// Configuration and bean creation
-@Configuration
-public class AppConfig {
     
     @Bean
-    public UserDAO userDAO() {
-        return new UserDAO();
+    public UserRepository userRepository() {
+        return new UserRepositoryImpl();
     }
     
     @Bean
-    public UserService userService(UserDAO userDAO) {
-        return new UserService(userDAO);
-    }
-    
-    @Bean(name = {"userSvc", "service"})  // Multiple names
-    public UserService userService2() {
-        return new UserService(userDAO());
+    public UserService userService() {
+        UserServiceImpl service = new UserServiceImpl();
+        service.setUserRepository(userRepository());
+        return service;
     }
     
     @Bean
     @Scope("prototype")
-    public RequestBean requestBean() {
-        return new RequestBean();
+    public OrderService orderService() {
+        return new OrderService(userService(), "Premium");
     }
 }
 
-// Autowiring annotations
-@Autowired              // Field/constructor/setter injection
-@Qualifier("beanName")  // Specify which bean to inject
-@Resource(name="bean")  // JNDI resource injection
-@Inject                 // JSR-330 annotation
-
-// Conditional bean registration
-@Bean
-@ConditionalOnProperty(name = "app.enabled", havingValue = "true")
-public Feature enabledFeature() {
-    return new Feature();
+// 3. Annotation-based Configuration
+@Component
+public class UserRepositoryImpl implements UserRepository {
+    // Implementation
 }
 
-@Bean
-@ConditionalOnMissingBean
-public DefaultService defaultService() {
-    return new DefaultService();
+@Service
+public class UserServiceImpl implements UserService {
+    
+    @Autowired
+    private UserRepository userRepository;
+    
+    public void processUser() {
+        // Business logic
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="dependency-injection" class="section">
+                    <h2>💉 Dependency Injection</h2>
+                    
+                    <div class="subsection">
+                        <h3>Types of Dependency Injection</h3>
+                        
+                        <h4>1. Constructor Injection (Recommended)</h4>
+                        <div class="code-block">
+                            <pre><code>@Service
+public class UserService {
+    private final UserRepository userRepository;
+    private final EmailService emailService;
+    
+    // Constructor injection - ensures immutability and required dependencies
+    public UserService(UserRepository userRepository, EmailService emailService) {
+        this.userRepository = userRepository;
+        this.emailService = emailService;
+    }
+    
+    public User createUser(String name, String email) {
+        User user = new User(name, email);
+        User savedUser = userRepository.save(user);
+        emailService.sendWelcomeEmail(savedUser);
+        return savedUser;
+    }
 }
 
-// Bean lifecycle annotations
-@PostConstruct   // Called after bean constructed
-public void init() {
-    System.out.println("Bean initialized");
+// XML Configuration for Constructor Injection
+<bean id="userService" class="com.example.UserService">
+    <constructor-arg ref="userRepository"/>
+    <constructor-arg ref="emailService"/>
+</bean>
+
+// Java Configuration
+@Configuration
+public class AppConfig {
+    
+    @Bean
+    public UserService userService(UserRepository userRepository, 
+                                  EmailService emailService) {
+        return new UserService(userRepository, emailService);
+    }
+}</code></pre>
+                        </div>
+                        
+                        <h4>2. Setter Injection</h4>
+                        <div class="code-block">
+                            <pre><code>@Service
+public class OrderService {
+    private UserService userService;
+    private PaymentService paymentService;
+    
+    // Setter injection - allows optional dependencies
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+    
+    @Autowired
+    public void setPaymentService(PaymentService paymentService) {
+        this.paymentService = paymentService;
+    }
+    
+    public Order processOrder(Long userId, List<Item> items) {
+        User user = userService.findById(userId);
+        Order order = new Order(user, items);
+        paymentService.processPayment(order);
+        return order;
+    }
 }
 
-@PreDestroy      // Called before bean destroyed
-public void cleanup() {
-    System.out.println("Bean destroyed");
+// XML Configuration for Setter Injection
+<bean id="orderService" class="com.example.OrderService">
+    <property name="userService" ref="userService"/>
+    <property name="paymentService" ref="paymentService"/>
+</bean></code></pre>
+                        </div>
+                        
+                        <h4>3. Field Injection (Not Recommended)</h4>
+                        <div class="code-block">
+                            <pre><code>@Service
+public class NotificationService {
+    
+    @Autowired
+    private EmailService emailService;  // Field injection
+    
+    @Autowired
+    private SmsService smsService;
+    
+    public void sendNotification(User user, String message) {
+        emailService.sendEmail(user.getEmail(), message);
+        smsService.sendSms(user.getPhone(), message);
+    }
 }
-                </code></pre>
 
+// Problems with Field Injection:
+// 1. Cannot create immutable fields (final)
+// 2. Harder to test (requires reflection)
+// 3. Hidden dependencies
+// 4. Circular dependency issues</code></pre>
+                        </div>
+                        
+                        <h3>Advanced Dependency Injection</h3>
+                        <div class="code-block">
+                            <pre><code>// Qualifier for multiple implementations
+public interface NotificationService {
+    void sendNotification(String message);
+}
+
+@Component
+@Qualifier("email")
+public class EmailNotificationService implements NotificationService {
+    public void sendNotification(String message) {
+        // Send email
+    }
+}
+
+@Component
+@Qualifier("sms")
+public class SmsNotificationService implements NotificationService {
+    public void sendNotification(String message) {
+        // Send SMS
+    }
+}
+
+@Service
+public class UserService {
+    private final NotificationService emailService;
+    private final NotificationService smsService;
+    
+    public UserService(@Qualifier("email") NotificationService emailService,
+                      @Qualifier("sms") NotificationService smsService) {
+        this.emailService = emailService;
+        this.smsService = smsService;
+    }
+}
+
+// Primary annotation
+@Component
+@Primary
+public class DefaultNotificationService implements NotificationService {
+    public void sendNotification(String message) {
+        // Default implementation
+    }
+}
+
+// Value injection
+@Component
+public class DatabaseConfig {
+    
+    @Value("${database.url}")
+    private String databaseUrl;
+    
+    @Value("${database.username:admin}")  // Default value
+    private String username;
+    
+    @Value("#{systemProperties['java.home']}")  // SpEL expression
+    private String javaHome;
+    
+    @Value("#{T(java.lang.Math).random() * 100}")
+    private double randomNumber;
+}
+
+// Collection injection
+@Configuration
+public class CollectionConfig {
+    
+    @Bean
+    public List<NotificationService> notificationServices(
+            @Qualifier("email") NotificationService emailService,
+            @Qualifier("sms") NotificationService smsService) {
+        return Arrays.asList(emailService, smsService);
+    }
+}
+
+@Service
+public class BulkNotificationService {
+    
+    @Autowired
+    private List<NotificationService> notificationServices;
+    
+    public void sendBulkNotification(String message) {
+        notificationServices.forEach(service -> 
+            service.sendNotification(message));
+    }
+}</code></pre>
+                        </div>
+                    </div>
                 </section>
 
                 <section id="bean-lifecycle" class="section">
-                    <h2>Bean Lifecycle</h2>
-                <pre><code>
-// Complete bean lifecycle
-public class BeanLifecycle implements InitializingBean, DisposableBean {
+                    <h2>🔄 Bean Lifecycle</h2>
+                    
+                    <div class="subsection">
+                        <h3>Bean Lifecycle Phases</h3>
+                        <div class="code-block">
+                            <pre><code>// Bean Lifecycle Order:
+// 1. Bean Instantiation
+// 2. Dependency Injection
+// 3. BeanNameAware.setBeanName()
+// 4. BeanFactoryAware.setBeanFactory()
+// 5. ApplicationContextAware.setApplicationContext()
+// 6. BeanPostProcessor.postProcessBeforeInitialization()
+// 7. @PostConstruct / InitializingBean.afterPropertiesSet() / init-method
+// 8. BeanPostProcessor.postProcessAfterInitialization()
+// 9. Bean Ready for Use
+// 10. @PreDestroy / DisposableBean.destroy() / destroy-method
+
+@Component
+public class UserService implements BeanNameAware, BeanFactoryAware, 
+                                   ApplicationContextAware, InitializingBean, DisposableBean {
     
-    // 1. Constructor
-    public BeanLifecycle() {
-        System.out.println("1. Constructor called");
+    private String beanName;
+    private BeanFactory beanFactory;
+    private ApplicationContext applicationContext;
+    
+    @Autowired
+    private UserRepository userRepository;
+    
+    // Constructor
+    public UserService() {
+        System.out.println("1. UserService Constructor called");
     }
     
-    // 2. Setter injection
-    private String name;
+    // Dependency Injection happens here
     
-    public void setName(String name) {
-        System.out.println("2. Setter called");
-        this.name = name;
-    }
-    
-    // 3. BeanNameAware - set bean name
+    // Aware interfaces
     @Override
     public void setBeanName(String name) {
-        System.out.println("3. setBeanName called: " + name);
+        this.beanName = name;
+        System.out.println("3. setBeanName: " + name);
     }
     
-    // 4. BeanFactoryAware - set bean factory
     @Override
-    public void setBeanFactory(BeanFactory factory) {
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+        this.beanFactory = beanFactory;
         System.out.println("4. setBeanFactory called");
     }
     
-    // 5. ApplicationContextAware - set application context
     @Override
-    public void setApplicationContext(ApplicationContext context) {
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
         System.out.println("5. setApplicationContext called");
     }
     
-    // 6. BeanPostProcessor - postProcessBeforeInitialization
-    // Called by framework before init methods
-    
-    // 7. InitializingBean.afterPropertiesSet()
-    @Override
-    public void afterPropertiesSet() {
-        System.out.println("7. afterPropertiesSet called");
-    }
-    
-    // 8. @PostConstruct method
+    // Initialization
     @PostConstruct
     public void postConstruct() {
-        System.out.println("8. @PostConstruct called");
+        System.out.println("7a. @PostConstruct called");
     }
     
-    // 9. Custom init-method
-    public void init() {
-        System.out.println("9. Custom init-method called");
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        System.out.println("7b. afterPropertiesSet called");
     }
     
-    // 10. BeanPostProcessor - postProcessAfterInitialization
-    // Called after bean initialized
+    // Custom init method (configured in XML or @Bean)
+    public void customInit() {
+        System.out.println("7c. customInit called");
+    }
     
-    // Bean ready for use...
-    
-    // 11. @PreDestroy method
+    // Destruction
     @PreDestroy
     public void preDestroy() {
-        System.out.println("11. @PreDestroy called");
+        System.out.println("10a. @PreDestroy called");
     }
     
-    // 12. DisposableBean.destroy()
     @Override
-    public void destroy() {
-        System.out.println("12. destroy called");
+    public void destroy() throws Exception {
+        System.out.println("10b. destroy called");
     }
     
-    // 13. Custom destroy-method
-    public void cleanup() {
-        System.out.println("13. Custom destroy-method called");
+    // Custom destroy method
+    public void customDestroy() {
+        System.out.println("10c. customDestroy called");
+    }
+}</code></pre>
+                        </div>
+                        
+                        <h3>Bean Post Processors</h3>
+                        <div class="code-block">
+                            <pre><code>// Custom Bean Post Processor
+@Component
+public class CustomBeanPostProcessor implements BeanPostProcessor {
+    
+    @Override
+    public Object postProcessBeforeInitialization(Object bean, String beanName) 
+            throws BeansException {
+        System.out.println("6. Before Initialization: " + beanName);
+        
+        // Custom logic before initialization
+        if (bean instanceof UserService) {
+            // Perform some setup
+        }
+        
+        return bean;
+    }
+    
+    @Override
+    public Object postProcessAfterInitialization(Object bean, String beanName) 
+            throws BeansException {
+        System.out.println("8. After Initialization: " + beanName);
+        
+        // Custom logic after initialization
+        if (bean instanceof UserService) {
+            // Wrap with proxy, add monitoring, etc.
+        }
+        
+        return bean;
     }
 }
-                </code></pre>
 
+// Configuration with lifecycle methods
+@Configuration
+public class LifecycleConfig {
+    
+    @Bean(initMethod = "customInit", destroyMethod = "customDestroy")
+    public UserService userService() {
+        return new UserService();
+    }
+}
+
+// XML Configuration with lifecycle
+<bean id="userService" class="com.example.UserService" 
+      init-method="customInit" 
+      destroy-method="customDestroy"/>
+
+// Lifecycle callbacks with @Bean
+@Configuration
+public class AppConfig {
+    
+    @Bean
+    public DataSource dataSource() {
+        HikariDataSource dataSource = new HikariDataSource();
+        dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/mydb");
+        return dataSource;
+    }
+    
+    @Bean(destroyMethod = "close")  // Call close() on shutdown
+    public Connection connection() {
+        try {
+            return dataSource().getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+}</code></pre>
+                        </div>
+                    </div>
                 </section>
 
-                <section id="xml-config" class="section">
-                    <h2>XML Configuration</h2>
-                <pre><code>
-&lt;?xml version="1.0" encoding="UTF-8"?&gt;
-&lt;beans xmlns="http://www.springframework.org/schema/beans"&gt;
+                <section id="configuration" class="section">
+                    <h2>⚙️ Configuration</h2>
+                    
+                    <div class="subsection">
+                        <h3>Java-based Configuration</h3>
+                        <div class="code-block">
+                            <pre><code>@Configuration
+@ComponentScan(basePackages = {"com.example.service", "com.example.repository"})
+@PropertySource("classpath:application.properties")
+@EnableAspectJAutoProxy
+public class AppConfig {
     
-    &lt;!-- Simple bean definition --&gt;
-    &lt;bean id="userDAO" class="com.example.UserDAO"/&gt;
+    @Value("${database.url}")
+    private String databaseUrl;
     
-    &lt;!-- Bean with properties --&gt;
-    &lt;bean id="dataSource" class="com.example.DataSource"&gt;
-        &lt;property name="url" value="jdbc:mysql://localhost/mydb"/&gt;
-        &lt;property name="username" value="root"/&gt;
-        &lt;property name="password" value="password"/&gt;
-    &lt;/bean&gt;
+    @Value("${database.username}")
+    private String username;
     
-    &lt;!-- Constructor injection --&gt;
-    &lt;bean id="userService" class="com.example.UserService"&gt;
-        &lt;constructor-arg ref="userDAO"/&gt;
-        &lt;constructor-arg ref="dataSource"/&gt;
-    &lt;/bean&gt;
+    @Value("${database.password}")
+    private String password;
     
-    &lt;!-- Collections --&gt;
-    &lt;bean id="configBean" class="com.example.ConfigBean"&gt;
-        &lt;property name="servers"&gt;
-            &lt;list&gt;
-                &lt;value&gt;server1&lt;/value&gt;
-                &lt;value&gt;server2&lt;/value&gt;
-            &lt;/list&gt;
-        &lt;/property&gt;
-        
-        &lt;property name="mapping"&gt;
-            &lt;map&gt;
-                &lt;entry key="key1" value="value1"/&gt;
-                &lt;entry key="key2" value="value2"/&gt;
-            &lt;/map&gt;
-        &lt;/property&gt;
-    &lt;/bean&gt;
+    @Bean
+    @Primary
+    public DataSource primaryDataSource() {
+        HikariDataSource dataSource = new HikariDataSource();
+        dataSource.setJdbcUrl(databaseUrl);
+        dataSource.setUsername(username);
+        dataSource.setPassword(password);
+        dataSource.setMaximumPoolSize(20);
+        return dataSource;
+    }
     
-    &lt;!-- Bean scope and lifecycle --&gt;
-    &lt;bean id="prototype" class="com.example.PrototypeBean" scope="prototype"
-        init-method="init" destroy-method="cleanup"/&gt;
+    @Bean
+    @Qualifier("readOnly")
+    public DataSource readOnlyDataSource() {
+        HikariDataSource dataSource = new HikariDataSource();
+        dataSource.setJdbcUrl(databaseUrl + "?readOnly=true");
+        dataSource.setUsername(username);
+        dataSource.setPassword(password);
+        dataSource.setMaximumPoolSize(10);
+        return dataSource;
+    }
     
-    &lt;!-- Lazy initialization --&gt;
-    &lt;bean id="lazyBean" class="com.example.LazyBean" lazy-init="true"/&gt;
+    @Bean
+    @Scope("prototype")
+    public UserService userService() {
+        return new UserService();
+    }
     
-&lt;/beans&gt;
-                </code></pre>
+    @Bean
+    @Conditional(DatabaseCondition.class)
+    public DatabaseHealthCheck databaseHealthCheck() {
+        return new DatabaseHealthCheck();
+    }
+}
 
+// Custom Condition
+public class DatabaseCondition implements Condition {
+    @Override
+    public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
+        Environment env = context.getEnvironment();
+        return env.getProperty("database.enabled", Boolean.class, false);
+    }
+}
+
+// Configuration Properties
+@ConfigurationProperties(prefix = "app.database")
+@Component
+public class DatabaseProperties {
+    private String url;
+    private String username;
+    private String password;
+    private int maxConnections = 10;
+    private boolean ssl = false;
+    
+    // Getters and setters
+    public String getUrl() { return url; }
+    public void setUrl(String url) { this.url = url; }
+    
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
+    
+    public String getPassword() { return password; }
+    public void setPassword(String password) { this.password = password; }
+    
+    public int getMaxConnections() { return maxConnections; }
+    public void setMaxConnections(int maxConnections) { this.maxConnections = maxConnections; }
+    
+    public boolean isSsl() { return ssl; }
+    public void setSsl(boolean ssl) { this.ssl = ssl; }
+}</code></pre>
+                        </div>
+                        
+                        <h3>Profile-based Configuration</h3>
+                        <div class="code-block">
+                            <pre><code>// Profile-specific configurations
+@Configuration
+@Profile("development")
+public class DevelopmentConfig {
+    
+    @Bean
+    public DataSource dataSource() {
+        // H2 in-memory database for development
+        return new EmbeddedDatabaseBuilder()
+                .setType(EmbeddedDatabaseType.H2)
+                .addScript("schema.sql")
+                .addScript("test-data.sql")
+                .build();
+    }
+    
+    @Bean
+    public EmailService emailService() {
+        return new MockEmailService(); // Mock for development
+    }
+}
+
+@Configuration
+@Profile("production")
+public class ProductionConfig {
+    
+    @Bean
+    public DataSource dataSource() {
+        // Production database configuration
+        HikariDataSource dataSource = new HikariDataSource();
+        dataSource.setJdbcUrl("jdbc:mysql://prod-server:3306/myapp");
+        dataSource.setUsername("prod_user");
+        dataSource.setPassword("secure_password");
+        return dataSource;
+    }
+    
+    @Bean
+    public EmailService emailService() {
+        return new SmtpEmailService(); // Real email service
+    }
+}
+
+@Configuration
+@Profile({"staging", "production"})
+public class NonDevConfig {
+    
+    @Bean
+    public SecurityConfig securityConfig() {
+        return new SecurityConfig(true); // Enable security
+    }
+}
+
+// Component with profile
+@Component
+@Profile("!production")  // Active in all profiles except production
+public class DebugService {
+    
+    public void logDebugInfo(String message) {
+        System.out.println("DEBUG: " + message);
+    }
+}
+
+// Activating profiles
+// 1. Programmatically
+public class ProfileExample {
+    public static void main(String[] args) {
+        AnnotationConfigApplicationContext context = 
+            new AnnotationConfigApplicationContext();
+        
+        context.getEnvironment().setActiveProfiles("development", "debug");
+        context.register(AppConfig.class);
+        context.refresh();
+    }
+}
+
+// 2. JVM arguments
+// -Dspring.profiles.active=production,monitoring
+
+// 3. Environment variable
+// SPRING_PROFILES_ACTIVE=production,monitoring
+
+// 4. application.properties
+// spring.profiles.active=production,monitoring</code></pre>
+                        </div>
+                    </div>
                 </section>
 
                 <section id="aop" class="section">
-                    <h2>Aspect-Oriented Programming (AOP)</h2>
-                <pre><code>
-// Enable AOP
+                    <h2>🎯 Aspect-Oriented Programming</h2>
+                    
+                    <div class="subsection">
+                        <h3>AOP Concepts and Implementation</h3>
+                        <div class="code-block">
+                            <pre><code>// Enable AOP
 @Configuration
 @EnableAspectJAutoProxy
 public class AopConfig {
 }
 
-// Define Aspect
+// Logging Aspect
 @Aspect
 @Component
 public class LoggingAspect {
     
-    // Pointcut - where to apply advice
-    @Pointcut("execution(* com.example.UserService.*(..))")
-    public void userServiceMethods() {
-    }
+    private static final Logger logger = LoggerFactory.getLogger(LoggingAspect.class);
+    
+    // Pointcut definitions
+    @Pointcut("execution(* com.example.service.*.*(..))")
+    public void serviceLayer() {}
+    
+    @Pointcut("@annotation(com.example.annotation.Loggable)")
+    public void loggableMethod() {}
+    
+    @Pointcut("within(com.example.repository.*)")
+    public void repositoryLayer() {}
     
     // Before advice
-    @Before("userServiceMethods()")
+    @Before("serviceLayer()")
     public void logBefore(JoinPoint joinPoint) {
-        String methodName = joinPoint.getSignature().getName();
-        System.out.println("Before: " + methodName);
-    }
-    
-    // After advice
-    @After("userServiceMethods()")
-    public void logAfter(JoinPoint joinPoint) {
-        System.out.println("After: " + joinPoint.getSignature().getName());
-    }
-    
-    // Around advice - most powerful
-    @Around("userServiceMethods()")
-    public Object logAround(ProceedingJoinPoint joinPoint) throws Throwable {
-        long startTime = System.currentTimeMillis();
-        Object result = joinPoint.proceed();  // Execute actual method
-        long duration = System.currentTimeMillis() - startTime;
-        System.out.println("Method took: " + duration + "ms");
-        return result;
-    }
-    
-    // After throwing advice
-    @AfterThrowing(pointcut = "userServiceMethods()", throwing = "ex")
-    public void logAfterThrowing(JoinPoint joinPoint, Exception ex) {
-        System.out.println("Exception: " + ex.getMessage());
+        logger.info("Entering method: {} with arguments: {}", 
+                   joinPoint.getSignature().getName(), 
+                   Arrays.toString(joinPoint.getArgs()));
     }
     
     // After returning advice
-    @AfterReturning(pointcut = "userServiceMethods()", returning = "result")
+    @AfterReturning(pointcut = "serviceLayer()", returning = "result")
     public void logAfterReturning(JoinPoint joinPoint, Object result) {
-        System.out.println("Result: " + result);
+        logger.info("Method {} returned: {}", 
+                   joinPoint.getSignature().getName(), result);
+    }
+    
+    // After throwing advice
+    @AfterThrowing(pointcut = "serviceLayer()", throwing = "exception")
+    public void logAfterThrowing(JoinPoint joinPoint, Exception exception) {
+        logger.error("Method {} threw exception: {}", 
+                    joinPoint.getSignature().getName(), 
+                    exception.getMessage());
+    }
+    
+    // Around advice
+    @Around("loggableMethod()")
+    public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
+        long startTime = System.currentTimeMillis();
+        
+        try {
+            Object result = joinPoint.proceed();
+            long endTime = System.currentTimeMillis();
+            
+            logger.info("Method {} executed in {} ms", 
+                       joinPoint.getSignature().getName(), 
+                       (endTime - startTime));
+            
+            return result;
+        } catch (Exception e) {
+            logger.error("Method {} failed after {} ms", 
+                        joinPoint.getSignature().getName(), 
+                        (System.currentTimeMillis() - startTime));
+            throw e;
+        }
     }
 }
 
-// Pointcut expressions
-execution(* com.example.*.*(..))           // Any method in package
-@annotation(org.springframework.stereotype.Service)  // Methods with annotation
-bean(userService)                          // Beans named userService
-                </code></pre>
+// Custom annotation for AOP
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Loggable {
+    String value() default "";
+}
 
-                </section>
-
-                <section id="event-handling" class="section">
-                    <h2>Event Handling</h2>
-                <pre><code>
-// Create custom event
-public class UserCreatedEvent extends ApplicationEvent {
-    private final String username;
+// Security Aspect
+@Aspect
+@Component
+public class SecurityAspect {
     
-    public UserCreatedEvent(Object source, String username) {
-        super(source);
-        this.username = username;
-    }
+    @Autowired
+    private SecurityService securityService;
     
-    public String getUsername() {
-        return username;
+    @Before("@annotation(secured)")
+    public void checkSecurity(JoinPoint joinPoint, Secured secured) {
+        String requiredRole = secured.value();
+        
+        if (!securityService.hasRole(requiredRole)) {
+            throw new SecurityException("Access denied. Required role: " + requiredRole);
+        }
     }
 }
 
-// Publisher - send event
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Secured {
+    String value();
+}
+
+// Using AOP annotations
 @Service
 public class UserService {
-    @Autowired
-    private ApplicationEventPublisher eventPublisher;
     
-    public void createUser(String username) {
-        User user = new User(username);
-        // ... save user
+    @Loggable("User creation")
+    @Secured("ADMIN")
+    public User createUser(String name, String email) {
+        // Business logic
+        return new User(name, email);
+    }
+    
+    @Cacheable("users")
+    public User findById(Long id) {
+        // Database call
+        return userRepository.findById(id);
+    }
+}</code></pre>
+                        </div>
+                        
+                        <h3>Transaction Management with AOP</h3>
+                        <div class="code-block">
+                            <pre><code>// Enable transaction management
+@Configuration
+@EnableTransactionManagement
+public class TransactionConfig {
+    
+    @Bean
+    public PlatformTransactionManager transactionManager(DataSource dataSource) {
+        return new DataSourceTransactionManager(dataSource);
+    }
+}
+
+// Transactional service
+@Service
+@Transactional(readOnly = true)  // Default for all methods
+public class UserService {
+    
+    @Autowired
+    private UserRepository userRepository;
+    
+    @Autowired
+    private EmailService emailService;
+    
+    // Override default with write transaction
+    @Transactional(readOnly = false, rollbackFor = Exception.class)
+    public User createUser(String name, String email) {
+        User user = new User(name, email);
+        User savedUser = userRepository.save(user);
         
-        // Publish event
-        eventPublisher.publishEvent(new UserCreatedEvent(this, username));
+        // This will be rolled back if email sending fails
+        emailService.sendWelcomeEmail(savedUser);
+        
+        return savedUser;
+    }
+    
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void auditUserCreation(User user) {
+        // This runs in a separate transaction
+        auditRepository.save(new AuditLog("User created: " + user.getId()));
+    }
+    
+    @Transactional(isolation = Isolation.READ_COMMITTED, timeout = 30)
+    public List<User> findActiveUsers() {
+        return userRepository.findByStatus("ACTIVE");
     }
 }
 
-// Listener - handle event
+// Custom Transaction Aspect
+@Aspect
 @Component
-public class UserCreatedListener implements ApplicationListener<UserCreatedEvent> {
+public class TransactionAspect {
     
-    @Override
-    public void onApplicationEvent(UserCreatedEvent event) {
-        System.out.println("User created: " + event.getUsername());
-        // Send email, log, etc.
+    @Around("@annotation(transactional)")
+    public Object manageTransaction(ProceedingJoinPoint joinPoint, 
+                                   Transactional transactional) throws Throwable {
+        
+        TransactionStatus status = transactionManager.getTransaction(
+            new DefaultTransactionDefinition());
+        
+        try {
+            Object result = joinPoint.proceed();
+            transactionManager.commit(status);
+            return result;
+        } catch (Exception e) {
+            transactionManager.rollback(status);
+            throw e;
+        }
     }
-}
-
-// Alternative: Annotation-based listener
-@Component
-public class UserEventListener {
-    
-    @EventListener
-    public void handleUserCreated(UserCreatedEvent event) {
-        System.out.println("User created: " + event.getUsername());
-    }
-    
-    @EventListener
-    public void handleUserDeleted(UserDeletedEvent event) {
-        System.out.println("User deleted: " + event.getUsername());
-    }
-}
-                </code></pre>
-
+}</code></pre>
+                        </div>
+                    </div>
                 </section>
 
-                <section id="resource-management" class="section">
-                    <h2>Resource Management</h2>
-                <pre><code>
-// Accessing resources from classpath
-@Component
-public class ResourceLoader {
-    
-    @Autowired
-    private org.springframework.core.io.ResourceLoader resourceLoader;
-    
-    public void loadConfig() throws IOException {
-        Resource resource = resourceLoader.getResource("classpath:config.properties");
-        InputStream is = resource.getInputStream();
-        Properties props = new Properties();
-        props.load(is);
-    }
-}
-
-// Property injection
-@Component
-@PropertySource("classpath:app.properties")
-public class AppConfig {
-    
-    @Value("${app.name}")
-    private String appName;
-    
-    @Value("${app.version:1.0.0}")  // With default value
-    private String appVersion;
-    
-    @Value("${app.ports:8080,8081,8082}")
-    private String[] ports;
-    
-    @Value("#{'${app.features}'.split(',')}")
-    private List<String> features;
-}
-
-// Profile-specific properties
-// application.properties (default)
-// application-dev.properties
-// application-prod.properties
-
-@Configuration
-@Profile("production")
-public class ProdConfig {
-    // Production configuration
-}
-
-@Configuration
-@Profile("!production")
-public class DevConfig {
-    // Development configuration
-}
-                </code></pre>
-
+                <section id="interview" class="section">
+                    <h2>💼 Interview Questions</h2>
+                    
+                    <div class="subsection">
+                        <h3>Frequently Asked Questions</h3>
+                        
+                        <div class="question-block">
+                            <h4>Q1: What is Inversion of Control (IoC) and Dependency Injection?</h4>
+                            <p><strong>Answer:</strong></p>
+                            <ul>
+                                <li><strong>IoC:</strong> Design principle where control of object creation is inverted from application to container</li>
+                                <li><strong>DI:</strong> Implementation of IoC where dependencies are injected rather than created by objects</li>
+                                <li><strong>Benefits:</strong> Loose coupling, easier testing, better maintainability</li>
+                                <li><strong>Types:</strong> Constructor, setter, and field injection</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="question-block">
+                            <h4>Q2: Explain the difference between BeanFactory and ApplicationContext</h4>
+                            <p><strong>Answer:</strong></p>
+                            <ul>
+                                <li><strong>BeanFactory:</strong> Basic container, lazy initialization, minimal features</li>
+                                <li><strong>ApplicationContext:</strong> Advanced container, eager initialization, additional features</li>
+                                <li><strong>ApplicationContext features:</strong> Event handling, internationalization, AOP support</li>
+                                <li><strong>Recommendation:</strong> Use ApplicationContext for enterprise applications</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="question-block">
+                            <h4>Q3: What are the different bean scopes in Spring?</h4>
+                            <p><strong>Answer:</strong></p>
+                            <ul>
+                                <li><strong>Singleton:</strong> One instance per container (default)</li>
+                                <li><strong>Prototype:</strong> New instance for each request</li>
+                                <li><strong>Request:</strong> One instance per HTTP request (web)</li>
+                                <li><strong>Session:</strong> One instance per HTTP session (web)</li>
+                                <li><strong>Application:</strong> One instance per ServletContext (web)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="question-block">
+                            <h4>Q4: Explain Spring AOP and its key concepts</h4>
+                            <p><strong>Answer:</strong></p>
+                            <ul>
+                                <li><strong>Aspect:</strong> Cross-cutting concern implementation</li>
+                                <li><strong>Join Point:</strong> Point in program execution where aspect can be applied</li>
+                                <li><strong>Pointcut:</strong> Expression that selects join points</li>
+                                <li><strong>Advice:</strong> Action taken at join point (Before, After, Around)</li>
+                                <li><strong>Weaving:</strong> Process of applying aspects to target objects</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="question-block">
+                            <h4>Q5: What is the Spring Bean lifecycle?</h4>
+                            <p><strong>Answer:</strong> Bean instantiation → Dependency injection → Aware interfaces → BeanPostProcessor (before) → Initialization methods → BeanPostProcessor (after) → Bean ready → Destruction methods</p>
+                        </div>
+                    </div>
                 </section>
 
-                <section id="spring-vs-boot" class="section">
-                    <h2>Spring vs Spring Boot</h2>
-                <table>
-                    <tr>
-                        <th>Feature</th>
-                        <th>Spring</th>
-                        <th>Spring Boot</th>
-                    </tr>
-                    <tr>
-                        <td>Configuration</td>
-                        <td>Manual</td>
-                        <td>Auto-configured</td>
-                    </tr>
-                    <tr>
-                        <td>Server</td>
-                        <td>External (Tomcat)</td>
-                        <td>Embedded</td>
-                    </tr>
-                    <tr>
-                        <td>Dependency Management</td>
-                        <td>Manual</td>
-                        <td>Starters</td>
-                    </tr>
-                    <tr>
-                        <td>Setup Time</td>
-                        <td>Longer</td>
-                        <td>Quick</td>
-                    </tr>
-                </table>
-
-                </section>
-
-                <section id="interview-topics" class="section">
-                    <h2>Common Interview Topics</h2>
-                <ul>
-                    <li><strong>IoC Container:</strong> How Spring manages beans</li>
-                    <li><strong>Dependency Injection:</strong> Constructor vs setter vs field</li>
-                    <li><strong>Bean Scopes:</strong> Singleton, prototype, request, session</li>
-                    <li><strong>Bean Lifecycle:</strong> Initialization and destruction</li>
-                    <li><strong>AOP:</strong> Aspects, pointcuts, advice types</li>
-                    <li><strong>Auto-wiring:</strong> By type, by name, by qualifier</li>
-                    <li><strong>Circular Dependencies:</strong> Detection and resolution</li>
-                    <li><strong>Property Injection:</strong> @Value, @PropertySource</li>
-                    <li><strong>Event Handling:</strong> Application events and listeners</li>
-                </ul>
-
-                </section>
-
-                <section id="best-practices" class="section">
-                    <h2>Best Practices</h2>
-                <ul>
-                    <li>Prefer constructor injection for required dependencies</li>
-                    <li>Use setter injection for optional dependencies</li>
-                    <li>Avoid field injection in production code</li>
-                    <li>Keep beans stateless when using singleton scope</li>
-                    <li>Use proper scopes for thread-safety</li>
-                    <li>Implement proper initialization and destruction logic</li>
-                    <li>Use aspect-oriented programming for cross-cutting concerns</li>
-                    <li>Externalize configuration using properties files</li>
-                    <li>Follow SOLID principles in bean design</li>
-                </ul>
-
-                    <h3>Key Interview Questions</h3>
-                    <ul>
-                        <li>What is IoC and how does Spring implement it?</li>
-                        <li>Explain different types of dependency injection</li>
-                        <li>What are bean scopes and their use cases?</li>
-                        <li>Describe the complete bean lifecycle</li>
-                        <li>What is AOP and how does it work in Spring?</li>
-                        <li>How does Spring handle circular dependencies?</li>
-                        <li>What's the difference between @Component and @Bean?</li>
-                        <li>Explain @Autowired and resolution strategies</li>
-                        <li>How to externalize configuration in Spring?</li>
-                        <li>What are Spring profiles and their purpose?</li>
-                    </ul>
-                </section>
-                </div>
+            </div>
             </div>
         </div>
     </div>
-    <script src="../footer.js"></script>
+    
+    <footer></footer>
+    <script src="footer.js"></script>
 </body>
 </html>
