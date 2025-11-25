@@ -18,7 +18,7 @@
         </div>
     </header>
     <nav></nav>
-    <script>window.activePage = 'java';</script>
+    <script>window.activePage = 'java-fundamental';</script>
     <script src="../menu.js"></script>
     
     <script>
@@ -27,6 +27,7 @@
             codeBlocks.forEach(block => {
                 highlightJava(block);
             });
+            updateActiveNav();
         });
         
         function highlightJava(element) {
@@ -48,6 +49,29 @@
             
             element.innerHTML = code;
         }
+        
+        // Active navigation highlighting
+        function updateActiveNav() {
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.toc-nav a');
+            
+            let currentSection = '';
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= 100) {
+                    currentSection = section.id;
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', updateActiveNav);
     </script>
     
     <div class="container">

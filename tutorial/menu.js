@@ -35,16 +35,16 @@ function generateNavMenu(activePage = "") {
                             <a href="${basePath}data-structure/searching-algorithms.html">Searching Algorithms</a>
                         </div>
                     </li>
-                    <li class="dropdown">
+                    <li class="dropdown${['java-fundamental', 'java-oop', 'java-exception', 'java-8', 'java-collection', 'multithreading-learning', 'java-interview'].includes(activePage) ? ' active' : ''}">
                         <a href="#">Java</a>
                         <div class="dropdown-content">
-                            <a href="${basePath}java/java-fundamental.html">Java Fundamentals</a>
-                            <a href="${basePath}java/java-oop.html">Java OOP</a>
-                            <a href="${basePath}java/java-exception.html">Java Exception</a>
-                            <a href="${basePath}java/java-8.html">Java 8</a>
-                            <a href="${basePath}java/java-collection.html">Java Collections</a>
-                            <a href="${basePath}java/multithreading-learning.html">Java Multithreading</a>
-                            <a href="${basePath}java/java-interview.html">Java Interview</a>
+                            <a href="${basePath}java/java-fundamental.html"${activePage === 'java-fundamental' ? ' class="active"' : ''}>Java Fundamentals</a>
+                            <a href="${basePath}java/java-oop.html"${activePage === 'java-oop' ? ' class="active"' : ''}>Java OOP</a>
+                            <a href="${basePath}java/java-exception.html"${activePage === 'java-exception' ? ' class="active"' : ''}>Java Exception</a>
+                            <a href="${basePath}java/java-8.html"${activePage === 'java-8' ? ' class="active"' : ''}>Java 8</a>
+                            <a href="${basePath}java/java-collection.html"${activePage === 'java-collection' ? ' class="active"' : ''}>Java Collections</a>
+                            <a href="${basePath}java/multithreading-learning.html"${activePage === 'multithreading-learning' ? ' class="active"' : ''}>Java Multithreading</a>
+                            <a href="${basePath}java/java-interview.html"${activePage === 'java-interview' ? ' class="active"' : ''}>Java Interview</a>
                         </div>
                     </li>
                     <li class="dropdown">
