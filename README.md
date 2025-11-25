@@ -12,6 +12,12 @@
 
 🚀 **Senior Full Stack Developer & Team Lead** at **Accenture** with **7.5+ years** of experience in enterprise IT services, specializing in designing and implementing scalable, high-availability applications using Java, Spring Boot, Angular, React, and TypeScript. Strong expertise in **system architecture**, **microservices**, **RESTful API development**, and **cloud computing solutions**. Proficient in database design (MySQL, Oracle, MongoDB), **DevOps practices**, **CI/CD pipelines** (Jenkins), containerization (Docker), and version control (Git). Experienced in **Agile/Scrum methodologies**, unit testing, code review, performance optimization, and delivering secure, production-grade solutions for Fortune 500 clients including **Mercedes-Benz**, **GE HealthCare**, **TIAA**, **flydubai**, and **AAMC**. Available for remote work opportunities.
 
+<div align="center">
+  
+[![Tutorials](https://img.shields.io/badge/📚%20View%20Tutorials-667EEA?style=for-the-badge&logo=book&logoColor=white)](https://sonuskr.github.io/sonuskr/tutorial/tutorial-index.html)
+
+</div>
+
 ## 💻 Tech Stack & Expertise
 
 <div align="center">
