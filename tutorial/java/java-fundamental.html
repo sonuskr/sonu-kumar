@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <title>Java Fundamentals - Sonu Kumar</title>
+    <link rel="stylesheet" href="../tutorial-styles.css">
+</head>
+<body class="page-java">
+    <header>
+        <div class="container">
+            <div class="hero">
+                <h1>Java Fundamentals</h1>
+                <p>Master Core Java Concepts & Programming Basics for Enterprise Development</p>
+            </div>
+        </div>
+    </header>
+    <nav></nav>
+    <script>window.activePage = 'java';</script>
+    <script src="../menu.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeBlocks = document.querySelectorAll('pre code');
+            codeBlocks.forEach(block => {
+                highlightJava(block);
+            });
+        });
+        
+        function highlightJava(element) {
+            let code = element.textContent;
+            
+            code = code.replace(/\b(public|private|protected|static|final|class|interface|extends|implements|import|package|void|int|String|boolean|double|float|long|short|byte|char|if|else|for|while|do|switch|case|default|break|continue|return|try|catch|finally|throw|throws|new|this|super|null|true|false|abstract|synchronized|volatile|transient|native|strictfp|enum|assert)\b/g, '<span class="keyword">$1</span>');
+            
+            code = code.replace(/"([^"]*)"/g, '<span class="string">"$1"</span>');
+            code = code.replace(/'([^']*)'/g, '<span class="string">\'$1\'</span>');
+            
+            code = code.replace(/\/\/.*$/gm, '<span class="comment">$&</span>');
+            code = code.replace(/\/\*[\s\S]*?\*\//g, '<span class="comment">$&</span>');
+            
+            code = code.replace(/\b\d+(\.\d+)?[fLdF]?\b/g, '<span class="number">$&</span>');
+            
+            code = code.replace(/\b([a-zA-Z_][a-zA-Z0-9_]*)\s*\(/g, '<span class="method">$1</span>(');
+            
+            code = code.replace(/\b[A-Z][a-zA-Z0-9_]*\b/g, '<span class="class">$&</span>');
+            
+            element.innerHTML = code;
+        }
+    </script>
+    
+    <div class="container">
+        <div class="content-with-sidebar">
+            <aside class="sidebar-toc">
+                <div class="toc-header">
+                    <h2>📚 Java Fundamentals</h2>
+                </div>
+                <nav class="toc-nav">
+                    <ul>
+                        <li><a href="#overview">Java Overview</a></li>
+                        <li><a href="#syntax">Basic Syntax</a></li>
+                        <li><a href="#data-types">Data Types</a></li>
+                        <li><a href="#variables">Variables</a></li>
+                        <li><a href="#operators">Operators</a></li>
+                        <li><a href="#control-flow">Control Flow</a></li>
+                        <li><a href="#methods">Methods</a></li>
+                        <li><a href="#arrays">Arrays</a></li>
+                        <li><a href="#strings">Strings</a></li>
+                        <li><a href="#input-output">Input/Output</a></li>
+                        <li><a href="#best-practices">Best Practices</a></li>
+                        <li><a href="#interview">Interview Questions</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <div class="main-content">
+            <div class="topic">
+
+                <section id="overview" class="section">
+                    <h2>🚀 Java Overview</h2>
+                    
+                    <div class="subsection">
+                        <h3>What is Java?</h3>
+                        <p><strong>Definition:</strong> Java is a high-level, object-oriented, platform-independent programming language designed for building robust, secure, and portable applications.</p>
+                        
+                        <h4>Key Features of Java:</h4>
+                        <ul>
+                            <li><strong>Platform Independent:</strong> "Write Once, Run Anywhere" (WORA)</li>
+                            <li><strong>Object-Oriented:</strong> Everything is an object (except primitives)</li>
+                            <li><strong>Robust:</strong> Strong memory management and exception handling</li>
+                            <li><strong>Secure:</strong> Built-in security features and sandboxing</li>
+                            <li><strong>Multithreaded:</strong> Built-in support for concurrent programming</li>
+                            <li><strong>Automatic Memory Management:</strong> Garbage collection</li>
+                        </ul>
+                        
+                        <h4>Java Architecture:</h4>
+                        <div class="code-block">
+                            <pre><code>Java Source Code (.java)
+         ↓
+    Java Compiler (javac)
+         ↓
+    Java Bytecode (.class)
+         ↓
+Java Virtual Machine (JVM)
+         ↓
+    Machine Code</code></pre>
+                        </div>
+                        
+                        <h4>JVM, JRE, and JDK:</h4>
+                        <ul>
+                            <li><strong>JVM (Java Virtual Machine):</strong> Executes Java bytecode</li>
+                            <li><strong>JRE (Java Runtime Environment):</strong> JVM + Libraries needed to run Java programs</li>
+                            <li><strong>JDK (Java Development Kit):</strong> JRE + Development tools (compiler, debugger)</li>
+                        </ul>
+                        
+                        <h4>First Java Program:</h4>
+                        <div class="code-block">
+                            <pre><code>// HelloWorld.java
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+        System.out.println("Welcome to Java Programming!");
+    }
+}
+
+// Compilation: javac HelloWorld.java
+// Execution: java HelloWorld</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="syntax" class="section">
+                    <h2>📝 Basic Syntax</h2>
+                    
+                    <div class="subsection">
+                        <h3>Java Syntax Rules</h3>
+                        
+                        <h4>Class Structure:</h4>
+                        <div class="code-block">
+                            <pre><code>// Package declaration (optional)
+package com.example.myapp;
+
+// Import statements (optional)
+import java.util.Scanner;
+import java.util.ArrayList;
+
+// Class declaration
+public class MyClass {
+    // Class variables (fields)
+    private int instanceVariable;
+    public static final String CONSTANT = "VALUE";
+    
+    // Constructor
+    public MyClass(int value) {
+        this.instanceVariable = value;
+    }
+    
+    // Methods
+    public void instanceMethod() {
+        System.out.println("Instance method called");
+    }
+    
+    public static void staticMethod() {
+        System.out.println("Static method called");
+    }
+    
+    // Main method - entry point
+    public static void main(String[] args) {
+        MyClass obj = new MyClass(10);
+        obj.instanceMethod();
+        staticMethod();
+    }
+}</code></pre>
+                        </div>
+                        
+                        <h4>Naming Conventions:</h4>
+                        <div class="code-block">
+                            <pre><code>// Classes: PascalCase
+public class StudentManager { }
+public class BankAccount { }
+
+// Methods and Variables: camelCase
+public void calculateTotal() { }
+private String firstName;
+private int accountBalance;
+
+// Constants: UPPER_SNAKE_CASE
+public static final int MAX_SIZE = 100;
+public static final String DEFAULT_NAME = "Unknown";
+
+// Packages: lowercase with dots
+package com.company.project.module;
+
+// Files: Same as class name
+// StudentManager.java contains class StudentManager</code></pre>
+                        </div>
+                        
+                        <h4>Comments:</h4>
+                        <div class="code-block">
+                            <pre><code>// Single-line comment
+int age = 25; // Age of the person
+
+/*
+ * Multi-line comment
+ * Used for longer explanations
+ */
+double salary = 50000.0;
+
+/**
+ * Javadoc comment - used for documentation
+ * @param name The name of the person
+ * @param age The age of the person
+ * @return A formatted string with person details
+ */
+public String formatPersonInfo(String name, int age) {
+    return name + " is " + age + " years old";
+}</code></pre>
+                        </div>
+                        
+                        <h4>Code Blocks and Scope:</h4>
+                        <div class="code-block">
+                            <pre><code>public class ScopeExample {
+    private int classVariable = 10; // Class scope
+    
+    public void demonstrateScope() {
+        int methodVariable = 20; // Method scope
+        
+        if (true) {
+            int blockVariable = 30; // Block scope
+            System.out.println("Class variable: " + classVariable);
+            System.out.println("Method variable: " + methodVariable);
+            System.out.println("Block variable: " + blockVariable);
+        }
+        
+        // blockVariable is not accessible here
+        // System.out.println(blockVariable); // Compilation error
+        
+        for (int i = 0; i < 5; i++) { // i has loop scope
+            System.out.println("Loop iteration: " + i);
+        }
+        
+        // i is not accessible here
+        // System.out.println(i); // Compilation error
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="data-types" class="section">
+                    <h2>🔢 Data Types</h2>
+                    
+                    <div class="subsection">
+                        <h3>Primitive Data Types</h3>
+                        <p><strong>Java has 8 primitive data types:</strong> byte, short, int, long, float, double, boolean, char</p>
+                        
+                        <div class="code-block">
+                            <pre><code>public class DataTypesExample {
+    
+    public static void main(String[] args) {
+        // Integer types
+        byte byteValue = 127;           // 8-bit: -128 to 127
+        short shortValue = 32767;       // 16-bit: -32,768 to 32,767
+        int intValue = 2147483647;      // 32-bit: -2^31 to 2^31-1
+        long longValue = 9223372036854775807L; // 64-bit: -2^63 to 2^63-1
+        
+        // Floating-point types
+        float floatValue = 3.14159f;    // 32-bit IEEE 754
+        double doubleValue = 3.141592653589793; // 64-bit IEEE 754
+        
+        // Boolean type
+        boolean isTrue = true;          // true or false
+        boolean isFalse = false;
+        
+        // Character type
+        char charValue = 'A';           // 16-bit Unicode character
+        char unicodeChar = '\u0041';    // Unicode for 'A'
+        
+        // Display values
+        System.out.println("=== Primitive Data Types ===");
+        System.out.println("byte: " + byteValue);
+        System.out.println("short: " + shortValue);
+        System.out.println("int: " + intValue);
+        System.out.println("long: " + longValue);
+        System.out.println("float: " + floatValue);
+        System.out.println("double: " + doubleValue);
+        System.out.println("boolean: " + isTrue);
+        System.out.println("char: " + charValue);
+        System.out.println("unicode char: " + unicodeChar);
+        
+        // Size information
+        System.out.println("\n=== Size Information ===");
+        System.out.println("Byte size: " + Byte.SIZE + " bits");
+        System.out.println("Short size: " + Short.SIZE + " bits");
+        System.out.println("Integer size: " + Integer.SIZE + " bits");
+        System.out.println("Long size: " + Long.SIZE + " bits");
+        System.out.println("Float size: " + Float.SIZE + " bits");
+        System.out.println("Double size: " + Double.SIZE + " bits");
+        
+        // Min/Max values
+        System.out.println("\n=== Range Information ===");
+        System.out.println("Byte range: " + Byte.MIN_VALUE + " to " + Byte.MAX_VALUE);
+        System.out.println("Int range: " + Integer.MIN_VALUE + " to " + Integer.MAX_VALUE);
+        System.out.println("Long range: " + Long.MIN_VALUE + " to " + Long.MAX_VALUE);
+    }
+}</code></pre>
+                        </div>
+                        
+                        <h4>Reference Data Types:</h4>
+                        <div class="code-block">
+                            <pre><code>public class ReferenceTypesExample {
+    
+    public static void main(String[] args) {
+        // String - most commonly used reference type
+        String name = "John Doe";
+        String message = new String("Hello World");
+        
+        // Arrays - reference types
+        int[] numbers = {1, 2, 3, 4, 5};
+        String[] names = {"Alice", "Bob", "Charlie"};
+        
+        // Objects
+        StringBuilder sb = new StringBuilder("Dynamic String");
+        ArrayList<Integer> list = new ArrayList<>();
+        
+        // Null reference
+        String nullString = null;
+        
+        System.out.println("=== Reference Types ===");
+        System.out.println("String: " + name);
+        System.out.println("Array length: " + numbers.length);
+        System.out.println("StringBuilder: " + sb.toString());
+        System.out.println("Null string: " + nullString);
+        
+        // Reference vs primitive comparison
+        demonstrateReferenceVsPrimitive();
+    }
+    
+    public static void demonstrateReferenceVsPrimitive() {
+        // Primitive comparison
+        int a = 10;
+        int b = 10;
+        System.out.println("Primitive comparison (a == b): " + (a == b)); // true
+        
+        // Reference comparison
+        String str1 = new String("Hello");
+        String str2 = new String("Hello");
+        System.out.println("Reference comparison (str1 == str2): " + (str1 == str2)); // false
+        System.out.println("Content comparison (str1.equals(str2)): " + str1.equals(str2)); // true
+        
+        // String literal pool
+        String str3 = "Hello";
+        String str4 = "Hello";
+        System.out.println("String literal comparison (str3 == str4): " + (str3 == str4)); // true
+    }
+}</code></pre>
+                        </div>
+                        
+                        <h4>Type Conversion:</h4>
+                        <div class="code-block">
+                            <pre><code>public class TypeConversionExample {
+    
+    public static void main(String[] args) {
+        // Implicit conversion (widening)
+        byte byteVal = 10;
+        short shortVal = byteVal;    // byte to short
+        int intVal = shortVal;       // short to int
+        long longVal = intVal;       // int to long
+        float floatVal = longVal;    // long to float
+        double doubleVal = floatVal; // float to double
+        
+        System.out.println("=== Implicit Conversion ===");
+        System.out.println("byte to double: " + byteVal + " -> " + doubleVal);
+        
+        // Explicit conversion (narrowing) - casting required
+        double d = 123.456;
+        float f = (float) d;         // double to float
+        long l = (long) f;           // float to long
+        int i = (int) l;             // long to int
+        short s = (short) i;         // int to short
+        byte b = (byte) s;           // short to byte
+        
+        System.out.println("\n=== Explicit Conversion ===");
+        System.out.println("double to byte: " + d + " -> " + b);
+        
+        // String conversions
+        demonstrateStringConversions();
+        
+        // Wrapper class conversions
+        demonstrateWrapperConversions();
+    }
+    
+    public static void demonstrateStringConversions() {
+        System.out.println("\n=== String Conversions ===");
+        
+        // Primitive to String
+        int number = 42;
+        String strFromInt = String.valueOf(number);
+        String strFromInt2 = Integer.toString(number);
+        String strFromInt3 = "" + number; // Concatenation
+        
+        System.out.println("int to String: " + strFromInt);
+        
+        // String to primitive
+        String numberStr = "123";
+        int intFromStr = Integer.parseInt(numberStr);
+        double doubleFromStr = Double.parseDouble("123.45");
+        boolean boolFromStr = Boolean.parseBoolean("true");
+        
+        System.out.println("String to int: " + intFromStr);
+        System.out.println("String to double: " + doubleFromStr);
+        System.out.println("String to boolean: " + boolFromStr);
+    }
+    
+    public static void demonstrateWrapperConversions() {
+        System.out.println("\n=== Wrapper Class Conversions ===");
+        
+        // Autoboxing - primitive to wrapper
+        Integer integerObj = 100;        // int to Integer
+        Double doubleObj = 3.14;         // double to Double
+        Boolean booleanObj = true;       // boolean to Boolean
+        
+        // Unboxing - wrapper to primitive
+        int primitiveInt = integerObj;   // Integer to int
+        double primitiveDouble = doubleObj; // Double to double
+        boolean primitiveBool = booleanObj; // Boolean to boolean
+        
+        System.out.println("Autoboxing: " + integerObj.getClass().getSimpleName());
+        System.out.println("Unboxing: " + primitiveInt);
+        
+        // Null pointer risk with unboxing
+        Integer nullInteger = null;
+        try {
+            int risk = nullInteger; // NullPointerException
+        } catch (NullPointerException e) {
+            System.out.println("Unboxing null wrapper causes: " + e.getClass().getSimpleName());
+        }
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="variables" class="section">
+                    <h2>📦 Variables</h2>
+                    
+                    <div class="subsection">
+                        <h3>Types of Variables</h3>
+                        
+                        <div class="code-block">
+                            <pre><code>public class VariableTypesExample {
+    
+    // 1. Instance variables (non-static fields)
+    private String instanceName;
+    private int instanceAge;
+    
+    // 2. Class variables (static fields)
+    private static int totalObjects = 0;
+    public static final String COMPANY_NAME = "TechCorp";
+    
+    // Constructor
+    public VariableTypesExample(String name, int age) {
+        // 3. Local variables
+        String message = "Creating new object"; // Local variable
+        System.out.println(message);
+        
+        // Initialize instance variables
+        this.instanceName = name;
+        this.instanceAge = age;
+        
+        // Update class variable
+        totalObjects++;
+    }
+    
+    public void demonstrateVariables() {
+        // 4. Parameter variables
+        processData("Sample Data", 42);
+        
+        // Local variables in method
+        int localCounter = 0;
+        String localMessage = "Method execution";
+        
+        // Block variables
+        if (instanceAge > 18) {
+            String adultMessage = "Adult user"; // Block scope
+            System.out.println(adultMessage);
+        }
+        
+        // Loop variables
+        for (int i = 0; i < 3; i++) { // i is loop variable
+            System.out.println("Loop iteration: " + i);
+        }
+        
+        System.out.println("Local counter: " + localCounter);
+        System.out.println("Instance name: " + instanceName);
+        System.out.println("Total objects: " + totalObjects);
+    }
+    
+    // Method with parameters
+    public void processData(String data, int count) {
+        // data and count are parameter variables
+        System.out.println("Processing: " + data + " (count: " + count + ")");
+        
+        // Parameters can be modified (but it's local copy)
+        data = data.toUpperCase();
+        count = count * 2;
+        System.out.println("Modified locally: " + data + " (count: " + count + ")");
+    }
+    
+    // Static method can only access static variables directly
+    public static void displayStaticInfo() {
+        System.out.println("Company: " + COMPANY_NAME);
+        System.out.println("Total objects created: " + totalObjects);
+        
+        // Cannot access instance variables directly
+        // System.out.println(instanceName); // Compilation error
+    }
+    
+    public static void main(String[] args) {
+        System.out.println("=== Variable Types Demo ===");
+        
+        VariableTypesExample obj1 = new VariableTypesExample("Alice", 25);
+        VariableTypesExample obj2 = new VariableTypesExample("Bob", 30);
+        
+        obj1.demonstrateVariables();
+        obj2.demonstrateVariables();
+        
+        displayStaticInfo();
+    }
+}</code></pre>
+                        </div>
+                        
+                        <h4>Variable Initialization:</h4>
+                        <div class="code-block">
+                            <pre><code>public class VariableInitializationExample {
+    
+    // Instance variables - automatically initialized
+    private int defaultInt;        // 0
+    private double defaultDouble;  // 0.0
+    private boolean defaultBool;   // false
+    private String defaultString;  // null
+    private int[] defaultArray;    // null
+    
+    // Static variables - automatically initialized
+    private static int staticCounter; // 0
+    
+    // Constants - must be initialized
+    private final int FINAL_VALUE = 100;
+    private static final String CONSTANT = "FIXED_VALUE";
+    
+    public void demonstrateInitialization() {
+        System.out.println("=== Default Initialization ===");
+        System.out.println("Default int: " + defaultInt);
+        System.out.println("Default double: " + defaultDouble);
+        System.out.println("Default boolean: " + defaultBool);
+        System.out.println("Default String: " + defaultString);
+        System.out.println("Default array: " + defaultArray);
+        
+        // Local variables must be initialized before use
+        int localInt;
+        // System.out.println(localInt); // Compilation error - not initialized
+        
+        localInt = 10; // Now it's initialized
+        System.out.println("Initialized local int: " + localInt);
+        
+        // Multiple variable declaration
+        int a = 1, b = 2, c = 3;
+        String firstName = "John", lastName = "Doe";
+        
+        System.out.println("Multiple variables: " + a + ", " + b + ", " + c);
+        System.out.println("Name: " + firstName + " " + lastName);
+    }
+    
+    // Static initialization block
+    static {
+        staticCounter = 100;
+        System.out.println("Static block executed - staticCounter: " + staticCounter);
+    }
+    
+    // Instance initialization block
+    {
+        defaultInt = 50;
+        System.out.println("Instance block executed - defaultInt: " + defaultInt);
+    }
+    
+    public static void main(String[] args) {
+        System.out.println("Creating first object:");
+        VariableInitializationExample obj1 = new VariableInitializationExample();
+        obj1.demonstrateInitialization();
+        
+        System.out.println("\nCreating second object:");
+        VariableInitializationExample obj2 = new VariableInitializationExample();
+    }
+}</code></pre>
+                        </div>
+                        
+                        <h4>Variable Modifiers:</h4>
+                        <div class="code-block">
+                            <pre><code>public class VariableModifiersExample {
+    
+    // Access modifiers
+    public int publicVar = 1;        // Accessible from anywhere
+    protected int protectedVar = 2;  // Accessible within package and subclasses
+    int packageVar = 3;              // Accessible within package (default)
+    private int privateVar = 4;      // Accessible only within this class
+    
+    // Non-access modifiers
+    static int staticVar = 5;        // Belongs to class, not instance
+    final int finalVar = 6;          // Cannot be changed after initialization
+    volatile int volatileVar = 7;    // Thread-safe access
+    transient int transientVar = 8;  // Not serialized
+    
+    // Combinations
+    public static final String CONSTANT = "IMMUTABLE";
+    private static int instanceCount = 0;
+    
+    public VariableModifiersExample() {
+        instanceCount++;
+    }
+    
+    public void demonstrateModifiers() {
+        System.out.println("=== Variable Modifiers ===");
+        System.out.println("Public: " + publicVar);
+        System.out.println("Protected: " + protectedVar);
+        System.out.println("Package: " + packageVar);
+        System.out.println("Private: " + privateVar);
+        System.out.println("Static: " + staticVar);
+        System.out.println("Final: " + finalVar);
+        System.out.println("Constant: " + CONSTANT);
+        System.out.println("Instance count: " + instanceCount);
+        
+        // Attempting to modify final variable
+        // finalVar = 10; // Compilation error
+        
+        // Static variables can be accessed via class name
+        System.out.println("Static via class: " + VariableModifiersExample.staticVar);
+    }
+    
+    public static void main(String[] args) {
+        VariableModifiersExample obj1 = new VariableModifiersExample();
+        VariableModifiersExample obj2 = new VariableModifiersExample();
+        
+        obj1.demonstrateModifiers();
+        obj2.demonstrateModifiers();
+        
+        // Accessing static variables
+        System.out.println("Total instances: " + instanceCount);
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="operators" class="section">
+                    <h2>⚡ Operators</h2>
+                    
+                    <div class="subsection">
+                        <h3>Arithmetic Operators</h3>
+                        <div class="code-block">
+                            <pre><code>public class ArithmeticOperatorsExample {
+    
+    public static void main(String[] args) {
+        int a = 15, b = 4;
+        
+        System.out.println("=== Arithmetic Operators ===");
+        System.out.println("a = " + a + ", b = " + b);
+        
+        // Basic arithmetic
+        System.out.println("Addition (a + b): " + (a + b));        // 19
+        System.out.println("Subtraction (a - b): " + (a - b));     // 11
+        System.out.println("Multiplication (a * b): " + (a * b));  // 60
+        System.out.println("Division (a / b): " + (a / b));        // 3 (integer division)
+        System.out.println("Modulus (a % b): " + (a % b));         // 3 (remainder)
+        
+        // Floating-point division
+        double result = (double) a / b;
+        System.out.println("Floating division: " + result);        // 3.75
+        
+        // Unary operators
+        System.out.println("\n=== Unary Operators ===");
+        int x = 10;
+        System.out.println("Original x: " + x);
+        System.out.println("Unary plus (+x): " + (+x));           // 10
+        System.out.println("Unary minus (-x): " + (-x));          // -10
+        
+        // Increment and decrement
+        System.out.println("\n=== Increment/Decrement ===");
+        int y = 5;
+        System.out.println("Original y: " + y);
+        System.out.println("Pre-increment (++y): " + (++y));      // 6
+        System.out.println("Post-increment (y++): " + (y++));     // 6, then y becomes 7
+        System.out.println("After post-increment y: " + y);       // 7
+        System.out.println("Pre-decrement (--y): " + (--y));      // 6
+        System.out.println("Post-decrement (y--): " + (y--));     // 6, then y becomes 5
+        System.out.println("Final y: " + y);                      // 5
+        
+        // Compound assignment operators
+        System.out.println("\n=== Compound Assignment ===");
+        int z = 10;
+        System.out.println("Original z: " + z);
+        z += 5;  // z = z + 5
+        System.out.println("After z += 5: " + z);                 // 15
+        z -= 3;  // z = z - 3
+        System.out.println("After z -= 3: " + z);                 // 12
+        z *= 2;  // z = z * 2
+        System.out.println("After z *= 2: " + z);                 // 24
+        z /= 4;  // z = z / 4
+        System.out.println("After z /= 4: " + z);                 // 6
+        z %= 4;  // z = z % 4
+        System.out.println("After z %= 4: " + z);                 // 2
+    }
+}</code></pre>
+                        </div>
+                        
+                        <h3>Comparison and Logical Operators</h3>
+                        <div class="code-block">
+                            <pre><code>public class ComparisonLogicalOperatorsExample {
+    
+    public static void main(String[] args) {
+        int a = 10, b = 20, c = 10;
+        
+        System.out.println("=== Comparison Operators ===");
+        System.out.println("a = " + a + ", b = " + b + ", c = " + c);
+        
+        // Comparison operators
+        System.out.println("a == b: " + (a == b));                // false
+        System.out.println("a == c: " + (a == c));                // true
+        System.out.println("a != b: " + (a != b));                // true
+        System.out.println("a < b: " + (a < b));                  // true
+        System.out.println("a > b: " + (a > b));                  // false
+        System.out.println("a <= c: " + (a <= c));                // true
+        System.out.println("a >= c: " + (a >= c));                // true
+        
+        // Logical operators
+        System.out.println("\n=== Logical Operators ===");
+        boolean x = true, y = false;
+        System.out.println("x = " + x + ", y = " + y);
+        
+        System.out.println("x && y (AND): " + (x && y));          // false
+        System.out.println("x || y (OR): " + (x || y));           // true
+        System.out.println("!x (NOT): " + (!x));                  // false
+        System.out.println("!y (NOT): " + (!y));                  // true
+        
+        // Short-circuit evaluation
+        System.out.println("\n=== Short-Circuit Evaluation ===");
+        int m = 0, n = 5;
+        
+        // && short-circuit: if first is false, second is not evaluated
+        boolean result1 = (m != 0) && (n / m > 2);
+        System.out.println("Short-circuit AND result: " + result1); // false, no division by zero
+        
+        // || short-circuit: if first is true, second is not evaluated
+        boolean result2 = (n > 0) || (n / m > 2);
+        System.out.println("Short-circuit OR result: " + result2);  // true, no division by zero
+        
+        // Complex logical expressions
+        System.out.println("\n=== Complex Expressions ===");
+        int age = 25;
+        boolean hasLicense = true;
+        boolean hasInsurance = false;
+        
+        boolean canDrive = (age >= 18) && hasLicense && hasInsurance;
+        System.out.println("Can drive: " + canDrive);              // false
+        
+        boolean isEligible = (age >= 21 && age <= 65) || (hasLicense && age >= 18);
+        System.out.println("Is eligible: " + isEligible);          // true
+    }
+}</code></pre>
+                        </div>
+                        
+                        <h3>Bitwise and Other Operators</h3>
+                        <div class="code-block">
+                            <pre><code>public class BitwiseOtherOperatorsExample {
+    
+    public static void main(String[] args) {
+        // Bitwise operators
+        System.out.println("=== Bitwise Operators ===");
+        int a = 12;  // Binary: 1100
+        int b = 10;  // Binary: 1010
+        
+        System.out.println("a = " + a + " (binary: " + Integer.toBinaryString(a) + ")");
+        System.out.println("b = " + b + " (binary: " + Integer.toBinaryString(b) + ")");
+        
+        System.out.println("a & b (AND): " + (a & b) + " (binary: " + Integer.toBinaryString(a & b) + ")");   // 8 (1000)
+        System.out.println("a | b (OR): " + (a | b) + " (binary: " + Integer.toBinaryString(a | b) + ")");    // 14 (1110)
+        System.out.println("a ^ b (XOR): " + (a ^ b) + " (binary: " + Integer.toBinaryString(a ^ b) + ")");   // 6 (0110)
+        System.out.println("~a (NOT): " + (~a) + " (binary: " + Integer.toBinaryString(~a) + ")");            // -13
+        
+        // Shift operators
+        System.out.println("\n=== Shift Operators ===");
+        int x = 8;  // Binary: 1000
+        System.out.println("x = " + x + " (binary: " + Integer.toBinaryString(x) + ")");
+        
+        System.out.println("x << 2 (Left shift): " + (x << 2) + " (binary: " + Integer.toBinaryString(x << 2) + ")");   // 32 (100000)
+        System.out.println("x >> 2 (Right shift): " + (x >> 2) + " (binary: " + Integer.toBinaryString(x >> 2) + ")");  // 2 (10)
+        
+        int negative = -8;
+        System.out.println("negative >> 2: " + (negative >> 2));     // -2 (sign-extended)
+        System.out.println("negative >>> 2: " + (negative >>> 2));   // Large positive (zero-filled)
+        
+        // Ternary operator (conditional operator)
+        System.out.println("\n=== Ternary Operator ===");
+        int age = 20;
+        String status = (age >= 18) ? "Adult" : "Minor";
+        System.out.println("Age: " + age + ", Status: " + status);
+        
+        int max = (a > b) ? a : b;
+        System.out.println("Max of " + a + " and " + b + ": " + max);
+        
+        // Nested ternary
+        int score = 85;
+        String grade = (score >= 90) ? "A" : (score >= 80) ? "B" : (score >= 70) ? "C" : "F";
+        System.out.println("Score: " + score + ", Grade: " + grade);
+        
+        // instanceof operator
+        System.out.println("\n=== instanceof Operator ===");
+        String str = "Hello";
+        Object obj = str;
+        
+        System.out.println("str instanceof String: " + (str instanceof String));     // true
+        System.out.println("obj instanceof String: " + (obj instanceof String));     // true
+        System.out.println("str instanceof Object: " + (str instanceof Object));     // true
+        System.out.println("null instanceof String: " + (null instanceof String));   // false
+        
+        // Operator precedence example
+        System.out.println("\n=== Operator Precedence ===");
+        int result1 = 2 + 3 * 4;           // 14 (not 20)
+        int result2 = (2 + 3) * 4;         // 20
+        boolean result3 = true || false && false;  // true (AND has higher precedence)
+        boolean result4 = (true || false) && false; // false
+        
+        System.out.println("2 + 3 * 4 = " + result1);
+        System.out.println("(2 + 3) * 4 = " + result2);
+        System.out.println("true || false && false = " + result3);
+        System.out.println("(true || false) && false = " + result4);
+    }
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="interview" class="section">
+                    <h2>💼 Interview Questions</h2>
+                    
+                    <div class="subsection">
+                        <h3>Frequently Asked Questions</h3>
+                        
+                        <div class="question-block">
+                            <h4>Q1: What is the difference between JDK, JRE, and JVM?</h4>
+                            <p><strong>Answer:</strong></p>
+                            <ul>
+                                <li><strong>JVM:</strong> Java Virtual Machine - executes bytecode, platform-specific</li>
+                                <li><strong>JRE:</strong> Java Runtime Environment - JVM + libraries to run Java programs</li>
+                                <li><strong>JDK:</strong> Java Development Kit - JRE + development tools (compiler, debugger)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="question-block">
+                            <h4>Q2: What are the differences between primitive and reference data types?</h4>
+                            <p><strong>Answer:</strong></p>
+                            <ul>
+                                <li><strong>Primitive:</strong> Store actual values, stack memory, 8 types, no methods</li>
+                                <li><strong>Reference:</strong> Store memory addresses, heap memory, unlimited types, have methods</li>
+                                <li><strong>Comparison:</strong> Primitives use ==, references use equals()</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="question-block">
+                            <h4>Q3: Explain autoboxing and unboxing</h4>
+                            <p><strong>Answer:</strong></p>
+                            <ul>
+                                <li><strong>Autoboxing:</strong> Automatic conversion of primitive to wrapper class</li>
+                                <li><strong>Unboxing:</strong> Automatic conversion of wrapper class to primitive</li>
+                                <li><strong>Risk:</strong> NullPointerException when unboxing null wrapper objects</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="question-block">
+                            <h4>Q4: What is the difference between == and equals()?</h4>
+                            <p><strong>Answer:</strong></p>
+                            <ul>
+                                <li><strong>==:</strong> Compares references (memory addresses) for objects, values for primitives</li>
+                                <li><strong>equals():</strong> Compares content/values of objects (if properly overridden)</li>
+                                <li><strong>String:</strong> == compares references, equals() compares content</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="question-block">
+                            <h4>Q5: What are the different types of variables in Java?</h4>
+                            <p><strong>Answer:</strong></p>
+                            <ul>
+                                <li><strong>Instance variables:</strong> Non-static fields, belong to object instances</li>
+                                <li><strong>Class variables:</strong> Static fields, belong to class, shared by all instances</li>
+                                <li><strong>Local variables:</strong> Declared inside methods, blocks, or constructors</li>
+                                <li><strong>Parameter variables:</strong> Method parameters, constructor parameters</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer></footer>
+    <script src="../footer.js"></script>
+</body>
+</html>

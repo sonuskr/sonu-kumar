@@ -8,12 +8,12 @@
     <title>Java Multithreading - Sonu Kumar</title>
     <link rel="stylesheet" href="../tutorial-styles.css">
 </head>
-<body class="page-multithreading">
+<body class="page-java">
     <header>
         <div class="container">
             <div class="hero">
                 <h1>Java Multithreading</h1>
-                <p>Master Concurrent Programming & Thread Management</p>
+                <p>Master Concurrent Programming & Thread Management for Enterprise Applications</p>
             </div>
         </div>
     </header>
@@ -21,99 +21,115 @@
     <script>window.activePage = 'java';</script>
     <script src="../menu.js"></script>
     
-    <div class="breadcrumb">
-        <div class="container">
-            <ol>
-                <li><a href="../tutorial-index.html">Home</a></li>
-                <li><a href="../tutorial-index.html#java">Java</a></li>
-                <li>Multithreading</li>
-            </ol>
-        </div>
-    </div>
+    <script>
+        // Syntax highlighting for Java code
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeBlocks = document.querySelectorAll('pre code');
+            codeBlocks.forEach(block => {
+                highlightJava(block);
+            });
+        });
+        
+        function highlightJava(element) {
+            let code = element.textContent;
+            
+            // Java keywords
+            code = code.replace(/\b(public|private|protected|static|final|class|interface|extends|implements|import|package|void|int|String|boolean|double|float|long|short|byte|char|if|else|for|while|do|switch|case|default|break|continue|return|try|catch|finally|throw|throws|new|this|super|null|true|false|abstract|synchronized|volatile|transient|native|strictfp|enum|assert)\b/g, '<span class="keyword">$1</span>');
+            
+            // Strings
+            code = code.replace(/"([^"]*)"/g, '<span class="string">"$1"</span>');
+            code = code.replace(/'([^']*)'/g, '<span class="string">\'$1\'</span>');
+            
+            // Comments
+            code = code.replace(/\/\/.*$/gm, '<span class="comment">$&</span>');
+            code = code.replace(/\/\*[\s\S]*?\*\//g, '<span class="comment">$&</span>');
+            
+            // Numbers
+            code = code.replace(/\b\d+(\.\d+)?[fLdF]?\b/g, '<span class="number">$&</span>');
+            
+            // Method calls
+            code = code.replace(/\b([a-zA-Z_][a-zA-Z0-9_]*)\s*\(/g, '<span class="method">$1</span>(');
+            
+            // Class names (capitalized words)
+            code = code.replace(/\b[A-Z][a-zA-Z0-9_]*\b/g, '<span class="class">$&</span>');
+            
+            element.innerHTML = code;
+        }
+    </script>
     
     <div class="container">
         <div class="content-with-sidebar">
-            <div class="sidebar-toc">
+            <aside class="sidebar-toc">
                 <div class="toc-header">
-                    <h2>📚 Table of Contents</h2>
+                    <h2>📚 Multithreading Topics</h2>
                 </div>
                 <nav class="toc-nav">
                     <ul>
-                        <li><a href="#what-is-multithreading">What is Multithreading?</a></li>
+                        <li><a href="#overview">Multithreading Overview</a></li>
                         <li><a href="#thread-basics">Thread Basics</a></li>
-                        <li><a href="#creating-threads">Creating Threads</a></li>
                         <li><a href="#thread-lifecycle">Thread Lifecycle</a></li>
                         <li><a href="#synchronization">Synchronization</a></li>
-                        <li><a href="#thread-communication">Thread Communication</a></li>
-                        <li><a href="#executor-framework">Executor Framework</a></li>
-                        <li><a href="#concurrent-collections">Concurrent Collections</a></li>
                         <li><a href="#locks">Locks & Conditions</a></li>
-                        <li><a href="#atomic-operations">Atomic Operations</a></li>
-                        <li><a href="#thread-pool">Thread Pool</a></li>
-                        <li><a href="#completable-future">CompletableFuture</a></li>
+                        <li><a href="#executor">Executor Framework</a></li>
+                        <li><a href="#concurrent-collections">Concurrent Collections</a></li>
+                        <li><a href="#atomic-variables">Atomic Variables</a></li>
+                        <li><a href="#thread-communication">Thread Communication</a></li>
+                        <li><a href="#thread-pool">Thread Pools</a></li>
                         <li><a href="#best-practices">Best Practices</a></li>
-                        <li><a href="#common-problems">Common Problems</a></li>
-                        <li><a href="#summary">Summary</a></li>
+                        <li><a href="#interview">Interview Questions</a></li>
                     </ul>
                 </nav>
-            </div>
-            <div class="main-content">
-                <div class="topic">
-                    <h1>Java Multithreading - Complete Guide</h1>
+            </aside>
 
-                <section id="what-is-multithreading" class="section">
-                    <h2>🚀 What is Multithreading?</h2>
-                    <p><strong>What it does:</strong> Allows multiple threads to execute concurrently within a single process, enabling parallel execution of tasks.</p>
-                    <p><strong>How it works:</strong> JVM creates multiple threads that share the same memory space but execute independently, switching between them rapidly.</p>
-                    <p><strong>Benefits:</strong> Improved performance, better resource utilization, responsive user interfaces, and efficient I/O operations.</p>
+            <div class="main-content">
+            <div class="topic">
+
+                <section id="overview" class="section">
+                    <h2>🚀 Multithreading Overview</h2>
                     
                     <div class="subsection">
-                        <h3>Key Concepts</h3>
+                        <h3>What is Multithreading?</h3>
+                        <p><strong>Definition:</strong> Multithreading is the ability of a program to execute multiple threads concurrently, allowing better utilization of CPU resources and improved application responsiveness.</p>
+                        
+                        <h4>Why Multithreading?</h4>
                         <ul>
-                            <li><strong>Process:</strong> Independent program with its own memory space</li>
-                            <li><strong>Thread:</strong> Lightweight subprocess that shares memory with other threads</li>
-                            <li><strong>Concurrency:</strong> Multiple threads making progress simultaneously</li>
-                            <li><strong>Parallelism:</strong> Multiple threads executing at the exact same time (multi-core)</li>
+                            <li><strong>Performance:</strong> Better CPU utilization through parallel execution</li>
+                            <li><strong>Responsiveness:</strong> UI remains responsive during long-running operations</li>
+                            <li><strong>Resource Sharing:</strong> Threads share memory space efficiently</li>
+                            <li><strong>Modularity:</strong> Separate concerns into different threads</li>
+                        </ul>
+                        
+                        <h4>Multithreading vs Multiprocessing:</h4>
+                        <div class="code-block">
+                            <pre><code>Aspect          | Multithreading        | Multiprocessing
+----------------|----------------------|--------------------
+Memory          | Shared memory space  | Separate memory space
+Communication   | Direct variable access | IPC mechanisms
+Overhead        | Lower creation cost  | Higher creation cost
+Crash Impact    | One thread crash can affect others | Process isolation
+Synchronization | Complex (shared data) | Simpler (separate data)</code></pre>
+                        </div>
+                        
+                        <h4>Thread vs Process:</h4>
+                        <ul>
+                            <li><strong>Thread:</strong> Lightweight execution unit within a process</li>
+                            <li><strong>Process:</strong> Independent execution environment with own memory</li>
+                            <li><strong>Context Switching:</strong> Faster between threads than processes</li>
+                            <li><strong>Resource Usage:</strong> Threads share resources, processes don't</li>
                         </ul>
                     </div>
                 </section>
 
                 <section id="thread-basics" class="section">
-                    <h2>📊 Thread Basics</h2>
-                    <p><strong>What it does:</strong> Every Java program starts with a main thread, and you can create additional threads for concurrent execution.</p>
-                    <p><strong>How it works:</strong> Threads are managed by the JVM and scheduled by the operating system's thread scheduler.</p>
+                    <h2>🧵 Thread Basics</h2>
                     
                     <div class="subsection">
-                        <h3>Main Thread Example</h3>
+                        <h3>Creating Threads in Java</h3>
+                        <p><strong>Two Main Ways:</strong> Extending Thread class or implementing Runnable interface. Runnable is preferred for better design flexibility.</p>
+                        
+                        <h4>Method 1: Extending Thread Class</h4>
                         <div class="code-block">
-                            <pre><code class="language-java">
-public class MainThreadExample {
-    public static void main(String[] args) {
-        // Get current thread (main thread)
-        Thread mainThread = Thread.currentThread();
-        
-        System.out.println("Thread Name: " + mainThread.getName());
-        System.out.println("Thread ID: " + mainThread.getId());
-        System.out.println("Thread Priority: " + mainThread.getPriority());
-        System.out.println("Thread State: " + mainThread.getState());
-        System.out.println("Is Alive: " + mainThread.isAlive());
-    }
-}
-                            </code></pre>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="creating-threads" class="section">
-                    <h2>🔧 Creating Threads</h2>
-                    <p><strong>What it does:</strong> Java provides multiple ways to create and start threads for concurrent execution.</p>
-                    <p><strong>How it works:</strong> Extend Thread class, implement Runnable interface, or use lambda expressions with modern approaches.</p>
-                    
-                    <div class="subsection">
-                        <h3>Method 1: Extending Thread Class</h3>
-                        <div class="code-block">
-                            <pre><code class="language-java">
-class MyThread extends Thread {
+                            <pre><code>public class MyThread extends Thread {
     private String threadName;
     
     public MyThread(String name) {
@@ -128,14 +144,12 @@ class MyThread extends Thread {
                 Thread.sleep(1000); // Sleep for 1 second
             } catch (InterruptedException e) {
                 System.out.println(threadName + " interrupted");
+                return;
             }
         }
         System.out.println(threadName + " finished");
     }
-}
-
-// Usage
-public class ThreadExample {
+    
     public static void main(String[] args) {
         MyThread thread1 = new MyThread("Thread-1");
         MyThread thread2 = new MyThread("Thread-2");
@@ -143,302 +157,597 @@ public class ThreadExample {
         thread1.start(); // Start thread execution
         thread2.start();
         
-        System.out.println("Main thread continues...");
+        // Wait for threads to complete
+        try {
+            thread1.join();
+            thread2.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        
+        System.out.println("Main thread finished");
     }
-}
-                            </code></pre>
+}</code></pre>
                         </div>
-                    </div>
-
-                    <div class="subsection">
-                        <h3>Method 2: Implementing Runnable Interface (Recommended)</h3>
+                        
+                        <h4>Method 2: Implementing Runnable Interface (Preferred)</h4>
                         <div class="code-block">
-                            <pre><code class="language-java">
-class MyTask implements Runnable {
+                            <pre><code>public class MyRunnable implements Runnable {
     private String taskName;
     
-    public MyTask(String name) {
+    public MyRunnable(String name) {
         this.taskName = name;
     }
     
     @Override
     public void run() {
         for (int i = 1; i <= 5; i++) {
-            System.out.println(taskName + " - Count: " + i);
+            System.out.println(taskName + " - Count: " + i + 
+                             " [Thread: " + Thread.currentThread().getName() + "]");
             try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt(); // Restore interrupt status
-                return;
-            }
-        }
-    }
-}
-
-// Usage
-public class RunnableExample {
-    public static void main(String[] args) {
-        MyTask task1 = new MyTask("Task-1");
-        MyTask task2 = new MyTask("Task-2");
-        
-        Thread thread1 = new Thread(task1);
-        Thread thread2 = new Thread(task2);
-        
-        thread1.start();
-        thread2.start();
-    }
-}
-                            </code></pre>
-                        </div>
-                    </div>
-
-                    <div class="subsection">
-                        <h3>Method 3: Lambda Expressions (Java 8+)</h3>
-                        <div class="code-block">
-                            <pre><code class="language-java">
-public class LambdaThreadExample {
-    public static void main(String[] args) {
-        // Lambda with Runnable
-        Thread thread1 = new Thread(() -> {
-            for (int i = 1; i <= 5; i++) {
-                System.out.println("Lambda Thread - Count: " + i);
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    Thread.currentThread().interrupt();
-                    return;
-                }
-            }
-        });
-        
-        // Method reference
-        Thread thread2 = new Thread(LambdaThreadExample::printNumbers);
-        
-        thread1.start();
-        thread2.start();
-    }
-    
-    public static void printNumbers() {
-        for (int i = 1; i <= 5; i++) {
-            System.out.println("Method Reference Thread - Count: " + i);
-            try {
-                Thread.sleep(1000);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
                 return;
             }
         }
     }
-}
-                            </code></pre>
+    
+    public static void main(String[] args) {
+        // Creating threads with Runnable
+        Thread thread1 = new Thread(new MyRunnable("Task-1"), "Worker-1");
+        Thread thread2 = new Thread(new MyRunnable("Task-2"), "Worker-2");
+        
+        // Using lambda expression (Java 8+)
+        Thread thread3 = new Thread(() -> {
+            for (int i = 1; i <= 3; i++) {
+                System.out.println("Lambda Task - " + i);
+                try {
+                    Thread.sleep(300);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    return;
+                }
+            }
+        }, "Lambda-Thread");
+        
+        thread1.start();
+        thread2.start();
+        thread3.start();
+    }
+}</code></pre>
+                        </div>
+                        
+                        <h4>Thread Properties and Methods</h4>
+                        <div class="code-block">
+                            <pre><code>public class ThreadProperties {
+    public static void main(String[] args) {
+        Thread currentThread = Thread.currentThread();
+        
+        // Thread properties
+        System.out.println("Thread Name: " + currentThread.getName());
+        System.out.println("Thread ID: " + currentThread.getId());
+        System.out.println("Thread Priority: " + currentThread.getPriority());
+        System.out.println("Thread State: " + currentThread.getState());
+        System.out.println("Is Alive: " + currentThread.isAlive());
+        System.out.println("Is Daemon: " + currentThread.isDaemon());
+        
+        // Creating and configuring thread
+        Thread worker = new Thread(() -> {
+            System.out.println("Worker thread executing...");
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        });
+        
+        // Set thread properties
+        worker.setName("CustomWorker");
+        worker.setPriority(Thread.MAX_PRIORITY); // 1-10, default is 5
+        worker.setDaemon(true); // Daemon thread
+        
+        worker.start();
+        
+        // Thread information
+        System.out.println("Active threads: " + Thread.activeCount());
+        System.out.println("Available processors: " + 
+                         Runtime.getRuntime().availableProcessors());
+    }
+}</code></pre>
                         </div>
                     </div>
                 </section>
 
                 <section id="thread-lifecycle" class="section">
                     <h2>🔄 Thread Lifecycle</h2>
-                    <p><strong>What it does:</strong> Threads go through different states during their execution lifecycle.</p>
-                    <p><strong>How it works:</strong> JVM manages thread state transitions based on method calls and system events.</p>
                     
                     <div class="subsection">
                         <h3>Thread States</h3>
-                        <ul>
-                            <li><strong>NEW:</strong> Thread created but not started</li>
-                            <li><strong>RUNNABLE:</strong> Thread executing or ready to execute</li>
-                            <li><strong>BLOCKED:</strong> Thread blocked waiting for monitor lock</li>
-                            <li><strong>WAITING:</strong> Thread waiting indefinitely for another thread</li>
-                            <li><strong>TIMED_WAITING:</strong> Thread waiting for specified time</li>
-                            <li><strong>TERMINATED:</strong> Thread execution completed</li>
-                        </ul>
-                    </div>
-
-                    <div class="subsection">
-                        <h3>Thread State Example</h3>
+                        <p><strong>Java Thread States:</strong> A thread goes through various states during its lifecycle, managed by the JVM thread scheduler.</p>
+                        
+                        <h4>Thread State Diagram:</h4>
                         <div class="code-block">
-                            <pre><code class="language-java">
-public class ThreadStateExample {
+                            <pre><code>NEW → RUNNABLE → BLOCKED/WAITING/TIMED_WAITING → TERMINATED
+
+States:
+1. NEW: Thread created but not started
+2. RUNNABLE: Thread executing or ready to execute
+3. BLOCKED: Thread blocked waiting for monitor lock
+4. WAITING: Thread waiting indefinitely for another thread
+5. TIMED_WAITING: Thread waiting for specified time
+6. TERMINATED: Thread execution completed</code></pre>
+                        </div>
+                        
+                        <div class="code-block">
+                            <pre><code>public class ThreadLifecycleDemo {
     public static void main(String[] args) throws InterruptedException {
+        Object lock = new Object();
+        
         Thread thread = new Thread(() -> {
+            System.out.println("Thread started - State: " + 
+                             Thread.currentThread().getState());
+            
             try {
-                Thread.sleep(2000); // TIMED_WAITING
-                synchronized (ThreadStateExample.class) {
-                    Thread.sleep(1000);
+                // TIMED_WAITING state
+                Thread.sleep(2000);
+                
+                synchronized (lock) {
+                    // WAITING state
+                    lock.wait();
                 }
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
+            
+            System.out.println("Thread finishing");
         });
         
-        System.out.println("State after creation: " + thread.getState()); // NEW
+        System.out.println("Before start - State: " + thread.getState()); // NEW
         
         thread.start();
-        System.out.println("State after start: " + thread.getState()); // RUNNABLE
+        Thread.sleep(100);
+        System.out.println("After start - State: " + thread.getState()); // RUNNABLE
         
-        Thread.sleep(500);
-        System.out.println("State during sleep: " + thread.getState()); // TIMED_WAITING
+        Thread.sleep(1000);
+        System.out.println("During sleep - State: " + thread.getState()); // TIMED_WAITING
         
-        thread.join(); // Wait for thread to complete
-        System.out.println("State after completion: " + thread.getState()); // TERMINATED
+        Thread.sleep(2000);
+        System.out.println("During wait - State: " + thread.getState()); // WAITING
+        
+        // Wake up the waiting thread
+        synchronized (lock) {
+            lock.notify();
+        }
+        
+        thread.join();
+        System.out.println("After completion - State: " + thread.getState()); // TERMINATED
     }
-}
-                            </code></pre>
+}</code></pre>
+                        </div>
+                        
+                        <h4>Thread Control Methods</h4>
+                        <div class="code-block">
+                            <pre><code>public class ThreadControlDemo {
+    public static void main(String[] args) throws InterruptedException {
+        Thread worker = new Thread(() -> {
+            for (int i = 1; i <= 10; i++) {
+                if (Thread.currentThread().isInterrupted()) {
+                    System.out.println("Thread interrupted, stopping...");
+                    return;
+                }
+                
+                System.out.println("Working... " + i);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    System.out.println("Sleep interrupted");
+                    Thread.currentThread().interrupt(); // Restore interrupt status
+                    return;
+                }
+            }
+        });
+        
+        worker.start();
+        
+        // Let it run for 3 seconds
+        Thread.sleep(3000);
+        
+        // Interrupt the thread
+        worker.interrupt();
+        
+        // Wait for thread to finish
+        worker.join(2000); // Wait max 2 seconds
+        
+        if (worker.isAlive()) {
+            System.out.println("Thread still running after interrupt");
+        } else {
+            System.out.println("Thread finished gracefully");
+        }
+    }
+}</code></pre>
                         </div>
                     </div>
                 </section>
 
                 <section id="synchronization" class="section">
                     <h2>🔒 Synchronization</h2>
-                    <p><strong>What it does:</strong> Prevents race conditions by ensuring only one thread can access shared resources at a time.</p>
-                    <p><strong>How it works:</strong> Uses monitors (locks) to provide mutual exclusion when accessing critical sections.</p>
-                    <p><strong>Problem it solves:</strong> Data corruption when multiple threads modify shared data simultaneously.</p>
                     
                     <div class="subsection">
-                        <h3>Race Condition Problem</h3>
+                        <h3>Why Synchronization?</h3>
+                        <p><strong>Problem:</strong> When multiple threads access shared resources concurrently, it can lead to data inconsistency and race conditions.</p>
+                        
+                        <h4>Race Condition Example</h4>
                         <div class="code-block">
-                            <pre><code class="language-java">
-class Counter {
-    private int count = 0;
+                            <pre><code>public class RaceConditionDemo {
+    private static int counter = 0;
     
-    // Unsafe method - race condition possible
-    public void increment() {
-        count++; // Not atomic: read, increment, write
-    }
-    
-    public int getCount() {
-        return count;
-    }
-}
-
-public class RaceConditionExample {
     public static void main(String[] args) throws InterruptedException {
-        Counter counter = new Counter();
+        Thread thread1 = new Thread(() -> {
+            for (int i = 0; i < 100000; i++) {
+                counter++; // Not atomic operation
+            }
+        });
         
-        // Create 1000 threads, each incrementing counter
-        Thread[] threads = new Thread[1000];
-        for (int i = 0; i < 1000; i++) {
-            threads[i] = new Thread(counter::increment);
-            threads[i].start();
-        }
+        Thread thread2 = new Thread(() -> {
+            for (int i = 0; i < 100000; i++) {
+                counter++; // Not atomic operation
+            }
+        });
         
-        // Wait for all threads to complete
-        for (Thread thread : threads) {
-            thread.join();
-        }
+        thread1.start();
+        thread2.start();
         
-        System.out.println("Expected: 1000, Actual: " + counter.getCount());
-        // Result will be less than 1000 due to race condition
+        thread1.join();
+        thread2.join();
+        
+        System.out.println("Expected: 200000, Actual: " + counter);
+        // Result will be less than 200000 due to race condition
     }
-}
-                            </code></pre>
+}</code></pre>
                         </div>
-                    </div>
-
-                    <div class="subsection">
-                        <h3>Synchronized Methods</h3>
+                        
+                        <h4>Synchronized Methods</h4>
                         <div class="code-block">
-                            <pre><code class="language-java">
-class SynchronizedCounter {
-    private int count = 0;
+                            <pre><code>public class SynchronizedMethodDemo {
+    private int counter = 0;
     
-    // Synchronized method - thread-safe
+    // Synchronized instance method
     public synchronized void increment() {
-        count++; // Only one thread can execute this at a time
+        counter++;
     }
     
-    public synchronized int getCount() {
-        return count;
-    }
-    
-    // Synchronized static method - locks on class object
+    // Synchronized static method
     public static synchronized void staticMethod() {
         System.out.println("Static synchronized method");
     }
-}
-                            </code></pre>
+    
+    public synchronized int getCounter() {
+        return counter;
+    }
+    
+    public static void main(String[] args) throws InterruptedException {
+        SynchronizedMethodDemo demo = new SynchronizedMethodDemo();
+        
+        Thread thread1 = new Thread(() -> {
+            for (int i = 0; i < 100000; i++) {
+                demo.increment();
+            }
+        });
+        
+        Thread thread2 = new Thread(() -> {
+            for (int i = 0; i < 100000; i++) {
+                demo.increment();
+            }
+        });
+        
+        thread1.start();
+        thread2.start();
+        
+        thread1.join();
+        thread2.join();
+        
+        System.out.println("Counter: " + demo.getCounter()); // Will be 200000
+    }
+}</code></pre>
                         </div>
-                    </div>
-
-                    <div class="subsection">
-                        <h3>Synchronized Blocks</h3>
+                        
+                        <h4>Synchronized Blocks</h4>
                         <div class="code-block">
-                            <pre><code class="language-java">
-class SynchronizedBlockExample {
-    private int count = 0;
-    private final Object lock = new Object(); // Custom lock object
+                            <pre><code>public class SynchronizedBlockDemo {
+    private final Object lock1 = new Object();
+    private final Object lock2 = new Object();
+    private int counter1 = 0;
+    private int counter2 = 0;
     
-    public void increment() {
-        // Only synchronize critical section
-        synchronized (lock) {
-            count++; // Critical section
-        }
-        // Non-critical code outside synchronized block
-        System.out.println("Thread: " + Thread.currentThread().getName());
-    }
-    
-    public void incrementWithThis() {
-        synchronized (this) { // Synchronize on current object
-            count++;
+    public void incrementCounter1() {
+        synchronized (lock1) {
+            counter1++;
+            // Only counter1 operations are synchronized
         }
     }
     
-    public void incrementWithClass() {
-        synchronized (SynchronizedBlockExample.class) { // Synchronize on class
-            count++;
+    public void incrementCounter2() {
+        synchronized (lock2) {
+            counter2++;
+            // Only counter2 operations are synchronized
         }
     }
-}
-                            </code></pre>
+    
+    public void incrementBoth() {
+        synchronized (lock1) {
+            synchronized (lock2) {
+                counter1++;
+                counter2++;
+                // Nested synchronization - be careful of deadlocks
+            }
+        }
+    }
+    
+    // Class-level synchronization
+    public void classLevelSync() {
+        synchronized (SynchronizedBlockDemo.class) {
+            // Synchronizes on class object
+            System.out.println("Class level synchronization");
+        }
+    }
+    
+    public static void main(String[] args) throws InterruptedException {
+        SynchronizedBlockDemo demo = new SynchronizedBlockDemo();
+        
+        // Multiple threads can work on different counters simultaneously
+        Thread t1 = new Thread(() -> {
+            for (int i = 0; i < 50000; i++) {
+                demo.incrementCounter1();
+            }
+        });
+        
+        Thread t2 = new Thread(() -> {
+            for (int i = 0; i < 50000; i++) {
+                demo.incrementCounter2();
+            }
+        });
+        
+        t1.start();
+        t2.start();
+        t1.join();
+        t2.join();
+        
+        System.out.println("Counter1: " + demo.counter1);
+        System.out.println("Counter2: " + demo.counter2);
+    }
+}</code></pre>
+                        </div>
+                        
+                        <h4>Volatile Keyword</h4>
+                        <div class="code-block">
+                            <pre><code>public class VolatileDemo {
+    private volatile boolean flag = false;
+    private int counter = 0;
+    
+    public void writer() {
+        counter = 42;
+        flag = true; // Volatile write ensures visibility
+    }
+    
+    public void reader() {
+        if (flag) { // Volatile read
+            System.out.println("Counter: " + counter); // Will see 42
+        }
+    }
+    
+    public static void main(String[] args) throws InterruptedException {
+        VolatileDemo demo = new VolatileDemo();
+        
+        Thread writerThread = new Thread(demo::writer);
+        Thread readerThread = new Thread(() -> {
+            while (!demo.flag) {
+                // Busy wait - flag is volatile so changes are visible
+            }
+            demo.reader();
+        });
+        
+        readerThread.start();
+        Thread.sleep(100);
+        writerThread.start();
+        
+        writerThread.join();
+        readerThread.join();
+    }
+}</code></pre>
                         </div>
                     </div>
                 </section>
 
-                <section id="thread-communication" class="section">
-                    <h2>💬 Thread Communication</h2>
-                    <p><strong>What it does:</strong> Allows threads to communicate and coordinate their execution using wait(), notify(), and notifyAll().</p>
-                    <p><strong>How it works:</strong> Threads can wait for conditions and be notified when conditions change.</p>
+                <section id="locks" class="section">
+                    <h2>🔐 Locks & Conditions</h2>
                     
                     <div class="subsection">
-                        <h3>Producer-Consumer Example</h3>
+                        <h3>Advanced Locking Mechanisms</h3>
+                        <p><strong>java.util.concurrent.locks:</strong> Provides more flexible and powerful locking mechanisms than synchronized blocks.</p>
+                        
+                        <h4>ReentrantLock</h4>
                         <div class="code-block">
-                            <pre><code class="language-java">
-class SharedBuffer {
-    private int data;
-    private boolean hasData = false;
-    
-    // Producer puts data
-    public synchronized void put(int value) throws InterruptedException {
-        while (hasData) {
-            wait(); // Wait until buffer is empty
-        }
-        data = value;
-        hasData = true;
-        System.out.println("Produced: " + value);
-        notifyAll(); // Notify waiting consumers
-    }
-    
-    // Consumer gets data
-    public synchronized int get() throws InterruptedException {
-        while (!hasData) {
-            wait(); // Wait until buffer has data
-        }
-        int value = data;
-        hasData = false;
-        System.out.println("Consumed: " + value);
-        notifyAll(); // Notify waiting producers
-        return value;
-    }
-}
+                            <pre><code>import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.Lock;
 
-public class ProducerConsumerExample {
+public class ReentrantLockDemo {
+    private final Lock lock = new ReentrantLock();
+    private int counter = 0;
+    
+    public void increment() {
+        lock.lock();
+        try {
+            counter++;
+            System.out.println(Thread.currentThread().getName() + 
+                             " incremented counter to: " + counter);
+        } finally {
+            lock.unlock(); // Always unlock in finally block
+        }
+    }
+    
+    public boolean tryIncrement() {
+        if (lock.tryLock()) { // Non-blocking attempt
+            try {
+                counter++;
+                return true;
+            } finally {
+                lock.unlock();
+            }
+        }
+        return false;
+    }
+    
+    public void recursiveMethod(int depth) {
+        lock.lock();
+        try {
+            System.out.println("Depth: " + depth + 
+                             ", Hold count: " + ((ReentrantLock) lock).getHoldCount());
+            if (depth > 0) {
+                recursiveMethod(depth - 1); // Reentrant - same thread can acquire again
+            }
+        } finally {
+            lock.unlock();
+        }
+    }
+    
+    public static void main(String[] args) throws InterruptedException {
+        ReentrantLockDemo demo = new ReentrantLockDemo();
+        
+        // Test reentrant behavior
+        Thread t1 = new Thread(() -> demo.recursiveMethod(3));
+        t1.start();
+        t1.join();
+        
+        // Test tryLock
+        Thread t2 = new Thread(() -> {
+            if (demo.tryIncrement()) {
+                System.out.println("Successfully acquired lock");
+            } else {
+                System.out.println("Could not acquire lock");
+            }
+        });
+        
+        t2.start();
+        t2.join();
+    }
+}</code></pre>
+                        </div>
+                        
+                        <h4>ReadWriteLock</h4>
+                        <div class="code-block">
+                            <pre><code>import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.*;
+
+public class ReadWriteLockDemo {
+    private final ReadWriteLock lock = new ReentrantReadWriteLock();
+    private final Map<String, String> data = new HashMap<>();
+    
+    public String read(String key) {
+        lock.readLock().lock();
+        try {
+            Thread.sleep(100); // Simulate read operation
+            return data.get(key);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            return null;
+        } finally {
+            lock.readLock().unlock();
+        }
+    }
+    
+    public void write(String key, String value) {
+        lock.writeLock().lock();
+        try {
+            Thread.sleep(200); // Simulate write operation
+            data.put(key, value);
+            System.out.println("Written: " + key + " = " + value);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        } finally {
+            lock.writeLock().unlock();
+        }
+    }
+    
+    public static void main(String[] args) throws InterruptedException {
+        ReadWriteLockDemo demo = new ReadWriteLockDemo();
+        
+        // Initial data
+        demo.write("key1", "value1");
+        demo.write("key2", "value2");
+        
+        // Multiple readers can run concurrently
+        for (int i = 0; i < 5; i++) {
+            final int readerId = i;
+            new Thread(() -> {
+                String value = demo.read("key1");
+                System.out.println("Reader " + readerId + " read: " + value);
+            }).start();
+        }
+        
+        // Writer will wait for all readers to finish
+        new Thread(() -> demo.write("key1", "newValue")).start();
+        
+        Thread.sleep(2000);
+    }
+}</code></pre>
+                        </div>
+                        
+                        <h4>Condition Variables</h4>
+                        <div class="code-block">
+                            <pre><code>import java.util.concurrent.locks.*;
+import java.util.*;
+
+public class ProducerConsumerWithCondition {
+    private final Lock lock = new ReentrantLock();
+    private final Condition notFull = lock.newCondition();
+    private final Condition notEmpty = lock.newCondition();
+    private final Queue<Integer> queue = new LinkedList<>();
+    private final int capacity = 5;
+    
+    public void produce(int item) throws InterruptedException {
+        lock.lock();
+        try {
+            while (queue.size() == capacity) {
+                System.out.println("Queue full, producer waiting...");
+                notFull.await(); // Wait until queue is not full
+            }
+            
+            queue.offer(item);
+            System.out.println("Produced: " + item + ", Queue size: " + queue.size());
+            notEmpty.signal(); // Signal that queue is not empty
+        } finally {
+            lock.unlock();
+        }
+    }
+    
+    public int consume() throws InterruptedException {
+        lock.lock();
+        try {
+            while (queue.isEmpty()) {
+                System.out.println("Queue empty, consumer waiting...");
+                notEmpty.await(); // Wait until queue is not empty
+            }
+            
+            int item = queue.poll();
+            System.out.println("Consumed: " + item + ", Queue size: " + queue.size());
+            notFull.signal(); // Signal that queue is not full
+            return item;
+        } finally {
+            lock.unlock();
+        }
+    }
+    
     public static void main(String[] args) {
-        SharedBuffer buffer = new SharedBuffer();
+        ProducerConsumerWithCondition pc = new ProducerConsumerWithCondition();
         
         // Producer thread
         Thread producer = new Thread(() -> {
             try {
-                for (int i = 1; i <= 5; i++) {
-                    buffer.put(i);
-                    Thread.sleep(1000);
+                for (int i = 1; i <= 10; i++) {
+                    pc.produce(i);
+                    Thread.sleep(100);
                 }
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
@@ -448,9 +757,9 @@ public class ProducerConsumerExample {
         // Consumer thread
         Thread consumer = new Thread(() -> {
             try {
-                for (int i = 1; i <= 5; i++) {
-                    buffer.get();
-                    Thread.sleep(1500);
+                for (int i = 1; i <= 10; i++) {
+                    pc.consume();
+                    Thread.sleep(200);
                 }
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
@@ -460,62 +769,71 @@ public class ProducerConsumerExample {
         producer.start();
         consumer.start();
     }
-}
-                            </code></pre>
+}</code></pre>
                         </div>
                     </div>
                 </section>
 
-                <section id="executor-framework" class="section">
-                    <h2>⚡ Executor Framework</h2>
-                    <p><strong>What it does:</strong> Provides high-level API for managing thread execution, replacing manual thread creation.</p>
-                    <p><strong>How it works:</strong> Separates task submission from thread management, providing thread pools and scheduling.</p>
-                    <p><strong>Benefits:</strong> Better resource management, reusable threads, and simplified concurrent programming.</p>
+                <section id="executor" class="section">
+                    <h2>⚙️ Executor Framework</h2>
                     
                     <div class="subsection">
-                        <h3>ExecutorService Examples</h3>
+                        <h3>What is Executor Framework?</h3>
+                        <p><strong>Definition:</strong> A high-level API for managing and controlling thread execution, providing thread pools and task scheduling capabilities.</p>
+                        
+                        <h4>Benefits:</h4>
+                        <ul>
+                            <li><strong>Thread Pool Management:</strong> Reuses threads efficiently</li>
+                            <li><strong>Task Submission:</strong> Separates task creation from execution</li>
+                            <li><strong>Resource Control:</strong> Limits number of concurrent threads</li>
+                            <li><strong>Built-in Scheduling:</strong> Support for delayed and periodic tasks</li>
+                        </ul>
+                        
+                        <h4>ExecutorService Examples</h4>
                         <div class="code-block">
-                            <pre><code class="language-java">
-import java.util.concurrent.*;
-import java.util.List;
-import java.util.ArrayList;
+                            <pre><code>import java.util.concurrent.*;
+import java.util.*;
 
-public class ExecutorExample {
+public class ExecutorServiceDemo {
     public static void main(String[] args) throws InterruptedException, ExecutionException {
-        // 1. Fixed Thread Pool
+        // Fixed thread pool
         ExecutorService fixedPool = Executors.newFixedThreadPool(3);
         
-        for (int i = 1; i <= 5; i++) {
+        // Submit tasks
+        for (int i = 1; i <= 10; i++) {
             final int taskId = i;
             fixedPool.submit(() -> {
                 System.out.println("Task " + taskId + " executed by " + 
-                    Thread.currentThread().getName());
+                                 Thread.currentThread().getName());
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
             });
         }
         
-        // 2. Cached Thread Pool (creates threads as needed)
+        // Cached thread pool - creates threads as needed
         ExecutorService cachedPool = Executors.newCachedThreadPool();
         
-        // 3. Single Thread Executor
+        // Single thread executor
         ExecutorService singleExecutor = Executors.newSingleThreadExecutor();
         
-        // 4. Scheduled Thread Pool
-        ScheduledExecutorService scheduledPool = Executors.newScheduledThreadPool(2);
+        // Submit callable tasks (return values)
+        List<Future<Integer>> futures = new ArrayList<>();
+        for (int i = 1; i <= 5; i++) {
+            final int num = i;
+            Future<Integer> future = fixedPool.submit(() -> {
+                Thread.sleep(500);
+                return num * num;
+            });
+            futures.add(future);
+        }
         
-        // Schedule task with delay
-        scheduledPool.schedule(() -> {
-            System.out.println("Delayed task executed");
-        }, 3, TimeUnit.SECONDS);
-        
-        // Schedule task at fixed rate
-        scheduledPool.scheduleAtFixedRate(() -> {
-            System.out.println("Periodic task: " + System.currentTimeMillis());
-        }, 0, 2, TimeUnit.SECONDS);
+        // Get results
+        for (Future<Integer> future : futures) {
+            System.out.println("Result: " + future.get());
+        }
         
         // Shutdown executors
         fixedPool.shutdown();
@@ -523,118 +841,178 @@ public class ExecutorExample {
         singleExecutor.shutdown();
         
         // Wait for termination
-        if (!fixedPool.awaitTermination(10, TimeUnit.SECONDS)) {
+        if (!fixedPool.awaitTermination(5, TimeUnit.SECONDS)) {
             fixedPool.shutdownNow();
         }
     }
-}
-                            </code></pre>
+}</code></pre>
                         </div>
-                    </div>
-
-                    <div class="subsection">
-                        <h3>Future and Callable</h3>
+                        
+                        <h4>ScheduledExecutorService</h4>
                         <div class="code-block">
-                            <pre><code class="language-java">
-import java.util.concurrent.*;
+                            <pre><code>import java.util.concurrent.*;
 
-public class FutureExample {
-    public static void main(String[] args) throws InterruptedException, ExecutionException {
-        ExecutorService executor = Executors.newFixedThreadPool(2);
+public class ScheduledExecutorDemo {
+    public static void main(String[] args) throws InterruptedException {
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(2);
         
-        // Callable returns a result
-        Callable<Integer> task = () -> {
-            Thread.sleep(2000);
-            return 42;
-        };
+        // Schedule one-time task with delay
+        ScheduledFuture<?> future1 = scheduler.schedule(() -> {
+            System.out.println("One-time task executed after 2 seconds");
+        }, 2, TimeUnit.SECONDS);
         
-        // Submit callable and get Future
-        Future<Integer> future = executor.submit(task);
+        // Schedule recurring task with fixed rate
+        ScheduledFuture<?> future2 = scheduler.scheduleAtFixedRate(() -> {
+            System.out.println("Fixed rate task: " + System.currentTimeMillis());
+        }, 1, 3, TimeUnit.SECONDS); // Initial delay: 1s, Period: 3s
         
-        System.out.println("Task submitted, doing other work...");
+        // Schedule recurring task with fixed delay
+        ScheduledFuture<?> future3 = scheduler.scheduleWithFixedDelay(() -> {
+            System.out.println("Fixed delay task: " + System.currentTimeMillis());
+            try {
+                Thread.sleep(1000); // Task takes 1 second
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }, 1, 2, TimeUnit.SECONDS); // Initial delay: 1s, Delay between executions: 2s
         
-        // Check if task is done
-        while (!future.isDone()) {
-            System.out.println("Task still running...");
-            Thread.sleep(500);
-        }
+        // Let it run for 10 seconds
+        Thread.sleep(10000);
         
-        // Get result (blocks until available)
-        Integer result = future.get();
-        System.out.println("Result: " + result);
+        // Cancel tasks
+        future2.cancel(false);
+        future3.cancel(false);
         
-        // Submit multiple tasks
-        List<Future<String>> futures = new ArrayList<>();
-        for (int i = 1; i <= 3; i++) {
-            final int taskId = i;
-            Future<String> f = executor.submit(() -> {
-                Thread.sleep(1000 * taskId);
-                return "Task " + taskId + " completed";
-            });
-            futures.add(f);
-        }
-        
-        // Get all results
-        for (Future<String> f : futures) {
-            System.out.println(f.get());
-        }
-        
-        executor.shutdown();
+        scheduler.shutdown();
     }
-}
-                            </code></pre>
+}</code></pre>
+                        </div>
+                        
+                        <h4>CompletableFuture (Java 8+)</h4>
+                        <div class="code-block">
+                            <pre><code>import java.util.concurrent.*;
+
+public class CompletableFutureDemo {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        // Simple async computation
+        CompletableFuture<String> future1 = CompletableFuture.supplyAsync(() -> {
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+            return "Hello";
+        });
+        
+        // Chain operations
+        CompletableFuture<String> future2 = future1.thenApply(result -> result + " World");
+        
+        CompletableFuture<Void> future3 = future2.thenAccept(result -> 
+            System.out.println("Result: " + result));
+        
+        // Combine two futures
+        CompletableFuture<String> future4 = CompletableFuture.supplyAsync(() -> "Java");
+        CompletableFuture<String> future5 = CompletableFuture.supplyAsync(() -> "Programming");
+        
+        CompletableFuture<String> combined = future4.thenCombine(future5, 
+            (a, b) -> a + " " + b);
+        
+        System.out.println("Combined: " + combined.get());
+        
+        // Handle exceptions
+        CompletableFuture<String> futureWithException = CompletableFuture.supplyAsync(() -> {
+            if (Math.random() > 0.5) {
+                throw new RuntimeException("Random error");
+            }
+            return "Success";
+        }).handle((result, exception) -> {
+            if (exception != null) {
+                return "Error handled: " + exception.getMessage();
+            }
+            return result;
+        });
+        
+        System.out.println("Exception handling: " + futureWithException.get());
+        
+        // Wait for completion
+        future3.get();
+    }
+}</code></pre>
                         </div>
                     </div>
                 </section>
 
                 <section id="concurrent-collections" class="section">
-                    <h2>📚 Concurrent Collections</h2>
-                    <p><strong>What it does:</strong> Provides thread-safe collections that can be safely accessed by multiple threads.</p>
-                    <p><strong>How it works:</strong> Uses advanced synchronization techniques like lock-free algorithms and segmented locking.</p>
+                    <h2>📦 Concurrent Collections</h2>
                     
                     <div class="subsection">
                         <h3>Thread-Safe Collections</h3>
+                        <p><strong>Purpose:</strong> Collections designed for concurrent access without external synchronization, providing better performance than synchronized wrappers.</p>
+                        
                         <div class="code-block">
-                            <pre><code class="language-java">
-import java.util.concurrent.*;
+                            <pre><code>import java.util.concurrent.*;
+import java.util.*;
 
-public class ConcurrentCollectionsExample {
+public class ConcurrentCollectionsDemo {
     public static void main(String[] args) throws InterruptedException {
-        // 1. ConcurrentHashMap - Thread-safe HashMap
+        // ConcurrentHashMap - thread-safe HashMap
         ConcurrentHashMap<String, Integer> concurrentMap = new ConcurrentHashMap<>();
         
-        // Multiple threads can safely access
-        ExecutorService executor = Executors.newFixedThreadPool(3);
+        // Atomic operations
+        concurrentMap.put("counter", 0);
+        concurrentMap.compute("counter", (key, val) -> val == null ? 1 : val + 1);
+        concurrentMap.computeIfAbsent("newKey", key -> key.length());
+        concurrentMap.merge("counter", 5, Integer::sum);
         
-        for (int i = 0; i < 10; i++) {
-            final int value = i;
-            executor.submit(() -> {
-                concurrentMap.put("key" + value, value);
-                System.out.println("Put: key" + value + " = " + value);
-            });
-        }
+        System.out.println("ConcurrentHashMap: " + concurrentMap);
         
-        // 2. CopyOnWriteArrayList - Thread-safe ArrayList
-        CopyOnWriteArrayList<String> concurrentList = new CopyOnWriteArrayList<>();
-        concurrentList.add("Item1");
-        concurrentList.add("Item2");
+        // CopyOnWriteArrayList - thread-safe ArrayList for read-heavy scenarios
+        CopyOnWriteArrayList<String> cowList = new CopyOnWriteArrayList<>();
+        cowList.add("A");
+        cowList.add("B");
+        cowList.add("C");
         
-        // Safe iteration even during modification
-        for (String item : concurrentList) {
-            System.out.println("Item: " + item);
-            // Another thread can modify list during iteration
-        }
+        // Safe iteration during modification
+        Thread reader = new Thread(() -> {
+            for (String item : cowList) {
+                System.out.println("Reading: " + item);
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    return;
+                }
+            }
+        });
         
-        // 3. BlockingQueue - Producer-Consumer pattern
-        BlockingQueue<Integer> queue = new ArrayBlockingQueue<>(10);
+        Thread writer = new Thread(() -> {
+            try {
+                Thread.sleep(50);
+                cowList.add("D");
+                System.out.println("Added D");
+                Thread.sleep(100);
+                cowList.add("E");
+                System.out.println("Added E");
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        });
+        
+        reader.start();
+        writer.start();
+        reader.join();
+        writer.join();
+        
+        // BlockingQueue - producer-consumer pattern
+        BlockingQueue<String> queue = new ArrayBlockingQueue<>(5);
         
         // Producer
-        executor.submit(() -> {
+        Thread producer = new Thread(() -> {
             try {
                 for (int i = 1; i <= 5; i++) {
-                    queue.put(i); // Blocks if queue is full
-                    System.out.println("Produced: " + i);
-                    Thread.sleep(1000);
+                    queue.put("Item-" + i);
+                    System.out.println("Produced: Item-" + i);
+                    Thread.sleep(100);
                 }
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
@@ -642,224 +1020,291 @@ public class ConcurrentCollectionsExample {
         });
         
         // Consumer
-        executor.submit(() -> {
+        Thread consumer = new Thread(() -> {
             try {
                 for (int i = 1; i <= 5; i++) {
-                    Integer item = queue.take(); // Blocks if queue is empty
+                    String item = queue.take();
                     System.out.println("Consumed: " + item);
-                    Thread.sleep(1500);
+                    Thread.sleep(200);
                 }
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
         });
         
-        Thread.sleep(10000);
-        executor.shutdown();
+        producer.start();
+        consumer.start();
+        producer.join();
+        consumer.join();
+        
+        System.out.println("Final CopyOnWriteArrayList: " + cowList);
     }
-}
-                            </code></pre>
+}</code></pre>
                         </div>
                     </div>
                 </section>
 
-                <section id="locks" class="section">
-                    <h2>🔐 Locks & Conditions</h2>
-                    <p><strong>What it does:</strong> Provides more flexible locking mechanisms than synchronized blocks.</p>
-                    <p><strong>How it works:</strong> Explicit lock acquisition and release with additional features like try-lock and conditions.</p>
+                <section id="atomic-variables" class="section">
+                    <h2>⚛️ Atomic Variables</h2>
                     
                     <div class="subsection">
-                        <h3>ReentrantLock Example</h3>
+                        <h3>Lock-Free Thread Safety</h3>
+                        <p><strong>Definition:</strong> Atomic variables provide lock-free thread-safe operations on single variables using compare-and-swap (CAS) operations.</p>
+                        
                         <div class="code-block">
-                            <pre><code class="language-java">
-import java.util.concurrent.locks.*;
+                            <pre><code>import java.util.concurrent.atomic.*;
 
-class BankAccount {
-    private double balance;
-    private final ReentrantLock lock = new ReentrantLock();
-    
-    public BankAccount(double initialBalance) {
-        this.balance = initialBalance;
-    }
-    
-    public void withdraw(double amount) {
-        lock.lock(); // Acquire lock
-        try {
-            if (balance >= amount) {
-                System.out.println(Thread.currentThread().getName() + 
-                    " withdrawing " + amount);
-                balance -= amount;
-                System.out.println("New balance: " + balance);
-            } else {
-                System.out.println("Insufficient funds");
-            }
-        } finally {
-            lock.unlock(); // Always release lock
-        }
-    }
-    
-    public boolean tryWithdraw(double amount, long timeoutMs) {
-        try {
-            if (lock.tryLock(timeoutMs, TimeUnit.MILLISECONDS)) {
-                try {
-                    if (balance >= amount) {
-                        balance -= amount;
-                        return true;
-                    }
-                    return false;
-                } finally {
-                    lock.unlock();
-                }
-            } else {
-                System.out.println("Could not acquire lock within timeout");
-                return false;
-            }
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            return false;
-        }
-    }
-    
-    public double getBalance() {
-        lock.lock();
-        try {
-            return balance;
-        } finally {
-            lock.unlock();
-        }
-    }
-}
-                            </code></pre>
-                        </div>
-                    </div>
-
-                    <div class="subsection">
-                        <h3>ReadWriteLock Example</h3>
-                        <div class="code-block">
-                            <pre><code class="language-java">
-import java.util.concurrent.locks.*;
-
-class ReadWriteCounter {
-    private int count = 0;
-    private final ReadWriteLock rwLock = new ReentrantReadWriteLock();
-    private final Lock readLock = rwLock.readLock();
-    private final Lock writeLock = rwLock.writeLock();
-    
-    // Multiple threads can read simultaneously
-    public int getCount() {
-        readLock.lock();
-        try {
-            System.out.println(Thread.currentThread().getName() + " reading: " + count);
-            Thread.sleep(1000); // Simulate read operation
-            return count;
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-            return count;
-        } finally {
-            readLock.unlock();
-        }
-    }
-    
-    // Only one thread can write at a time
-    public void increment() {
-        writeLock.lock();
-        try {
-            System.out.println(Thread.currentThread().getName() + " writing");
-            count++;
-            Thread.sleep(1000); // Simulate write operation
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        } finally {
-            writeLock.unlock();
-        }
-    }
-}
-                            </code></pre>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="atomic-operations" class="section">
-                    <h2>⚛️ Atomic Operations</h2>
-                    <p><strong>What it does:</strong> Provides lock-free thread-safe operations on single variables.</p>
-                    <p><strong>How it works:</strong> Uses CPU-level atomic instructions for compare-and-swap operations.</p>
-                    <p><strong>Benefits:</strong> Better performance than locks for simple operations, no blocking.</p>
-                    
-                    <div class="subsection">
-                        <h3>Atomic Classes</h3>
-                        <div class="code-block">
-                            <pre><code class="language-java">
-import java.util.concurrent.atomic.*;
-
-public class AtomicExample {
+public class AtomicVariablesDemo {
     private static AtomicInteger atomicCounter = new AtomicInteger(0);
     private static AtomicLong atomicLong = new AtomicLong(0);
-    private static AtomicBoolean atomicFlag = new AtomicBoolean(false);
-    private static AtomicReference<String> atomicRef = new AtomicReference<>("initial");
+    private static AtomicBoolean atomicBoolean = new AtomicBoolean(false);
+    private static AtomicReference<String> atomicReference = new AtomicReference<>("initial");
     
     public static void main(String[] args) throws InterruptedException {
-        ExecutorService executor = Executors.newFixedThreadPool(10);
+        // AtomicInteger operations
+        System.out.println("Initial value: " + atomicCounter.get());
         
-        // Atomic integer operations
-        for (int i = 0; i < 1000; i++) {
-            executor.submit(() -> {
-                atomicCounter.incrementAndGet(); // Thread-safe increment
-                atomicLong.addAndGet(1); // Thread-safe addition
+        int newValue = atomicCounter.incrementAndGet(); // ++counter
+        System.out.println("After increment: " + newValue);
+        
+        int oldValue = atomicCounter.getAndIncrement(); // counter++
+        System.out.println("Get and increment - old: " + oldValue + ", new: " + atomicCounter.get());
+        
+        atomicCounter.addAndGet(5); // Add 5
+        System.out.println("After adding 5: " + atomicCounter.get());
+        
+        // Compare and set
+        boolean updated = atomicCounter.compareAndSet(7, 10);
+        System.out.println("CAS updated: " + updated + ", value: " + atomicCounter.get());
+        
+        // AtomicReference operations
+        String oldRef = atomicReference.getAndSet("new value");
+        System.out.println("Old reference: " + oldRef + ", new: " + atomicReference.get());
+        
+        // Update with function
+        atomicReference.updateAndGet(current -> current.toUpperCase());
+        System.out.println("After update: " + atomicReference.get());
+        
+        // Concurrent increment test
+        Thread[] threads = new Thread[10];
+        for (int i = 0; i < 10; i++) {
+            threads[i] = new Thread(() -> {
+                for (int j = 0; j < 1000; j++) {
+                    atomicCounter.incrementAndGet();
+                }
             });
         }
         
-        // Compare and set operations
-        executor.submit(() -> {
-            String current = atomicRef.get();
-            boolean updated = atomicRef.compareAndSet(current, "updated");
-            System.out.println("Updated: " + updated);
-        });
+        for (Thread thread : threads) {
+            thread.start();
+        }
         
-        // Atomic boolean operations
-        executor.submit(() -> {
-            boolean previous = atomicFlag.getAndSet(true);
-            System.out.println("Previous flag value: " + previous);
-        });
+        for (Thread thread : threads) {
+            thread.join();
+        }
         
-        executor.shutdown();
-        executor.awaitTermination(5, TimeUnit.SECONDS);
+        System.out.println("Final counter value: " + atomicCounter.get());
         
-        System.out.println("Final counter: " + atomicCounter.get());
-        System.out.println("Final long: " + atomicLong.get());
-        System.out.println("Final flag: " + atomicFlag.get());
-        System.out.println("Final reference: " + atomicRef.get());
+        // AtomicIntegerArray
+        AtomicIntegerArray atomicArray = new AtomicIntegerArray(5);
+        atomicArray.set(0, 10);
+        atomicArray.incrementAndGet(1);
+        atomicArray.compareAndSet(2, 0, 20);
+        
+        System.out.println("Atomic array: " + java.util.Arrays.toString(
+            java.util.stream.IntStream.range(0, atomicArray.length())
+                .map(atomicArray::get)
+                .toArray()));
     }
-}
-                            </code></pre>
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="thread-communication" class="section">
+                    <h2>💬 Thread Communication</h2>
+                    
+                    <div class="subsection">
+                        <h3>Inter-Thread Communication</h3>
+                        <p><strong>Methods:</strong> wait(), notify(), notifyAll() for thread coordination and communication.</p>
+                        
+                        <div class="code-block">
+                            <pre><code>public class ProducerConsumerDemo {
+    private final Object lock = new Object();
+    private int data = 0;
+    private boolean available = false;
+    
+    public void produce(int value) {
+        synchronized (lock) {
+            while (available) {
+                try {
+                    System.out.println("Producer waiting...");
+                    lock.wait(); // Wait until data is consumed
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    return;
+                }
+            }
+            
+            data = value;
+            available = true;
+            System.out.println("Produced: " + value);
+            lock.notifyAll(); // Notify waiting consumers
+        }
+    }
+    
+    public int consume() {
+        synchronized (lock) {
+            while (!available) {
+                try {
+                    System.out.println("Consumer waiting...");
+                    lock.wait(); // Wait until data is available
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    return -1;
+                }
+            }
+            
+            available = false;
+            System.out.println("Consumed: " + data);
+            lock.notifyAll(); // Notify waiting producers
+            return data;
+        }
+    }
+    
+    public static void main(String[] args) {
+        ProducerConsumerDemo pc = new ProducerConsumerDemo();
+        
+        // Producer thread
+        Thread producer = new Thread(() -> {
+            for (int i = 1; i <= 5; i++) {
+                pc.produce(i);
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    return;
+                }
+            }
+        });
+        
+        // Consumer thread
+        Thread consumer = new Thread(() -> {
+            for (int i = 1; i <= 5; i++) {
+                pc.consume();
+                try {
+                    Thread.sleep(150);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    return;
+                }
+            }
+        });
+        
+        producer.start();
+        consumer.start();
+    }
+}</code></pre>
+                        </div>
+                        
+                        <h4>CountDownLatch</h4>
+                        <div class="code-block">
+                            <pre><code>import java.util.concurrent.CountDownLatch;
+
+public class CountDownLatchDemo {
+    public static void main(String[] args) throws InterruptedException {
+        int numberOfWorkers = 3;
+        CountDownLatch latch = new CountDownLatch(numberOfWorkers);
+        
+        // Create worker threads
+        for (int i = 1; i <= numberOfWorkers; i++) {
+            final int workerId = i;
+            new Thread(() -> {
+                try {
+                    System.out.println("Worker " + workerId + " starting work...");
+                    Thread.sleep(2000 + workerId * 1000); // Simulate work
+                    System.out.println("Worker " + workerId + " finished work");
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                } finally {
+                    latch.countDown(); // Signal completion
+                }
+            }).start();
+        }
+        
+        System.out.println("Main thread waiting for all workers to complete...");
+        latch.await(); // Wait for all workers to finish
+        System.out.println("All workers completed. Main thread continuing...");
+    }
+}</code></pre>
+                        </div>
+                        
+                        <h4>CyclicBarrier</h4>
+                        <div class="code-block">
+                            <pre><code>import java.util.concurrent.CyclicBarrier;
+import java.util.concurrent.BrokenBarrierException;
+
+public class CyclicBarrierDemo {
+    public static void main(String[] args) {
+        int numberOfThreads = 3;
+        
+        CyclicBarrier barrier = new CyclicBarrier(numberOfThreads, () -> {
+            System.out.println("All threads reached barrier. Proceeding to next phase...");
+        });
+        
+        for (int i = 1; i <= numberOfThreads; i++) {
+            final int threadId = i;
+            new Thread(() -> {
+                try {
+                    // Phase 1
+                    System.out.println("Thread " + threadId + " working on phase 1...");
+                    Thread.sleep(threadId * 1000);
+                    System.out.println("Thread " + threadId + " completed phase 1");
+                    
+                    barrier.await(); // Wait for all threads to complete phase 1
+                    
+                    // Phase 2
+                    System.out.println("Thread " + threadId + " working on phase 2...");
+                    Thread.sleep(threadId * 500);
+                    System.out.println("Thread " + threadId + " completed phase 2");
+                    
+                } catch (InterruptedException | BrokenBarrierException e) {
+                    Thread.currentThread().interrupt();
+                }
+            }).start();
+        }
+    }
+}</code></pre>
                         </div>
                     </div>
                 </section>
 
                 <section id="thread-pool" class="section">
-                    <h2>🏊 Thread Pool</h2>
-                    <p><strong>What it does:</strong> Manages a pool of reusable threads to execute tasks efficiently.</p>
-                    <p><strong>How it works:</strong> Creates fixed number of threads that pick up tasks from a queue, avoiding thread creation overhead.</p>
+                    <h2>🏊 Thread Pools</h2>
                     
                     <div class="subsection">
-                        <h3>Custom Thread Pool</h3>
+                        <h3>Custom Thread Pool Configuration</h3>
+                        <p><strong>ThreadPoolExecutor:</strong> Provides fine-grained control over thread pool behavior including core size, maximum size, keep-alive time, and queue type.</p>
+                        
                         <div class="code-block">
-                            <pre><code class="language-java">
-import java.util.concurrent.*;
+                            <pre><code>import java.util.concurrent.*;
 
-public class ThreadPoolExample {
-    public static void main(String[] args) {
+public class CustomThreadPoolDemo {
+    public static void main(String[] args) throws InterruptedException {
         // Custom ThreadPoolExecutor
-        ThreadPoolExecutor customPool = new ThreadPoolExecutor(
-            2,                      // Core pool size
-            4,                      // Maximum pool size
-            60L,                    // Keep alive time
-            TimeUnit.SECONDS,       // Time unit
-            new LinkedBlockingQueue<>(10), // Work queue
-            new ThreadFactory() {   // Custom thread factory
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(
+            2,                              // Core pool size
+            4,                              // Maximum pool size
+            60L,                            // Keep alive time
+            TimeUnit.SECONDS,               // Time unit
+            new LinkedBlockingQueue<>(10),  // Work queue
+            new ThreadFactory() {           // Custom thread factory
                 private int counter = 0;
                 @Override
                 public Thread newThread(Runnable r) {
-                    return new Thread(r, "CustomThread-" + (++counter));
+                    Thread t = new Thread(r, "CustomWorker-" + (++counter));
+                    t.setDaemon(false);
+                    return t;
                 }
             },
             new RejectedExecutionHandler() { // Rejection policy
@@ -870,290 +1315,324 @@ public class ThreadPoolExample {
             }
         );
         
+        // Monitor thread pool
+        ScheduledExecutorService monitor = Executors.newScheduledThreadPool(1);
+        monitor.scheduleAtFixedRate(() -> {
+            System.out.printf("Pool size: %d, Active: %d, Completed: %d, Queue: %d%n",
+                executor.getPoolSize(),
+                executor.getActiveCount(),
+                executor.getCompletedTaskCount(),
+                executor.getQueue().size());
+        }, 0, 1, TimeUnit.SECONDS);
+        
         // Submit tasks
-        for (int i = 1; i <= 15; i++) {
+        for (int i = 1; i <= 20; i++) {
             final int taskId = i;
             try {
-                customPool.submit(() -> {
-                    System.out.println("Task " + taskId + " executed by " + 
-                        Thread.currentThread().getName());
+                executor.submit(() -> {
+                    System.out.println("Task " + taskId + " started by " + 
+                                     Thread.currentThread().getName());
                     try {
-                        Thread.sleep(2000);
+                        Thread.sleep(2000); // Simulate work
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
                     }
+                    System.out.println("Task " + taskId + " completed");
                 });
             } catch (RejectedExecutionException e) {
                 System.out.println("Task " + taskId + " was rejected");
             }
         }
         
-        // Monitor pool status
-        System.out.println("Active threads: " + customPool.getActiveCount());
-        System.out.println("Pool size: " + customPool.getPoolSize());
-        System.out.println("Queue size: " + customPool.getQueue().size());
+        // Shutdown
+        executor.shutdown();
+        if (!executor.awaitTermination(10, TimeUnit.SECONDS)) {
+            executor.shutdownNow();
+        }
         
-        customPool.shutdown();
+        monitor.shutdown();
     }
-}
-                            </code></pre>
+}</code></pre>
                         </div>
-                    </div>
-                </section>
-
-                <section id="completable-future" class="section">
-                    <h2>🚀 CompletableFuture</h2>
-                    <p><strong>What it does:</strong> Provides asynchronous programming with composable and chainable operations.</p>
-                    <p><strong>How it works:</strong> Represents a future result that can be completed manually and supports functional-style operations.</p>
-                    
-                    <div class="subsection">
-                        <h3>CompletableFuture Examples</h3>
+                        
+                        <h4>ForkJoinPool</h4>
                         <div class="code-block">
-                            <pre><code class="language-java">
-import java.util.concurrent.*;
+                            <pre><code>import java.util.concurrent.*;
 
-public class CompletableFutureExample {
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
-        
-        // 1. Simple async execution
-        CompletableFuture<String> future1 = CompletableFuture.supplyAsync(() -> {
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-            return "Hello";
-        });
-        
-        // 2. Chaining operations
-        CompletableFuture<String> future2 = future1
-            .thenApply(result -> result + " World")
-            .thenApply(String::toUpperCase);
-        
-        System.out.println("Result: " + future2.get());
-        
-        // 3. Combining multiple futures
-        CompletableFuture<Integer> future3 = CompletableFuture.supplyAsync(() -> 10);
-        CompletableFuture<Integer> future4 = CompletableFuture.supplyAsync(() -> 20);
-        
-        CompletableFuture<Integer> combined = future3.thenCombine(future4, Integer::sum);
-        System.out.println("Combined result: " + combined.get());
-        
-        // 4. Handling exceptions
-        CompletableFuture<String> futureWithException = CompletableFuture.supplyAsync(() -> {
-            if (Math.random() > 0.5) {
-                throw new RuntimeException("Random error");
-            }
-            return "Success";
-        }).exceptionally(throwable -> {
-            System.out.println("Exception occurred: " + throwable.getMessage());
-            return "Default value";
-        });
-        
-        System.out.println("Exception handling result: " + futureWithException.get());
-        
-        // 5. Async callbacks
-        CompletableFuture<Void> asyncCallback = CompletableFuture.runAsync(() -> {
-            System.out.println("Async task running in: " + Thread.currentThread().getName());
-        }).thenRun(() -> {
-            System.out.println("Callback executed in: " + Thread.currentThread().getName());
-        });
-        
-        asyncCallback.get(); // Wait for completion
-        
-        // 6. All of - wait for all futures
-        CompletableFuture<String> f1 = CompletableFuture.supplyAsync(() -> "Task1");
-        CompletableFuture<String> f2 = CompletableFuture.supplyAsync(() -> "Task2");
-        CompletableFuture<String> f3 = CompletableFuture.supplyAsync(() -> "Task3");
-        
-        CompletableFuture<Void> allOf = CompletableFuture.allOf(f1, f2, f3);
-        allOf.thenRun(() -> {
-            try {
-                System.out.println("All tasks completed: " + 
-                    f1.get() + ", " + f2.get() + ", " + f3.get());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }).get();
-        
-        // 7. Any of - wait for first completion
-        CompletableFuture<Object> anyOf = CompletableFuture.anyOf(f1, f2, f3);
-        System.out.println("First completed: " + anyOf.get());
+public class ForkJoinDemo extends RecursiveTask<Long> {
+    private final int start;
+    private final int end;
+    private static final int THRESHOLD = 1000;
+    
+    public ForkJoinDemo(int start, int end) {
+        this.start = start;
+        this.end = end;
     }
-}
-                            </code></pre>
+    
+    @Override
+    protected Long compute() {
+        if (end - start <= THRESHOLD) {
+            // Direct computation for small tasks
+            long sum = 0;
+            for (int i = start; i <= end; i++) {
+                sum += i;
+            }
+            return sum;
+        } else {
+            // Fork into subtasks
+            int mid = (start + end) / 2;
+            ForkJoinDemo leftTask = new ForkJoinDemo(start, mid);
+            ForkJoinDemo rightTask = new ForkJoinDemo(mid + 1, end);
+            
+            leftTask.fork(); // Execute asynchronously
+            long rightResult = rightTask.compute(); // Execute in current thread
+            long leftResult = leftTask.join(); // Wait for result
+            
+            return leftResult + rightResult;
+        }
+    }
+    
+    public static void main(String[] args) {
+        ForkJoinPool pool = new ForkJoinPool();
+        
+        ForkJoinDemo task = new ForkJoinDemo(1, 100000);
+        long result = pool.invoke(task);
+        
+        System.out.println("Sum: " + result);
+        System.out.println("Expected: " + (100000L * 100001L / 2));
+        
+        pool.shutdown();
+    }
+}</code></pre>
                         </div>
                     </div>
                 </section>
 
                 <section id="best-practices" class="section">
-                    <h2>✅ Best Practices</h2>
+                    <h2>💡 Best Practices</h2>
                     
-                    <div class="dos-donts">
-                        <div class="dos">
-                            <h3>✅ Do's</h3>
-                            <ul>
-                                <li>Use thread pools instead of creating threads manually</li>
-                                <li>Prefer immutable objects for thread safety</li>
-                                <li>Use concurrent collections over synchronized collections</li>
-                                <li>Always handle InterruptedException properly</li>
-                                <li>Use atomic classes for simple operations</li>
-                                <li>Minimize synchronized block scope</li>
-                                <li>Use CompletableFuture for async programming</li>
-                                <li>Always shutdown ExecutorService</li>
-                                <li>Use try-finally for lock release</li>
-                                <li>Prefer composition over inheritance for thread safety</li>
-                            </ul>
+                    <div class="subsection">
+                        <h3>Multithreading Best Practices</h3>
+                        
+                        <h4>1. Prefer Immutable Objects</h4>
+                        <div class="code-block">
+                            <pre><code>// ✅ GOOD - Immutable class
+public final class ImmutablePerson {
+    private final String name;
+    private final int age;
+    
+    public ImmutablePerson(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+    
+    public String getName() { return name; }
+    public int getAge() { return age; }
+}
+
+// ❌ BAD - Mutable class requires synchronization
+public class MutablePerson {
+    private String name;
+    private int age;
+    
+    public synchronized void setName(String name) { this.name = name; }
+    public synchronized String getName() { return name; }
+}</code></pre>
                         </div>
-                        <div class="donts">
-                            <h3>❌ Don'ts</h3>
-                            <ul>
-                                <li>Don't ignore thread interruption</li>
-                                <li>Don't use stop(), suspend(), resume() methods</li>
-                                <li>Don't synchronize on mutable objects</li>
-                                <li>Don't create too many threads</li>
-                                <li>Don't use busy waiting loops</li>
-                                <li>Don't access shared mutable state without synchronization</li>
-                                <li>Don't forget to handle exceptions in threads</li>
-                                <li>Don't use Thread.sleep() for synchronization</li>
-                                <li>Don't mix different synchronization mechanisms</li>
-                                <li>Don't create deadlocks with nested locks</li>
-                            </ul>
+                        
+                        <h4>2. Use Thread-Safe Collections</h4>
+                        <div class="code-block">
+                            <pre><code>// ✅ GOOD - Use concurrent collections
+ConcurrentHashMap<String, Integer> concurrentMap = new ConcurrentHashMap<>();
+CopyOnWriteArrayList<String> cowList = new CopyOnWriteArrayList<>();
+
+// ❌ BAD - Synchronized wrapper has performance overhead
+Map<String, Integer> syncMap = Collections.synchronizedMap(new HashMap<>());</code></pre>
+                        </div>
+                        
+                        <h4>3. Proper Exception Handling</h4>
+                        <div class="code-block">
+                            <pre><code>// ✅ GOOD - Proper interrupt handling
+public void interruptibleTask() {
+    try {
+        while (!Thread.currentThread().isInterrupted()) {
+            // Do work
+            Thread.sleep(1000);
+        }
+    } catch (InterruptedException e) {
+        Thread.currentThread().interrupt(); // Restore interrupt status
+        return;
+    }
+}
+
+// ❌ BAD - Swallowing interrupt
+public void badInterruptHandling() {
+    try {
+        Thread.sleep(1000);
+    } catch (InterruptedException e) {
+        // Don't ignore interrupts
+    }
+}</code></pre>
+                        </div>
+                        
+                        <h4>4. Avoid Deadlocks</h4>
+                        <div class="code-block">
+                            <pre><code>// ✅ GOOD - Consistent lock ordering
+private static final Object lock1 = new Object();
+private static final Object lock2 = new Object();
+
+public void method1() {
+    synchronized (lock1) {
+        synchronized (lock2) {
+            // Work with both resources
+        }
+    }
+}
+
+public void method2() {
+    synchronized (lock1) { // Same order as method1
+        synchronized (lock2) {
+            // Work with both resources
+        }
+    }
+}
+
+// ❌ BAD - Inconsistent lock ordering can cause deadlock
+public void badMethod1() {
+    synchronized (lock1) {
+        synchronized (lock2) { /* work */ }
+    }
+}
+
+public void badMethod2() {
+    synchronized (lock2) { // Different order - potential deadlock
+        synchronized (lock1) { /* work */ }
+    }
+}</code></pre>
+                        </div>
+                        
+                        <h4>5. Use Executor Framework</h4>
+                        <div class="code-block">
+                            <pre><code>// ✅ GOOD - Use executor service
+ExecutorService executor = Executors.newFixedThreadPool(4);
+try {
+    for (int i = 0; i < 10; i++) {
+        executor.submit(() -> {
+            // Task logic
+        });
+    }
+} finally {
+    executor.shutdown();
+    if (!executor.awaitTermination(60, TimeUnit.SECONDS)) {
+        executor.shutdownNow();
+    }
+}
+
+// ❌ BAD - Manual thread creation
+for (int i = 0; i < 10; i++) {
+    new Thread(() -> {
+        // Task logic
+    }).start(); // Creates many threads
+}</code></pre>
                         </div>
                     </div>
                 </section>
 
-                <section id="common-problems" class="section">
-                    <h2>⚠️ Common Problems</h2>
+                <section id="interview" class="section">
+                    <h2>🎯 Interview Questions</h2>
                     
                     <div class="subsection">
-                        <h3>1. Deadlock</h3>
-                        <div class="code-block">
-                            <pre><code class="language-java">
-// Deadlock example - DON'T DO THIS
-class DeadlockExample {
-    private final Object lock1 = new Object();
-    private final Object lock2 = new Object();
-    
-    public void method1() {
-        synchronized (lock1) {
-            System.out.println("Method1: Acquired lock1");
-            synchronized (lock2) {
-                System.out.println("Method1: Acquired lock2");
-            }
-        }
-    }
-    
-    public void method2() {
-        synchronized (lock2) { // Different order - can cause deadlock
-            System.out.println("Method2: Acquired lock2");
-            synchronized (lock1) {
-                System.out.println("Method2: Acquired lock1");
-            }
-        }
-    }
-}
-
-// Solution: Always acquire locks in same order
-class DeadlockSolution {
-    private final Object lock1 = new Object();
-    private final Object lock2 = new Object();
-    
-    public void method1() {
-        synchronized (lock1) {
-            synchronized (lock2) {
-                // Work
-            }
-        }
-    }
-    
-    public void method2() {
-        synchronized (lock1) { // Same order
-            synchronized (lock2) {
-                // Work
-            }
-        }
-    }
-}
-                            </code></pre>
-                        </div>
-                    </div>
-
-                    <div class="subsection">
-                        <h3>2. Memory Consistency Errors</h3>
-                        <div class="code-block">
-                            <pre><code class="language-java">
-// Problem: Memory visibility
-class MemoryConsistencyProblem {
-    private boolean flag = false;
-    
-    public void writer() {
-        flag = true; // May not be visible to other threads
-    }
-    
-    public void reader() {
-        while (!flag) {
-            // May loop forever
-        }
-        System.out.println("Flag is true");
-    }
-}
-
-// Solution: Use volatile or synchronization
-class MemoryConsistencySolution {
-    private volatile boolean flag = false; // Ensures visibility
-    
-    public void writer() {
-        flag = true;
-    }
-    
-    public void reader() {
-        while (!flag) {
-            // Will see the change
-        }
-        System.out.println("Flag is true");
-    }
-}
-                            </code></pre>
-                        </div>
-                    </div>
-                </section>
-
-                <section id="summary" class="section">
-                    <h2>📋 Summary</h2>
-                    <p>Java multithreading enables concurrent execution for better performance and responsiveness. Key concepts include:</p>
-                    
-                    <div class="subsection">
-                        <h3>🎯 Key Takeaways</h3>
+                        <h3>Most Asked Multithreading Interview Questions</h3>
+                        
+                        <h4>1. What is the difference between process and thread?</h4>
+                        <p><strong>Answer:</strong></p>
                         <ul>
-                            <li><strong>Thread Creation:</strong> Use Runnable interface over Thread class</li>
-                            <li><strong>Synchronization:</strong> Prevent race conditions with synchronized blocks/methods</li>
-                            <li><strong>Thread Communication:</strong> Use wait(), notify(), notifyAll() for coordination</li>
-                            <li><strong>Executor Framework:</strong> Manage threads efficiently with thread pools</li>
-                            <li><strong>Concurrent Collections:</strong> Use thread-safe collections for shared data</li>
-                            <li><strong>Locks:</strong> More flexible than synchronized with ReentrantLock</li>
-                            <li><strong>Atomic Operations:</strong> Lock-free operations for better performance</li>
-                            <li><strong>CompletableFuture:</strong> Modern asynchronous programming</li>
+                            <li><strong>Process:</strong> Independent execution environment with own memory space</li>
+                            <li><strong>Thread:</strong> Lightweight execution unit within a process, shares memory</li>
+                            <li><strong>Communication:</strong> Processes use IPC, threads use shared variables</li>
+                            <li><strong>Overhead:</strong> Thread creation is faster than process creation</li>
+                        </ul>
+                        
+                        <h4>2. What is synchronization and why is it needed?</h4>
+                        <p><strong>Answer:</strong></p>
+                        <ul>
+                            <li><strong>Synchronization:</strong> Mechanism to control access to shared resources</li>
+                            <li><strong>Need:</strong> Prevents race conditions and data inconsistency</li>
+                            <li><strong>Methods:</strong> synchronized keyword, locks, atomic variables</li>
+                            <li><strong>Trade-off:</strong> Safety vs performance</li>
+                        </ul>
+                        
+                        <h4>3. What is the difference between wait() and sleep()?</h4>
+                        <p><strong>Answer:</strong></p>
+                        <ul>
+                            <li><strong>wait():</strong> Releases lock, must be called in synchronized block</li>
+                            <li><strong>sleep():</strong> Doesn't release lock, can be called anywhere</li>
+                            <li><strong>Wakeup:</strong> wait() by notify/notifyAll, sleep() by time/interrupt</li>
+                            <li><strong>Class:</strong> wait() in Object, sleep() in Thread</li>
+                        </ul>
+                        
+                        <h4>4. What is deadlock and how to prevent it?</h4>
+                        <p><strong>Answer:</strong></p>
+                        <ul>
+                            <li><strong>Deadlock:</strong> Two or more threads waiting for each other indefinitely</li>
+                            <li><strong>Conditions:</strong> Mutual exclusion, hold and wait, no preemption, circular wait</li>
+                            <li><strong>Prevention:</strong> Consistent lock ordering, timeout, avoid nested locks</li>
+                            <li><strong>Detection:</strong> Use tools like JConsole, thread dumps</li>
+                        </ul>
+                        
+                        <h4>5. What is the difference between synchronized and volatile?</h4>
+                        <p><strong>Answer:</strong></p>
+                        <ul>
+                            <li><strong>synchronized:</strong> Provides atomicity and visibility, can block threads</li>
+                            <li><strong>volatile:</strong> Provides only visibility, no atomicity, non-blocking</li>
+                            <li><strong>Use synchronized for:</strong> Complex operations, multiple variables</li>
+                            <li><strong>Use volatile for:</strong> Simple flags, single variable visibility</li>
+                        </ul>
+                        
+                        <h4>6. What is ThreadLocal and when to use it?</h4>
+                        <p><strong>Answer:</strong></p>
+                        <ul>
+                            <li><strong>ThreadLocal:</strong> Provides thread-local variables, each thread has own copy</li>
+                            <li><strong>Use cases:</strong> User sessions, database connections, date formatters</li>
+                            <li><strong>Benefits:</strong> No synchronization needed, thread isolation</li>
+                            <li><strong>Caution:</strong> Memory leaks if not cleaned up properly</li>
+                        </ul>
+                        
+                        <h4>7. What is the difference between Callable and Runnable?</h4>
+                        <p><strong>Answer:</strong></p>
+                        <ul>
+                            <li><strong>Runnable:</strong> run() method, no return value, no checked exceptions</li>
+                            <li><strong>Callable:</strong> call() method, returns value, can throw exceptions</li>
+                            <li><strong>Usage:</strong> Callable with ExecutorService.submit(), Runnable with Thread</li>
+                            <li><strong>Future:</strong> Callable returns Future for result retrieval</li>
+                        </ul>
+                        
+                        <h4>8. Explain producer-consumer problem and its solution</h4>
+                        <p><strong>Answer:</strong></p>
+                        <ul>
+                            <li><strong>Problem:</strong> Coordinate producers and consumers with shared buffer</li>
+                            <li><strong>Solutions:</strong> wait/notify, BlockingQueue, Condition variables</li>
+                            <li><strong>Key points:</strong> Buffer size limits, thread coordination, avoiding busy waiting</li>
+                        </ul>
+                        
+                        <h3>Coding Questions</h3>
+                        <p><strong>Common Problems:</strong></p>
+                        <ul>
+                            <li>Implement thread-safe singleton pattern</li>
+                            <li>Create producer-consumer using BlockingQueue</li>
+                            <li>Implement custom thread pool</li>
+                            <li>Print numbers alternately using two threads</li>
+                            <li>Implement reader-writer lock</li>
+                            <li>Create thread-safe counter without synchronization</li>
                         </ul>
                     </div>
-
-                    <div class="subsection">
-                        <h3>🚀 Performance Tips</h3>
-                        <ul>
-                            <li>Use thread pools to avoid thread creation overhead</li>
-                            <li>Minimize synchronization scope</li>
-                            <li>Prefer atomic operations over locks for simple cases</li>
-                            <li>Use concurrent collections instead of synchronized wrappers</li>
-                            <li>Consider lock-free algorithms for high-performance scenarios</li>
-                        </ul>
-                    </div>
-
-                    <p>Master these concepts to build robust, scalable, and efficient multithreaded Java applications! 🎯</p>
                 </section>
-                </div>
+
+            </div>
             </div>
         </div>
     </div>
-      <script src="../footer.js"></script>
+
+    <script src="../footer.js"></script>
 </body>
 </html>

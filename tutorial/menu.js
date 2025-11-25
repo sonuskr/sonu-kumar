@@ -1,8 +1,16 @@
 // Navigation menu generator
 function generateNavMenu(activePage = "") {
   // Detect if we're in a subdirectory
-  const subdirs = ["/java/", "/spring/", "/data-structure/", "/programs/", "/interview/"];
-  const isInSubdir = subdirs.some(dir => window.location.pathname.includes(dir));
+  const subdirs = [
+    "/java/",
+    "/spring/",
+    "/data-structure/",
+    "/programs/",
+    "/interview/",
+  ];
+  const isInSubdir = subdirs.some((dir) =>
+    window.location.pathname.includes(dir)
+  );
   const basePath = isInSubdir ? "../" : "";
 
   return `
@@ -30,7 +38,7 @@ function generateNavMenu(activePage = "") {
                     <li class="dropdown">
                         <a href="#">Java</a>
                         <div class="dropdown-content">
-                            <a href="${basePath}java/java-learning.html">Java Fundamentals</a>
+                            <a href="${basePath}java/java-fundamental.html">Java Fundamentals</a>
                             <a href="${basePath}java/java-oop.html">Java OOP</a>
                             <a href="${basePath}java/java-exception.html">Java Exception</a>
                             <a href="${basePath}java/java-8.html">Java 8</a>
@@ -157,14 +165,22 @@ function initializeMenuEvents() {
 
 // Favicon Functions
 function createFavicon() {
-  const subdirs = ["/java/", "/spring/", "/data-structure/", "/programs/", "/interview/"];
-  const isInSubdir = subdirs.some(dir => window.location.pathname.includes(dir));
+  const subdirs = [
+    "/java/",
+    "/spring/",
+    "/data-structure/",
+    "/programs/",
+    "/interview/",
+  ];
+  const isInSubdir = subdirs.some((dir) =>
+    window.location.pathname.includes(dir)
+  );
   const faviconPath = isInSubdir ? "../../favicon.svg" : "../favicon.svg";
-  
+
   if (!document.querySelector('link[rel="icon"]')) {
-    const favicon = document.createElement('link');
-    favicon.rel = 'icon';
-    favicon.type = 'image/svg+xml';
+    const favicon = document.createElement("link");
+    favicon.rel = "icon";
+    favicon.type = "image/svg+xml";
     favicon.href = faviconPath;
     document.head.appendChild(favicon);
   }
@@ -172,8 +188,8 @@ function createFavicon() {
 
 // Theme Selector Functions
 function createThemeSelector() {
-  const themeSelector = document.createElement('div');
-  themeSelector.className = 'theme-selector';
+  const themeSelector = document.createElement("div");
+  themeSelector.className = "theme-selector";
   themeSelector.innerHTML = `
     <select id="themeSelect">
       <option value="default">🔵 Blue (Default)</option>
@@ -184,23 +200,25 @@ function createThemeSelector() {
     </select>
   `;
   document.body.appendChild(themeSelector);
-  
-  const savedTheme = localStorage.getItem('selectedTheme') || 'default';
+
+  const savedTheme = localStorage.getItem("selectedTheme") || "default";
   applyTheme(savedTheme);
-  document.getElementById('themeSelect').value = savedTheme;
-  
-  document.getElementById('themeSelect').addEventListener('change', function(e) {
-    const selectedTheme = e.target.value;
-    applyTheme(selectedTheme);
-    localStorage.setItem('selectedTheme', selectedTheme);
-  });
+  document.getElementById("themeSelect").value = savedTheme;
+
+  document
+    .getElementById("themeSelect")
+    .addEventListener("change", function (e) {
+      const selectedTheme = e.target.value;
+      applyTheme(selectedTheme);
+      localStorage.setItem("selectedTheme", selectedTheme);
+    });
 }
 
 function applyTheme(theme) {
-  if (theme === 'default') {
-    document.documentElement.removeAttribute('data-theme');
+  if (theme === "default") {
+    document.documentElement.removeAttribute("data-theme");
   } else {
-    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.setAttribute("data-theme", theme);
   }
 }
 
