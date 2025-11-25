@@ -155,6 +155,55 @@ function initializeMenuEvents() {
   });
 }
 
+// Favicon Functions
+function createFavicon() {
+  const subdirs = ["/java/", "/spring/", "/data-structure/", "/programs/", "/interview/"];
+  const isInSubdir = subdirs.some(dir => window.location.pathname.includes(dir));
+  const faviconPath = isInSubdir ? "../../favicon.svg" : "../favicon.svg";
+  
+  if (!document.querySelector('link[rel="icon"]')) {
+    const favicon = document.createElement('link');
+    favicon.rel = 'icon';
+    favicon.type = 'image/svg+xml';
+    favicon.href = faviconPath;
+    document.head.appendChild(favicon);
+  }
+}
+
+// Theme Selector Functions
+function createThemeSelector() {
+  const themeSelector = document.createElement('div');
+  themeSelector.className = 'theme-selector';
+  themeSelector.innerHTML = `
+    <select id="themeSelect">
+      <option value="default">🔵 Blue (Default)</option>
+      <option value="dark">🌙 Dark</option>
+      <option value="green">🟢 Green</option>
+      <option value="purple">🟣 Purple</option>
+      <option value="orange">🟠 Orange</option>
+    </select>
+  `;
+  document.body.appendChild(themeSelector);
+  
+  const savedTheme = localStorage.getItem('selectedTheme') || 'default';
+  applyTheme(savedTheme);
+  document.getElementById('themeSelect').value = savedTheme;
+  
+  document.getElementById('themeSelect').addEventListener('change', function(e) {
+    const selectedTheme = e.target.value;
+    applyTheme(selectedTheme);
+    localStorage.setItem('selectedTheme', selectedTheme);
+  });
+}
+
+function applyTheme(theme) {
+  if (theme === 'default') {
+    document.documentElement.removeAttribute('data-theme');
+  } else {
+    document.documentElement.setAttribute('data-theme', theme);
+  }
+}
+
 // Initialize menu on page load
 document.addEventListener("DOMContentLoaded", function () {
   const nav = document.querySelector("nav");
@@ -162,4 +211,6 @@ document.addEventListener("DOMContentLoaded", function () {
     nav.innerHTML = generateNavMenu(window.activePage);
     initializeMenuEvents();
   }
+  createThemeSelector();
+  createFavicon();
 });
