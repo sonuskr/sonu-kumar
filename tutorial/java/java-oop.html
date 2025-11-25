@@ -1,109 +1,183 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     <title>Java OOP Concepts - Sonu Kumar</title>
-    <link rel="stylesheet" href="../tutorial-styles.css">
-</head>
-<body class="page-java">
+    <link rel="stylesheet" href="../tutorial-styles.css" />
+  </head>
+  <body class="page-java">
     <header>
-        <div class="container">
-            <div class="hero">
-                <h1>Java Object-Oriented Programming</h1>
-                <p>Master OOP Principles & Design Patterns for Enterprise Development</p>
-            </div>
+      <div class="container">
+        <div class="hero">
+          <h1>Java Object-Oriented Programming</h1>
+          <p>
+            Master OOP Principles & Design Patterns for Enterprise Development
+          </p>
         </div>
+      </div>
     </header>
     <nav></nav>
-    <script>window.activePage = 'java';</script>
-    <script src="../menu.js"></script>
-    
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const codeBlocks = document.querySelectorAll('pre code');
-            codeBlocks.forEach(block => {
-                highlightJava(block);
-            });
-        });
-        
-        function highlightJava(element) {
-            let code = element.textContent;
-            
-            code = code.replace(/\b(public|private|protected|static|final|class|interface|extends|implements|import|package|void|int|String|boolean|double|float|long|short|byte|char|if|else|for|while|do|switch|case|default|break|continue|return|try|catch|finally|throw|throws|new|this|super|null|true|false|abstract|synchronized|volatile|transient|native|strictfp|enum|assert)\b/g, '<span class="keyword">$1</span>');
-            
-            code = code.replace(/"([^"]*)"/g, '<span class="string">"$1"</span>');
-            code = code.replace(/'([^']*)'/g, '<span class="string">\'$1\'</span>');
-            
-            code = code.replace(/\/\/.*$/gm, '<span class="comment">$&</span>');
-            code = code.replace(/\/\*[\s\S]*?\*\//g, '<span class="comment">$&</span>');
-            
-            code = code.replace(/\b\d+(\.\d+)?[fLdF]?\b/g, '<span class="number">$&</span>');
-            
-            code = code.replace(/\b([a-zA-Z_][a-zA-Z0-9_]*)\s*\(/g, '<span class="method">$1</span>(');
-            
-            code = code.replace(/\b[A-Z][a-zA-Z0-9_]*\b/g, '<span class="class">$&</span>');
-            
-            element.innerHTML = code;
-        }
+      window.activePage = 'java-oop'
     </script>
-    
+    <script src="../menu.js"></script>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        const codeBlocks = document.querySelectorAll('pre code')
+        codeBlocks.forEach((block) => {
+          highlightJava(block)
+        })
+        updateActiveNav()
+      })
+
+      // Active navigation highlighting
+      function updateActiveNav() {
+        const sections = document.querySelectorAll('.section')
+        const navLinks = document.querySelectorAll('.toc-nav a')
+
+        let currentSection = ''
+        sections.forEach((section) => {
+          const rect = section.getBoundingClientRect()
+          if (rect.top <= 100) {
+            currentSection = section.id
+          }
+        })
+
+        navLinks.forEach((link) => {
+          link.classList.remove('active')
+          if (link.getAttribute('href') === '#' + currentSection) {
+            link.classList.add('active')
+          }
+        })
+      }
+
+      window.addEventListener('scroll', updateActiveNav)
+
+      function highlightJava(element) {
+        let code = element.textContent
+
+        code = code.replace(
+          /\b(public|private|protected|static|final|class|interface|extends|implements|import|package|void|int|String|boolean|double|float|long|short|byte|char|if|else|for|while|do|switch|case|default|break|continue|return|try|catch|finally|throw|throws|new|this|super|null|true|false|abstract|synchronized|volatile|transient|native|strictfp|enum|assert)\b/g,
+          '<span class="keyword">$1</span>'
+        )
+
+        code = code.replace(/"([^"]*)"/g, '<span class="string">"$1"</span>')
+        code = code.replace(/'([^']*)'/g, '<span class="string">\'$1\'</span>')
+
+        code = code.replace(/\/\/.*$/gm, '<span class="comment">$&</span>')
+        code = code.replace(
+          /\/\*[\s\S]*?\*\//g,
+          '<span class="comment">$&</span>'
+        )
+
+        code = code.replace(
+          /\b\d+(\.\d+)?[fLdF]?\b/g,
+          '<span class="number">$&</span>'
+        )
+
+        code = code.replace(
+          /\b([a-zA-Z_][a-zA-Z0-9_]*)\s*\(/g,
+          '<span class="method">$1</span>('
+        )
+
+        code = code.replace(
+          /\b[A-Z][a-zA-Z0-9_]*\b/g,
+          '<span class="class">$&</span>'
+        )
+
+        element.innerHTML = code
+      }
+    </script>
+
     <div class="container">
-        <div class="content-with-sidebar">
-            <aside class="sidebar-toc">
-                <div class="toc-header">
-                    <h2>📚 OOP Topics</h2>
-                </div>
-                <nav class="toc-nav">
-                    <ul>
-                        <li><a href="#overview">OOP Overview</a></li>
-                        <li><a href="#classes-objects">Classes & Objects</a></li>
-                        <li><a href="#encapsulation">Encapsulation</a></li>
-                        <li><a href="#inheritance">Inheritance</a></li>
-                        <li><a href="#polymorphism">Polymorphism</a></li>
-                        <li><a href="#abstraction">Abstraction</a></li>
-                        <li><a href="#interfaces">Interfaces</a></li>
-                        <li><a href="#constructors">Constructors</a></li>
-                        <li><a href="#static-members">Static Members</a></li>
-                        <li><a href="#design-patterns">Design Patterns</a></li>
-                        <li><a href="#best-practices">Best Practices</a></li>
-                        <li><a href="#interview">Interview Questions</a></li>
-                    </ul>
-                </nav>
-            </aside>
+      <div class="content-with-sidebar">
+        <aside class="sidebar-toc">
+          <div class="toc-header">
+            <h2>📚 OOP Topics</h2>
+          </div>
+          <nav class="toc-nav">
+            <ul>
+              <li><a href="#overview">OOP Overview</a></li>
+              <li><a href="#classes-objects">Classes & Objects</a></li>
+              <li><a href="#encapsulation">Encapsulation</a></li>
+              <li><a href="#inheritance">Inheritance</a></li>
+              <li><a href="#polymorphism">Polymorphism</a></li>
+              <li><a href="#abstraction">Abstraction</a></li>
+              <li><a href="#interfaces">Interfaces</a></li>
+              <li><a href="#constructors">Constructors</a></li>
+              <li><a href="#static-members">Static Members</a></li>
+              <li><a href="#design-patterns">Design Patterns</a></li>
+              <li><a href="#best-practices">Best Practices</a></li>
+              <li><a href="#interview">Interview Questions</a></li>
+            </ul>
+          </nav>
+        </aside>
 
-            <div class="main-content">
-            <div class="topic">
+        <div class="main-content">
+          <div class="topic">
+            <section id="overview" class="section">
+              <h2>🚀 Object-Oriented Programming Overview</h2>
 
-                <section id="overview" class="section">
-                    <h2>🚀 Object-Oriented Programming Overview</h2>
-                    
-                    <div class="subsection">
-                        <h3>What is OOP?</h3>
-                        <p><strong>Definition:</strong> Object-Oriented Programming is a programming paradigm based on the concept of objects, which contain data (attributes) and code (methods). OOP focuses on creating reusable, modular, and maintainable code.</p>
-                        
-                        <h4>Four Pillars of OOP:</h4>
-                        <ul>
-                            <li><strong>Encapsulation:</strong> Bundling data and methods together, hiding internal details</li>
-                            <li><strong>Inheritance:</strong> Creating new classes based on existing classes</li>
-                            <li><strong>Polymorphism:</strong> Same interface, different implementations</li>
-                            <li><strong>Abstraction:</strong> Hiding complex implementation details, showing only essential features</li>
-                        </ul>
-                        
-                        <h4>Benefits of OOP:</h4>
-                        <ul>
-                            <li><strong>Modularity:</strong> Code is organized into separate, interchangeable components</li>
-                            <li><strong>Reusability:</strong> Objects can be reused across different parts of application</li>
-                            <li><strong>Maintainability:</strong> Changes to one part don't affect other parts</li>
-                            <li><strong>Scalability:</strong> Easy to extend and modify existing code</li>
-                            <li><strong>Real-world Modeling:</strong> Maps closely to real-world entities and relationships</li>
-                        </ul>
-                        
-                        <h4>OOP vs Procedural Programming:</h4>
-                        <div class="code-block">
-                            <pre><code>Aspect          | OOP                      | Procedural
+              <div class="subsection">
+                <h3>What is OOP?</h3>
+                <p>
+                  <strong>Definition:</strong> Object-Oriented Programming is a
+                  programming paradigm based on the concept of objects, which
+                  contain data (attributes) and code (methods). OOP focuses on
+                  creating reusable, modular, and maintainable code.
+                </p>
+
+                <h4>Four Pillars of OOP:</h4>
+                <ul>
+                  <li>
+                    <strong>Encapsulation:</strong> Bundling data and methods
+                    together, hiding internal details
+                  </li>
+                  <li>
+                    <strong>Inheritance:</strong> Creating new classes based on
+                    existing classes
+                  </li>
+                  <li>
+                    <strong>Polymorphism:</strong> Same interface, different
+                    implementations
+                  </li>
+                  <li>
+                    <strong>Abstraction:</strong> Hiding complex implementation
+                    details, showing only essential features
+                  </li>
+                </ul>
+
+                <h4>Benefits of OOP:</h4>
+                <ul>
+                  <li>
+                    <strong>Modularity:</strong> Code is organized into
+                    separate, interchangeable components
+                  </li>
+                  <li>
+                    <strong>Reusability:</strong> Objects can be reused across
+                    different parts of application
+                  </li>
+                  <li>
+                    <strong>Maintainability:</strong> Changes to one part don't
+                    affect other parts
+                  </li>
+                  <li>
+                    <strong>Scalability:</strong> Easy to extend and modify
+                    existing code
+                  </li>
+                  <li>
+                    <strong>Real-world Modeling:</strong> Maps closely to
+                    real-world entities and relationships
+                  </li>
+                </ul>
+
+                <h4>OOP vs Procedural Programming:</h4>
+                <div class="code-block">
+                  <pre><code>Aspect          | OOP                      | Procedural
 ----------------|--------------------------|---------------------------
 Focus           | Objects and classes      | Functions and procedures
 Data Security   | Encapsulated (private)   | Global data access
@@ -111,21 +185,28 @@ Code Reuse      | Inheritance, composition | Function calls
 Problem Solving | Bottom-up approach       | Top-down approach
 Maintenance     | Easier to maintain       | Harder as code grows
 Examples        | Java, C++, Python       | C, Pascal, FORTRAN</code></pre>
-                        </div>
-                    </div>
-                </section>
+                </div>
+              </div>
+            </section>
 
-                <section id="classes-objects" class="section">
-                    <h2>🏗️ Classes and Objects</h2>
-                    
-                    <div class="subsection">
-                        <h3>Understanding Classes and Objects</h3>
-                        <p><strong>Class:</strong> A blueprint or template for creating objects. Defines attributes and methods that objects will have.</p>
-                        <p><strong>Object:</strong> An instance of a class. Contains actual data and can perform actions defined by the class.</p>
-                        
-                        <h4>Basic Class Structure:</h4>
-                        <div class="code-block">
-                            <pre><code>// Class definition
+            <section id="classes-objects" class="section">
+              <h2>🏗️ Classes and Objects</h2>
+
+              <div class="subsection">
+                <h3>Understanding Classes and Objects</h3>
+                <p>
+                  <strong>Class:</strong> A blueprint or template for creating
+                  objects. Defines attributes and methods that objects will
+                  have.
+                </p>
+                <p>
+                  <strong>Object:</strong> An instance of a class. Contains
+                  actual data and can perform actions defined by the class.
+                </p>
+
+                <h4>Basic Class Structure:</h4>
+                <div class="code-block">
+                  <pre><code>// Class definition
 public class Car {
     // Instance variables (attributes)
     private String brand;
@@ -192,11 +273,11 @@ public class Car {
                            isRunning ? "(Running)" : "(Stopped)");
     }
 }</code></pre>
-                        </div>
-                        
-                        <h4>Creating and Using Objects:</h4>
-                        <div class="code-block">
-                            <pre><code>public class CarDemo {
+                </div>
+
+                <h4>Creating and Using Objects:</h4>
+                <div class="code-block">
+                  <pre><code>public class CarDemo {
     public static void main(String[] args) {
         // Creating objects (instantiation)
         Car car1 = new Car("Toyota", "Camry", 2023, 28000.0);
@@ -233,11 +314,11 @@ public class Car {
         System.out.println("Updated price: $" + car1.getPrice());
     }
 }</code></pre>
-                        </div>
-                        
-                        <h4>Object Memory Allocation:</h4>
-                        <div class="code-block">
-                            <pre><code>public class ObjectMemoryExample {
+                </div>
+
+                <h4>Object Memory Allocation:</h4>
+                <div class="code-block">
+                  <pre><code>public class ObjectMemoryExample {
     public static void main(String[] args) {
         // Reference variables are stored in stack
         Car car1;           // Reference variable (null initially)
@@ -264,30 +345,35 @@ public class Car {
         System.out.println("car3 still works: " + car3.getBrand()); // Toyota
     }
 }</code></pre>
-                        </div>
-                    </div>
-                </section>
+                </div>
+              </div>
+            </section>
 
-                <section id="encapsulation" class="section">
-                    <h2>🔒 Encapsulation</h2>
-                    
-                    <div class="subsection">
-                        <h3>What is Encapsulation?</h3>
-                        <p><strong>Definition:</strong> Encapsulation is the bundling of data (variables) and methods that operate on that data into a single unit (class), while restricting direct access to some components.</p>
-                        
-                        <h4>Access Modifiers:</h4>
-                        <div class="code-block">
-                            <pre><code>Modifier    | Same Class | Same Package | Subclass | Different Package
+            <section id="encapsulation" class="section">
+              <h2>🔒 Encapsulation</h2>
+
+              <div class="subsection">
+                <h3>What is Encapsulation?</h3>
+                <p>
+                  <strong>Definition:</strong> Encapsulation is the bundling of
+                  data (variables) and methods that operate on that data into a
+                  single unit (class), while restricting direct access to some
+                  components.
+                </p>
+
+                <h4>Access Modifiers:</h4>
+                <div class="code-block">
+                  <pre><code>Modifier    | Same Class | Same Package | Subclass | Different Package
 ------------|------------|--------------|----------|------------------
 private     | ✓          | ✗            | ✗        | ✗
 default     | ✓          | ✓            | ✗        | ✗
 protected   | ✓          | ✓            | ✓        | ✗
 public      | ✓          | ✓            | ✓        | ✓</code></pre>
-                        </div>
-                        
-                        <h4>Proper Encapsulation Example:</h4>
-                        <div class="code-block">
-                            <pre><code>public class BankAccount {
+                </div>
+
+                <h4>Proper Encapsulation Example:</h4>
+                <div class="code-block">
+                  <pre><code>public class BankAccount {
     // Private fields - cannot be accessed directly from outside
     private String accountNumber;
     private String accountHolderName;
@@ -372,11 +458,11 @@ public      | ✓          | ✓            | ✓        | ✓</code></pre>
                            accountNumber, accountHolderName, accountType, balance);
     }
 }</code></pre>
-                        </div>
-                        
-                        <h4>Benefits of Encapsulation:</h4>
-                        <div class="code-block">
-                            <pre><code>public class EncapsulationDemo {
+                </div>
+
+                <h4>Benefits of Encapsulation:</h4>
+                <div class="code-block">
+                  <pre><code>public class EncapsulationDemo {
     public static void main(String[] args) {
         BankAccount account1 = new BankAccount("ACC001", "John Doe", "Savings", 1000.0);
         BankAccount account2 = new BankAccount("ACC002", "Jane Smith", "Checking", 500.0);
@@ -403,11 +489,11 @@ public      | ✓          | ✓            | ✓        | ✓</code></pre>
         System.out.println(account2);
     }
 }</code></pre>
-                        </div>
-                        
-                        <h4>Data Validation in Encapsulation:</h4>
-                        <div class="code-block">
-                            <pre><code>public class Student {
+                </div>
+
+                <h4>Data Validation in Encapsulation:</h4>
+                <div class="code-block">
+                  <pre><code>public class Student {
     private String name;
     private int age;
     private String email;
@@ -473,20 +559,24 @@ public      | ✓          | ✓            | ✓        | ✓</code></pre>
         return gpa >= 3.5;
     }
 }</code></pre>
-                        </div>
-                    </div>
-                </section>
+                </div>
+              </div>
+            </section>
 
-                <section id="inheritance" class="section">
-                    <h2>🧬 Inheritance</h2>
-                    
-                    <div class="subsection">
-                        <h3>What is Inheritance?</h3>
-                        <p><strong>Definition:</strong> Inheritance allows a class to inherit properties and methods from another class, promoting code reuse and establishing an "is-a" relationship.</p>
-                        
-                        <h4>Basic Inheritance Example:</h4>
-                        <div class="code-block">
-                            <pre><code>// Parent class (Superclass/Base class)
+            <section id="inheritance" class="section">
+              <h2>🧬 Inheritance</h2>
+
+              <div class="subsection">
+                <h3>What is Inheritance?</h3>
+                <p>
+                  <strong>Definition:</strong> Inheritance allows a class to
+                  inherit properties and methods from another class, promoting
+                  code reuse and establishing an "is-a" relationship.
+                </p>
+
+                <h4>Basic Inheritance Example:</h4>
+                <div class="code-block">
+                  <pre><code>// Parent class (Superclass/Base class)
 public class Vehicle {
     protected String brand;
     protected String model;
@@ -574,11 +664,11 @@ public class Motorcycle extends Vehicle {
     public boolean isHasSidecar() { return hasSidecar; }
     public int getEngineCC() { return engineCC; }
 }</code></pre>
-                        </div>
-                        
-                        <h4>Inheritance Demonstration:</h4>
-                        <div class="code-block">
-                            <pre><code>public class InheritanceDemo {
+                </div>
+
+                <h4>Inheritance Demonstration:</h4>
+                <div class="code-block">
+                  <pre><code>public class InheritanceDemo {
     public static void main(String[] args) {
         // Creating objects of different classes
         Vehicle vehicle = new Vehicle("Generic", "Vehicle", 2023, 15000.0);
@@ -610,11 +700,11 @@ public class Motorcycle extends Vehicle {
         System.out.println("car is Motorcycle: " + (car instanceof Motorcycle)); // false
     }
 }</code></pre>
-                        </div>
-                        
-                        <h4>Multi-level Inheritance:</h4>
-                        <div class="code-block">
-                            <pre><code>// Level 1: Base class
+                </div>
+
+                <h4>Multi-level Inheritance:</h4>
+                <div class="code-block">
+                  <pre><code>// Level 1: Base class
 public class Animal {
     protected String name;
     protected int age;
@@ -671,11 +761,11 @@ public class Dog extends Mammal {
                           ", Breed: " + breed + ", Has fur: " + hasFur);
     }
 }</code></pre>
-                        </div>
-                        
-                        <h4>Method Overriding Rules:</h4>
-                        <div class="code-block">
-                            <pre><code>public class OverridingRules {
+                </div>
+
+                <h4>Method Overriding Rules:</h4>
+                <div class="code-block">
+                  <pre><code>public class OverridingRules {
     
     // Parent class
     static class Parent {
@@ -709,26 +799,37 @@ public class Dog extends Mammal {
         }
     }
 }</code></pre>
-                        </div>
-                    </div>
-                </section>
+                </div>
+              </div>
+            </section>
 
-                <section id="polymorphism" class="section">
-                    <h2>🎭 Polymorphism</h2>
-                    
-                    <div class="subsection">
-                        <h3>What is Polymorphism?</h3>
-                        <p><strong>Definition:</strong> Polymorphism allows objects of different types to be treated as objects of a common base type, while maintaining their specific behavior. "One interface, multiple implementations."</p>
-                        
-                        <h4>Types of Polymorphism:</h4>
-                        <ul>
-                            <li><strong>Runtime Polymorphism:</strong> Method overriding (dynamic binding)</li>
-                            <li><strong>Compile-time Polymorphism:</strong> Method overloading (static binding)</li>
-                        </ul>
-                        
-                        <h4>Runtime Polymorphism Example:</h4>
-                        <div class="code-block">
-                            <pre><code>// Base class
+            <section id="polymorphism" class="section">
+              <h2>🎭 Polymorphism</h2>
+
+              <div class="subsection">
+                <h3>What is Polymorphism?</h3>
+                <p>
+                  <strong>Definition:</strong> Polymorphism allows objects of
+                  different types to be treated as objects of a common base
+                  type, while maintaining their specific behavior. "One
+                  interface, multiple implementations."
+                </p>
+
+                <h4>Types of Polymorphism:</h4>
+                <ul>
+                  <li>
+                    <strong>Runtime Polymorphism:</strong> Method overriding
+                    (dynamic binding)
+                  </li>
+                  <li>
+                    <strong>Compile-time Polymorphism:</strong> Method
+                    overloading (static binding)
+                  </li>
+                </ul>
+
+                <h4>Runtime Polymorphism Example:</h4>
+                <div class="code-block">
+                  <pre><code>// Base class
 public abstract class Shape {
     protected String color;
     
@@ -819,11 +920,11 @@ public class Triangle extends Shape {
         return side1 + side2 + side3;
     }
 }</code></pre>
-                        </div>
-                        
-                        <h4>Polymorphism in Action:</h4>
-                        <div class="code-block">
-                            <pre><code>public class PolymorphismDemo {
+                </div>
+
+                <h4>Polymorphism in Action:</h4>
+                <div class="code-block">
+                  <pre><code>public class PolymorphismDemo {
     
     public static void main(String[] args) {
         // Polymorphic array - different objects, same reference type
@@ -890,11 +991,11 @@ public class Triangle extends Shape {
         System.out.println("Triangles: " + triangles);
     }
 }</code></pre>
-                        </div>
-                        
-                        <h4>Method Overloading (Compile-time Polymorphism):</h4>
-                        <div class="code-block">
-                            <pre><code>public class Calculator {
+                </div>
+
+                <h4>Method Overloading (Compile-time Polymorphism):</h4>
+                <div class="code-block">
+                  <pre><code>public class Calculator {
     
     // Method overloading - same name, different parameters
     public int add(int a, int b) {
@@ -938,20 +1039,25 @@ public class Triangle extends Shape {
         System.out.println("Result: " + calc.add(1, 2, 3, 4, 5)); // varargs version
     }
 }</code></pre>
-                        </div>
-                    </div>
-                </section>
+                </div>
+              </div>
+            </section>
 
-                <section id="abstraction" class="section">
-                    <h2>🎨 Abstraction</h2>
-                    
-                    <div class="subsection">
-                        <h3>What is Abstraction?</h3>
-                        <p><strong>Definition:</strong> Abstraction hides complex implementation details while showing only essential features of an object. It focuses on what an object does rather than how it does it.</p>
-                        
-                        <h4>Abstract Classes:</h4>
-                        <div class="code-block">
-                            <pre><code>// Abstract class - cannot be instantiated
+            <section id="abstraction" class="section">
+              <h2>🎨 Abstraction</h2>
+
+              <div class="subsection">
+                <h3>What is Abstraction?</h3>
+                <p>
+                  <strong>Definition:</strong> Abstraction hides complex
+                  implementation details while showing only essential features
+                  of an object. It focuses on what an object does rather than
+                  how it does it.
+                </p>
+
+                <h4>Abstract Classes:</h4>
+                <div class="code-block">
+                  <pre><code>// Abstract class - cannot be instantiated
 public abstract class Employee {
     protected String name;
     protected int employeeId;
@@ -1080,11 +1186,11 @@ public class Contractor extends Employee {
     
     public String getProjectName() { return projectName; }
 }</code></pre>
-                        </div>
-                        
-                        <h4>Using Abstract Classes:</h4>
-                        <div class="code-block">
-                            <pre><code>public class AbstractionDemo {
+                </div>
+
+                <h4>Using Abstract Classes:</h4>
+                <div class="code-block">
+                  <pre><code>public class AbstractionDemo {
     
     public static void main(String[] args) {
         // Cannot instantiate abstract class
@@ -1136,11 +1242,11 @@ public class Contractor extends Employee {
         }
     }
 }</code></pre>
-                        </div>
-                        
-                        <h4>Abstract Class vs Interface:</h4>
-                        <div class="code-block">
-                            <pre><code>Feature                 | Abstract Class              | Interface
+                </div>
+
+                <h4>Abstract Class vs Interface:</h4>
+                <div class="code-block">
+                  <pre><code>Feature                 | Abstract Class              | Interface
 ------------------------|-----------------------------|--------------------------
 Instantiation           | Cannot be instantiated      | Cannot be instantiated
 Methods                 | Abstract + concrete methods | Abstract methods (default in Java 8+)
@@ -1149,20 +1255,25 @@ Inheritance             | Single inheritance (extends)| Multiple inheritance (im
 Access Modifiers        | All access modifiers        | Public methods only (default/static in Java 8+)
 Constructor             | Can have constructors       | Cannot have constructors
 When to Use             | Common base with shared code| Contract definition only</code></pre>
-                        </div>
-                    </div>
-                </section>
+                </div>
+              </div>
+            </section>
 
-                <section id="interfaces" class="section">
-                    <h2>🔌 Interfaces</h2>
-                    
-                    <div class="subsection">
-                        <h3>What are Interfaces?</h3>
-                        <p><strong>Definition:</strong> An interface is a contract that defines what methods a class must implement, without providing the implementation details. It represents "can-do" relationships.</p>
-                        
-                        <h4>Basic Interface Example:</h4>
-                        <div class="code-block">
-                            <pre><code>// Interface definition
+            <section id="interfaces" class="section">
+              <h2>🔌 Interfaces</h2>
+
+              <div class="subsection">
+                <h3>What are Interfaces?</h3>
+                <p>
+                  <strong>Definition:</strong> An interface is a contract that
+                  defines what methods a class must implement, without providing
+                  the implementation details. It represents "can-do"
+                  relationships.
+                </p>
+
+                <h4>Basic Interface Example:</h4>
+                <div class="code-block">
+                  <pre><code>// Interface definition
 public interface Drawable {
     // Abstract methods (implicitly public abstract)
     void draw();
@@ -1251,11 +1362,11 @@ public class Rectangle implements Drawable {
         return width * height;
     }
 }</code></pre>
-                        </div>
-                        
-                        <h4>Multiple Interface Implementation:</h4>
-                        <div class="code-block">
-                            <pre><code>// Multiple interfaces
+                </div>
+
+                <h4>Multiple Interface Implementation:</h4>
+                <div class="code-block">
+                  <pre><code>// Multiple interfaces
 public interface Flyable {
     void fly();
     void land();
@@ -1348,11 +1459,11 @@ public class Duck implements Flyable, Swimmable, Walkable {
                           ", Swimming: " + isSwimming + ", Walking: " + isWalking);
     }
 }</code></pre>
-                        </div>
-                        
-                        <h4>Interface with Default and Static Methods (Java 8+):</h4>
-                        <div class="code-block">
-                            <pre><code>public interface Vehicle {
+                </div>
+
+                <h4>Interface with Default and Static Methods (Java 8+):</h4>
+                <div class="code-block">
+                  <pre><code>public interface Vehicle {
     // Abstract methods
     void start();
     void stop();
@@ -1436,11 +1547,11 @@ public class Bicycle implements Vehicle {
     
     // Use default honk() method - bicycles don't typically honk
 }</code></pre>
-                        </div>
-                        
-                        <h4>Interface Usage Example:</h4>
-                        <div class="code-block">
-                            <pre><code>public class InterfaceDemo {
+                </div>
+
+                <h4>Interface Usage Example:</h4>
+                <div class="code-block">
+                  <pre><code>public class InterfaceDemo {
     
     public static void main(String[] args) {
         // Interface polymorphism
@@ -1494,92 +1605,362 @@ public class Bicycle implements Vehicle {
         Vehicle.compareVehicles(car, bike);
     }
 }</code></pre>
-                        </div>
-                    </div>
-                </section>
+                </div>
+              </div>
+            </section>
 
-                <section id="interview" class="section">
-                    <h2>💼 Interview Questions</h2>
-                    
-                    <div class="subsection">
-                        <h3>Frequently Asked OOP Questions</h3>
-                        
-                        <div class="question-block">
-                            <h4>Q1: What are the four pillars of OOP?</h4>
-                            <p><strong>Answer:</strong></p>
-                            <ul>
-                                <li><strong>Encapsulation:</strong> Bundling data and methods, controlling access</li>
-                                <li><strong>Inheritance:</strong> Creating new classes from existing ones</li>
-                                <li><strong>Polymorphism:</strong> Same interface, different implementations</li>
-                                <li><strong>Abstraction:</strong> Hiding implementation details, showing essential features</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="question-block">
-                            <h4>Q2: Difference between abstract class and interface?</h4>
-                            <p><strong>Answer:</strong></p>
-                            <ul>
-                                <li><strong>Abstract Class:</strong> Can have concrete methods, constructors, instance variables</li>
-                                <li><strong>Interface:</strong> Only abstract methods (default/static in Java 8+), constants only</li>
-                                <li><strong>Inheritance:</strong> Class extends one abstract class, implements multiple interfaces</li>
-                                <li><strong>Access:</strong> Abstract class supports all modifiers, interface methods are public</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="question-block">
-                            <h4>Q3: What is method overriding vs overloading?</h4>
-                            <p><strong>Answer:</strong></p>
-                            <ul>
-                                <li><strong>Overriding:</strong> Same method signature in subclass, runtime polymorphism</li>
-                                <li><strong>Overloading:</strong> Same method name, different parameters, compile-time polymorphism</li>
-                                <li><strong>Binding:</strong> Overriding uses dynamic binding, overloading uses static binding</li>
-                            </ul>
-                        </div>
-                        
-                        <div class="question-block">
-                            <h4>Q4: Can we override static methods?</h4>
-                            <p><strong>Answer:</strong> No, static methods cannot be overridden. They can be hidden by defining a static method with the same signature in subclass, but it's method hiding, not overriding.</p>
-                        </div>
-                        
-                        <div class="question-block">
-                            <h4>Q5: What is the difference between composition and inheritance?</h4>
-                            <p><strong>Answer:</strong></p>
-                            <ul>
-                                <li><strong>Inheritance:</strong> "is-a" relationship, extends class functionality</li>
-                                <li><strong>Composition:</strong> "has-a" relationship, contains other objects</li>
-                                <li><strong>Flexibility:</strong> Composition is more flexible, inheritance is tighter coupling</li>
-                                <li><strong>Design:</strong> Favor composition over inheritance for better design</li>
-                            </ul>
-                        </div>
-                        
-                        <h3>Coding Questions</h3>
-                        
-                        <div class="question-block">
-                            <h4>Q6: Design a Shape hierarchy with polymorphism</h4>
-                            <div class="code-block">
-                                <pre><code>// Already covered in the polymorphism section above
+            <section id="constructors" class="section">
+              <h2>🏗️ Constructors</h2>
+
+              <div class="subsection">
+                <h3>What are Constructors?</h3>
+                <p>
+                  <strong>Definition:</strong> Special methods used to
+                  initialize objects when they are created. They have the same
+                  name as the class and no return type.
+                </p>
+
+                <h4>Types of Constructors:</h4>
+                <div class="code-block">
+                  <pre><code>public class Student {
+    private String name;
+    private int age;
+    private String studentId;
+    private double gpa;
+    
+    // 1. Default Constructor (no parameters)
+    public Student() {
+        this.name = "Unknown";
+        this.age = 18;
+        this.studentId = "STU000";
+        this.gpa = 0.0;
+        System.out.println("Default constructor called");
+    }
+    
+    // 2. Parameterized Constructor
+    public Student(String name, int age, String studentId) {
+        this.name = name;
+        this.age = age;
+        this.studentId = studentId;
+        this.gpa = 0.0;
+        System.out.println("Parameterized constructor called");
+    }
+    
+    // 3. Constructor with all parameters
+    public Student(String name, int age, String studentId, double gpa) {
+        this.name = name;
+        this.age = age;
+        this.studentId = studentId;
+        this.gpa = gpa;
+        System.out.println("Full constructor called");
+    }
+    
+    // 4. Constructor chaining using this()
+    public Student(String name, String studentId) {
+        this(name, 18, studentId); // Calls 3-parameter constructor
+        System.out.println("Constructor chaining used");
+    }
+    
+    // Copy Constructor
+    public Student(Student other) {
+        this.name = other.name;
+        this.age = other.age;
+        this.studentId = other.studentId + "_COPY";
+        this.gpa = other.gpa;
+        System.out.println("Copy constructor called");
+    }
+    
+    @Override
+    public String toString() {
+        return String.format("Student{name='%s', age=%d, id='%s', gpa=%.2f}",
+                           name, age, studentId, gpa);
+    }
+}</code></pre>
+                </div>
+              </div>
+            </section>
+
+            <section id="static-members" class="section">
+              <h2>⚡ Static Members</h2>
+
+              <div class="subsection">
+                <h3>What are Static Members?</h3>
+                <p>
+                  <strong>Definition:</strong> Static members belong to the
+                  class rather than any specific instance. They are shared among
+                  all objects of the class.
+                </p>
+
+                <div class="code-block">
+                  <pre><code>public class Counter {
+    // Static variable - shared among all instances
+    private static int totalCount = 0;
+    private static final String CLASS_NAME = "Counter";
+    
+    // Instance variable - unique to each object
+    private int instanceCount;
+    private String name;
+    
+    // Static block - executed when class is first loaded
+    static {
+        System.out.println("Counter class loaded. Initializing...");
+        totalCount = 0;
+    }
+    
+    public Counter(String name) {
+        this.name = name;
+        this.instanceCount = 0;
+        totalCount++;
+        System.out.println("Counter '" + name + "' created. Total: " + totalCount);
+    }
+    
+    public void increment() {
+        instanceCount++;
+        totalCount++;
+        System.out.println(name + " - Instance: " + instanceCount + ", Total: " + totalCount);
+    }
+    
+    // Static method - can only access static members directly
+    public static int getTotalCount() {
+        return totalCount;
+    }
+    
+    public static void printClassInfo() {
+        System.out.println("Class: " + CLASS_NAME + ", Total instances: " + totalCount);
+    }
+}</code></pre>
+                </div>
+              </div>
+            </section>
+
+            <section id="design-patterns" class="section">
+              <h2>🎯 Design Patterns</h2>
+
+              <div class="subsection">
+                <h3>Common OOP Design Patterns</h3>
+
+                <h4>1. Singleton Pattern:</h4>
+                <div class="code-block">
+                  <pre><code>public class DatabaseConnection {
+    private static DatabaseConnection instance;
+    private String connectionString;
+    
+    private DatabaseConnection() {
+        connectionString = "jdbc:mysql://localhost:3306/mydb";
+    }
+    
+    public static synchronized DatabaseConnection getInstance() {
+        if (instance == null) {
+            instance = new DatabaseConnection();
+        }
+        return instance;
+    }
+}</code></pre>
+                </div>
+
+                <h4>2. Factory Pattern:</h4>
+                <div class="code-block">
+                  <pre><code>abstract class Vehicle {
+    public abstract void start();
+}
+
+class Car extends Vehicle {
+    public void start() { System.out.println("Car started"); }
+}
+
+class VehicleFactory {
+    public static Vehicle createVehicle(String type) {
+        if ("car".equals(type)) return new Car();
+        throw new IllegalArgumentException("Unknown type");
+    }
+}</code></pre>
+                </div>
+              </div>
+            </section>
+
+            <section id="best-practices" class="section">
+              <h2>✅ Best Practices</h2>
+
+              <div class="subsection">
+                <h3>OOP Best Practices</h3>
+
+                <h4>1. SOLID Principles:</h4>
+                <ul>
+                  <li>
+                    <strong>S - Single Responsibility:</strong> One class, one
+                    responsibility
+                  </li>
+                  <li>
+                    <strong>O - Open/Closed:</strong> Open for extension, closed
+                    for modification
+                  </li>
+                  <li>
+                    <strong>L - Liskov Substitution:</strong> Subtypes must be
+                    substitutable
+                  </li>
+                  <li>
+                    <strong>I - Interface Segregation:</strong> Many specific
+                    interfaces
+                  </li>
+                  <li>
+                    <strong>D - Dependency Inversion:</strong> Depend on
+                    abstractions
+                  </li>
+                </ul>
+
+                <h4>2. Favor Composition over Inheritance</h4>
+                <div class="code-block">
+                  <pre><code>// Good: Composition
+class Car {
+    private Engine engine; // HAS-A relationship
+    
+    public Car() {
+        this.engine = new Engine();
+    }
+}
+
+// Use inheritance only for IS-A relationships
+class SportsCar extends Car { // IS-A Car
+}</code></pre>
+                </div>
+              </div>
+            </section>
+
+            <section id="interview" class="section">
+              <h2>💼 Interview Questions</h2>
+
+              <div class="subsection">
+                <h3>Frequently Asked OOP Questions</h3>
+
+                <div class="question-block">
+                  <h4>Q1: What are the four pillars of OOP?</h4>
+                  <p><strong>Answer:</strong></p>
+                  <ul>
+                    <li>
+                      <strong>Encapsulation:</strong> Bundling data and methods,
+                      controlling access
+                    </li>
+                    <li>
+                      <strong>Inheritance:</strong> Creating new classes from
+                      existing ones
+                    </li>
+                    <li>
+                      <strong>Polymorphism:</strong> Same interface, different
+                      implementations
+                    </li>
+                    <li>
+                      <strong>Abstraction:</strong> Hiding implementation
+                      details, showing essential features
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="question-block">
+                  <h4>Q2: Difference between abstract class and interface?</h4>
+                  <p><strong>Answer:</strong></p>
+                  <ul>
+                    <li>
+                      <strong>Abstract Class:</strong> Can have concrete
+                      methods, constructors, instance variables
+                    </li>
+                    <li>
+                      <strong>Interface:</strong> Only abstract methods
+                      (default/static in Java 8+), constants only
+                    </li>
+                    <li>
+                      <strong>Inheritance:</strong> Class extends one abstract
+                      class, implements multiple interfaces
+                    </li>
+                    <li>
+                      <strong>Access:</strong> Abstract class supports all
+                      modifiers, interface methods are public
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="question-block">
+                  <h4>Q3: What is method overriding vs overloading?</h4>
+                  <p><strong>Answer:</strong></p>
+                  <ul>
+                    <li>
+                      <strong>Overriding:</strong> Same method signature in
+                      subclass, runtime polymorphism
+                    </li>
+                    <li>
+                      <strong>Overloading:</strong> Same method name, different
+                      parameters, compile-time polymorphism
+                    </li>
+                    <li>
+                      <strong>Binding:</strong> Overriding uses dynamic binding,
+                      overloading uses static binding
+                    </li>
+                  </ul>
+                </div>
+
+                <div class="question-block">
+                  <h4>Q4: Can we override static methods?</h4>
+                  <p>
+                    <strong>Answer:</strong> No, static methods cannot be
+                    overridden. They can be hidden by defining a static method
+                    with the same signature in subclass, but it's method hiding,
+                    not overriding.
+                  </p>
+                </div>
+
+                <div class="question-block">
+                  <h4>
+                    Q5: What is the difference between composition and
+                    inheritance?
+                  </h4>
+                  <p><strong>Answer:</strong></p>
+                  <ul>
+                    <li>
+                      <strong>Inheritance:</strong> "is-a" relationship, extends
+                      class functionality
+                    </li>
+                    <li>
+                      <strong>Composition:</strong> "has-a" relationship,
+                      contains other objects
+                    </li>
+                    <li>
+                      <strong>Flexibility:</strong> Composition is more
+                      flexible, inheritance is tighter coupling
+                    </li>
+                    <li>
+                      <strong>Design:</strong> Favor composition over
+                      inheritance for better design
+                    </li>
+                  </ul>
+                </div>
+
+                <h3>Coding Questions</h3>
+
+                <div class="question-block">
+                  <h4>Q6: Design a Shape hierarchy with polymorphism</h4>
+                  <div class="code-block">
+                    <pre><code>// Already covered in the polymorphism section above
 // Key points: Abstract base class, concrete implementations,
 // polymorphic method calls, instanceof checking</code></pre>
-                            </div>
-                        </div>
-                        
-                        <div class="question-block">
-                            <h4>Q7: Implement a simple banking system using OOP principles</h4>
-                            <div class="code-block">
-                                <pre><code>// Already covered in encapsulation section
+                  </div>
+                </div>
+
+                <div class="question-block">
+                  <h4>
+                    Q7: Implement a simple banking system using OOP principles
+                  </h4>
+                  <div class="code-block">
+                    <pre><code>// Already covered in encapsulation section
 // Key points: Private fields, public methods with validation,
 // proper constructor, business logic encapsulation</code></pre>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-            </div>
-            </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
         </div>
+      </div>
     </div>
-    
-    <footer></footer>
+
     <script src="../footer.js"></script>
-</body>
+  </body>
 </html>
