@@ -286,13 +286,13 @@ body {
 
 /* Hero Section */
 .hero {
-    max-height: 600px;
-    height: 600px;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     position: relative;
     overflow: hidden;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 80px 0 40px;
 }
 
 .hero-background {
@@ -1235,9 +1235,8 @@ section {
     }
     
     .hero {
-        height: 500px;
-        max-height: 500px;
-        padding: var(--spacing-lg) 0;
+        min-height: 100vh;
+        padding: 100px 0 40px;
     }
     
     .hero-content {
@@ -1307,8 +1306,8 @@ section {
     }
     
     .hero {
-        height: 450px;
-        max-height: 450px;
+        min-height: 100vh;
+        padding: 100px 0 40px;
     }
     
     .name {
@@ -1430,6 +1429,131 @@ section {
 .animate-on-scroll {
     opacity: 0;
     animation: fadeInUp 0.6s ease forwards;
+}
+
+/* Control Buttons */
+.control-buttons {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.btn-create,
+.btn-download,
+.btn-theme,
+.btn-font,
+.btn-tutorial {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: var(--shadow-md);
+    transition: all var(--transition-normal);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-primary);
+}
+
+.btn-create:hover,
+.btn-download:hover,
+.btn-theme:hover,
+.btn-font:hover,
+.btn-tutorial:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    opacity: 0.9;
+}
+
+/* Theme and Font Selectors */
+.theme-selector,
+.font-selector {
+    position: fixed;
+    top: 250px;
+    right: 20px;
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: 15px;
+    z-index: 1000;
+    display: none;
+    min-width: 200px;
+    border: 1px solid var(--bg-tertiary);
+}
+
+.theme-selector.active,
+.font-selector.active {
+    display: block;
+}
+
+.theme-label,
+.font-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+    font-family: var(--font-primary);
+}
+
+.theme-colors {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.theme-color {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: all var(--transition-normal);
+}
+
+.theme-color:hover {
+    transform: scale(1.1);
+}
+
+.theme-color.active {
+    border-color: var(--text-primary);
+    transform: scale(1.1);
+}
+
+.font-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.font-option {
+    padding: 8px 12px;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all var(--transition-normal);
+    font-size: 14px;
+    text-align: center;
+    font-family: var(--font-primary);
+}
+
+.font-option:hover {
+    background: var(--bg-tertiary);
+}
+
+.font-option.active {
+    border-color: var(--primary-color);
+    background: var(--bg-tertiary);
 }
 
 /* Utility Classes */
